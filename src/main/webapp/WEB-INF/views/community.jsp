@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>Insert title here</title>
-<c:import url="header.jsp"></c:import>
+<c:import url="includes/header.jsp"></c:import>
 <link
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</main>
-	<c:import url="footer.jsp"></c:import>
+	<c:import url="includes/footer.jsp"></c:import>
 </body>
 
 

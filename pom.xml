@@ -192,6 +192,32 @@
 			<artifactId>mybatis</artifactId>
 			<version>3.5.13</version>
 		</dependency>
+
+		<!-- ##Spring Security## -->
+		<!-- security-web -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- security-config -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- security-taglibs -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
