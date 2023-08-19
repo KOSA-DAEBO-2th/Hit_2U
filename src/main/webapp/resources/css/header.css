@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+@import url("https://webfontworld.github.io/pretendard/Pretendard.css");
+
+body {
+	font-family: "Pretendard";
+	min-width: 1050px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.header {
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: solid 1px black;
+	font-family: "Pretendard";
+	font-weight: 400;
+	font-style: normal;
+	padding-left: 13vw;
+	padding-right: 13vw;
+}
+
+.header_left {
+	flex-basis: 15%;
+}
+
+.header_center {
+	flex: 1;
+	justify-content: center;
+/* 	justify-content: space-around; */
+}
+
+.header_right {
+	flex-basis: 15%;
+	text-align: right;
+}
+
+.nav .nav_link {
+ 	margin: 0px 20px;
+
+}
+
+.nav_link a {
+	font-size: 20px;
+	color: black;
+}
+
+.nav_link a:hover {
+	color: royalblue !important;
+}
+
+.main_content {
+	height: auto;
+	min-height: calc(100vh - 80px);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 13vw;
+	padding-right: 13vw;
+}
+
+.main_content_sm {
+	height: auto;
+	min-height: calc(100vh - 80px);
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: calc(13vw + 180px);
+	padding-right: calc(13vw + 180px);
+}

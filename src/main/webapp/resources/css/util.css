@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.font_bold {
+	font-weight: bold;
+}
+
+.text_left {
+	text-align: left;
+}
+
+.text_right {
+	text-align: right;
+}
+
+.text_center {
+	text-align: center;
+}
+
+.font_12 {
+	font-size: 12px;
+}
+
+.font_14 {
+	font-size: 14px;
+}
+
+.font_16 {
+	font-size: 16px;
+}
+
+.font_28 {
+	font-size: 28px;
+}
+
+.font_32 {
+	font-size: 32px;
+}
+
+.margin_top_20 {
+	margin-top: 20px;
+}
+
+.margin_top_12 {
+	margin-top: 12px;
+}
+
+.margin_top_8 {
+	margin-top: 8px;
+}
+
+.margin_bottom_32 {
+	margin-bottom: 32px;
+}
+
+.padding_bottom_20{
+	padding-bottom: 20px;
+}
+
+.font_gray {
+	color: rgb(121, 129, 136);
+}
+
+.font_blue {
+	color: #0090F9;
+}
+
+.flex {
+	display: flex;
+}
+
+.item_center {
+	align-items: center;
+}
+
+.content_center {
+	justify-content: center;
+}

@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+@import url("https://webfontworld.github.io/pretendard/Pretendard.css");
+
+body {
+	font-family: "Pretendard";
+}
+
+a{
+	text-decoration: none;
+}
+
+.login_main {
+	padding-top: 120px;
+	padding-bottom: 100px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.login_form {
+	display: flex;
+	width: 500px;
+	flex-direction: column;
+}
+
+.logo {
+	height: 150px;
+}
+
+.line {
+	display: flex;
+	align-items: center;
+	color: rgb(121, 129, 136);
+	margin: 12px 0px;
+}
+
+.line hr {
+	flex: 1;
+}
+
+.line_text {
+	margin: 0px 8px;
+}
+
+#login_input {
+	margin-top: 8px;
+}
+
+
+.login_button{
+	margin: 20px 0px;
+	width: 100%;
+	height: 41.33px;
+}
+
+.g-recaptcha{
+    display: flex;
+    justify-content: center;
+}
