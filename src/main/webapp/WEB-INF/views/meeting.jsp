@@ -4,7 +4,7 @@
 <html>
 <head>
 <title>Insert title here</title>
-<c:import url="includes/header.jsp"></c:import>
+<c:import url="header.jsp"></c:import>
 <link
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
@@ -23,15 +23,13 @@
 
 
 	<main class='main_content_sm'>
-		<div class="content_label font_32">
+		<div class="community_page_head font_32">
 			<a>커뮤니티</a>
 		</div>
-		<div class="content_categoty flex content_center padding_bottom_20">
-			<button class="btn btn_category btn_category_click">전체</button>
-			<button class="btn btn_category">자유</button>
-			<button class="btn btn_category">고민</button>
-			<button class="btn btn_category">운동</button>
-			<button class="btn btn_category btn_anonymous">익명</button>
+		<div class="community_categoty flex content_center padding_bottom_20">
+			<button class="btn btn_category">프로젝트</button>
+			<button class="btn btn_category">스터디</button>
+
 		</div>
 		<div class="flex content_center">
 			<div class="search-box flex content_center">
@@ -42,7 +40,7 @@
 			</div>
 		</div>
 	</main>
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="footer.jsp"></c:import>
 </body>
 
 

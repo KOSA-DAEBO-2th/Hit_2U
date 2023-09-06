@@ -9,7 +9,7 @@
 	rel="stylesheet">
 </head>
 <body>
-	<c:import url="includes/header.jsp"></c:import>
+	<c:import url="header.jsp"></c:import>
 
 	<main class='main_content'>
 		<div class="flex">
@@ -829,6 +829,6 @@
 		</div>
 
 	</main>
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="footer.jsp"></c:import>
 </body>
 </html>
