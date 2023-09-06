@@ -46,7 +46,7 @@
 			<form id="login_input" method="post"
 				action="signok">
 				<div class="font_16 text_left">아이디</div>
-				<input class="form-control" type="text" name="member_id" autocomplete="username"
+				<input class="form-control" type="text" name="id" autocomplete="username"
 					placeholder="4~15자 이내로 입력해주세요">
 
 				<div class="font_16 text_left margin_top_20">비밀번호</div>
@@ -60,7 +60,7 @@
 				<div class="font_16 text_left margin_top_20">이메일</div>
 				<input class="form-control" type="email" name="email"
 					placeholder="example@hit.com">
- 
+
 				<div class="font_16 text_left margin_top_20">닉네임</div>
 				<input class="form-control" type="text" name="nickname"
 					placeholder="2~8자 이내로 입력해주세요">
