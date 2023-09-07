@@ -36,7 +36,8 @@ a {
 
 .header_right {
 	flex-basis: 15%;
-	text-align: right;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .nav .nav_link {
@@ -69,4 +70,18 @@ a {
 	padding-bottom: 20px;
 	padding-left: calc(13vw + 180px);
 	padding-right: calc(13vw + 180px);
+}
+
+.content_label {
+	border-bottom: 2px solid rgb(25, 27, 169);
+	padding-bottom: 10px;
+}
+
+.content_categoty {
+	margin: 20px 0px;
+	border-bottom: 1px solid black;
+}
+
+.content_categoty button {
+	margin: 0px 20px;
 }
