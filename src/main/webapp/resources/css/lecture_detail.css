@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.main_info {
+	width: 600px;
+	border: 1px solid aqua;
+}
+
+.image {
+	display: flex;
+	position: relative;
+	margin-bottom: 36px;
+	border: 1px solid #e435ed;
+	overflow: hidden;
+}
+
+.info_tab {
+	width: 100%;
+	margin-bottom: 48px;
+	border: 1px solid red;
+}
+
+.tab {
+	display: flex;
+}
+
+.service {
+	position: relative;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	color: #555969;
+	background-color: #fafafc;
+	cursor: pointer;
+	height: 60px;
+	padding: 0 4px;
+	border-top: 1px solid #e4e5ed;
+	border-right: 1px solid #e4e5ed;
+	border-bottom: 1px solid #000000;
+}
+
+.side_info {
+	display: block;
+}
+
+.title {
+	display: block;
+}
+

@@ -32,4 +32,18 @@ public class HomeController {
 		return "community";
 	}
 	
+	
+	@RequestMapping("/lecture")
+	public String lecture() {
+		return "lecture";
+	}
+	@RequestMapping("/lecture_write")
+	public String lecture_write() {
+		return "lecture_write";
+	}
+	@RequestMapping("/lecture_detail")
+	public String lecture_detail() {
+		return "lecture_detail";
+	}
+	
 }
