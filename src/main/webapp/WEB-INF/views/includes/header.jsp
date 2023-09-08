@@ -43,7 +43,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <a href="meeting" id="meeting">모임</a>
                 </div>
                 <div class="nav_link">
-                    <a href="#">프리랜서</a>
+                    <a href="lecture">프리랜서</a>
                 </div>
                 <div class="nav_link">
                     <a href="#">HIT 마켓</a>
