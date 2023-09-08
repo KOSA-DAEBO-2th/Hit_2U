@@ -45,13 +45,4 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@RequestMapping(value = "/temp", method = RequestMethod.GET)
-	public String testTemp() {
-		int result=0;
-		result = joinService.insertTest();
-		if(result>0) System.out.println("테스트 성공");
-		
-		return "member/signup";
-	}
-	
 }
