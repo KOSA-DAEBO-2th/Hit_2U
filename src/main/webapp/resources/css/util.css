@@ -52,6 +52,10 @@
 	margin-bottom: 32px;
 }
 
+.margin_bottom_8 {
+	margin-bottom: 8px;
+}
+
 .padding_bottom_20{
 	padding-bottom: 20px;
 }
@@ -74,4 +78,8 @@
 
 .content_center {
 	justify-content: center;
+}
+
+.font_category{
+	color: #B1B1B1;
 }
