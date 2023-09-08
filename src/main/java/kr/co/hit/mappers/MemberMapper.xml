@@ -9,11 +9,5 @@ INSERT INTO MEMBER (member_no, member_id, nickname, password, email, contact, gr
 VALUES ((select nextval('MEMBER_SEQ') from dual), #{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
 	</insert>
 	
-	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto">
-		select * from MEMBER where member_id = '123123'
-	</select>
 	
-	<insert id="insertTest" parameterType="kr.co.hit.dto.MemberDto">
-		insert into MEMBER (member_id, password) values ('123123','456456')
-	</insert>
 </mapper>
