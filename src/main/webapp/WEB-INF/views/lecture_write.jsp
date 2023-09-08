@@ -23,7 +23,7 @@
 				<div class="row">
 
 
-					<c:forEach items="${ list }" var="board">
+					<c:forEach begin="1" end="20">
 
 						<div class="col-md-3">
 							<div class="card mb-4 shadow-sm">
@@ -35,22 +35,24 @@
 									height="225" xmlns="http://www.w3.org/2000/svg"
 									preserveAspectRatio="xMidYMid slice" focusable="false"
 									role="img" aria-label="Placeholder: Thumbnail">
-                  <title>${ board.title }</title>
+                  <title>Placeholder</title>
                   <rect width="100%" height="100%" fill="#55595c"></rect>
                   <text x="50%" y="50%" fill="#eceeef" dy=".3em">
                     Thumbnail
                   </text>
                 </svg>
 								<div class="card-body">
-									<p class="card-text">${ board.title }</p>
+									<p class="card-text">This is a wider card with supporting
+										text below as a natural lead-in to additional content. This
+										content is a little bit longer.</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
 											<button type="button"
-												class="btn btn-sm btn-outline-secondary">${ board.view1 }</button>
+												class="btn btn-sm btn-outline-secondary">View</button>
 											<button type="button"
-												class="btn btn-sm btn-outline-secondary">${ board.recommend }</button>
+												class="btn btn-sm btn-outline-secondary">Edit</button>
 										</div>
-										<small class="text-muted">${ board.write_date }</small>
+										<small class="text-muted">9 mins</small>
 									</div>
 								</div>
 								
