@@ -4,15 +4,17 @@
 <html>
 <head>
 <title>Insert title here</title>
-<c:import url="header.jsp"></c:import>
+<c:import url="includes/header.jsp"></c:import>
 <link
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
+<!-- <link -->
+<%-- 	href="${pageContext.request.contextPath }/resources/css/community.css?after" --%>
+<!-- 	rel="stylesheet"> -->
+
 <link
-	href="${pageContext.request.contextPath }/resources/css/community.css?after"
-	rel="stylesheet">
-
-
+	href="${pageContext.request.contextPath }/resources/css/communityWrite.css"
+	rel="stylesheet" />
 
 <script async
 	src="${pageContext.request.contextPath}/resources/js/util.js"
@@ -21,6 +23,7 @@
 <script async
 	src="${pageContext.request.contextPath}/resources/js/community.js"
 	type="text/javascript" defer></script>
+	
 
 <script
 	src="${pageContext.request.contextPath}/resources/js/summernote/summernote-lite.js"
@@ -63,7 +66,7 @@
 		<form method="post">
 			<div>
 				<div>
-					<div>
+					<div class="topic">
 						<label>토픽~</label> <select>
 							<option>선택</option>
 							<option>자유</option>
@@ -102,7 +105,7 @@
 
 
 	</main>
-	<c:import url="footer.jsp"></c:import>
+	<c:import url="includes/footer.jsp"></c:import>
 </body>
 
 

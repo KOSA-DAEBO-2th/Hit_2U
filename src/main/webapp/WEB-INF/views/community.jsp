@@ -1,4 +1,4 @@
-﻿<%@ include file="includes/header.jsp" %>
+﻿<%@ include file="includes/header.jsp"%>
 <html>
 <head>
 <link
@@ -40,82 +40,64 @@
 		<button class="btn btn_write">
 			<a href="/community/communityWrite">작성하기</a>
 		</button>
-		<button class="btn btn_write">
-			<a href="/community/communityWriteSourceCode">작성하기 (소스코드)</a>
-		</button>
 		<article>
 			<div class="board_list">
-				<div class="topic">
-					<a href="#">자유</a>
-				</div>
+				<!-- 				<div class="topic"> -->
+				<!-- 					<a href="#">자유</a> -->
+				<!-- 				</div> -->
+				<br>
 				<div style="width: 100%;">
-
 					<div class="main_user">
 						<div style="flex: 1;">
-							<div class="flex item_center">
-								<div class="box">
-									<img class="profile"
-										src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
-								</div>
-								<div class="nickname_area">윤성호빵맨</div>
-								<span class="mc">·</span>
-								<div class="icon_area font_12">
-									<i class="fa-solid fa-flask"></i>
-								</div>
-								<span class="hp_point">33</span>
-							</div>
-						</div>
-						<div>
-							<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-								class="view_count">17</span>
-						</div>
-					</div>
+							<c:forEach begin="1" end="10">
+								<div class="board_list">
+									<div class="board_list_inside">
+										<div class="flex item_center">
+											<div class="nickname_area"><a href="#" class="nickname">윤성호빵맨</a></div>
+											<span class="mc">·</span>
+											<div class="icon_area font_12">
+												<i class="fa-solid fa-flask"></i>
+											</div>
+											<span class="hp_point">33</span>
+										</div>
+										<div class="main_title_box flex item_center">
+											<div class="main_title"><a href="#">사람들 키보드 소리가 너무 시끄러운데 제가 예민한건가요?</a></div>
+											<div class="like_comment_box">
+												<!-- 										<div class="box"> -->
+												<!-- 											<img class="profile" -->
+												<%-- 											src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+												<!-- 										</div> -->
 
-					<div class="main_title_box flex item_center">
-						<div class="main_title">사람들 키보드 소리가 너무 시끄러운데 제가 예민한건가요?</div>
-						<div class="like_comment_box">
-							<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-								class="like_count">21</span> <i
-								class="fa-regular fa-comment font_12 icon_area"></i> <span
-								class="comment_count">553</span>
+											</div>
+										</div>
+										<div class="main_title_box flex item_center">
+											<div class="topic">
+												<a href="#">자유</a>
+											</div>
+											<div class="like_comment_box">
+												<!-- 										<div class="box"> -->
+												<!-- 											<img class="profile" -->
+												<%-- 											src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+												<!-- 										</div> -->
+												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
+													class="like_count">21</span> <i
+													class="fa-regular fa-comment font_12 icon_area"></i> <span
+													class="comment_count">553</span> <i
+													class="fa-regular fa-eye font_12 icon_area"></i> <span
+													class="view_count">17</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<br>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
 			</div>
 		</article>
-
-		<!-- 페이징 처리 -->
-		<table>
-			<tr>
-				<td>
-					<!-- 처음 이전 링크 --> <c:if test="${ pg>1 }">
-				[<a href="community?pg=1"> ◀◀ </a>]			
-				[<a href="community?pg=${formPage}"> ◀ </a>]			
-			</c:if> <c:if test="${ pg<=1 }">
-			
-				[<span style="color: gray"> ◀◀ </span>]			
-				[<span style="color: gray"> ◀ </span>]			
-
-			</c:if> <!-- 			블록 범위 출력 --> <c:forEach begin="${formPage}" end="${toPage}"
-						var="i">
-						<c:if test="${i==pg}">[${i}]</c:if>
-						<c:if test="${i!=pg}"> 
-					[<a href="community?pg=${i}">${i}</a>]
-			    </c:if>
-
-					</c:forEach> <!-- 다음 이후 링크 --> <c:if test="${pg < allPage}">
-				[<a href="community?pg=${pg + 1}"> ▶ </a>]			
-				[<a href="community?pg=${allPage}"> ▶▶ </a>]			
-			</c:if> <c:if test="${pg >= allPage}">			
-				[<span style="color: gray"> ▶ </span>]			
-				[<span style="color: gray"> ▶▶ </span>]			
-
-			</c:if>
-
-				</td>
-			</tr>
-		</table>
 	</main>
-	<c:import url="footer.jsp"></c:import>
+	<c:import url="includes/footer.jsp"></c:import>
 </body>
 </html>

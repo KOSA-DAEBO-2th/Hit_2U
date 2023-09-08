@@ -4,3 +4,43 @@
     color: royalblue;
 }
 
+.main_title{
+	
+	padding-right: 17vw;
+	
+}
+
+.like_count, .comment_count, .view_count{
+	
+	padding-right: 2vw;
+	
+}
+
+.board_list_inside:hover{
+	
+/* 	background-color: aqua; */
+
+	
+}
+
+.nickname:hover{
+	
+ 	color: blue;
+	
+}
+
+
+
+
+.topic{
+	
+	padding-right: 35vw;
+	
+}
+
+
+.nickname_area:hover{
+
+	
+	
+}

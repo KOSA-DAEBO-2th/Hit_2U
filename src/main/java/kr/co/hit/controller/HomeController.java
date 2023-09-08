@@ -35,6 +35,7 @@ public class HomeController {
 
 		return "community";
 	}
+	
 
 	@RequestMapping("/meeting")
 	public String meeting() {
