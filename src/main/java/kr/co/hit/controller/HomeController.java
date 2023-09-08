@@ -20,10 +20,10 @@ import kr.co.hit.service.ProfileService;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private ProfileService profileService;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
@@ -36,33 +36,18 @@ public class HomeController {
 		return "community";
 	}
 
-	@RequestMapping("/meeting")
-	public String meeting() {
-
-		return "meeting";
-	}
-	
-
-	@RequestMapping("/meeting_t")
-	public String meeting_t() {
-
-		return "meeting_t";
-	}
-
 	@RequestMapping("/community/communityWrite")
 	public String communityWrite() {
 
 		return "communityWrite";
 	}
-	
-	
+
 	@RequestMapping("/qna")
 	public String qna() {
-		
-		return "qna";
-		
-	}
 
+		return "qna";
+
+	}
 
 	@RequestMapping("/lecture")
 	public String lecture() {
