@@ -43,7 +43,7 @@
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             <div class="d-flex justify-content-center mb-2">
               <button type="button" class="btn btn-primary">Follow</button>
-              <button type="button" class="btn btn-outline-primary ms-1">수정</button>
+              <button type="button" class="btn btn-outline-primary ms-1" onclick="location.href='profile_edit'">수정</button>
             </div>
           </div>
         </div>

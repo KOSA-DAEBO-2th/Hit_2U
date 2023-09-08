@@ -1,5 +1,6 @@
 package kr.co.hit.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.hit.dto.BoardDto;
 import kr.co.hit.dto.MemberDto;
+import kr.co.hit.service.LectureBoardService;
 import kr.co.hit.service.ProfileService;
 
 /**
@@ -21,8 +24,6 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	private ProfileService profileService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -63,29 +64,5 @@ public class HomeController {
 		
 	}
 
-
-	@RequestMapping("/lecture")
-	public String lecture() {
-		return "lecture";
-	}
-
-	@RequestMapping("/lecture_write")
-	public String lecture_write() {
-		return "lecture_write";
-	}
-
-	@RequestMapping("/lecture_detail")
-	public String lecture_detail() {
-		return "lecture_detail";
-	}
-
-	@RequestMapping("/profile")
-	public String profile(Model model) {
-		System.out.println("profile----");
-		MemberDto dto = profileService.getUserInfo();
-		System.out.println(dto);
-		model.addAttribute("dto", dto);
-		return "profile";
-	}
 
 }

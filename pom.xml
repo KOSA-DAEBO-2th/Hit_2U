@@ -125,13 +125,20 @@
 
 		<!-- DB 오라클 클라우드 & 마이바티스 설정 & HikariCP -->
 
-		<!-- HikariCP -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>3.4.5</version>
-		</dependency>
+      <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.33</version>
+      </dependency>
 
+      <!-- HikariCP -->
+      <dependency>
+         <groupId>com.zaxxer</groupId>
+         <artifactId>HikariCP</artifactId>
+         <version>3.4.5</version>
+      </dependency>
+      
 		<!--spring-jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>
