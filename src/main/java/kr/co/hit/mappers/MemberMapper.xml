@@ -8,4 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 INSERT INTO Member (member_no, member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
 VALUES (seq_member.nextval, #{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
 	</insert>
+	
+	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto">
+		select * from Member where member_id = '123123'
+	</select>
 </mapper>
