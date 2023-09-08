@@ -20,4 +20,11 @@ public class JoinService {
 		return result;
 	}
 	
+	public int insertTest() {
+		int result=0;
+		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
+		result = memberDao.insertTest();
+		return result;
+	}
+	
 }
