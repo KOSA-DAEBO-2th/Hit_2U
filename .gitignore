@@ -14,3 +14,4 @@ xml.properties
 .project
 .settings/
 .factorypath
+.gitignore
