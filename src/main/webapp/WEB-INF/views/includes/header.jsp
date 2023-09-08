@@ -60,8 +60,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </nav>
             <div class="header_right">
                 <div style="flex-shrink: 0; width: 180px;">
-                    <button class="btn btn-primary btn-ghost btn-open" onclick="location.href='login'">로그인</button>
-                    <button class="btn btn-primary btn-jelly btn-blue" onclick="location.href='signup'">
+                    <button class="btn btn-primary btn-ghost btn-open" onclick="location.href='/member/login'">로그인</button>
+                    <button class="btn btn-primary btn-jelly btn-blue" onclick="location.href='/member/signup'">
                         회원가입
                     </button>
                 </div>
