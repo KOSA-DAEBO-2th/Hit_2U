@@ -35,13 +35,13 @@ public class HomeController {
 		return "meeting";
 	}
 	
-<<<<<<< Updated upstream
+
 	@RequestMapping("/meeting_t")
 	public String meeting_t() {
 
 		return "meeting_t";
 	}
-=======
+
 	@RequestMapping("/community/communityWrite")
 	public String communityWrite() {
 
@@ -55,8 +55,7 @@ public class HomeController {
 		return "qna";
 		
 	}
-	
->>>>>>> Stashed changes
+
 
 	@RequestMapping("/lecture")
 	public String lecture() {
@@ -72,9 +71,5 @@ public class HomeController {
 	public String lecture_detail() {
 		return "lecture_detail";
 	}
-<<<<<<< Updated upstream
 
-=======
-		
->>>>>>> Stashed changes
 }
