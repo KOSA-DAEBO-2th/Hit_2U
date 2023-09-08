@@ -16,34 +16,46 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class HomeController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
+
 		return "main";
 	}
-	
-	
+
 	@RequestMapping("/community")
 	public String community() {
-	
+
 		return "community";
 	}
+
+	@RequestMapping("/meeting")
+	public String meeting() {
+
+		return "meeting";
+	}
 	
-	
+	@RequestMapping("/meeting_t")
+	public String meeting_t() {
+
+		return "meeting_t";
+	}
+
 	@RequestMapping("/lecture")
 	public String lecture() {
 		return "lecture";
 	}
+
 	@RequestMapping("/lecture_write")
 	public String lecture_write() {
 		return "lecture_write";
 	}
+
 	@RequestMapping("/lecture_detail")
 	public String lecture_detail() {
 		return "lecture_detail";
 	}
-	
+
 }
