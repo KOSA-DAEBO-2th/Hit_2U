@@ -12,6 +12,8 @@
 		</param-value>
 	</context-param>
 
+	<display-name>FileUploadDownload</display-name>
+
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener
@@ -35,6 +37,8 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	
 
 	<!-- 스프링 시큐리티 -->
 	<filter>

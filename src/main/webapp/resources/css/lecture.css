@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.writing_list {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	min-height: 400px;
+}
+
+
+.writing {
+	display: flex;
+	width: 214px;
+	flex-direction: column;
+	position: relative;
+	text-decoration: none;
+	margin-top : 20px;
+	
+	border: 1px solid gray;
+}
+
+.thumbnail {
+	position: relative;
+	height: 162px;
+	
+	border: 1px solid red;
+}
+
+.w_info {
+	padding-top: 16px;
+	border: 1px solid blue;
+}
+
+
+
