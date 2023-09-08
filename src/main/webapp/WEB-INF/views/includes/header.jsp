@@ -49,7 +49,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <a href="#">HIT 마켓</a>
                 </div>
                 <div class="nav_link">
-                    <a href="#">채용</a>
+                    <a href="lecture">강의</a>
                 </div>
                 <div class="nav_link">
                     <a href="#">공지사항</a>
