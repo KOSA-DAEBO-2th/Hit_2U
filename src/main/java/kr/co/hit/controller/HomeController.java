@@ -6,10 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -37,11 +35,28 @@ public class HomeController {
 		return "meeting";
 	}
 	
+<<<<<<< Updated upstream
 	@RequestMapping("/meeting_t")
 	public String meeting_t() {
 
 		return "meeting_t";
 	}
+=======
+	@RequestMapping("/community/communityWrite")
+	public String communityWrite() {
+
+		return "communityWrite";
+	}
+	
+	
+	@RequestMapping("/qna")
+	public String qna() {
+		
+		return "qna";
+		
+	}
+	
+>>>>>>> Stashed changes
 
 	@RequestMapping("/lecture")
 	public String lecture() {
@@ -57,5 +72,9 @@ public class HomeController {
 	public String lecture_detail() {
 		return "lecture_detail";
 	}
+<<<<<<< Updated upstream
 
+=======
+		
+>>>>>>> Stashed changes
 }
