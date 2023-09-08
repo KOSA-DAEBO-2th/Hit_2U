@@ -36,6 +36,12 @@ public class HomeController {
 
 		return "meeting";
 	}
+	
+	@RequestMapping("/meeting_t")
+	public String meeting_t() {
+
+		return "meeting_t";
+	}
 
 	@RequestMapping("/lecture")
 	public String lecture() {
