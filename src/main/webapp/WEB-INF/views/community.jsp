@@ -1,6 +1,8 @@
 ﻿<%@ include file="includes/header.jsp" %>
 <html>
 <head>
+<title>Insert title here</title>
+<c:import url="includes/header.jsp"></c:import>
 <link
 	href="${pageContext.request.contextPath }/resources/css/header.css"
 	rel="stylesheet" />
@@ -116,6 +118,6 @@
 			</tr>
 		</table>
 	</main>
-	<c:import url="footer.jsp"></c:import>
+	<c:import url="includes/footer.jsp"></c:import>
 </body>
 </html>

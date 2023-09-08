@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.MemberDao">
 	<insert id = "insertMember" parameterType="kr.co.hit.dto.MemberDto">
-INSERT INTO Member (member_no, member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
-VALUES (seq_member.nextval, #{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
+INSERT INTO MEMBER (member_no, member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
+VALUES ((select nextval('MEMBER_SEQ') from dual), #{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
 	</insert>
 	
 	
