@@ -3,85 +3,155 @@
 @import url("https://webfontworld.github.io/pretendard/Pretendard.css");
 
 body {
-	font-family: "Pretendard";
-	min-width: 1050px;
+    font-family: "Pretendard";
+    min-width: 1050px;
 }
 
 a {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .header {
-	height: 80px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-bottom: solid 1px black;
-	font-family: "Pretendard";
-	font-weight: 400;
-	font-style: normal;
-	padding-left: 13vw;
-	padding-right: 13vw;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 1px black;
+    font-family: "Pretendard";
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 13vw;
+    padding-right: 13vw;
 }
 
 .header_left {
-	flex-basis: 15%;
+    flex-basis: 15%;
 }
 
 .header_center {
-	flex: 1;
-	justify-content: center;
-/* 	justify-content: space-around; */
+    flex: 1;
+    justify-content: center;
+    /* 	justify-content: space-around; */
 }
 
 .header_right {
-	flex-basis: 15%;
-	display: flex;
-	justify-content: flex-end;
+    flex-basis: 15%;
+    display: flex;
+    justify-content: flex-end;
+    
 }
 
 .nav .nav_link {
- 	margin: 0px 20px;
-
+    margin: 0px 20px;
 }
 
 .nav_link a {
-	font-size: 20px;
-	color: black;
+    font-size: 20px;
+    color: black;
 }
 
 .nav_link a:hover {
-	color: royalblue !important;
+    color: royalblue !important;
 }
 
 .main_content {
-	height: auto;
-	min-height: calc(100vh - 80px);
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: 13vw;
-	padding-right: 13vw;
+    height: auto;
+    min-height: calc(100vh - 80px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 13vw;
+    padding-right: 13vw;
 }
 
 .main_content_sm {
-	height: auto;
-	min-height: calc(100vh - 80px);
-	padding-top: 20px;
-	padding-bottom: 20px;
-	padding-left: calc(13vw + 180px);
-	padding-right: calc(13vw + 180px);
+    height: auto;
+    min-height: calc(100vh - 80px);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: calc(13vw + 180px);
+    padding-right: calc(13vw + 180px);
 }
+
+/* 
+게시판 이름, 카테고리 속성, 검색 관련
+*/
 
 .content_label {
-	border-bottom: 2px solid rgb(25, 27, 169);
-	padding-bottom: 10px;
+    border-bottom: 2px solid rgb(25, 27, 169);
+    padding-bottom: 10px;
 }
 
-.content_categoty {
-	margin: 20px 0px;
-	border-bottom: 1px solid black;
+.content_category {
+    margin: 20px 0px;
+    border-bottom: 1px solid black;
 }
 
-.content_categoty button {
-	margin: 0px 20px;
+.content_category button {
+    margin: 0px 20px;
+}
+
+.btn_category:hover {
+    background-color: royalblue;
+    color: #eee;
+    opacity: 1;
+}
+
+.btn_anonymous:hover {
+    background-color: gray;
+    color: #eee;
+    opacity: 1;
+}
+
+.btn_category_click {
+    background-color: royalblue;
+    color: #eee;
+    border-color: white;
+    opacity: 1;
+}
+
+.btn_anonymous_click {
+    background-color: gray;
+    color: #eee;
+    border-color: white;
+    opacity: 1;
+}
+
+.search-box {
+    padding: 5px 10px;
+    width: 240px;
+    height: 30px;
+    border: 1px solid #4169e1;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.search-box:hover,
+.search-box:focus-within {
+    box-shadow: 0px 0px 0.5px 1px #4169e1;
+    width: 240px;
+}
+
+.search-btn {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #51e3d4;
+}
+
+.search-txt {
+    text-align: center;
+    display: flex;
+    width: 200px;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 1rem;
+    line-height: 30px;
+    transition: 0.3s;
+    padding-right: 8px;
+}
+
+.search-box:hover > .search-txt {
+    padding: 0 6px;
 }

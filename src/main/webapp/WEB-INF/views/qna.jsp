@@ -1,12 +1,16 @@
-﻿<%@ include file="includes/header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+<title>Insert title here</title>
+<c:import url="header.jsp"></c:import>
 <link
-	href="${pageContext.request.contextPath }/resources/css/header.css"
-	rel="stylesheet" />
+	href="${pageContext.request.contextPath }/resources/css/main.css?after"
+	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath }/resources/css/community.css"
-	rel="stylesheet" />
+	href="${pageContext.request.contextPath }/resources/css/community.css?after"
+	rel="stylesheet">
 
 <script async
 	src="${pageContext.request.contextPath}/resources/js/util.js"
@@ -17,32 +21,30 @@
 	type="text/javascript" defer></script>
 </head>
 <body>
-	<main class="main_content_sm">
 
+
+	<main class='main_content_sm'>
 		<div class="content_label font_32">
 			<a>커뮤니티</a>
 		</div>
-		<div class="content_category flex content_center padding_bottom_20">
+		<div class="content_categoty flex content_center padding_bottom_20">
 			<button class="btn btn_category btn_category_click">전체</button>
-			<button class="btn btn_category">자유</button>
-			<button class="btn btn_category">고민</button>
-			<button class="btn btn_category">운동</button>
-			<button class="btn btn_category btn_anonymous">익명</button>
+			<button class="btn btn_category">커리어</button>
+			<button class="btn btn_category">기술</button>
+			<button class="btn btn_category">알고리즘</button>
+			<button class="btn btn_category btn_anonymous">기타</button>
 		</div>
 		<div class="flex content_center">
 			<div class="search-box flex content_center">
-				<input type="text" class="search-txt" name="" placeholder="전체에서 검색" />
+				<input type="text" class="search-txt" name="" placeholder="전체에서 검색">
 				<a class="search-btn" href="#"> <i class="fas fa-search"></i>
 				</a>
-			</div>
-		</div>
 
-		<button class="btn btn_write">
-			<a href="/community/communityWrite">작성하기</a>
-		</button>
-		<button class="btn btn_write">
-			<a href="/community/communityWriteSourceCode">작성하기 (소스코드)</a>
-		</button>
+			</div>
+
+		</div>
+			<button class="btn btn_write">작성하기</button>
+
 		<article>
 			<div class="board_list">
 				<div class="topic">
@@ -71,6 +73,7 @@
 						</div>
 					</div>
 
+
 					<div class="main_title_box flex item_center">
 						<div class="main_title">사람들 키보드 소리가 너무 시끄러운데 제가 예민한건가요?</div>
 						<div class="like_comment_box">
@@ -79,10 +82,15 @@
 								class="fa-regular fa-comment font_12 icon_area"></i> <span
 								class="comment_count">553</span>
 						</div>
+
 					</div>
+
+
 				</div>
 			</div>
 		</article>
+
+
 
 		<!-- 페이징 처리 -->
 		<table>
@@ -112,10 +120,19 @@
 
 			</c:if>
 
+
 				</td>
 			</tr>
 		</table>
+
+
+
+
+
+
 	</main>
 	<c:import url="footer.jsp"></c:import>
 </body>
+
+
 </html>
