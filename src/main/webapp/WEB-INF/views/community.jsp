@@ -5,14 +5,9 @@
 	href="${pageContext.request.contextPath }/resources/css/header.css"
 	rel="stylesheet" />
 <link
-<<<<<<< Updated upstream
 	href="${pageContext.request.contextPath }/resources/css/community.css"
 	rel="stylesheet" />
-=======
-	href="${pageContext.request.contextPath }/resources/css/community.css?after"
-	rel="stylesheet">
 
->>>>>>> Stashed changes
 <script async
 	src="${pageContext.request.contextPath}/resources/js/util.js"
 	type="text/javascript" defer></script>
@@ -22,12 +17,8 @@
 	type="text/javascript" defer></script>
 </head>
 <body>
-<<<<<<< Updated upstream
 	<main class="main_content_sm">
-=======
 
-	<main class='main_content_sm'>
->>>>>>> Stashed changes
 		<div class="content_label font_32">
 			<a>커뮤니티</a>
 		</div>
@@ -40,11 +31,7 @@
 		</div>
 		<div class="flex content_center">
 			<div class="search-box flex content_center">
-<<<<<<< Updated upstream
 				<input type="text" class="search-txt" name="" placeholder="전체에서 검색" />
-=======
-				<input type="text" class="search-txt" name="" placeholder="전체에서 검색">
->>>>>>> Stashed changes
 				<a class="search-btn" href="#"> <i class="fas fa-search"></i>
 				</a>
 			</div>
