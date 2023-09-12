@@ -5,14 +5,12 @@
 <head>
 <title></title>
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after"
-	rel="stylesheet">
 <!-- 부트스트랩 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after" rel="stylesheet">
 
 </head>
 <body>
-	<%-- <c:import url="includes/header.jsp"></c:import> --%>
+	<%-- <c:import url="../includes/header.jsp"></c:import> --%>
 
 
 	<main role="main">
@@ -107,7 +105,7 @@
 
 
 
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="../includes/footer.jsp"></c:import>
 
 	<!-- Bootstrap core JavaScript
     ================================================== -->

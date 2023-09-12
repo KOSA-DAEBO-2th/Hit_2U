@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.co.hit.dao.LectureBoardDao">
 	
 	<select id="selectLectureList" resultType="kr.co.hit.dto.BoardDto">
-		SELECT * FROM BOARD WHERE CAT_NO = 4 ORDER BY B_WRITE_DATE DESC
+		SELECT * FROM BOARD WHERE CAT_NO = 5 ORDER BY B_WRITE_DATE DESC
 	</select>
 	
 	
