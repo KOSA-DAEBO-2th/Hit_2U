@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+div.topic label, div.tagtag label, div.title label {
+	padding-top: 3vw;
+	padding-bottom: 1vw;
+}
+
+div.topic select, div.tagtag input, div.title input {
+	display: block;
+	width: 100%;
+}
+
+div.textarea {
+	padding-top: 3vw;
+}
+
+textarea {
+	width: 100%;
+	height: 300px;
+}
+
+div.button-container {
+	padding-top: 1vw;
+	display: flex;
+	justify-content: flex-end;
+}
+
+button:first-child {
+	margin-right: 1vw;
+}
+
+button {
+	width: 100px;
+	height: 50px;
+	border: none;
+}
+
+input.tag1-input {
+	width: 100% display:block;
+}
