@@ -40,7 +40,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <a href="#">Q & A</a>
                 </div>
                 <div class="nav_link">
-                    <a href="meeting" id="meeting">모임</a>
+                    <a href="/meeting" id="meeting">모임</a>
                 </div>
                 <div class="nav_link">
                     <a href="lecture">프리랜서</a>
@@ -53,10 +53,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 </div>
                 <div class="nav_link">
                     <a href="#">공지사항</a>
-                </div>
-                    <div class="nav_link">
-                    <a href="meeting_t">모임테스트</a>
-                </div>
             </nav>
             <div class="header_right">
                 <div style="flex-shrink: 0; width: 180px;">

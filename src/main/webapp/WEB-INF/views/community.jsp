@@ -2,7 +2,6 @@
 <html>
 <head>
 <title>Insert title here</title>
-<c:import url="includes/header.jsp"></c:import>
 <link
 	href="${pageContext.request.contextPath }/resources/css/header.css"
 	rel="stylesheet" />
