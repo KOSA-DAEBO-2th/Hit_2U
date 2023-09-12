@@ -5,27 +5,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.hit.dto.MemberDto;
-import kr.co.hit.service.JoinService;
+import kr.co.hit.dto.MeetDto;
+import kr.co.hit.service.MeetingService;
 
-@RestController
+@Controller("meeting")
 public class MeetingController {
-
-	@GetMapping(value = "/meeting")
-	public ModelAndView meeting() {
-		ModelAndView mv = new ModelAndView("meeting");
-
-		return mv;
+	
+	@Autowired
+	MeetingService meetingService;
+	
+	@GetMapping(value="/write")
+	public String writeForm() throws Exception {
+		return "meeting_write";
 	}
 	
-	@GetMapping(value="/meeting/{boardIdx}")
+	@PostMapping(value="/write")
+	public void write(@RequestBody MeetDto dto) throws Exception {
+		
+		System.out.println("안뇽");
+		meetingService.insert(dto);
+	}
+	
+	@GetMapping(value="/{boardIdx}")
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
-		ModelAndView mv = new ModelAndView("/meeting_read");
+		ModelAndView mv = new ModelAndView("meeting_read");
 		
 	
 		mv.addObject("test1", 1);
@@ -33,4 +39,7 @@ public class MeetingController {
 		
 		return mv;
 	}
+	
+
+
 }
