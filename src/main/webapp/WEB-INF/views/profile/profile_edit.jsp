@@ -7,7 +7,7 @@
 <link href="${pageContext.request.contextPath }/resources/css/profile_edit.css?after" rel="stylesheet">
 </head>
 <body>
-	<c:import url="includes/header.jsp"></c:import>
+	<c:import url="../includes/header.jsp"></c:import>
 	
 	<main class='main_content'>
 		<div class="container-xl px-4 mt-4">
@@ -42,33 +42,33 @@
                     <form>
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="username">
+                            <label class="small mb-1" for="inputUsername">UserID (how your name will appear to other users on the site)</label>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="${ dto.member_id }">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">First name</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="Valerie">
+                                <label class="small mb-1" for="inputFirstName">NickName</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="${ dto.nickname }">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="Luna">
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" >
                             </div>
                         </div>
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputOrgName">Organization name</label>
-                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="Start Bootstrap">
+                                <label class="small mb-1" for="inputOrgName">Phone</label>
+                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="${ dto.contact }">
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Location</label>
-                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="San Francisco, CA">
+                                <label class="small mb-1" for="inputLocation">Email</label>
+                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="${ dto.email }">
                             </div>
                         </div>
                         <!-- Form Group (email address)-->
@@ -98,7 +98,7 @@
     </div>
 </div>
 	</main>
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="../includes/footer.jsp"></c:import>
 
 </body>
 </html>

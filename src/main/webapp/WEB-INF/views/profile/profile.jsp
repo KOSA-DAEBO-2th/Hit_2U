@@ -13,7 +13,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<c:import url="includes/header.jsp"></c:import>
+	<c:import url="../includes/header.jsp"></c:import>
 	
 	<main class='main_content'>
 		<section style="background-color: #eee;">
@@ -195,7 +195,7 @@
   </div>
 </section>
 	</main>
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="../includes/footer.jsp"></c:import>
 
 </body>
 </html>

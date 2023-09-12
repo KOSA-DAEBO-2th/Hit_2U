@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.co.hit.dao.ProfileDao">
 	
 	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto">
-		select * from Member where member_id = '123123'
+		SELECT * FROM MEMBER WHERE MEMBER_ID = '123'
 	</select>
 	
 <!-- 	<update id="updateInfo" parameterType="">

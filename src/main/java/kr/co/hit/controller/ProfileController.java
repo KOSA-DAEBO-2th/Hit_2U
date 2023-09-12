@@ -22,13 +22,14 @@ public class ProfileController {
 		MemberDto dto = profileService.getUserInfo();
 //		System.out.println(dto);
 		model.addAttribute("dto", dto);
-		return "profile";
+		return "profile/profile";
 	}
 	
 	@RequestMapping("/profile_edit")
-	public String profile_edit() {
-		
-		return "profile_edit";
+	public String profile_edit(Model model) {
+		MemberDto dto = profileService.getUserInfo();
+		model.addAttribute("dto", dto);
+		return "profile/profile_edit";
 	}
 	
 	
