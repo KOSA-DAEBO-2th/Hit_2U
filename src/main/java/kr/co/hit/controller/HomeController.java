@@ -23,29 +23,11 @@ public class HomeController {
 		return "main";
 	}
 
-	@RequestMapping("/community")
-	public String community() {
-
-		return "community";
-	}
-
 	@RequestMapping("/meeting")
 	public String meeting() {
 
 		return "meeting";
 	}
 
-	@RequestMapping("/community/communityWrite")
-	public String communityWrite() {
-
-		return "communityWrite";
-	}
-
-	@RequestMapping("/qna")
-	public String qna() {
-
-		return "qna";
-
-	}
 
 }
