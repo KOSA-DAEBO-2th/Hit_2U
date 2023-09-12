@@ -11,22 +11,28 @@ import kr.co.hit.dao.CommunityDao;
 import kr.co.hit.dto.CommunityDto;
 
 @Service
-public class CommunityService implements CommunityDao{
-	
+public class CommunityService implements CommunityDao {
+
 	@Autowired
 	private SqlSession sqlsession;
-	
-	
+
 	@Override
-	public List<CommunityDto> CommunityList(){
+	public List<CommunityDto> CommunityList() {
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		List<CommunityDto> list = new ArrayList<CommunityDto>();
 		list = dao.CommunityList();
-		
+
 		return list;
-		
+
 	}
-	
-	
+
+	@Override
+	public void insertCommunity(CommunityDto dto) {
+
+		CommunityService dao = sqlsession.getMapper(CommunityService.class);
+
+		dao.insertCommunity(dto);
+
+	}
 
 }

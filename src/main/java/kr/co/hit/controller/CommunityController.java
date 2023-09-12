@@ -23,18 +23,26 @@ public class CommunityController {
 		return "community";
 	}
 
+	
+	// 글 작성
 	@RequestMapping("/community/community_write")
-	public String community_write() {
+	public String community_write(CommunityDto dto) {
 
+		communityService.insertCommunity(dto);
+		
 		return "community_write";
 	}
+	
 
+	// 글 상세보기
 	@RequestMapping("/community/community_detail")
 	public String community_detail() {
 
 		return "community_detail";
 	}
 
+	
+	
 	@RequestMapping("/community/profile")
 	public String profile() {
 

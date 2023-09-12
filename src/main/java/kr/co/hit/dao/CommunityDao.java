@@ -6,9 +6,9 @@ import kr.co.hit.dto.CommunityDto;
 
 public interface CommunityDao {
 
-	public List<CommunityDto> CommunityList();
+	public List<CommunityDto> CommunityList(); // select all
 	
-	
+	public void insertCommunity(CommunityDto dto); // insert
 	
 	
 }
