@@ -2,7 +2,6 @@
 <html>
 <head>
 <title>Insert title here</title>
-<%-- <c:import url="includes/header.jsp"></c:import> --%>
 <link
 	href="${pageContext.request.contextPath }/resources/css/header.css"
 	rel="stylesheet" />
@@ -20,7 +19,6 @@
 </head>
 <body>
 	<main class="main_content_sm">
-
 		<div class="content_label font_32">
 			<a>커뮤니티</a>
 		</div>
@@ -40,7 +38,7 @@
 		</div>
 
 		<button class="btn btn_write">
-			<a href="/community/communityWrite">작성하기</a>
+			<a href="/community/community_write">작성하기</a>
 		</button>
 		<article>
 			<div class="board_list">
@@ -51,11 +49,13 @@
 				<div style="width: 100%;">
 					<div class="main_user">
 						<div style="flex: 1;">
-							<c:forEach begin="1" end="10">
+							<c:forEach var="list" items="${list}">
 								<div class="board_list">
 									<div class="board_list_inside">
 										<div class="flex item_center">
-											<div class="nickname_area"><a href="#" class="nickname">윤성호빵맨</a></div>
+											<div class="nickname_area">
+												<a href="/community/profile" class="nickname">${list.member_no}</a>
+											</div>
 											<span class="mc">·</span>
 											<div class="icon_area font_12">
 												<i class="fa-solid fa-flask"></i>
@@ -63,13 +63,14 @@
 											<span class="hp_point">33</span>
 										</div>
 										<div class="main_title_box flex item_center">
-											<div class="main_title"><a href="#">사람들 키보드 소리가 너무 시끄러운데 제가 예민한건가요?</a></div>
+											<div class="main_title">
+												<a href="/community/community_detail">${list.b_content}</a>
+											</div>
 											<div class="like_comment_box">
 												<!-- 										<div class="box"> -->
 												<!-- 											<img class="profile" -->
 												<%-- 											src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
 												<!-- 										</div> -->
-
 											</div>
 										</div>
 										<div class="main_title_box flex item_center">
@@ -82,11 +83,11 @@
 												<%-- 											src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
 												<!-- 										</div> -->
 												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-													class="like_count">21</span> <i
+													class="like_count">${list.b_recommend}</span> <i
 													class="fa-regular fa-comment font_12 icon_area"></i> <span
-													class="comment_count">553</span> <i
+													class="comment_count">${list.b_reply }</span> <i
 													class="fa-regular fa-eye font_12 icon_area"></i> <span
-													class="view_count">17</span>
+													class="view_count">${list.b_view }</span>
 											</div>
 										</div>
 									</div>

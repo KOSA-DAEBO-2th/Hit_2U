@@ -100,8 +100,8 @@
 					<li>
 						<div class="box">
 							<a href="/community/profile"> <img class="profile" alt=""
-								src="/resources/images/profile_logo.png"></a>
-							<a href="/community/profile"> </a>	
+								src="/resources/images/profile_logo.png"></a> <a
+								href="/community/profile"> </a>
 						</div>
 						<div>2</div>
 						<div>3</div>
@@ -113,14 +113,3 @@
 	<c:import url="includes/footer.jsp"></c:import>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

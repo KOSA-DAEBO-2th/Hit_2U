@@ -59,15 +59,12 @@
 						</select>
 					</div>
 					<div class="title">
-						<label>제목</label> 
-						<input type="text" id="title" name="title"
+						<label>제목</label> <input type="text" id="title" name="title"
 							placeholder="제목을 입력해주세요.">
 					</div>
 
 					<div class="tagtag">
-						<label>태그 
-						- <span>내용을 대표하는 태그 3개 정도
-								입력해주세요.</span>
+						<label>태그 - <span>내용을 대표하는 태그 3개 정도 입력해주세요.</span>
 						</label> <input class="tag1-input" placeholder="태그를 입력해주세요."></input>
 
 					</div>
@@ -86,6 +83,4 @@
 	</main>
 	<c:import url="includes/footer.jsp"></c:import>
 </body>
-
-
 </html>
