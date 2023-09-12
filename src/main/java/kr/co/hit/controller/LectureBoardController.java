@@ -21,17 +21,17 @@ public class LectureBoardController {
 	public String lecture(Model model) {
 		List<BoardDto> list = lectureService.selectLectureList();
 		model.addAttribute("list", list);
-		return "lecture";
+		return "lecture/lecture";
 	}
 
 	@RequestMapping("/lecture_write")
 	public String lecture_write() {
-		return "lecture_write";
+		return "lecture/lecture_write";
 	}
 
 	@RequestMapping("/lecture_detail")
 	public String lecture_detail() {
-		return "lecture_detail";
+		return "lecture/lecture_detail";
 	}
 
 }

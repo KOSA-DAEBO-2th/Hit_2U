@@ -18,6 +18,10 @@
 					<security:intercept-url pattern="/member/**" access="permitAll" />
 					<security:intercept-url pattern="/community/**" access="permitAll"/>
 					
+					<security:intercept-url pattern="/lecture/**" access="permitAll"/>
+					<security:intercept-url pattern="/profile/**" access="permitAll"/>
+					<security:intercept-url pattern="/message/**" access="permitAll"/>
+					
 					<!-- 정적 자원에 대한 시큐리티 해제 -->
 					<security:intercept-url pattern="/resources/**" access="permitAll" />
 

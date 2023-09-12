@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.box {
+	width: 24px;
+	height: 24px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin-right: 6px;
+}
+
+textarea {
+	height: 100px;
+	width: 100%;
+}
+
+div.reply-button {
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 1vw;
+}
+
+button {
+	width: 100px;
+	height: 50px;
+	border: none;
+}
