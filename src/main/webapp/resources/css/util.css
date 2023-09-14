@@ -111,6 +111,10 @@
 	color: #0090F9;
 }
 
+.font_lightgray{
+	color: #B1B1B1
+}
+
 .flex {
 	display: flex;
 }
@@ -132,4 +136,8 @@
 
 .full_width{
 	width: 100%;
+}
+
+.font_black{
+	color: black;
 }

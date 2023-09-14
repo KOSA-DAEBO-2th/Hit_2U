@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.hit.dao.MeetingDao">
+
+	<select id="selectMeetingList"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE, M.MEET_FIELD
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+
+		WHERE CAT_NO =
+		3;
+
+	</select>
+
+	<select id="selectMeetingTag" resultType="String">
+		SELECT t.t_mapping_no,
+		t.tag_num, tt.tag_name
+		FROM BOARD b
+		INNER JOIN TAG_MAPPING t
+		ON b.b_no =
+		t.b_no
+		INNER JOIN TAG tt
+		ON t.tag_num = tt.tag_no
+
+		WHERE cat_no = 3;
+	</select>
+
+	<select id="selectMeetingRead"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY, B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE, M.MEET_FIELD
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+
+		WHERE B.B_NO = #{boardIdx};
+
+	</select>
+
+	<insert id="insert" parameterType="kr.co.hit.dto.MeetingDto">
+		insert INTO BOARD(b_no,
+		b_title, b_content, b_write_date, b_view, b_reply, b_recommend,
+		member_no, cat_no)
+		VALUES(
+		(SELECT t.b_no+1 FROM (SELECT MAX(b_no) b_no
+		FROM BOARD) AS t)
+		,#{b_title}
+		,#{b_content}
+		,CURDATE()
+		,0
+		,0
+		,0
+		,4
+		,3
+		)
+
+	</insert>
+
+	<insert id="insertMeeting"
+		parameterType="kr.co.hit.dto.MeetingDto">
+		insert INTO MEETING(b_no, meet_start_day, meet_end_day,
+		meet_tags, meet_topic_name, meet_state, meet_field)
+		VALUES (
+		(SELECT t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
+		,'2023-09-20'
+		,'2023-09-24'
+		,#{meet_tags}
+		,#{meet_topic_name}
+		,'모집 중'
+		,#{meet_field}
+		)
+
+
+	</insert>
+
+
+</mapper>

@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,9 +13,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <!-- 부트스트랩 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Jquery -->
-        <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet" />
+
 
         <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
+                <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet" />
         <link href="${pageContext.request.contextPath }/resources/css/footer.css" rel="stylesheet" />
 
         <link href="${pageContext.request.contextPath }/resources/css/util.css" rel="stylesheet" />
@@ -34,7 +37,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </div>
             <nav class="nav header_center flex">
                 <div class="nav_link">
-                    <a href="community" id="community">커뮤니티</a>
+                    <a href="/community" id="community">커뮤니티</a>
                 </div>
                 <div class="nav_link">
                     <a href="#">Q & A</a>
@@ -43,13 +46,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                     <a href="/meeting" id="meeting">모임</a>
                 </div>
                 <div class="nav_link">
-                    <a href="lecture">프리랜서</a>
+                    <a href="/lecture">프리랜서</a>
                 </div>
                 <div class="nav_link">
                     <a href="#">HIT 마켓</a>
                 </div>
                 <div class="nav_link">
-                    <a href="lecture">강의</a>
+                    <a href="/lecture">강의</a>
                 </div>
                 <div class="nav_link">
                     <a href="#">공지사항</a>

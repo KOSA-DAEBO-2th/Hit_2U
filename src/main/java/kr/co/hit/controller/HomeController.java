@@ -23,11 +23,7 @@ public class HomeController {
 		return "main";
 	}
 
-	@RequestMapping("/meeting")
-	public String meeting() {
 
-		return "meeting";
-	}
 
 
 }

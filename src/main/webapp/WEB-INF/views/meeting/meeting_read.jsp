@@ -1,4 +1,4 @@
-﻿<%@ include file="includes/header.jsp"%>
+﻿<%@ include file="../includes/header.jsp"%>
 <html>
 <head>
 <link
@@ -15,8 +15,8 @@
 		<div
 			class="flex content_center item_center direction_column padding_bottom_20">
 			<div class="category_header font_16">스터디</div>
-			<div class="read_title  ">대보정보통신 Final 프로젝트</div>
-			<div class="meeting_state ">모집 중</div>
+			<div class="read_title  ">${list.b_title }</div>
+			<div class="meeting_state ">${list.meet_state }</div>
 		</div>
 
 		<div class="flex">
@@ -25,7 +25,7 @@
 				<div class="test">
 					<ul class="flex">
 						<li class="read_select active">정보</li>
-						<li class="read_select">질문</li>
+						<li class="read_select">질문 (${list.b_reply})</li>
 					</ul>
 				</div>
 				<div class="read_content">
@@ -43,65 +43,17 @@
 					<div class="skill_section">
 						<span class="content_tab"># 태그</span>
 						<div class="skill_icons margin_top_20 padding_bottom_20">
-							<img class="icons_30" title="java"
-								src="${pageContext.request.contextPath}/resources/icons/java.svg" />
-							<img class="icons_30" title="jsp"
-								src="${pageContext.request.contextPath}/resources/icons/jsp.svg" />
-							<img class="icons_30" title="javascript"
-								src="${pageContext.request.contextPath}/resources/icons/javascript.svg" />
-							<img class="icons_30" title="aws"
-								src="${pageContext.request.contextPath}/resources/icons/aws.svg" />
-							<img class="icons_30" title="spring"
-								src="${pageContext.request.contextPath}/resources/icons/spring.svg" />
-							<img class="icons_30" title="figma"
-								src="${pageContext.request.contextPath}/resources/icons/figma.svg" />
-							<img class="icons_30" title="mariadb"
-								src="${pageContext.request.contextPath}/resources/icons/mariadb.svg" />
-							<img class="icons_30" title="github"
-								src="${pageContext.request.contextPath}/resources/icons/github.svg" />
+							<c:forEach begin="0" end="${fn:length(tags)-1}" var="i">
+								<img class="icons_30" title="${tags[i]}"
+									src="${pageContext.request.contextPath}/resources/icons/${tags[i]}.svg" />
+							</c:forEach>
 						</div>
 					</div>
 
 					<div class="main_section padding_bottom_20 padding_top_20">
 						<span class="content_tab">소개</span>
 						<div class="main_text font_14 margin_top_20">
-							<p>안녕하세요! 함께 서비스를 출시해 볼 디자이너를 구합니다! 현재 기획, 개발 각 1명으로 구성되어 있으며
-								아이디어부터 같이 시작해볼 분 모십니다!
-							<p>매주 1회(금 or 토) 강남 쪽에서 만날 수 있는 분 자유롭게 말해주세요!
-							<p>너무 꽉 막히게 일만 하는게 아니라 친하게 지내며 앱 한번 만들어 봅시다!! 디자이너 당신! 너 우리의
-								동료가 도도독 도도독...독 *이하
-							<p>멤버 소개(스타트업에서 만난 사이) -기획자(본인) / 94년생 / 남성 / 서비스 기획 4년차 /
-								대기업 계열사
-							<p>근무중(여친있음) -개발자 / 93년생 / 남성 / ios 개발 3년차 / 에듀테크 스타트업
-								근무중(유부남)
-							<p>안녕하세요! 함께 서비스를 출시해 볼 디자이너를 구합니다! 현재 기획, 개발 각 1명으로 구성되어 있으며
-								아이디어부터 같이 시작해볼 분 모십니다!
-							<p>매주 1회(금 or 토) 강남 쪽에서 만날 수 있는 분 자유롭게 말해주세요!
-							<p>너무 꽉 막히게 일만 하는게 아니라 친하게 지내며 앱 한번 만들어 봅시다!! 디자이너 당신! 너 우리의
-								동료가 도도독 도도독...독 *이하
-							<p>멤버 소개(스타트업에서 만난 사이) -기획자(본인) / 94년생 / 남성 / 서비스 기획 4년차 /
-								대기업 계열사
-							<p>근무중(여친있음) -개발자 / 93년생 / 남성 / ios 개발 3년차 / 에듀테크 스타트업
-								근무중(유부남)
-							<p>안녕하세요! 함께 서비스를 출시해 볼 디자이너를 구합니다! 현재 기획, 개발 각 1명으로 구성되어 있으며
-								아이디어부터 같이 시작해볼 분 모십니다!
-							<p>매주 1회(금 or 토) 강남 쪽에서 만날 수 있는 분 자유롭게 말해주세요!
-							<p>너무 꽉 막히게 일만 하는게 아니라 친하게 지내며 앱 한번 만들어 봅시다!! 디자이너 당신! 너 우리의
-								동료가 도도독 도도독...독 *이하
-							<p>멤버 소개(스타트업에서 만난 사이) -기획자(본인) / 94년생 / 남성 / 서비스 기획 4년차 /
-								대기업 계열사
-							<p>근무중(여친있음) -개발자 / 93년생 / 남성 / ios 개발 3년차 / 에듀테크 스타트업
-								근무중(유부남)
-							<p>안녕하세요! 함께 서비스를 출시해 볼 디자이너를 구합니다! 현재 기획, 개발 각 1명으로 구성되어 있으며
-								아이디어부터 같이 시작해볼 분 모십니다!
-							<p>매주 1회(금 or 토) 강남 쪽에서 만날 수 있는 분 자유롭게 말해주세요!
-							<p>너무 꽉 막히게 일만 하는게 아니라 친하게 지내며 앱 한번 만들어 봅시다!! 디자이너 당신! 너 우리의
-								동료가 도도독 도도독...독 *이하
-							<p>멤버 소개(스타트업에서 만난 사이) -기획자(본인) / 94년생 / 남성 / 서비스 기획 4년차 /
-								대기업 계열사
-							<p>근무중(여친있음) -개발자 / 93년생 / 남성 / ios 개발 3년차 / 에듀테크 스타트업
-								근무중(유부남)
-						</div>
+							${list.b_content }</div>
 
 					</div>
 
@@ -132,8 +84,8 @@
 
 								<div class="leader_position margin_top_12">리더</div>
 							</div>
-							
-							
+
+
 							<div class="member_form margin_top_20 margin_right_12">
 								<div class="flex">
 									<div>
@@ -158,8 +110,8 @@
 
 								<div class="member_position margin_top_12">멤버</div>
 							</div>
-							
-							
+
+
 
 						</div>
 					</div>
@@ -193,7 +145,7 @@
 					</div>
 					<div class="project_date">
 						<div class="font_18 font_bold margin_bottom_12">스터디 분야</div>
-						<div class="font_14">커뮤니티 제작</div>
+						<div class="font_14">${list.meet_field }</div>
 					</div>
 					<div class="margin_top_12">
 						<button class="btn btn_apply2">지원하기</button>
@@ -203,6 +155,6 @@
 		</div>
 	</main>
 
-	<c:import url="includes/footer.jsp"></c:import>
+	<c:import url="../includes/footer.jsp"></c:import>
 </body>
 </html>
