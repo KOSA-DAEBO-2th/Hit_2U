@@ -155,3 +155,26 @@ a {
 .search-box:hover > .search-txt {
     padding: 0 6px;
 }
+
+/* 
+top
+*/
+.category_header{
+	padding: 8px 20px;
+	background-color: rgb(25, 27, 169);
+	color: white;
+	border-radius: 2px;
+
+}
+
+.read_title{
+	font-size: 32px;
+	margin: 20px 0px;
+}
+
+.meeting_state{
+	border-radius: 20px;
+	background-color: #F2F2F2;
+	font-size: 12px;
+	padding: 3px 7px;
+}
