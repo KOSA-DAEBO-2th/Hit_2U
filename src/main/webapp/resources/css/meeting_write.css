@@ -5,10 +5,44 @@
 	font-weight: bold;
 }
 
-.input_section{
+.input_section {
 	margin: 20px 0px;
 }
 
-.btn-primary{
+.btn-primary {
 	
 }
+
+.write_wrap {
+	margin: 20px 0px;
+	border-bottom: 1px solid black;
+}
+
+.note-frame {
+	font-family: inherit;
+}
+
+.form-select {
+	padding: 0.5rem 0.75rem;
+}
+
+select option[value=""][disabled] {
+	display: none;
+}
+
+.placeholder_color{
+	color: hsl(215, 13%, 70%);
+}
+
+.img_input_btn{
+	width: 385px;
+	height: 230px;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+	border: 1px solid #eaeaea;
+}
+
+.img_input_btn:hover {
+	box-shadow : 1px 1px 10px -5px rgb(220,220,220); 
+}
+

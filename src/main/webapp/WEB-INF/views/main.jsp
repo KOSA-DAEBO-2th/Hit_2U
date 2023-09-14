@@ -8,7 +8,7 @@
 <body>
 	<main class='main_content'>
 		<div class="flex">
-			<div class="main_left_column"">
+			<div class="main_left_column">
 				<section class="main_hit_board margin_bottom_32">
 					<div class="main_board_title">
 						<div>
