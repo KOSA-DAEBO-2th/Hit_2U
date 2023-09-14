@@ -51,6 +51,32 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="driverManagerDataSource"></property> <!-- 해당 session의 transaction을 관리하겠다 -->
 	</bean>
+	
+	
+	
+	    <!-- 메일 보내기 (SEND) -->
+   <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.naver.com" />
+      <property name="port" value="465" />
+      <property name="username" value="${mail.id}" />
+      <property name="password" value="${mail.pwd}" />
+      <property name="defaultEncoding" value="utf-8" />
+
+      <!-- email 요청시는 SMTP -->
+        <property name="javaMailProperties">
+            <props>
+            	<prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+                <prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+                <prop key="mail.smtps.ssl.trust">*</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            </props>
+        </property>
+   </bean>
 
 	<tx:annotation-driven
 		transaction-manager="transactionManager" />
