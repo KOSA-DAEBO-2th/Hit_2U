@@ -65,35 +65,5 @@ function m_send(){
 }
 
 
-function del() {
-	//alert("삭제하시겠습니까?");
-	var confirm_val = confirm("삭제하시겠습니까?");
-	
-	if(confirm_val) {
-		var checkArr = new Array();
-		$("input[class='chk']:checked").each(function(){
-			checkArr.push($(this).val());
-		});
-		
-		$.ajax({
-		type: "POST",
-		url: "message_del",
-		contentType: 'application/json',
-		data: JSON.stringify(message),
-		success: function(data){
-			console.log("success");
-			//location.href = "message_list";
-			m_list();
 
-		}
-	});
-	}
-	
-	let list = [];
-	$(".chk:checked").each(function(idx, item){
-	if(idx == 0){
-		list.push({"m_no":item});
-	} else {
-		list += ", "
-}
 
