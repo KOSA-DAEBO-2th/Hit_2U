@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-<bean id="customUserDetailsService" class="kr.co.hit.security.UserAuthenticationService"/>
+<bean id="customUserDetailsService" class="kr.co.hit.security.CustomUserDetailService"/>
 
 		<!-- ##Security http## -->
 		<security:http auto-config="true" use-expressions="true">

@@ -45,4 +45,10 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@PostMapping("/loginok")
+	public String loginok() {
+		System.out.println("로그인 체크");
+		
+		return null;
+	}
 }

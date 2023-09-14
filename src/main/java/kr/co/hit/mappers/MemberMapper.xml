@@ -9,5 +9,9 @@ INSERT INTO MEMBER (member_no, member_id, nickname, password, email, contact, gr
 VALUES ((select nextval('MEMBER_SEQ') from dual), #{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
 	</insert>
 	
+	<!-- getMember -->
+	<select id ="getMember" parameterType="kr.co.hit.dto">
+	SELECT member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
+	</select>
 	
 </mapper>
