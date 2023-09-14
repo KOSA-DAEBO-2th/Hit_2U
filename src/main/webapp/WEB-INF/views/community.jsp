@@ -1,4 +1,6 @@
 ﻿<%@ include file="includes/header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <html>
 <head>
 <title>Insert title here</title>
@@ -38,7 +40,7 @@
 		</div>
 
 		<button class="btn btn_write">
-			<a href="/community/community_write">작성하기</a>
+			<a href="/community/community_write_form">작성하기</a>
 		</button>
 		<article>
 			<div class="board_list">
@@ -53,18 +55,29 @@
 								<div class="board_list">
 									<div class="board_list_inside">
 										<div class="flex item_center">
+											<div class="list_number">
+												<div>글번호: ${list.b_no}</div>
+											</div>
+											<span class="mc"> · </span>
+
 											<div class="nickname_area">
 												<a href="/community/profile" class="nickname">${list.member_no}</a>
 											</div>
-											<span class="mc">·</span>
+											<span class="mc"> · </span>
 											<div class="icon_area font_12">
 												<i class="fa-solid fa-flask"></i>
 											</div>
 											<span class="hp_point">33</span>
+
+											<div class="write_date">
+												<fmt:formatDate value="${ list.b_write_date }"
+													pattern="yyyy-MM-dd" />
+											</div>
+
 										</div>
 										<div class="main_title_box flex item_center">
 											<div class="main_title">
-												<a href="/community/community_detail">${list.b_content}</a>
+												<a href="/community/community_detail?b_no=${list.b_no}">${list.b_title}</a>
 											</div>
 											<div class="like_comment_box">
 												<!-- 										<div class="box"> -->

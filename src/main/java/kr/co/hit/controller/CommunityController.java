@@ -2,6 +2,8 @@ package kr.co.hit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,36 +25,68 @@ public class CommunityController {
 		return "community";
 	}
 
+	// community write page
+	@RequestMapping("/community/community_write_form")
+	public String community_write_form() {
+
+		return "community_write_form";
+	}
 	
-	// ±€ ¿€º∫
+	// community_write
 	@RequestMapping("/community/community_write")
 	public String community_write(CommunityDto dto) {
 
-		communityService.insertCommunity(dto);
-		
-		return "community_write";
+		communityService.InsertCommunity(dto);
+
+		return "redirect:/community";
 	}
-	
 
-	// ±€ ªÛºº∫∏±‚
+	// community detail
 	@RequestMapping("/community/community_detail")
-	public String community_detail() {
-
+	public String community_detail(int b_no, Model model) {
+		
+		CommunityDto dto = communityService.getCommunityDetail(b_no);
+		model.addAttribute("dto", dto);
+		System.out.println(dto+"   detail");
+		
 		return "community_detail";
 	}
+	
+	// update form
+	@RequestMapping("/community/community_update_form")
+	public String updateform(int b_no, Model model) {
 
+		CommunityDto dto = communityService.getCommunityDetail(b_no);
+		model.addAttribute("dto", dto);
+		System.out.println(dto+"   community_update_form");
+
+		return "community_update_form";
+
+	}	
+	
+	@RequestMapping("/community_update")
+	public String update(CommunityDto dto ) {
+		int result = communityService.updateCommunity(dto);
+		String res = "redirect:/community"; // Î¶¨Îã§Ïù¥Î†âÌä∏ URLÎ•º Ïû¨ÏßÄÏ†ï. Ï£ºÏÜåÍ∞Ä Î∞îÎÄú
+		if (result == 0)
+			res = "fail";
+		return res;
+
+	}	
 	
 	
-	@RequestMapping("/community/profile")
-	public String profile() {
+	
 
-		return "profile";
-	}
-
-	@RequestMapping("/qna")
-	public String qna() {
-
-		return "qna";
-
-	}
+//	@RequestMapping("/community/profile")
+//	public String profile() {
+//
+//		return "profile";
+//	}
+//
+//	@RequestMapping("/qna")
+//	public String qna() {
+//
+//		return "qna";
+//
+//	}
 }

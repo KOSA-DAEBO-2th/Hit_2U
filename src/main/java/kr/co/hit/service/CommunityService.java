@@ -18,6 +18,7 @@ public class CommunityService implements CommunityDao {
 
 	@Override
 	public List<CommunityDto> CommunityList() {
+		
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		List<CommunityDto> list = new ArrayList<CommunityDto>();
 		list = dao.CommunityList();
@@ -27,12 +28,26 @@ public class CommunityService implements CommunityDao {
 	}
 
 	@Override
-	public void insertCommunity(CommunityDto dto) {
+	public void InsertCommunity(CommunityDto dto) {
+		
+//		CommunityService dao = sqlsession.getMapper(CommunityService.class);
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		dao.InsertCommunity(dto);
 
-		CommunityService dao = sqlsession.getMapper(CommunityService.class);
+	}
 
-		dao.insertCommunity(dto);
+	@Override
+	public CommunityDto getCommunityDetail(int b_no) {
+	
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);	
+		return dao.getCommunityDetail(b_no);
+	}
 
+	public int updateCommunity(CommunityDto dto) {
+
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.updateCommunity(dto);
+		
 	}
 
 }

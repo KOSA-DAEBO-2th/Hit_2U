@@ -10,5 +10,4 @@ $(".btn_anonymous").on("click", function () {
     $(this).addClass("btn_anonymous_click");
 });
 
-var data = ${list[0].tags}
 

@@ -40,6 +40,23 @@
 	href="${pageContext.request.contextPath }/resources/css/summernote/summernote-lite.css"
 	rel="stylesheet">
 </head>
+
+<script type="text/javascript">
+	function board_update() {
+		//alert("수정");
+		location.href = "community_update_form?b_no=${dto.b_no}";
+	}
+	
+	function board_delete() {
+		//alert("삭제");
+		location.href = "deleteform?b_no=${dto.b_no}";
+	}
+	function board_reply() {
+		//alert("답변");
+		location.href = "replyform?b_no=${dto.b_no}";
+	}
+</script>
+
 <body>
 	<main class='main_content_sm'>
 		<div class="content_label font_32">
@@ -59,6 +76,7 @@
 						src="/resources/images/profile_logo.png">
 				</div>
 				<div class="nickname_area">
+					<div>${dto.b_no}</div>
 					<a href="/community/profile" class="nickname">윤성호빵맨</a> <span
 						class="mc">.</span> <i class="fa-solid fa-flask"></i> <span
 						class="hp_point">33</span> <span class="mc">.</span><span>약
@@ -67,14 +85,14 @@
 				</div>
 			</div>
 			<div>
-				<h1>사람들 키보드 소리가 너무 시끄러운데 제가 예민한건가요?</h1>
+				<h1>${dto.b_title}</h1>
+				<div>
+					<input type="button" value="수정" onclick="board_update()" /> <input
+						type="button" value="삭제" onclick="board_delete()" />
+				</div>
 			</div>
 			<div>
-				<p>영어 발음이야 하나만 옳다고 하기도 그렇고 의사만 전달되면 크게 중요한건 아니니 그냥 가벼운 고민정도로
-					들어주시면 감사하겠습니다. 제 사수는 width는 와이드로, border는 볼더로 발음하는데 저는 width는 윋에 끝에
-					th 발음 조금 주고 border는 보더라고 발음하는데 같이 얘기할 때 한 단어를 말해도 서로 다른 발음으로 얘기하는
-					경우가 잦더라고요. 이게 혹시라도 사수 눈에는 제가 고집부리고 뻗대는걸로 비춰질까싶어서 제가 사수 발음에 그냥 맞춰주는게
-					맞는건지 고민이 되네요.</p>
+				<p>${dto.b_content}</p>
 			</div>
 			<div>
 				<h5 id="notes-title">16 개의 댓글</h5>
@@ -91,6 +109,8 @@
 						</div>
 						<div class="reply-button">
 							<button type="button">댓글 쓰기</button>
+							<input type="button" value="답변" onclick="board_reply()" />
+
 						</div>
 					</div>
 				</section>
