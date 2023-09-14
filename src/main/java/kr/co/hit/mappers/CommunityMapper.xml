@@ -4,9 +4,60 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hit.dao.CommunityDao">
-	<select id="CommunityList" resultType="kr.co.hit.dto.CommunityDto">
-	
-		SELECT * FROM BOARD WHERE CAT_NO = 1 ORDER BY B_WRITE_DATE DESC
-	
+
+	<select id="CommunityList"
+		resultType="kr.co.hit.dto.CommunityDto">
+
+		SELECT * FROM BOARD WHERE CAT_NO = 1 ORDER BY b_no desc
+
 	</select>
+
+	<insert id="InsertCommunity"
+		parameterType="kr.co.hit.dto.CommunityDto">
+
+		INSERT INTO BOARD
+		(b_no, b_title, b_content,
+		b_write_date, b_view, b_reply, b_recommend, member_no, cat_no)
+		VALUES(
+		(SELECT * FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM BOARD)
+		AS tmp),
+		#{b_title},#{b_content}, current_timestamp, 1,2,3,4,1)
+
+	</insert>
+
+	<select id="getCommunityDetail"
+		resultType="kr.co.hit.dto.CommunityDto" parameterType="int">
+
+		select b_no,
+		b_title,
+		b_content
+		from
+		BOARD
+		where b_no = #{b_no}
+
+	</select>
+
+	<update id="updateCommunity"
+		parameterType="kr.co.hit.dto.CommunityDto">
+
+		update BOARD set 
+		b_title=#{b_title}, b_content=#{b_content} 
+		where b_no = #{b_no}
+
+
+	</update>
+
+
+
+
+
 </mapper>
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 $(".btn_category").on("click", function () {
-	alert('안녕');
+    alert("안녕");
     $(".btn_category").removeClass("btn_category_click");
     $(".btn_anonymous").removeClass("btn_anonymous_click");
     $(this).addClass("btn_category_click");
