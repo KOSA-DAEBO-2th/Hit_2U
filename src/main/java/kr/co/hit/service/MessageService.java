@@ -23,6 +23,22 @@ public class MessageService implements MessageDao{
 		list = dao.selectMessageList();
 		return list;
 	}
+
+	@Override
+	public int sendMessage(MessageDto dto) {
+		int res = 0;
+		MessageDao dao = sqlsession.getMapper(MessageDao.class);
+		res = dao.sendMessage(dto);
+		return res;
+	}
+
+	@Override
+	public List<MessageDto> selectSendList() {
+		MessageDao dao = sqlsession.getMapper(MessageDao.class);
+		List<MessageDto> list = new ArrayList<MessageDto>();
+		list = dao.selectSendList();
+		return list;
+	}
 	
 	
 

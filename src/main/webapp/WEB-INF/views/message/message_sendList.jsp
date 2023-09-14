@@ -25,13 +25,12 @@ $(document).ready(function() {
 		if(total != checked) $("#cbx_chkAll").prop("checked", false);
 		else $("#cbx_chkAll").prop("checked", true); 
 	});
-	
 });
 </script>
 </head>
 <body>
 	<%-- <c:import url="../includes/header.jsp"></c:import> --%>
-	
+	<h1>보낸쪽지</h1>
 	<main class='main_content'>
 		<!-- <div class="container"> -->
     <div class="row">
@@ -39,14 +38,14 @@ $(document).ready(function() {
             <div class="overflow-hidden card table-nowrap table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">New customers</h5>
-                    <a href="#!" class="btn btn-danger btn-sm" onclick="del()">삭제</a>
+                    <a href="#!" class="btn btn-light btn-sm">View All</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead class="small text-uppercase bg-body text-muted">
                             <tr>
-                                <th><input type="checkbox"  id="cbx_chkAll" ></th>
-                                <th>보낸사람</th>
+                                <th><input type="checkbox" id="cbx_chkAll"></th>
+                                <th>받는사람</th>
                                 <th>내용</th>
                                 <th>날짜</th>
                                 <th class="text-end">Action</th>
@@ -62,10 +61,10 @@ $(document).ready(function() {
                                 <td>
                                     <div class="d-flex align-items-center">
 
-                                        <input type="checkbox" class="chk" name="chk" value="${ list.m_no }">
+                                        <input type="checkbox" name="chk">
                                     </div>
                                 </td>
-                                <td>${ list.m_send }</td>
+                                <td>${ list.m_receive }</td>
                                 <td> <span class="d-inline-block align-middle">${ list.m_content }</span></td>
                                 <td> <fmt:formatDate value="${ list.m_date }" pattern="yy-MM-dd [H:mm]" type="date"/> </td>
                                 <td class="text-end">
