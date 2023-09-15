@@ -37,6 +37,22 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- 인코딩 필터(반드시 시큐리티 필터 위로 올릴 것!) -->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<async-supported>true</async-supported>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- MultiPart Filter -->
 	<filter>
 		<display-name>springMultipartFilter</display-name>
@@ -59,21 +75,6 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
-	<filter>
-		<filter-name>EncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<async-supported>true</async-supported>
-	</filter>
-	<filter-mapping>
-		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 

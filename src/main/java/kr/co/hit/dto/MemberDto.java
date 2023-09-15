@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class MemberDto {
-	private int member_no, login_method;
-	private String member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority;
+	private int member_no;
+	private String member_id, nickname, member_method,password, email, contact, grade, git_link, baekjoon, authority;
 
 	private List<MemberAuth> authList;
 }

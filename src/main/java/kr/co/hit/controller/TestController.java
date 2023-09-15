@@ -26,6 +26,11 @@ public class TestController {
 		return "/test/fileTest";
 	}
 
+	@RequestMapping("admin")
+	public String testAdmin() {
+		return "/test/admin";
+	}
+	
 	@RequestMapping(method = RequestMethod.POST,value = "/upload", headers = ("content-type=multipart/*"))
 	public String upload(@RequestParam("file") List<MultipartFile> files) throws IOException {
 		System.out.println("upload 실험 시작");

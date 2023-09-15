@@ -14,28 +14,29 @@ import org.springframework.stereotype.Service;
 import kr.co.hit.dao.MemberDao;
 import kr.co.hit.dto.MemberAuth;
 import kr.co.hit.dto.MemberDto;
-import kr.co.hit.security.User;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
 	@Autowired
 	MemberDao dao;
 	
-	public CustomUserDetailService() {}
 
 	@Override
 	public UserDetails loadUserByUsername(String member_id) throws UsernameNotFoundException {
 		MemberDto dto = dao.getMember(member_id);
 		
+		System.out.println(dto);
 		if(dto==null) throw new UsernameNotFoundException("Invalid User");
 			
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		for (MemberAuth auth : dto.getAuthList()) {
-			grantedAuthorities.add(new SimpleGrantedAuthority(auth.getAuth()));
+			grantedAuthorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
 		}
 		User user = new User(dto, grantedAuthorities);
-
+		System.out.println(user);
 		return user;
 	}
 

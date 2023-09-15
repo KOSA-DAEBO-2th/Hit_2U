@@ -9,37 +9,51 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-<bean id="customUserDetailsService" class="kr.co.hit.security.CustomUserDetailService"/>
-
-		<!-- ##Security http## -->
-		<security:http auto-config="true" use-expressions="true">
-					<!-- 전체 접근 영역 -->
-					<security:intercept-url pattern="/member/**" access="permitAll" />
-					<security:intercept-url pattern="/community/**" access="permitAll"/>
-					
-					<security:intercept-url pattern="/lecture/**" access="permitAll"/>
-					<security:intercept-url pattern="/profile/**" access="permitAll"/>
-					<security:intercept-url pattern="/message/**" access="permitAll"/>
-					
-					<!-- 정적 자원에 대한 시큐리티 해제 -->
-					<security:intercept-url pattern="/resources/**" access="permitAll" />
-
-					<!-- 로그인 사용자 이용 영역 -->
-					<!-- <security:intercept-url pattern="/community/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/> -->
-
-					<!-- 로그인 -->					
-					<security:csrf disabled="true"/>
-					<security:form-login login-page="/member/login" username-parameter="member_id" password-parameter="password"/>
-					
-					
-		</security:http>
+	<bean id="bcryptPasswordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean id="customUserDetailsService"
+		class="kr.co.hit.security.CustomUserDetailService" />
+	<bean id="cAuthenticationProvider"
+		class="kr.co.hit.security.CAuthenticationProvider" />
+	<bean id="customLoginSuccess"
+		class="kr.co.hit.security.UserLoginSuccessHandler"></bean>
 		
-		<!-- ##Security authentication## -->
-		<security:authentication-manager>
-			<security:authentication-provider user-service-ref="customUserDetailsService">
-				<security:password-encoder ref="bcryptPasswordEncoder" />
-			</security:authentication-provider>
-		</security:authentication-manager>
+	<!-- ##Security http## -->
+	<security:http auto-config="true" use-expressions="true">
+		<security:csrf disabled="true" />
+		<!-- 전체 접근 영역 -->
+		<security:intercept-url pattern="/member/**" access="permitAll" />
+		<security:intercept-url pattern="/community/**" access="permitAll" />
+		<security:intercept-url pattern="/test/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/lecture/**" access="permitAll" />
+		<security:intercept-url pattern="/profile/**" access="permitAll" />
+		<security:intercept-url pattern="/message/**" access="permitAll" />
+
+		<!-- 정적 자원에 대한 시큐리티 해제 -->
+		<security:intercept-url pattern="/resources/**" access="permitAll" />
+
+		<!-- 로그인 사용자 이용 영역 -->
+		<!-- <security:intercept-url pattern="/community/**" access="hasAnyRole('ROLE_USER', 
+			'ROLE_ADMIN')"/> -->
+
+		<!-- 로그인 -->
+		<security:form-login login-page="/member/login"
+			username-parameter="member_id" password-parameter="password"
+			default-target-url="/" authentication-success-handler-ref="customLoginSuccess" />
+
+		<!-- 로그아웃 -->
+		<security:logout logout-url="/logout" logout-success-url="/"  invalidate-session="true" delete-cookies="remember-me, JSESSION_ID, JSESSIONID"/>
+
+	</security:http>
+
+	<!-- ##Security authentication## -->
+	<security:authentication-manager>
+	<security:authentication-provider ref="cAuthenticationProvider" />
+	<security:authentication-provider
+			user-service-ref="customUserDetailsService">			
+			<security:password-encoder
+				ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 </beans>

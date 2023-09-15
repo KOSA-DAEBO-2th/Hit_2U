@@ -40,7 +40,7 @@
 				<div class="font_16 line_text">HIT 아이디로 로그인</div>
 				<hr>
 			</div>
-			<form id="login_input" method="post" action="/">
+			<form id="login_input" method="post" action="/login">
 				<div class="font_16 text_left">아이디</div>
 				<input class="form-control" type="text" name="member_id">
 

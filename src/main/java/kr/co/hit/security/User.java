@@ -13,8 +13,8 @@ public class User implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 
-	private int member_no, login_method;
-	private String member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority;
+	private int member_no;
+	private String member_id, member_method, nickname, password, email, contact, grade, git_link, baekjoon, authority;
 
 	private String enabled;
 	private boolean isEnabled;
@@ -62,12 +62,12 @@ public class User implements UserDetails{
 		this.member_no = member_no;
 	}
 
-	public int getLogin_method() {
-		return login_method;
+	public String getMember_method() {
+		return member_method;
 	}
 
-	public void setLogin_method(int login_method) {
-		this.login_method = login_method;
+	public void setMember_method(String member_method) {
+		this.member_method = member_method;
 	}
 
 	public String getMember_id() {
@@ -148,49 +148,46 @@ public class User implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return isAccountNonExpired;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
-		return false;
+		return isAccountNonLocked;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
-		return false;
+		return isCredentialsNonExpired;
 	}
 
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return false;
+		return isEnabled;
 	}
 	
 	public User(MemberDto dto, Collection<GrantedAuthority> auth) {
 		member_no = dto.getMember_no();
-		login_method = dto.getLogin_method();
+		member_method = dto.getMember_method();
 		member_id = dto.getMember_id();
 		nickname = dto.getNickname();
 		password = dto.getPassword();
@@ -212,7 +209,7 @@ public class User implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "User [member_no=" + member_no + ", login_method=" + login_method + ", member_id=" + member_id
+		return "User [member_no=" + member_no + ", member_method=" + member_method + ", member_id=" + member_id
 				+ ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", contact=" + contact
 				+ ", grade=" + grade + ", git_link=" + git_link + ", baekjoon=" + baekjoon + ", authority=" + authority
 				+ ", enabled=" + enabled + ", isEnabled=" + isEnabled + ", isAccountNonExpired=" + isAccountNonExpired

@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class MemberAuth {
 	private String member_id;
-	private String auth;
+	private String authority;
 }
