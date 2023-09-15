@@ -24,7 +24,7 @@
 	rel="stylesheet">
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -117,11 +117,24 @@
 			var send = $("#confirmCode").val(); 
 			
 			if(send == code){
-				alert("확인되었습니다.");
+				//alert("확인되었습니다.");
+				Swal.fire({
+					  position: 'top-end',
+					  icon: 'success',
+					  title: '확인되었습니다',
+					  showConfirmButton: false,
+					  timer: 1000
+					});
 				$('#codeInput').attr('readonly', true);
 			}
 			else {
-				alert("다시 확인해주세요");
+				//alert("다시 확인해주세요");
+				Swal.fire({
+					  icon: 'error',
+					  title: '다시 확인해주세요',
+					  text: '인증코드가 일치하지 않습니다',
+					  footer: '<a href="">Why do I have this issue?</a>'
+					})
 				$('#codeInput').val("");
 				$('#codeInput').focus();
 			}
