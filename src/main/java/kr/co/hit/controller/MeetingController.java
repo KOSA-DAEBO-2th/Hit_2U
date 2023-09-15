@@ -28,12 +28,37 @@ public class MeetingController {
 	@Autowired
 	MeetingService meetingService;
 	
+//	@GetMapping()
+//	public ModelAndView meeting() {
+//
+//		ModelAndView mv = new ModelAndView("meeting/meeting");
+//		List<MeetingDto> list = meetingService.selectMeetingList();
+
+//		List<String[]> tag_list = new ArrayList<String[]>();
+//		for (int i = 0; i < list.size(); i++) {
+//			String tag[] = list.get(i).getMeet_tags().split(" ");
+//			tag_list.add(tag);
+//		}
+//
+//		mv.addObject("list", list);
+//		mv.addObject("tags", tag_list);
+//		mv.addObject("listcount", listcount);
+//
+//		return mv;
+//	}
+	
 	@GetMapping()
 	public ModelAndView meeting() {
 
 		ModelAndView mv = new ModelAndView("meeting/meeting");
-
+		int listcount = meetingService.getMeetingListCount("","a");
 		List<MeetingDto> list = meetingService.selectMeetingList();
+		int limit = 8;
+		int start = 0;
+		int maxPage = ( (listcount - 1) / limit ) + 1;
+		String search_target = "";
+		
+		list = meetingService.selectMeetingPage(search_target, start, limit);
 		List<String[]> tag_list = new ArrayList<String[]>();
 		for (int i = 0; i < list.size(); i++) {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
@@ -41,42 +66,30 @@ public class MeetingController {
 		}
 
 		mv.addObject("list", list);
-		mv.addObject("tags", tag_list);
+		System.out.println(list);
+		mv.addObject("tag_list", tag_list);
+		mv.addObject("maxPage", maxPage);
 
 		return mv;
 	}
 	
 
 	@PostMapping("/meeting_page")
-	public String ajaxReturnPage(@RequestParam(value="page_num", defaultValue = "1") String page_num, Model model) {
+	public String ajaxReturnPage(@RequestParam(value="page_num", defaultValue = "1") String page_num, @RequestParam("topic") String topic, @RequestParam("search_target") String search_target, Model model) {
 		List<MeetingDto> list = new ArrayList();
-		int listcount = meetingService.getMeetingListCount();
+		int listcount = 0;
 		int limit = 8;
 		int start = (Integer.parseInt(page_num)-1) * limit; 
 		
-		list = meetingService.selectMeetingPage(start, limit);
-
-		List<String[]> tag_list = new ArrayList<String[]>();
-		for (int i = 0; i < list.size(); i++) {
-			String tag[] = list.get(i).getMeet_tags().split(" ");
-			tag_list.add(tag);
-		}
-
-		model.addAttribute("list", list);
-		model.addAttribute("tag_list", tag_list);
-
-		return "meeting/meetingListAjax";
-	}
-
-	@PostMapping()
-	public String ajaxReturnList(@RequestParam("select") String select, Model model) {
-		List<MeetingDto> list = new ArrayList();
-
-		if (select.equals("전체")) {
-			list = meetingService.selectMeetingList();
+		if (topic.equals("전체")) {
+			list = meetingService.selectMeetingPage(search_target, start, limit );
+			listcount = meetingService.getMeetingListCount(search_target, "a");
 		} else {
-			list = meetingService.selectMeetingCategoyList(select);
+			list = meetingService.selectMeetingTopicList(search_target, topic, start, limit);
+			listcount = meetingService.getMeetingListCount(search_target, topic);
 		}
+		
+		int maxPage = ( (listcount - 1) / limit ) + 1;
 		List<String[]> tag_list = new ArrayList<String[]>();
 		for (int i = 0; i < list.size(); i++) {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
@@ -85,9 +98,26 @@ public class MeetingController {
 
 		model.addAttribute("list", list);
 		model.addAttribute("tag_list", tag_list);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("page_num", page_num);
+		model.addAttribute("search_target", search_target);
 
 		return "meeting/meetingListAjax";
 	}
+
+	/*
+	 * @PostMapping() public String ajaxReturnList(@RequestParam("select") String
+	 * select, Model model) { List<MeetingDto> list = new ArrayList();
+	 * 
+	 * if (select.equals("전체")) { list = meetingService.selectMeetingList(); } else
+	 * { list = meetingService.selectMeetingCategoyList(select); } List<String[]>
+	 * tag_list = new ArrayList<String[]>(); for (int i = 0; i < list.size(); i++) {
+	 * String tag[] = list.get(i).getMeet_tags().split(" "); tag_list.add(tag); }
+	 * 
+	 * model.addAttribute("list", list); model.addAttribute("tag_list", tag_list);
+	 * 
+	 * return "meeting/meetingListAjax"; }
+	 */
 	
 
 	@PostMapping("/meeting_search")
