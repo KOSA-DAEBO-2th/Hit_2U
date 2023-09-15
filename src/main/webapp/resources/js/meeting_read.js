@@ -22,7 +22,3 @@ console.log($(".category_header").text());
 if (topic == "스터디") {
     $(".category_header").css("background-color", "#63a02a");
 }
-
-window.addEventListener("popstate", function (event) {
-    alert("뒤로가기 버튼이 클릭되었습니다!");
-});
