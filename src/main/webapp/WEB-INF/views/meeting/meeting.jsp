@@ -21,9 +21,10 @@
 			<div class="" style="flex-basis: 15%;"></div>
 
 			<div class="flex full_width content_center">
-				<button class="btn btn_category btn_category_click" value="전체">전체</button>
-				<button class="btn btn_category" value="프로젝트">프로젝트</button>
-				<button class="btn btn_category" value="스터디">스터디</button>
+				<button id="total" class="btn btn_category btn_category_click"
+					value="전체">전체</button>
+				<button id="project" class="btn btn_category" value="프로젝트">프로젝트</button>
+				<button id="study" class="btn btn_category" value="스터디">스터디</button>
 			</div>
 
 			<div class="flex" style="justify-content: flex-end; flex-basis: 15%;">
@@ -48,11 +49,11 @@
 		<div class="album">
 			<div class="container">
 				<div class="row">
-					<c:forEach begin="0" end="${fn:length(list)-1}" var="i">
+					<c:forEach items="${list }" var="list" varStatus="i">
 						<div class="col-md-3" style="min-width: 300px;">
 							<!-- 							<div class="card mb-4 shadow-sm"> -->
 							<div class="card mb-4">
-								<a href="meeting/${list[i].b_no }"
+								<a href="meeting/${list.b_no }"
 									style="text-decoration: none; color: black"> <svg
 										class="bd-placeholder-img card-img-top" width="100%"
 										height="120" xmlns="http://www.w3.org/2000/svg"
@@ -62,13 +63,15 @@
                                             <image
 											href="${pageContext.request.contextPath }/resources/images/logo.png"
 											width="100%" height="100%"></image>
-												<c:choose>
-											        <c:when test="${list[i].meet_topic_name == '스터디'}">
+                     
+							
+							<c:choose>
+											        <c:when test="${list.meet_topic_name == '스터디'}">
 											            <rect class="topic_study" x="10" y="10"
 													width="69" height="25" rx="1" ry="1" />
 											        </c:when>
 										
-											         <c:when test="${list[i].meet_topic_name == '프로젝트'}">
+											         <c:when test="${list.meet_topic_name == '프로젝트'}">
 											            <rect class="topic_project" x="10" y="10"
 													width="69" height="25" rx="1" ry="1" />
      
@@ -76,55 +79,67 @@
 										
 	
 										      </c:choose>
-										      
-    
-                                            <text class="test" x="17"
-											y="28" fill="#EEE">${list[i].meet_topic_name}</text>
+                                            <text x="17" y="29"
+											fill="#EEE">${list.meet_topic_name}</text>
                                         </svg>
 									<div class="card-body">
-										<h3 class="font_12 font_category">${list[i].meet_field }</h3>
+										<h3 class="font_12 font_category">${list.meet_field }</h3>
 
-										<h2 class="font_14">${list[i].b_title }</h2>
+										<h2 class="font_14">${list.b_title }</h2>
 										<div class="icons_form margin_bottom_8">
-											<c:forEach begin="0" end="${fn:length(tags[i])-1}" var="j">
+											<c:forEach begin="0" end="${fn:length(tag_list[i.index])-1}"
+												var="j">
 												<img class="icons"
-													src="${pageContext.request.contextPath}/resources/icons/${tags[i][j]}.svg" />
+													src="${pageContext.request.contextPath}/resources/icons/${tag_list[i.index][j]}.svg" />
 											</c:forEach>
 										</div>
 										<div
 											class="card_middle flex font_gray font_12 margin_bottom_8">
 											<div>
 												<i class="fa-regular fa-thumbs-up icon_area"></i> <span
-													class="like_count">${list[i].b_recommend }</span>
+													class="like_count">${list.b_recommend }</span>
 											</div>
 											<div>
 												<i class="fa-regular fa-eye icon_area"></i> <span
-													class="view_count">${list[i].b_view }</span>
+													class="view_count">${list.b_view }</span>
 											</div>
 
 										</div>
 										<c:choose>
-											<c:when test="${list[i].meet_state == '모집 중'}">
-												<div class="font_12 font_gray">${list[i].meet_state }
-													<text class="font_blue">${list[i].apply }/${list[i].apply_max }<text>
+											<c:when test="${list.meet_state == '모집 중'}">
+												<div class="font_12 font_gray">${list.meet_state }
+													<text class="font_blue">${list.apply }/${list.apply_max }<text>
 												</div>
 											</c:when>
 
-											<c:when test="${list[i].meet_state == '모집 종료'}">
-												<div class="font_12 font_gray">${list[i].meet_state }</div>
+											<c:when test="${list.meet_state == '모집 종료'}">
+												<div class="font_12 font_gray">${list.meet_state }</div>
 
 											</c:when>
 
 
 										</c:choose>
-										
 									</div>
 								</a>
 							</div>
 						</div>
 					</c:forEach>
+					<div class="flex content_center item_center">
+						<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
+						<input type="text"
+							class="form-control page_test margin_left_20 current_page"
+							value="1" onkeyup="if(window.event.keyCode==13){page_go()}" />
+						<text class=" font_main font_bold"
+							style="font-size: 25px; margin: 0px 15px;">/</text>
+						<input type="text"
+							class="form-control page_test margin_right_20 max_page"
+							value="${maxPage }" disabled /> <i
+							class="fa-solid fa-chevron-right font_20 font_main page_arrow"></i>
+					</div>
+
+
 				</div>
-				<input type="text" class="page_test" value="1" /> <button class="page">이동</button>
+
 			</div>
 		</div>
 	</main>

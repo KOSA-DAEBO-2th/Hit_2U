@@ -27,6 +27,7 @@
             type="text/javascript"
             defer
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     </head>
     <body>
         <header class="header">
@@ -43,7 +44,7 @@
                     <a href="#">Q & A</a>
                 </div>
                 <div class="nav_link">
-                    <a href="/meeting">모임</a>
+                    <a href="/meeting" id="meeting">모임</a>
                 </div>
                 <div class="nav_link">
                     <a href="/lecture">프리랜서</a>
