@@ -86,7 +86,7 @@ a {
     border-bottom: 1px solid black;
 }
 
-.content_category button {
+.content_category .btn_category {
     margin: 0px 20px;
 }
 
@@ -105,7 +105,7 @@ a {
 .btn_category_click {
     background-color: royalblue;
     color: #eee;
-    border-color: white;
+    border-color: royalblue;
     opacity: 1;
 }
 
@@ -137,6 +137,11 @@ a {
     justify-content: center;
     align-items: center;
     color: #51e3d4;
+    cursor:pointer;
+}
+.search-btn:hover {
+    color: #4169e1;
+
 }
 
 .search-txt {
@@ -161,7 +166,7 @@ top
 */
 .category_header{
 	padding: 8px 20px;
-	background-color: rgb(25, 27, 169);
+	background-color: black;
 	color: white;
 	border-radius: 2px;
 
