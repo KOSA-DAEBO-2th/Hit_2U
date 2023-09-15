@@ -50,7 +50,6 @@
 			action="/community/community_write">
 			<div>
 				<div>
-
 					<!-- 				밑에는 임시적으로 주석처리하였음 추후에 주석을 풀어야됨 -->
 										<div class="topic">
 											<label>토픽</label> <select>

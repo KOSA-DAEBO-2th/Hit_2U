@@ -49,7 +49,9 @@
 	
 	function board_delete() {
 		//alert("삭제");
-		location.href = "deleteform?b_no=${dto.b_no}";
+// 		location.href = "community_delete?b_no=${dto.b_no}";
+		location.href = "/community";
+		
 	}
 	function board_reply() {
 		//alert("답변");
