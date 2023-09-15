@@ -43,7 +43,7 @@
                     <a href="#">Q & A</a>
                 </div>
                 <div class="nav_link">
-                    <a href="/meeting" id="meeting">모임</a>
+                    <a href="/meeting">모임</a>
                 </div>
                 <div class="nav_link">
                     <a href="/lecture">프리랜서</a>

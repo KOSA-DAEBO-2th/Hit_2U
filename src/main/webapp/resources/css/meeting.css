@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
 #meeting {
-	color: royalblue;
+    color: royalblue;
 }
 
 .album {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .card {
-	padding: 0px;
+    padding: 0px;
 }
 
 .container {
-	padding: 0px;
+    padding: 0px;
 }
 
 /* .row {
@@ -21,21 +21,30 @@
 } */
 
 .card-body {
-	padding: 10px;
+    padding: 10px;
 }
 
 .icons {
-	width: 20px;
-	height: 20px;
-	margin-right: 3px;
+    width: 20px;
+    height: 20px;
+    margin-right: 3px;
 }
 
 .card_middle {
-	justify-content: space-between;
-	padding-bottom: 8px;
-	border-bottom: 1px solid black;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid black;
 }
 
 .card:hover {
-	box-shadow : 1px 2px 5px 3px rgb(220,220,220); 
+    box-shadow: 1px 2px 5px 3px rgb(220, 220, 220);
+}
+
+.topic_study {
+    fill: #63a02a;
+    width: 56px;
+}
+
+.topic_project {
+    
 }
