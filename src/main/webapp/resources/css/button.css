@@ -1,4 +1,3 @@
-
 @import
 	url("https://cdn.jsdelivr.net/npm/@alphardex/aqua.css/dist/aqua.min.css")
 	;
@@ -358,4 +357,21 @@
 	background-color: #b4b4b4;
 }
 
+.btn_write{
+	width: auto;
+	height: auto;
+	padding: 5px 10px;
+	border-radius: 8px;
+    background-color: royalblue;
+    color: #eee;
+    border-color: white;
+    opacity: 1;
+    margin: 0px;
 
+}
+
+.btn_write:hover {
+    background-color: royalblue;
+    color: #eee;
+    opacity: 1;
+}

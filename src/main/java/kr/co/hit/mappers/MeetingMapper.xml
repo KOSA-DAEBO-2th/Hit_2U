@@ -13,6 +13,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.B_RECOMMEND,
 		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
 		M.MEET_TOPIC_NAME,
+		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING  ) tmp
+		ON B.B_NO =
+		tmp.B_NO
+
+		WHERE CAT_NO =
+		3;
+
+
+	</select>
+	
+	<select id="selectMeetingPage"
+		resultType="kr.co.hit.dto.MeetingDto" parameterType="int">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING  ) tmp
+		ON B.B_NO =
+		tmp.B_NO
+
+		WHERE CAT_NO =
+		3 LIMIT #{param1}, #{param2};
+
+
+	</select>
+
+	<select id="selectMeetingCategoyList"
+		resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
+		SELECT B.B_NO,
+		B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
 		M.MEET_STATE, M.MEET_FIELD
 		FROM BOARD B
 		INNER JOIN
@@ -20,23 +71,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON B.B_NO =
 		M.B_NO
 
-		WHERE CAT_NO =
-		3;
+		WHERE CAT_NO = 3 AND MEET_TOPIC_NAME = #{option};
 
 	</select>
 
-	<select id="selectMeetingTag" resultType="String">
-		SELECT t.t_mapping_no,
-		t.tag_num, tt.tag_name
-		FROM BOARD b
-		INNER JOIN TAG_MAPPING t
-		ON b.b_no =
-		t.b_no
-		INNER JOIN TAG tt
-		ON t.tag_num = tt.tag_no
+	<select id="selectMeetingSearch"
+		resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
+		SELECT B.B_NO,
+		B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE, M.MEET_FIELD
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
 
-		WHERE cat_no = 3;
+		WHERE CAT_NO = 3 AND B_TITLE LIKE CONCAT('%', #{search_target},
+		'%')
+
 	</select>
+
 
 	<select id="selectMeetingRead"
 		resultType="kr.co.hit.dto.MeetingDto">
@@ -80,7 +139,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert INTO MEETING(b_no, meet_start_day, meet_end_day,
 		meet_tags, meet_topic_name, meet_state, meet_field)
 		VALUES (
-		(SELECT t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
+		(SELECT
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
 		,'2023-09-20'
 		,'2023-09-24'
 		,#{meet_tags}
@@ -91,6 +151,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	</insert>
+
+	<update id="increaseView">
+		UPDATE BOARD SET b_view = b_view+1 WHERE b_no = #{boardIdx};
+
+
+	</update>
+	
+		<select id="getMeetingListCount"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING  ) tmp
+		ON B.B_NO =
+		tmp.B_NO
+
+		WHERE CAT_NO =
+		3;
+
+	</select>
+	
 
 
 </mapper>

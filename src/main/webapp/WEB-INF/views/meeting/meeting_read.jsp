@@ -14,7 +14,7 @@
 
 		<div
 			class="flex content_center item_center direction_column padding_bottom_20">
-			<div class="category_header font_16">스터디</div>
+			<div class="category_header font_16">${list.meet_topic_name}</div>
 			<div class="read_title  ">${list.b_title }</div>
 			<div class="meeting_state ">${list.meet_state }</div>
 		</div>
