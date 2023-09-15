@@ -5,10 +5,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.CommunityDao">
 
-	<select id="CommunityList"
+	<select id="CommunityList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
-		SELECT * FROM BOARD WHERE CAT_NO = 1 ORDER BY b_no desc
+		SELECT * FROM (
+		SELECT
+		A.*,
+		@rownum := @rownum + 1 AS r
+		FROM
+		(SELECT * FROM BOARD where cat_no =1 ORDER BY b_no DESC) A,
+		(SELECT
+		@rownum := 0) R
+		) B
+		WHERE r BETWEEN #{start} AND #{end}
+
+	</select>
+
+	<select id="getCommunityCount" resultType="Integer">
+
+		SELECT COUNT(*) FROM
+		BOARD WHERE CAT_NO = 1;
 
 	</select>
 
@@ -40,24 +56,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
 
-		update BOARD set 
-		b_title=#{b_title}, b_content=#{b_content} 
-		where b_no = #{b_no}
-
+		update BOARD set
+		b_title=#{b_title},
+		b_content=#{b_content}
+		where b_no =
+		#{b_no}
 
 	</update>
 
+	<update id="updateView" parameterType="int">
+	
+		UPDATE BOARD SET B_VIEW = B_VIEW + 1
+		WHERE b_no = #{b_no}
 
+	</update>
 
-
-
+<!-- 	<delete id="deleteCommunity" parameterType="int"> -->
+<!-- 		delete from BOARD where b_no = #{b_no} -->
+<!-- 	</delete> -->
 </mapper>
-
-
-
-
-
-
-
-
-

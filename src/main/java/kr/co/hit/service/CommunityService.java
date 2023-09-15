@@ -1,6 +1,7 @@
 package kr.co.hit.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,30 +17,44 @@ public class CommunityService implements CommunityDao {
 	@Autowired
 	private SqlSession sqlsession;
 
+//	// 커뮤니티 리스트
+//	@Override
+//	public List<CommunityDto> CommunityList() {
+//
+//		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+//		List<CommunityDto> list = new ArrayList<CommunityDto>();
+//		list = dao.CommunityList();
+//
+//		return list;
+//	}
+
+	// 커뮤니티 리스트 with 페이징
 	@Override
-	public List<CommunityDto> CommunityList() {
-		
+	public List<CommunityDto> CommunityList(HashMap map) {
+
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		List<CommunityDto> list = new ArrayList<CommunityDto>();
-		list = dao.CommunityList();
+		return dao.CommunityList(map);
+	}
 
-		return list;
+	// 총 게시물 수
+	@Override
+	public int getCommunityCount() {
 
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.getCommunityCount();
 	}
 
 	@Override
 	public void InsertCommunity(CommunityDto dto) {
-		
-//		CommunityService dao = sqlsession.getMapper(CommunityService.class);
+
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		dao.InsertCommunity(dto);
-
 	}
 
 	@Override
 	public CommunityDto getCommunityDetail(int b_no) {
-	
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);	
+
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		return dao.getCommunityDetail(b_no);
 	}
 
@@ -47,7 +62,32 @@ public class CommunityService implements CommunityDao {
 
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		return dao.updateCommunity(dto);
-		
 	}
 
+//	@Override
+//	public int deleteCommunity(CommunityDto dto) {
+//
+//		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+//		
+//		return deleteCommunity(dto);
+//	}
+
+//	@Override
+//	public int deleteCommunity(int b_no) {
+//
+//		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+//
+//		return dao.deleteCommunity(b_no);
+//
+//	}
+
+	@Override
+	public int updateView(int b_no) {
+		System.out.println("update view");
+		
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		
+		return dao.updateView(b_no);
+	}
+	
 }
