@@ -2,6 +2,7 @@ package kr.co.hit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.MessageDto;
 import kr.co.hit.service.MailService;
 import kr.co.hit.service.MessageService;
+import kr.co.hit.service.ProfileService;
 
 @RestController
 @RequestMapping("/")
@@ -20,6 +22,9 @@ public class RestMController {
 
 	@Autowired
 	private MessageService messageService;
+	
+	@Autowired
+	private ProfileService profileService;
 	
 	@Autowired
 	MailService mailService;
@@ -44,6 +49,15 @@ public class RestMController {
 		String code = mailService.sendSimpleMessage(dto.getEmail());
 		System.out.println("사용자에게 발송한 인증코드==> "+ code);
 		return code;
+	}
+	
+	@ResponseBody
+	@PostMapping("/profile_update")
+	public ModelAndView updateProfile(@RequestBody MemberDto dto) {
+		System.out.println("update controller");
+		profileService.updateInfo(dto);
+		ModelAndView mav = new ModelAndView("profile/profile");
+		return mav;
 	}
 	
 }

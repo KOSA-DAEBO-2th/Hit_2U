@@ -30,7 +30,8 @@
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <button class="btn btn-primary" type="button">Upload new image</button>
+                    <input type="file" id="imageInput" style="visibility: hidden;">
+                    <button class="btn btn-primary" type="button" onclick="imageUpload()">파일 불러오기</button>
                 </div>
             </div>
         </div>
@@ -42,55 +43,42 @@
                     <form>
                         <!-- Form Group (username)-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">UserID (how your name will appear to other users on the site)</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="${ dto.member_id }">
+                            <label class="small mb-1" for="inputID">UserID (how your name will appear to other users on the site)</label>
+                            <input class="form-control" id="inputID" type="text" placeholder="Enter your username" value="${ dto.member_id }" readonly>
                         </div>
-                        <!-- Form Row-->
-                        <div class="row gx-3 mb-3">
-                            <!-- Form Group (first name)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputFirstName">NickName</label>
-                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="${ dto.nickname }">
-                            </div>
-                            <!-- Form Group (last name)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" >
-                            </div>
+                        <!-- Form Group (nickName)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputNickname">NickName</label>
+                            <input class="form-control" id="inputNickname" type="text" placeholder="Enter your username" value="${ dto.nickname }" >
                         </div>
                         <!-- Form Row        -->
                         <div class="row gx-3 mb-3">
+                        <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputEmail">Email</label>
+                                <input class="form-control" id="inputEmail" type="email" placeholder="Enter your email" value="${ dto.email }">
+                            </div>
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputOrgName">Phone</label>
-                                <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="${ dto.contact }">
+                                <label class="small mb-1" for="inputContact">Phone</label>
+                                <input class="form-control" id="inputContact" type="text" placeholder="Enter your phone number" value="${ dto.contact }">
                             </div>
-                            <!-- Form Group (location)-->
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="inputLocation">Email</label>
-                                <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="${ dto.email }">
-                            </div>
-                        </div>
-                        <!-- Form Group (email address)-->
-                        <div class="mb-3">
-                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="name@example.com">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="555-123-4567">
+                                <label class="small mb-1" for="inputGitLink">git_link</label>
+                                <input class="form-control" id="inputGitLink" type="tel" placeholder="github link" value="${ dto.git_link }">
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
-                                <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="06/10/1988">
+                                <label class="small mb-1" for="inputBaekjoon">baekjoon</label>
+                                <input class="form-control" id="inputBaekjoon" type="text" name="birthday" placeholder="baekjoon link" value="${ dto.baekjoon }">
                             </div>
                         </div>
                         <!-- Save changes button-->
-                        <button class="btn btn-primary" type="button">Save changes</button>
+                        <button class="btn btn-primary" type="button" onclick="updateInfo()">Save changes</button>
                     </form>
                 </div>
             </div>
@@ -99,6 +87,43 @@
 </div>
 	</main>
 	<c:import url="../includes/footer.jsp"></c:import>
+	<script type="text/javascript">
+		function imageUpload(){
+			console.log("sssss");
+			let myInput = document.getElementById("imageInput");
+			myInput.click();
+		}
+		
+		
+		function updateInfo(){
+			console.log("update clicked");
+			
+			
+			var data = {};
+			data.member_id = document.getElementById('inputID').value;
+			data.nickname = document.getElementById('inputNickname').value;
+			data.email = document.getElementById('inputEmail').value;
+			data.contact = document.getElementById('inputContact').value;
+			data.git_link = document.getElementById('inputGitLink').value;
+			data.baekjoon = document.getElementById('inputBaekjoon').value;
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "profile_update",
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(data){
+					console.log("success");
+					//location.href = "message_list";
+					
+
+				}
+			}); 
+			
+		}
+	
+	</script>
 
 </body>
 </html>
