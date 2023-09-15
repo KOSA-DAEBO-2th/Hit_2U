@@ -40,7 +40,7 @@
 		</div>
 
 		<button class="btn btn_write">
-			<a href="/community/community_write_form">작성하기</a>
+			<a href="/community/community_write_form" class="write_btn">작성하기</a>
 		</button>
 		<article>
 			<div class="board_list">
@@ -53,6 +53,7 @@
 						<div style="flex: 1;">
 							<c:forEach var="list" items="${list}">
 								<div class="board_list">
+								 	<a href="/community/community_detail?b_no=${list.b_no}&pg=${pg}">
 									<div class="board_list_inside">
 										<div class="flex item_center">
 											<div class="list_number">
@@ -61,7 +62,9 @@
 											<span class="mc"> · </span>
 
 											<div class="nickname_area">
-												<a href="/community/profile" class="nickname">${list.member_no}</a>
+<%-- 												<a href="/community/profile" class="nickname">${list.member_no}</a> --%>
+												${list.member_no}
+												
 											</div>
 											<span class="mc"> · </span>
 											<div class="icon_area font_12">
@@ -78,7 +81,9 @@
 										<div class="main_title_box flex item_center">
 											<div class="main_title">
 <%-- 											<a href="/community/community_detail?b_no=${list.b_no}">${list.b_title}</a> --%>
-												<a href="/community/community_detail?b_no=${list.b_no}&pg=${pg}">${list.b_title}</a>
+<%-- 												<a href="/community/community_detail?b_no=${list.b_no}&pg=${pg}">${list.b_title}</a> --%>
+												${list.b_title}
+												
 											</div>
 											<div class="like_comment_box">
 												<!-- 										<div class="box"> -->
@@ -89,7 +94,9 @@
 										</div>
 										<div class="main_title_box flex item_center">
 											<div class="topic">
-												<a href="#">자유</a>
+<!-- 												<a href="#">자유</a> -->
+												자유
+												
 											</div>
 											<div class="like_comment_box">
 												<!-- 										<div class="box"> -->
@@ -104,7 +111,9 @@
 													class="view_count">${list.b_view }</span>
 											</div>
 										</div>
-									</div>
+
+									</div>	
+									</a>		
 								</div>
 								<hr>
 								<br>

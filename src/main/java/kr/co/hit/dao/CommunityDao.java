@@ -23,7 +23,7 @@ public interface CommunityDao {
 	public int getCommunityCount();
 	
 	// delete
-//	public int deleteCommunity(int b_no);
+	public int deleteCommunity(int b_no);
 
 //	public int deleteCommunity(CommunityDto dto);
 	

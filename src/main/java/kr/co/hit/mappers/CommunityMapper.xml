@@ -46,7 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select b_no,
 		b_title,
-		b_content
+		b_content,
+		b_view
 		from
 		BOARD
 		where b_no = #{b_no}
@@ -71,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
-<!-- 	<delete id="deleteCommunity" parameterType="int"> -->
-<!-- 		delete from BOARD where b_no = #{b_no} -->
-<!-- 	</delete> -->
+	<delete id="deleteCommunity" parameterType="int">
+		delete from BOARD where b_no = #{b_no}
+	</delete>
 </mapper>

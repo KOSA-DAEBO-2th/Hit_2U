@@ -1,6 +1,5 @@
 package kr.co.hit.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -72,14 +71,14 @@ public class CommunityService implements CommunityDao {
 //		return deleteCommunity(dto);
 //	}
 
-//	@Override
-//	public int deleteCommunity(int b_no) {
-//
-//		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-//
-//		return dao.deleteCommunity(b_no);
-//
-//	}
+	@Override
+	public int deleteCommunity(int b_no) {
+
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+
+		return dao.deleteCommunity(b_no);
+
+	}
 
 	@Override
 	public int updateView(int b_no) {
