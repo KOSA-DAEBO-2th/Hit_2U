@@ -24,7 +24,7 @@
 	rel="stylesheet">
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -58,8 +58,12 @@
 					autocomplete="off" placeholder="비밀번호 확인">
 
 				<div class="font_16 text_left margin_top_20">이메일</div>
-				<input class="form-control" type="email" name="email"
-					placeholder="example@hit.com">
+				<input class="form-control emailInput" type="email" name="email"
+					placeholder="example@hit.com" style="width: 60%;">
+				<!-- <input class="btn-primary btn" type="button" value="인증코드 전송"> -->
+				<button class="btn btn-primary btn-blue" type="button" onclick="sendCode()" >인증코드 전송</button>
+				<input type="text" class="form-control" id="codeInput" disabled="disabled">
+ 				<button class="btn btn-primary btn-blue" type="button" onclick="checkCode()" id="confirmCode">인증코드 확인</button>
  
 				<div class="font_16 text_left margin_top_20">닉네임</div>
 				<input class="form-control" type="text" name="nickname"
@@ -83,6 +87,57 @@
  	<script type="text/javascript">
 		function onSubmit() {
 			$("#signup_button").attr("disabled", false);
+		}
+		
+		function sendCode(){
+			var email = $(".emailInput").val();
+			console.log(email);
+			var data = {"email":email}
+			
+			$.ajax({
+				type: "POST",
+				url: "confirm",
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				success: function(data){
+					console.log("success");
+					console.log(data);
+
+					$("#confirmCode").val(data);
+					$('#codeInput').attr('disabled', false);
+					$('#codeInput').focus();
+
+				}
+			});
+		}
+		
+		function checkCode(){
+			var code = $('#codeInput').val();
+			console.log(code);
+			var send = $("#confirmCode").val(); 
+			
+			if(send == code){
+				//alert("확인되었습니다.");
+				Swal.fire({
+					  position: 'top-end',
+					  icon: 'success',
+					  title: '확인되었습니다',
+					  showConfirmButton: false,
+					  timer: 1000
+					});
+				$('#codeInput').attr('readonly', true);
+			}
+			else {
+				//alert("다시 확인해주세요");
+				Swal.fire({
+					  icon: 'error',
+					  title: '다시 확인해주세요',
+					  text: '인증코드가 일치하지 않습니다',
+					  footer: '<a href="">Why do I have this issue?</a>'
+					})
+				$('#codeInput').val("");
+				$('#codeInput').focus();
+			}
 		}
 	
 				</script>

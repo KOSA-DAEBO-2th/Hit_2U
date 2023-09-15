@@ -77,7 +77,8 @@
 										</div>
 										<div class="main_title_box flex item_center">
 											<div class="main_title">
-												<a href="/community/community_detail?b_no=${list.b_no}">${list.b_title}</a>
+<%-- 											<a href="/community/community_detail?b_no=${list.b_no}">${list.b_title}</a> --%>
+												<a href="/community/community_detail?b_no=${list.b_no}&pg=${pg}">${list.b_title}</a>
 											</div>
 											<div class="like_comment_box">
 												<!-- 										<div class="box"> -->
@@ -113,6 +114,51 @@
 				</div>
 			</div>
 		</article>
+		
+	<table>
+		<tr>
+			<td>
+			<!-- 처음 이전 링크 -->
+			<c:if test= "${ pg>1 }">
+				[<a href="community?pg=1"> ◀◀ </a>]				
+				[<a href="community?pg=${pg-1}"> ◀ </a>]		
+			</c:if>
+
+
+			<c:if test= "${ pg<=1 }">
+			
+				[<span style="color: gray"> ◀◀ </span>]			
+				[<span style="color: gray"> ◀ </span>]			
+
+			</c:if>
+			
+<!-- 			블록 범위 출력 -->
+			<c:forEach begin="${formPage}" end="${toPage}" var="i">
+				<c:if test="${i==pg}">[${i}]</c:if>
+				<c:if test="${i!=pg}"> 
+					[<a href="community?pg=${i}">${i}</a>]
+			    </c:if>			
+					
+			</c:forEach>
+			
+					<!-- 다음 이후 링크 -->
+			<c:if test= "${pg < allPage}">
+				[<a href="community?pg=${pg + 1}"> ▶ </a>]			
+				[<a href="community?pg=${allPage}"> ▶▶ </a>]			
+			</c:if>
+
+
+			<c:if test= "${pg >= allPage}">			
+				[<span style="color: gray"> ▶ </span>]			
+				[<span style="color: gray"> ▶▶ </span>]			
+
+			</c:if>
+			
+
+			</td>
+		</tr>
+	</table>
+
 	</main>
 	<c:import url="includes/footer.jsp"></c:import>
 </body>
