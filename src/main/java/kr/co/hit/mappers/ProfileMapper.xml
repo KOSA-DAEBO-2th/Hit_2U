@@ -5,12 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.ProfileDao">
 	
-	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto">
-		SELECT * FROM MEMBER WHERE MEMBER_ID = '123'
+	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto" parameterType="string">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{id}
 	</select>
 	
-<!-- 	<update id="updateInfo" parameterType="">
-		update member set 
-	</update> -->
+ 	<update id="updateInfo" parameterType="kr.co.hit.dto.MemberDto">
+		UPDATE MEMBER SET  NICKNAME=#{nickname}, EMAIL=#{email}, CONTACT=#{contact}, 
+			GIT_LINK=#{git_link}, BAEKJOON=#{baekjoon} WHERE MEMBER_ID=#{member_id}
+	</update> 
 	
 </mapper>

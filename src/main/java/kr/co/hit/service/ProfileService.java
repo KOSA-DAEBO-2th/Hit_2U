@@ -15,16 +15,17 @@ public class ProfileService implements ProfileDao{
 	private SqlSession sqlsession;
 
 	
-	public MemberDto getUserInfo() {
+	public MemberDto getUserInfo(String id) {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
-		MemberDto dto = dao.getUserInfo();
+		MemberDto dto = dao.getUserInfo(id);
 		return dto;
 	}
 
 
 	@Override
-	public int updateInfo() {
-		// TODO Auto-generated method stub
+	public int updateInfo(MemberDto dto) {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		dao.updateInfo(dto);
 		return 0;
 	}
 
