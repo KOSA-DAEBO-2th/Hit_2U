@@ -8,39 +8,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
+<script src="${pageContext.request.contextPath }/resources/js/profile.js" defer="defer"></script>
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <style type="text/css">
+ .breadcrumb-item {
+ 	cursor: pointer;
+ }
+ </style>
 </head>
 <body>
 	<c:import url="../includes/header.jsp"></c:import>
 	
 	<h2><a href="/logout">로그아웃</a></h2>
+	<h2><a href="/chatting">채팅</a></h2>
 	
 	<main class='main_content'>
 		<section style="background-color: #eee;">
   <div class="container py-5">
   
-<!--   	<div class="row">
+  	<div class="row">
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item active" aria-current="page">사용자 정보</li>
-            <li class="breadcrumb-item"><a href="#"> 작성 글 </a></li>
-            <li class="breadcrumb-item"><a href="#">모임 현황 </a></li>
+            <li class="breadcrumb-item"><a  onclick="writeList()"> 작성 글 </a></li>
+            <li class="breadcrumb-item"><a href="#"> 모임 현황 </a></li>
             <li class="breadcrumb-item "><a href="#">수강 강의</a></li>
           </ol>
         </nav>
       </div>
-    </div> -->
+    </div>
 	<h2>마이페이지</h2>
-    <div class="row">
+    <div class="row changeSection">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
               class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">John Smith</h5>
-            <p class="text-muted mb-1">Full Stack Developer</p>
-            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+            <h5 class="my-3">${ dto.nickname }</h5>
+<!--             <p class="text-muted mb-1">Full Stack Developer</p>
+            <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
             <div class="d-flex justify-content-center mb-2">
               <button type="button" class="btn btn-primary">Follow</button>
               <button type="button" class="btn btn-outline-primary ms-1" onclick="location.href='profile_edit'">수정</button>
@@ -141,6 +148,47 @@
 <script type="text/javascript">
 	//chart
     $(document).ready(function() {
+
+      var countW=[0,0,0,0];
+      var countR=[0,0,0,0];
+
+    	$.ajax({
+    		type: "GET",
+    		url: "profile_count",
+    		contentType: 'application/json',
+    		dataType: 'json',
+    		async: false,
+    		success: function(data, status){
+    			console.log("success");
+    			console.log(data);
+
+    			console.log(data.cntW);
+         
+          for(i in data.cntW){
+        	  console.log(data.cntW[i].cat_name);
+            switch(data.cntW[i].cat_name){
+              case "커뮤니티": countW[0] = data.cntW[i].count; break;
+              case "QnA": countW[1] = data.cntW[i].count; break;
+              case "모임": countW[2] = data.cntW[i].count; break;
+              case "프리랜서": countW[3] = data.cntW[i].count; break;
+              return countW;
+            }
+          }
+          console.log(countW);
+          for (i in data.cntR) {
+            console.log(data.cntR[i].cat_name);
+            switch (data.cntR[i].cat_name) {
+              case "커뮤니티": countR[0] = data.cntR[i].count; break;
+              case "QnA": countR[1] = data.cntR[i].count; break;
+              case "모임": countR[2] = data.cntR[i].count; break;
+              case "프리랜서": countR[3] = data.cntR[i].count; break;
+                return countR;
+            }
+          }
+          console.log(countR);
+
+    		}
+    	});  
     	
     	const board = document.getElementById('board');
     	new Chart(board, {
@@ -154,7 +202,7 @@
     			  ],
     			  datasets: [{
     			    label: '게시글 개수',
-    			    data: [12, 20, 5, 10],
+    			    data: countW,
     			    backgroundColor: [
     			      'rgba(255, 99, 132, 1)',
     			      'rgba(54, 162, 235, 1)',
@@ -178,7 +226,7 @@
     			  ],
     			  datasets: [{
     			    label: '댓글 개수',
-    			    data: [300, 50, 100, 200],
+    			    data: countR,
     			    backgroundColor: [
     			      'rgba(255, 99, 132, 1)',
     			      'rgba(54, 162, 235, 1)',
