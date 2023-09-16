@@ -5,12 +5,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.ProfileDao">
 	
-	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto">
-		SELECT * FROM MEMBER WHERE MEMBER_ID = '123'
+	<select id="getUserInfo" resultType="kr.co.hit.dto.MemberDto" parameterType="string">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{id}
 	</select>
 	
-<!-- 	<update id="updateInfo" parameterType="">
-		update member set 
-	</update> -->
+ 	<update id="updateInfo" parameterType="kr.co.hit.dto.MemberDto">
+		UPDATE MEMBER SET  NICKNAME=#{nickname}, EMAIL=#{email}, CONTACT=#{contact}, 
+			GIT_LINK=#{git_link}, BAEKJOON=#{baekjoon} WHERE MEMBER_ID=#{member_id}
+	</update> 
+	
+	<select id="getWriteList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
+		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id 
+		FROM BOARD b left JOIN MEMBER m ON b.member_no=m.member_no 
+		WHERE m.member_id=#{member_id}
+	</select>
+	
+	<select id="getReplyList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
+		SELECT b.b_no, b.b_title, b.b_content, r.r_content, r.reply_date 
+		FROM REPLY r LEFT JOIN BOARD b ON r.board_no=b.b_no 
+		LEFT JOIN MEMBER m ON r.nickname=m.nickname 
+		WHERE member_id = #{member_id}
+	</select>
+	
+	<select id="getCountWrite" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
+		SELECT cat_name, COUNT(c.cat_name) AS count FROM BOARD b 
+		LEFT join CATEGORY c ON b.cat_no=c.cat_no 
+		LEFT JOIN MEMBER m ON b.member_no=m.member_no 
+		WHERE m.member_id=#{member_id} 
+		GROUP BY c.cat_name
+	</select>
+	
+	<select id="getCountReply" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
+		SELECT cat_name, COUNT(c.cat_name) AS COUNT FROM REPLY r 
+		LEFT JOIN BOARD b ON r.board_no=b.b_no 
+		LEFT JOIN CATEGORY c ON b.cat_no=c.cat_no 
+		LEFT JOIN MEMBER m ON r.nickname=m.nickname 
+		WHERE m.member_id=#{member_id}  
+		GROUP BY c.cat_name
+	</select>
 	
 </mapper>

@@ -11,12 +11,9 @@
 /* .like_count, .comment_count, .view_count { */
 /* 	padding-right: 2vw; */
 /* } */
-
-
-.like_count, .comment_count{
+.like_count, .comment_count {
 	padding-right: 2vw;
 }
-
 
 .board_list_inside:hover {
 	/* 	background-color: aqua; */
@@ -35,11 +32,18 @@
 	
 }
 
-.hp_point{
-	
-	padding-right:2vw;
-	
+.hp_point {
+	padding-right: 2vw;
 }
 
+.write_btn {
+	color: white;
+}
 
+.board_list a {
+	display: block;
+}
 
+.board_list a:hover {
+	color: red;
+}

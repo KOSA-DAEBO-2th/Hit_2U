@@ -11,8 +11,9 @@ public interface MeetingDao {
 	public List<MeetingDto> selectMeetingList();
 	public List<MeetingDto> selectMeetingCategoyList(String select);
 	public List<MeetingDto> selectMeetingSearch(String search_target);
-	public List<MeetingDto> selectMeetingPage(int start, int limit);
-	public int getMeetingListCount();
+	public List<MeetingDto> selectMeetingPage(String search_target, int start, int limit);
+	public List<MeetingDto> selectMeetingTopicList(String search_target, String topic, int start, int limit);
+	public int getMeetingListCount(String search_target, String topic);
 	public void increaseView(int boardIdx);
 	public MeetingDto selectMeetingRead(int boardIdx);
 	public void insert(MeetingDto dto);

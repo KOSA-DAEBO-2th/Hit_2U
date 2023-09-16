@@ -72,15 +72,22 @@ public class MeetingService implements MeetingDao {
 	}
 
 	@Override
-	public int getMeetingListCount() {
+	public int getMeetingListCount(String search_target, String topic) {
 		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
-		return dao.getMeetingListCount();
+		return dao.getMeetingListCount(search_target ,topic);
 	}
 
 	@Override
-	public List<MeetingDto> selectMeetingPage(int start, int limit) {
+	public List<MeetingDto> selectMeetingPage(String search_target, int start, int limit) {
 		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
-		List<MeetingDto> list = dao.selectMeetingPage(start, limit);
+		List<MeetingDto> list = dao.selectMeetingPage(search_target, start, limit);
+		return list;
+	}
+
+	@Override
+	public List<MeetingDto> selectMeetingTopicList(String search_target, String topic, int start, int limit) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectMeetingTopicList(search_target, topic, start, limit );
 		return list;
 	}
 

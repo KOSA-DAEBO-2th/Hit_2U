@@ -1,4 +1,7 @@
 @charset "UTF-8";
+#meeting {
+    color: royalblue;
+}
 
 .write_tab {
 	font-size: 20px;

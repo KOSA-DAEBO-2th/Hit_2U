@@ -47,7 +47,7 @@
 		</div>
 
 		<form name="writeform" method="post"
-			action="/community_update">
+			action="/community_update" onsubmit="return board_write()">
 			<div>
 				<div>
 
@@ -83,7 +83,7 @@
 				</div>
 				<div class="button-container">
 					<button>취소</button>
-					<button type="submit">수정 등록</button>
+					<button type="submit" onclick="board_write()">수정 등록</button>
 				</div>
 			</div>
 		</form>
