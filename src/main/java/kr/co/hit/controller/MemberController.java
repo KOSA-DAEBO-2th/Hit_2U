@@ -35,9 +35,7 @@ public class MemberController {
 	
 	@PostMapping("/signok")
 	public String signok(MemberDto dto) {
-		System.out.println("id: " + dto.getMember_id());
 		dto.setPassword(this.bCryptPasswordEncoder.encode(dto.getPassword()));
-		System.out.println("암호화확인 "+dto.getPassword());
 		int result =0;
 		result = joinService.insertMember(dto);
 		if(result>0) System.out.println("회원가입 성공");

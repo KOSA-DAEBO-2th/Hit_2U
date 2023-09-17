@@ -14,6 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			GIT_LINK=#{git_link}, BAEKJOON=#{baekjoon} WHERE MEMBER_ID=#{member_id}
 	</update> 
 	
+	<insert id="insertImage" parameterType="kr.co.hit.dto.ImageDto" >
+		insert INTO IMAGE (image_name, image_realname,image_url, member_no) 
+	VALUES(#{image_name},#{image_realname},#{image_url},#{member_no})
+	</insert>
+	
 	<select id="getWriteList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
 		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id 
 		FROM BOARD b left JOIN MEMBER m ON b.member_no=m.member_no 

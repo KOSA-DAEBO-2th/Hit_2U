@@ -28,7 +28,7 @@
 			<div class="font_gray font_14">만들고 싶은 모임이 있다면 HIT에서 다양한 사람과
 				함께하세요.</div>
 		</div>
-		<form id="meeting_insert" action="/meeting/write" method="post" autocomplete="on">
+		<form id="meeting_insert" action="/meeting/write" method="post" autocomplete="on" enctype="multipart/form-data">
 			<div class="write_wrap padding_bottom_20">
 				<div class="write_tab">유형 *</div>
 				<div class="input_section radio">

@@ -310,6 +310,23 @@
 			<artifactId>spring-context-support</artifactId>
 			<groupId>org.springframework</groupId>
 		</dependency>
+
+		<!-- ####### Naver Login ###### -->
+		<!-- scribejava-apis -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-apis</artifactId>
+			<version>8.3.1</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- scribejava-core -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>8.3.1</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>

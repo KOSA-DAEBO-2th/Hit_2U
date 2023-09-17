@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.MemberDao">
 	<resultMap type="kr.co.hit.dto.MemberDto" id="memberMap">
+		<result property="member_no" column="member_no"/>
 		<result property="member_id" column="member_id"/>
 		<result property="password" column="password"/>
 		<result property="nickname" column="nickname"/>
@@ -28,12 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원 가입 -->
 	<insert id = "insertMember" parameterType="kr.co.hit.dto.MemberDto">
 	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
-	VALUES (#{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
+	VALUES (#{member_id}, #{nickname}, #{password}, #{email}, #{contact}, 0, #{git_link}, #{baekjoon}, 'ROLE_USER', 'Online')
 	</insert>
 	
 	<!-- getMember -->
 	<select id ="getMember" parameterType="String" resultType="kr.co.hit.dto.MemberDto" resultMap="memberMap">
-	SELECT member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
+	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
 	</select>
 	
 </mapper>
