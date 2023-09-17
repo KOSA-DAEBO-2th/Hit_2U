@@ -69,7 +69,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>${ list.m_send }</td>
                                 <td> <span class="d-inline-block align-middle">${ list.m_content }</span></td>
-                                <td> <fmt:formatDate value="${ list.m_date }" pattern="yy-MM-dd [H:mm]" type="date"/> </td>
+                                <td> <fmt:formatDate value="${ list.m_date }" pattern="yy-MM-dd [HH:mm]" type="date"/> </td>
                                 <td class="text-end">
                                     <div class="drodown">
                                         <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
