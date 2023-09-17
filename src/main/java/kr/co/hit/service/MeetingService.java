@@ -86,6 +86,37 @@ public class MeetingService implements MeetingDao {
 		return list;
 	}
 
+	@Override
+	public List<MeetingDto> selectMeetingMember(int boardIdx) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectMeetingMember(boardIdx);
+		return list;
+	}
+
+	@Override
+	public List<MeetingDto> selectRecommendList(int boardIdx, String field) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectRecommendList(boardIdx, field);
+		return list;
+	}
+
+	@Override
+	public List<MeetingDto> selectReplyList(int boardIdx) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectReplyList(boardIdx);
+		return list;
+	}
+
+
+
+	@Override
+	public int insertMeetingMember(int boardIdx, int member_no, String meeting_position, int meeting_tmp,
+			int meeting_leader) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		int result = dao.insertMeetingMember(boardIdx, member_no, meeting_position, meeting_tmp, meeting_leader);
+		return result;
+	}
+
 	
 
 

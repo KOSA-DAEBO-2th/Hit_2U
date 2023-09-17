@@ -135,6 +135,9 @@
 .content_center {
     justify-content: center;
 }
+.content_end{
+	justify-content: flex-end;
+}
 
 .font_category {
     color: #b1b1b1;

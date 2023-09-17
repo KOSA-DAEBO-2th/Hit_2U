@@ -16,4 +16,10 @@ public interface MeetingDao {
 	public MeetingDto selectMeetingRead(int boardIdx);
 	public void insert(MeetingDto dto);
 	public void insertMeeting(MeetingDto dto);
+	
+	public List<MeetingDto> selectMeetingMember(int boardIdx);
+	public List<MeetingDto> selectRecommendList(int boardIdx, String field);
+	public List<MeetingDto> selectReplyList(int boardIdx);
+	
+	public int insertMeetingMember(int boardIdx, int member_no, String meeting_position, int meeting_tmp, int meeting_leader);
 }
