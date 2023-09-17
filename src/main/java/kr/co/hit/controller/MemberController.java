@@ -45,4 +45,15 @@ public class MemberController {
 		return "member/login";
 	}
 	
+//	@PostMapping("/loginok")
+//	public String loginok(MemberDto dto) {
+//		System.out.println("로그인 체크");
+//		System.out.println(dto.getMember_id());
+//		System.out.println(dto.getNickname());
+//		System.out.println(dto.getPassword());
+//		System.out.println(dto.getAuthority());
+//		System.out.println(dto.getEmail());
+//		System.out.println("세션 체크");
+//		return "/main";
+//	}
 }

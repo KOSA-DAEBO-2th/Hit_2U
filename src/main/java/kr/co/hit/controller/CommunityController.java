@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,7 +93,15 @@ public class CommunityController {
 		communityService.updateView(b_no);
 
 		CommunityDto dto = communityService.getCommunityDetail(b_no);
+//		CommunityDto dto1 = communityService.getCommunityDetail(b_view);
 		model.addAttribute("dto", dto);
+//		model.addAttribute("dto1", dto1);
+		
+		
+		System.out.println(b_no +" b_no 있냐");
+//		System.out.println(b_view+" b_view 있냐");
+		
+		
 		System.out.println(dto + "   detail");
 
 		return "community_detail";
@@ -119,17 +128,17 @@ public class CommunityController {
 
 	}
 	
-//	@RequestMapping(value="/community_delete", method = RequestMethod.POST)
-//	public String delete(@PathVariable("b_no") CommunityDto dto, int pg, int b_no)
-//	{
-//		communityService.deleteCommunity(b_no);
-//		return "redirect:/community";
-//		
-//	}	
-	
-	
-	
-	
+	@RequestMapping(value="/community_delete/{dto.b_no}", method = RequestMethod.GET)
+	public String delete(@PathVariable("dto.b_no") int b_no    )
+	{
+		System.out.println(b_no+" 오니?");
+//		communityService.deleteCommunity(Integer.parseInt(b_no));
+		communityService.deleteCommunity(b_no);
+
+		System.out.println(b_no+" 지워졌니?");
+		return "redirect:/community";
+		
+	}	
 	
 	
 
