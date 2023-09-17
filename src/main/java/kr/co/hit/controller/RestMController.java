@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,9 +40,8 @@ public class RestMController {
 	@PostMapping("/message_send")
 	public ModelAndView message_send(@RequestBody MessageDto dto ) {
 		System.out.println(dto);
-//		MessageDto dto = new MessageDto();
-//		dto.setM_receive(m_receive);
-//		dto.setM_content(m_content);
+		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setM_send(user.getMember_id());
 		messageService.sendMessage(dto);
 		ModelAndView mav = new ModelAndView("message/message");
 		return mav;
@@ -76,6 +77,17 @@ public class RestMController {
 		map.put("cntW", cntW);
 		map.put("cntR", cntR);
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/message_del")
+	public int message_del(@RequestBody List<Integer> checkArr) {   //@RequestBody List<MessageDto> checkArr
+		System.out.println("========controller============");
+		for(int i=0; i<checkArr.size(); i++) {
+			System.out.println(checkArr.get(i));
+		}
+		int result = messageService.deleteMessage(checkArr);
+		return result;
 	}
 	
 	/*

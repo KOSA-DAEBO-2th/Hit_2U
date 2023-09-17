@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#cbx_chkAll").click(function() {
@@ -31,15 +32,16 @@ $(document).ready(function() {
 </head>
 <body>
 	<%-- <c:import url="../includes/header.jsp"></c:import> --%>
-	
-	<main class='main_content'>
+		<div class=" bootdey">
+<div class="email-app">
+	<main >
 		<!-- <div class="container"> -->
     <div class="row">
         <div class="col-12 mb-3 mb-lg-5">
             <div class="overflow-hidden card table-nowrap table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">New customers</h5>
-                    <a href="#!" class="btn btn-danger btn-sm" onclick="del()">삭제</a>
+                    <h5 class="mb-0">받은 쪽지</h5>
+                    <a class="btn btn-danger btn-sm" onclick="del()">삭제</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
@@ -91,6 +93,8 @@ $(document).ready(function() {
     <!-- </div> -->
 </div>
 	</main>
+	</div>
+	</div>
 <%-- 	<c:import url="../includes/footer.jsp"></c:import> --%>
 
 </body>

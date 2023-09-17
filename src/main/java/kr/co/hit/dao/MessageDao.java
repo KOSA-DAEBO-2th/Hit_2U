@@ -6,9 +6,9 @@ import kr.co.hit.dto.MessageDto;
 
 public interface MessageDao {
 
-	public List<MessageDto> selectMessageList();
+	public List<MessageDto> selectMessageList(String id);
 	public int sendMessage(MessageDto dto);
-	public List<MessageDto> selectSendList();
-	
+	public List<MessageDto> selectSendList(String id);
+	public int deleteMessage(List<Integer> checkArr);
 	
 }

@@ -28,7 +28,7 @@
 											<th>게시판</th>
 											<th>제목</th>
 											<th>내용</th>
-											<th class="text-end">날짜</th>
+											<th >날짜</th>
 										</tr>
 									</thead>
 
@@ -59,7 +59,7 @@
 														</c:otherwise>
 													</c:choose>
 													</span></td>
-												<td class="text-end"><fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date" /></td>
+												<td ><fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date" /></td>
 											</tr>
 
 										</c:forEach>
@@ -93,7 +93,7 @@
 											<th>게시판</th>
 											<th>제목</th>
 											<th>작성댓글</th>
-											<th class="text-end">작성날짜</th>
+											<th >작성날짜</th>
 										</tr>
 									</thead>
 
@@ -124,7 +124,7 @@
 														</c:otherwise>
 													</c:choose>
 													</span></td>
-												<td class="text-end"><fmt:formatDate value="${ list.reply_date }" pattern="yy-MM-dd" type="date" /></td>
+												<td ><fmt:formatDate value="${ list.reply_date }" pattern="yy-MM-dd" type="date" /></td>
 				
 											</tr>
 
