@@ -5,6 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+	
 <link href="${pageContext.request.contextPath }/resources/css/reset.css"
 	rel="stylesheet">
 <link
@@ -47,11 +51,19 @@
 				<div class="font_16 text_left password">비밀번호</div>
 				<input class="form-control" type="password" name="password">
 
-				<div class="font_16 text_right font_blue margin_top_20"><a href="#">계정찾기</a></div>
-				<button class="btn btn-primary btn-pulse btn-blue login_button" type="submit">로그인</button>
+				<div class="font_16 text_right font_blue margin_top_20">
+					<a href="#">계정찾기</a>
+				</div>
+				<button class="btn btn-primary btn-pulse btn-blue login_button"
+					type="submit">로그인</button>
 			</form>
-			
-			<div>아직 회원이 아니신가요? <a href="#" onclick="location.href='signup'">회원가입</a></div>
+			<button class="btn btn-primary btn-pulse btn-blue login_button" type="button" style="background-color:#54BD54"
+			 onclick="location.href=''">
+			네이버 로그인
+			</button>
+			<div>
+				아직 회원이 아니신가요? <a href="#" onclick="location.href='signup'">회원가입</a>
+			</div>
 		</div>
 
 

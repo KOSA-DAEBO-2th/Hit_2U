@@ -1,5 +1,6 @@
 package kr.co.hit.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.ProfileDao;
+import kr.co.hit.dto.ImageDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.ProfileDto;
 
@@ -63,6 +65,11 @@ public class ProfileService implements ProfileDao{
 		return dto;
 	}
 
-
+	
+	@Override
+	public void insertImage(ImageDto imageOne) throws IOException{
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		dao.insertImage(imageOne);
+	}
 	
 }

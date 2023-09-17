@@ -23,6 +23,7 @@
 <link href="${pageContext.request.contextPath }/resources/css/util.css"
 	rel="stylesheet">
 
+<script src="${pageContext.request.contextPath }/resources/js/join.js" defer="defer"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
@@ -43,7 +44,7 @@
 				<div class="font_16 line_text">회원가입에 필요한 정보를 입력해주세요</div>
 				<hr>
 			</div>
-			<form id="login_input" method="post"
+			<form id="login_input" method="post" onsubmit="return joinChk();" name="join"
 				action="signok">
 				<div class="font_16 text_left">아이디</div>
 				<input class="form-control" type="text" name="member_id" autocomplete="username"
@@ -57,18 +58,30 @@
 				<input class="form-control" type="password" name="password_verify"
 					autocomplete="off" placeholder="비밀번호 확인">
 
+				<div class="font_16 text_left margin_top_20">닉네임</div>
+				<input class="form-control" type="text" name="nickname"
+					placeholder="2~8자 이내로 입력해주세요">
+					
+				<div class="font_16 text_left margin_top_20">연락처</div>
+				<input class="form-control" type="text" name="contact"
+					placeholder="010-1234-5678">
+					
+				<div class="font_16 text_left margin_top_20">깃허브 주소</div>
+				<input class="form-control" type="text" name="git_link"
+					placeholder="선택사항">
+					
+				<div class="font_16 text_left margin_top_20">백준 주소</div>
+				<input class="form-control" type="text" name="baekjoon"
+					placeholder="선택사항">					
+
 				<div class="font_16 text_left margin_top_20">이메일</div>
 				<input class="form-control emailInput" type="email" name="email"
 					placeholder="example@hit.com" style="width: 60%;">
 				<!-- <input class="btn-primary btn" type="button" value="인증코드 전송"> -->
-				<button class="btn btn-primary btn-blue" type="button" onclick="sendCode()" >인증코드 전송</button>
-				<input type="text" class="form-control" id="codeInput" disabled="disabled">
- 				<button class="btn btn-primary btn-blue" type="button" onclick="checkCode()" id="confirmCode">인증코드 확인</button>
+				<input type="text" class="form-control" id="codeInput" disabled="disabled" style="margin-bottom: 10px">
+				<button class="btn btn-primary btn-blue" type="button" onclick="sendCode()" id="sCode" style="width: 100px; display: block; margin:auto; ">인증코드 발송</button>
+ 				<button class="btn btn-primary btn-blue" type="button" onclick="checkCode()" id="confirmCode" style="width: 100px; display: none; margin:auto;">인증코드 확인</button>
  
-				<div class="font_16 text_left margin_top_20">닉네임</div>
-				<input class="form-control" type="text" name="nickname"
-					placeholder="2~8자 이내로 입력해주세요">
-
 
  				<div class="g-recaptcha margin_top_20"
 					data-sitekey="6Lda2a0nAAAAAAfoQIS8lZDKG6gQ6IntD453FAQB"
@@ -93,6 +106,9 @@
 			var email = $(".emailInput").val();
 			console.log(email);
 			var data = {"email":email}
+			
+			document.getElementById("sCode").style.display="none";
+			document.getElementById("confirmCode").style.display="block";
 			
 			$.ajax({
 				type: "POST",
