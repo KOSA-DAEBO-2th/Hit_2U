@@ -98,6 +98,10 @@
     margin-right: 20px;
 }
 
+.margin_right_60{
+	margin-right: 60px;
+}
+
 .padding_bottom_20 {
     padding-bottom: 20px;
 }
@@ -106,6 +110,13 @@
     padding-top: 20px;
 }
 
+.padding_left_20 {
+    padding-left: 20px;
+}
+
+.padding_right_20 {
+    padding-right: 20px;
+}
 .font_gray {
     color: rgb(121, 129, 136);
 }
@@ -149,4 +160,8 @@
 
 .font_black {
     color: black;
+}
+
+.width_full{
+	width: 100%;
 }

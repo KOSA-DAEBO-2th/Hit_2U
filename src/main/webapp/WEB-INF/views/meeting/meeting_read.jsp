@@ -17,8 +17,6 @@
 			<div class="category_header font_16">${list.meet_topic_name}</div>
 			<div class="read_title  ">${list.b_title }</div>
 			<div class="meeting_state ">${list.meet_state }</div>
-			<div>${list }</div>
-
 
 		</div>
 

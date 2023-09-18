@@ -16,6 +16,7 @@
 	<main class="main_content">
 		<div class="content_label font_32">
 			<a>모임</a>
+
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="" style="flex-basis: 15%;"></div>

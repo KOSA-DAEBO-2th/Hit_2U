@@ -117,6 +117,19 @@ public class MeetingService implements MeetingDao {
 		return result;
 	}
 
+	@Override
+	public int getMeetingBoardNumber() {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		int result = dao.getMeetingBoardNumber();
+		return result;
+	}
+
+	@Override
+	public List<MeetingDto> selectApplyList(int boardIdx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 

@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		WHERE CAT_NO =
 		3 AND B_TITLE LIKE CONCAT('%',
-		#{param1},'%') LIMIT #{param2},
+		#{param1},'%') ORDER BY B.B_NO DESC LIMIT #{param2},
 		#{param3};
 
 
@@ -129,18 +129,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert" parameterType="kr.co.hit.dto.MeetingDto">
 		insert INTO BOARD(b_no,
-		b_title, b_content, b_write_date, b_view, b_reply, b_recommend,
-		member_no, cat_no)
-		VALUES(
-		(SELECT t.b_no+1 FROM (SELECT MAX(b_no) b_no
-		FROM BOARD) AS t)
+		b_title, b_content, b_write_date, member_no, cat_no)
+		VALUES((SELECT
+		t.b_no+1 FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
 		,#{b_title}
 		,#{b_content}
 		,CURDATE()
-		,0
-		,0
-		,0
-		,4
+		,#{member_no}
 		,3
 		)
 
@@ -149,16 +144,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertMeeting"
 		parameterType="kr.co.hit.dto.MeetingDto">
 		insert INTO MEETING(b_no, meet_start_day, meet_end_day,
-		meet_tags, meet_topic_name, meet_state, meet_field)
+		meet_tags, meet_topic_name, meet_state, meet_field, backend, frontend,
+		server, pm)
 		VALUES (
 		(SELECT
-		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
-		,'2023-09-20'
-		,'2023-09-24'
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM
+		BOARD) AS t)
+		,#{meet_start_day}
+		,#{meet_end_day}
 		,#{meet_tags}
 		,#{meet_topic_name}
 		,'모집 중'
 		,#{meet_field}
+		,#{backend}
+		,#{frontend}
+		,#{server}
+		,#{pm}
 		)
 
 
@@ -290,7 +291,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertMeetingMember">
 		INSERT INTO
 		MEETING_MEMBER
-		VALUE (#{param1}, #{param2}, #{param3}, #{param4}, #{param5});
+		VALUE (#{param1}, #{param2},
+		#{param3}, #{param4}, #{param5});
 	</insert>
+	
+	<select id="getMeetingBoardNumber"
+		resultType="int">
+		SELECT max(b_no) FROM BOARD WHERE cat_no =3 ;
+	</select>
+	
+	
 
 </mapper>

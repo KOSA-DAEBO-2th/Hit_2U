@@ -7,6 +7,8 @@ import javax.swing.DefaultListSelectionModel;
 import javax.xml.stream.events.StartDocument;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.MeetingDto;
+import kr.co.hit.security.User;
 import kr.co.hit.service.MeetingService;
 
 @Controller
@@ -52,13 +55,13 @@ public class MeetingController {
 
 		ModelAndView mv = new ModelAndView("meeting/meeting");
 		int listcount = meetingService.getMeetingListCount("", "a");
-		List<MeetingDto> list = meetingService.selectMeetingList();
+//		List<MeetingDto> list = meetingService.selectMeetingList();
 		int limit = 8;
 		int start = 0;
 		int maxPage = ((listcount - 1) / limit) + 1;
 		String search_target = "";
 
-		list = meetingService.selectMeetingPage(search_target, start, limit);
+		List<MeetingDto> list = meetingService.selectMeetingPage(search_target, start, limit);
 		List<String[]> tag_list = new ArrayList<String[]>();
 		for (int i = 0; i < list.size(); i++) {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
@@ -97,6 +100,9 @@ public class MeetingController {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
 			tag_list.add(tag);
 		}
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getMember_id());
 
 		model.addAttribute("list", list);
 		model.addAttribute("tag_list", tag_list);
@@ -143,9 +149,16 @@ public class MeetingController {
 	}
 
 	@PostMapping("/write")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public String write(MeetingDto dto) throws Exception {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setMember_no(user.getMember_no());
+		System.out.println(dto);
 		meetingService.insert(dto);
 		meetingService.insertMeeting(dto);
+		meetingService.insertMeetingMember(meetingService.getMeetingBoardNumber(), user.getMember_no(), dto.getMeeting_position(), 1, 1);
+		
 		return "redirect:/meeting";
 	}
 

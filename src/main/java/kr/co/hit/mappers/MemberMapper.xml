@@ -4,6 +4,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hit.dao.MemberDao">
+	<resultMap type="kr.co.hit.dto.MemberDto" id="memberMap">
+		<result property="member_no" column="member_no"/>
+		<result property="member_id" column="member_id"/>
+		<result property="password" column="password"/>
+		<result property="nickname" column="nickname"/>
+		<result property="email" column="email"/>
+		<result property="contact" column="contact"/>
+		<result property="grade" column="grade"/>
+		<result property="git_link" column="git_link"/>
+		<result property="baekjoon" column="baekjoon"/>
+		<result property="authority" column="authority"/>
+		<result property="member_method" column="member_method"/>
+		
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+
+	<resultMap type="kr.co.hit.dto.MemberAuth" id="authMap">
+		<result property="member_id" column="member_id"/>
+		<result property="authority" column="authority"/>
+	</resultMap>
+	
+	
+	<!-- 회원 가입 -->
 	<insert id = "insertMember" parameterType="kr.co.hit.dto.MemberDto">
 	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
 	VALUES (#{member_id}, #{nickname}, #{password}, 'alice@example.com', '123-456-7890', 'Regular', 'https://github.com/alice', 'alice_baekjoon', 'ROLE_USER', 'Online')
