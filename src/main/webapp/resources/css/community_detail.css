@@ -24,3 +24,59 @@ button {
 	height: 50px;
 	border: none;
 }
+
+div.reply_list {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	border-bottom: 1px solid black;
+}
+
+
+
+div.reply_list button {
+	width: 3vw;
+	height: 2vw;
+/* 	padding: 1vw 3vw; */
+	border-radius: 8px;
+	background-color: white;
+	color: black;
+	border-color: black;
+	opacity: 1;
+	margin: 0px;
+/* 	border-bottom: 1vw; */
+	
+}
+
+submit_btn{
+	
+	display:block;
+}
+
+div.border_line{
+	
+	padding-top:1vw;	
+	padding-bottom: 1vw;
+}
+
+div.reply_list button:hover {
+
+/* 	background-color: aqua; */
+	border-radius: 6px;
+	background-color: royalblue ;
+	color: white;
+}
+
+div.submit_btn_container{
+    display: flex;
+    justify-content: end;
+	padding-top: 1vw;}
+
+
+div.update_delete_container {
+	display: flex;
+	justify-content: flex-end;
+}
+
+

@@ -8,7 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.MessageDto;
 import kr.co.hit.dto.ProfileDto;
@@ -54,7 +56,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping("/profile_writeList")
-	public String message(Model model) {
+	public String getList(Model model) {
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("id: "+user.getMember_id());
 		String id = user.getMember_id();
@@ -66,6 +68,28 @@ public class ProfileController {
 		model.addAttribute("list", list);
 		model.addAttribute("reply", reply);
 		return "profile/writeList";
+	}
+	
+	@RequestMapping("/profile_main")
+	public String profile() {
+		
+		return "profile/profile_main";
+	}
+	
+	@RequestMapping("/profile_meetingList")
+	public ModelAndView meetingList() {
+		ModelAndView mav = new ModelAndView("profile/meetingList");
+		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<MeetingDto> list = profileService.getMeetingList(user.getMember_id());
+		System.out.println(user.getMember_id());
+		mav.addObject("list", list);
+		
+		List<MeetingDto> apply = profileService.applyMeetingList(user.getMember_id());
+//		System.out.println("====================================================================");
+//		System.out.println(apply);
+//		System.out.println("====================================================================");
+		mav.addObject("apply", apply);
+		return mav;
 	}
 	
 	

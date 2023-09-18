@@ -49,14 +49,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON B.B_NO =
 		M.B_NO
 		INNER JOIN
-		(SELECT b_no, backend + frontend + SERVER +
-		pm AS apply_max, backend_apply + frontend_apply + server_apply +
+		(SELECT
+		b_no, backend + frontend + SERVER +
+		pm AS apply_max, backend_apply +
+		frontend_apply + server_apply +
 		pm_apply AS apply FROM MEETING ) tmp
-		ON B.B_NO =
+		ON
+		B.B_NO =
 		tmp.B_NO
 
 		WHERE CAT_NO =
-		3 AND B_TITLE LIKE CONCAT('%', #{param1},'%') LIMIT #{param2},
+		3 AND B_TITLE LIKE CONCAT('%',
+		#{param1},'%') ORDER BY B.B_NO DESC LIMIT #{param2},
 		#{param3};
 
 
@@ -106,36 +110,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectMeetingRead"
 		resultType="kr.co.hit.dto.MeetingDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		SELECT B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
 		B.B_VIEW,
 		B.B_REPLY, B.B_RECOMMEND,
-		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
-		M.MEET_TOPIC_NAME,
-		M.MEET_STATE, M.MEET_FIELD
+		B.MEMBER_NO, B.CAT_NO, M.*
+
 		FROM BOARD B
-		INNER JOIN
+		INNER
+		JOIN
 		MEETING M
 		ON B.B_NO =
 		M.B_NO
 
-		WHERE B.B_NO = #{boardIdx};
+		WHERE B.B_NO =
+		#{boardIdx};
 
 	</select>
 
 	<insert id="insert" parameterType="kr.co.hit.dto.MeetingDto">
 		insert INTO BOARD(b_no,
-		b_title, b_content, b_write_date, b_view, b_reply, b_recommend,
-		member_no, cat_no)
-		VALUES(
-		(SELECT t.b_no+1 FROM (SELECT MAX(b_no) b_no
-		FROM BOARD) AS t)
+		b_title, b_content, b_write_date, member_no, cat_no)
+		VALUES((SELECT
+		t.b_no+1 FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
 		,#{b_title}
 		,#{b_content}
 		,CURDATE()
-		,0
-		,0
-		,0
-		,4
+		,#{member_no}
 		,3
 		)
 
@@ -144,16 +144,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertMeeting"
 		parameterType="kr.co.hit.dto.MeetingDto">
 		insert INTO MEETING(b_no, meet_start_day, meet_end_day,
-		meet_tags, meet_topic_name, meet_state, meet_field)
+		meet_tags, meet_topic_name, meet_state, meet_field, backend, frontend,
+		server, pm)
 		VALUES (
 		(SELECT
-		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
-		,'2023-09-20'
-		,'2023-09-24'
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM
+		BOARD) AS t)
+		,#{meet_start_day}
+		,#{meet_end_day}
 		,#{meet_tags}
 		,#{meet_topic_name}
 		,'모집 중'
 		,#{meet_field}
+		,#{backend}
+		,#{frontend}
+		,#{server}
+		,#{pm}
 		)
 
 	</insert>
@@ -197,8 +203,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 			<otherwise>
 
-				AND B_TITLE LIKE CONCAT('%', #{param1},'%') AND MEET_TOPIC_NAME LIKE
-			CONCAT('%',#{param2},'%')
+				AND B_TITLE LIKE CONCAT('%', #{param1},'%') AND
+				MEET_TOPIC_NAME LIKE
+				CONCAT('%',#{param2},'%')
 
 			</otherwise>
 
@@ -227,11 +234,77 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		M.B_NO
 
 		WHERE
-		CAT_NO = 3 AND B_TITLE LIKE CONCAT('%', #{param1},'%') AND
-		MEET_TOPIC_NAME = #{param2} LIMIT #{param3}, #{param4};
+		CAT_NO = 3 AND B_TITLE LIKE CONCAT('%',
+		#{param1},'%') AND
+		MEET_TOPIC_NAME = #{param2} LIMIT #{param3},
+		#{param4};
 
 	</select>
 
 
+	<select id="selectMeetingMember"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT M.nickname, M.git_link, M.grade, MEM.meeting_leader,
+		MEM.meeting_position FROM
+		MEETING_MEMBER MEM
+		INNER JOIN
+		MEMBER M
+		ON
+		MEM.MEMBER_NO = M.MEMBER_NO
+		WHERE b_no = #{boardIdx} AND
+		MEM.meeting_tmp = 1
+		ORDER BY MEM.meeting_leader desc;
+	</select>
+
+	<select id="selectRecommendList"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT B.B_NO, B.B_TITLE,
+		B.B_CONTENT,
+		M.MEET_TOPIC_NAME,
+		M.MEET_FIELD, tmp.apply_max, tmp.apply
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT
+		b_no, backend + frontend + SERVER +
+		pm AS apply_max, backend_apply +
+		frontend_apply + server_apply +
+		pm_apply AS apply FROM MEETING ) tmp
+		ON
+		B.B_NO =
+		tmp.B_NO
+
+		WHERE CAT_NO =
+		3
+		AND meet_state = '모집 중' AND B.b_no != #{param1}
+		AND meet_field =
+		#{param2}
+		ORDER BY RAND() LIMIT 5;
+	</select>
+
+	<select id="selectReplyList"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT * FROM REPLY
+		WHERE b_no = #{boardIdx}
+		ORDER by
+		reply_no desc;
+	</select>
+
+	<insert id="insertMeetingMember">
+		INSERT INTO
+		MEETING_MEMBER
+		VALUE (#{param1}, #{param2},
+		#{param3}, #{param4}, #{param5});
+	</insert>
+	
+	<select id="getMeetingBoardNumber"
+		resultType="int">
+		SELECT max(b_no) FROM BOARD WHERE cat_no =3 ;
+	</select>
+	
+	
 
 </mapper>

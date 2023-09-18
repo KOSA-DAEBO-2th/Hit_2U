@@ -49,3 +49,23 @@ select option[value=""][disabled] {
 	box-shadow : 1px 1px 10px -5px rgb(220,220,220); 
 }
 
+.position_select{
+	width: 200px;
+	
+}
+
+.position_select_member{
+	width: 200px;
+	margin: 0px;
+}
+
+.member_add_form{
+	padding-top: 20px;
+}
+
+.member_result{
+	border: 1px solid gray;
+	border-radius: 8px;
+	padding: 5px;
+	cursor: pointer;
+}

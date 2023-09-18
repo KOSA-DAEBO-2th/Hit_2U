@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.ProfileDao;
 import kr.co.hit.dto.ImageDto;
+import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.ProfileDto;
 
@@ -71,5 +72,22 @@ public class ProfileService implements ProfileDao{
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
 		dao.insertImage(imageOne);
 	}
+
+	@Override
+	public List<MeetingDto> getMeetingList(String id) {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		List<MeetingDto> dto = dao.getMeetingList(id);
+		return dto;
+	}
+
+
+	@Override
+	public List<MeetingDto> applyMeetingList(String id) {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		List<MeetingDto> dto = dao.applyMeetingList(id);
+		return dto;
+	}
+
+
 	
 }
