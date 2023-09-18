@@ -20,6 +20,7 @@
 	<p>권한:<sec:authentication property="principal.authority"/></p>
 	
 	<h2><a href="/logout">로그아웃</a></h2>
+	<h2><a href="/">메인</a></h2>
 	
 </body>
 

@@ -13,8 +13,8 @@ public class User implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 
-	private int member_no;
-	private String member_id, member_method, nickname, password, email, contact, grade, git_link, baekjoon, authority;
+	private int member_no, grade;
+	private String member_id, member_method, nickname, password, email, contact, git_link, baekjoon, authority;
 
 	private String enabled;
 	private boolean isEnabled;
@@ -102,11 +102,11 @@ public class User implements UserDetails{
 		this.contact = contact;
 	}
 
-	public String getGrade() {
+	public int getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 

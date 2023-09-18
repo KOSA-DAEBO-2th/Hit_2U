@@ -1,7 +1,9 @@
 package kr.co.hit.dao;
 
+import java.io.IOException;
 import java.util.List;
 
+import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.MeetingDto;
 
 public interface MeetingDao {
@@ -17,6 +19,7 @@ public interface MeetingDao {
 	public MeetingDto selectMeetingRead(int boardIdx);
 	public void insert(MeetingDto dto);
 	public void insertMeeting(MeetingDto dto);
+	public void insertThumb(FileDto fileOne) throws IOException;
 	
 	public List<MeetingDto> selectMeetingMember(int boardIdx);
 	public List<MeetingDto> selectRecommendList(int boardIdx, String field);

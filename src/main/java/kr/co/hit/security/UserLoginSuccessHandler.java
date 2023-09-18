@@ -23,9 +23,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 		});
 
 		if (roleNames.contains("ROLE_ADMIN")) {
-			System.out.println("Admin 확인1");
 			response.sendRedirect(request.getContextPath() + "/test/admin");
-			System.out.println("Admin 확인2");
 			return;
 		}
 		if (roleNames.contains("ROLE_MEMBER")) {
@@ -33,9 +31,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 			return;
 		}
 		if (roleNames.contains("ROLE_USER")) {
-			System.out.println("User 확인1");
 			response.sendRedirect(request.getContextPath() + "/");
-			System.out.println("User 확인2");
 			return;
 		}
 		response.sendRedirect("/");

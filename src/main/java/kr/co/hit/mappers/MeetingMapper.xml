@@ -162,7 +162,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,#{pm}
 		)
 
-
+	</insert>
+	
+	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto" >
+		insert INTO FILE (file_name, file_realname,file_url, file_size,b_no) 
+	VALUES(#{file_name},#{file_realname},#{file_url},#{file_size},(SELECT
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t))
 	</insert>
 
 	<update id="increaseView">

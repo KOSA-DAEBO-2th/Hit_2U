@@ -24,15 +24,18 @@
             <!-- Profile picture card-->
             <div class="card mb-4 mb-xl-0">
                 <div class="card-header">Profile Picture</div>
+                <form id="imageUpload" action="/test/image" method="POST" enctype="multipart/form-data">
                 <div class="card-body text-center">
                     <!-- Profile picture image-->
                     <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                     <!-- Profile picture help block-->
                     <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                     <!-- Profile picture upload button-->
-                    <input type="file" id="imageInput" style="visibility: hidden;">
+                    <input type="file" id="imageInput" name="image" style="visibility: hidden;" accept="image/*">
                     <button class="btn btn-primary" type="button" onclick="imageUpload()">파일 불러오기</button>
+                    <button class="btn btn-primary" type="button" onclick="imageChange()">프로필 변경</button>
                 </div>
+                </form>
             </div>
         </div>
         <div class="col-xl-8">
@@ -90,10 +93,13 @@
 	<script type="text/javascript">
 		function imageUpload(){
 			console.log("sssss");
-			let myInput = document.getElementById("imageInput");
+			let myInput = document.getElementById("imageInput");			
 			myInput.click();
 		}
 		
+		function imageChange(){
+			document.getElementById("imageUpload").submit();
+		}
 		
 		function updateInfo(){
 			console.log("update clicked");
