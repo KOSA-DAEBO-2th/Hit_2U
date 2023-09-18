@@ -87,11 +87,11 @@
 						해주세요. 없다면 기본 이미지가 적용됩니다.</div>
 					<div class="input_section image flex">
 						<form method="post" enctype="multipart/form-data">
-							<button class="img_input_btn">
-								<i class="fa-solid fa-camera font_30"></i>
-								<!-- <img src="이미지 파일 경로" alt="대체 텍스트" onclick="" > -->
-							</button>
-							<div>
+							<div class="img_input_btn flex item_center content_center">
+								<i class="fa-solid fa-camera font_30 font_gray"></i>
+							</div>
+							
+							<div class="padding_left_20">
 								<input type="file" id="chooseFile" name="chooseFile"
 									accept="image/*" onchange="loadFile(this)">
 							</div>
