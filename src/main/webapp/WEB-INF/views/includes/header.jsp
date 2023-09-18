@@ -1,6 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!DOCTYPE html>
 <html>
@@ -8,12 +10,11 @@
         <meta charset="UTF-8" />
         <title></title>
         <link href="${pageContext.request.contextPath }/resources/css/reset.css" rel="stylesheet" />
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after" rel="stylesheet" />
         <!-- 부트스트랩 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Jquery -->
-
 
         <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
                 <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet" />

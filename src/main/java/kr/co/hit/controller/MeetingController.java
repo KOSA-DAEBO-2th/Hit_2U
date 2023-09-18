@@ -7,6 +7,8 @@ import javax.swing.DefaultListSelectionModel;
 import javax.xml.stream.events.StartDocument;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.MeetingDto;
+import kr.co.hit.security.User;
 import kr.co.hit.service.MeetingService;
 
 @Controller
@@ -27,7 +30,7 @@ public class MeetingController {
 
 	@Autowired
 	MeetingService meetingService;
-	
+
 //	@GetMapping()
 //	public ModelAndView meeting() {
 //
@@ -46,19 +49,19 @@ public class MeetingController {
 //
 //		return mv;
 //	}
-	
+
 	@GetMapping()
 	public ModelAndView meeting() {
 
 		ModelAndView mv = new ModelAndView("meeting/meeting");
-		int listcount = meetingService.getMeetingListCount("","a");
-		List<MeetingDto> list = meetingService.selectMeetingList();
+		int listcount = meetingService.getMeetingListCount("", "a");
+//		List<MeetingDto> list = meetingService.selectMeetingList();
 		int limit = 8;
 		int start = 0;
-		int maxPage = ( (listcount - 1) / limit ) + 1;
+		int maxPage = ((listcount - 1) / limit) + 1;
 		String search_target = "";
-		
-		list = meetingService.selectMeetingPage(search_target, start, limit);
+
+		List<MeetingDto> list = meetingService.selectMeetingPage(search_target, start, limit);
 		List<String[]> tag_list = new ArrayList<String[]>();
 		for (int i = 0; i < list.size(); i++) {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
@@ -66,35 +69,40 @@ public class MeetingController {
 		}
 
 		mv.addObject("list", list);
-		System.out.println(list);
 		mv.addObject("tag_list", tag_list);
 		mv.addObject("maxPage", maxPage);
 
 		return mv;
 	}
-	
 
 	@PostMapping("/meeting_page")
-	public String ajaxReturnPage(@RequestParam(value="page_num", defaultValue = "1") String page_num, @RequestParam("topic") String topic, @RequestParam("search_target") String search_target, Model model) {
+	public String ajaxReturnPage(@RequestParam(value = "page_num", defaultValue = "1") String page_num,
+			@RequestParam("topic") String topic, @RequestParam("search_target") String search_target, Model model) {
 		List<MeetingDto> list = new ArrayList();
 		int listcount = 0;
 		int limit = 8;
-		int start = (Integer.parseInt(page_num)-1) * limit; 
-		
+		int start = (Integer.parseInt(page_num) - 1) * limit;
+
 		if (topic.equals("전체")) {
-			list = meetingService.selectMeetingPage(search_target, start, limit );
+			list = meetingService.selectMeetingPage(search_target, start, limit);
 			listcount = meetingService.getMeetingListCount(search_target, "a");
 		} else {
 			list = meetingService.selectMeetingTopicList(search_target, topic, start, limit);
 			listcount = meetingService.getMeetingListCount(search_target, topic);
 		}
-		
-		int maxPage = ( (listcount - 1) / limit ) + 1;
+
+		int maxPage = ((listcount - 1) / limit) + 1;
+		if (Integer.parseInt(page_num) > maxPage) {
+			page_num = Integer.toString(maxPage);
+		}
 		List<String[]> tag_list = new ArrayList<String[]>();
 		for (int i = 0; i < list.size(); i++) {
 			String tag[] = list.get(i).getMeet_tags().split(" ");
 			tag_list.add(tag);
 		}
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(user.getMember_id());
 
 		model.addAttribute("list", list);
 		model.addAttribute("tag_list", tag_list);
@@ -118,25 +126,22 @@ public class MeetingController {
 	 * 
 	 * return "meeting/meetingListAjax"; }
 	 */
-	
 
-	@PostMapping("/meeting_search")
-	public String ajaxReturnSearch(@RequestParam("search_target") String search_target, Model model) {
-		List<MeetingDto> list = new ArrayList();
-
-		list = meetingService.selectMeetingSearch(search_target);
-
-		List<String[]> tag_list = new ArrayList<String[]>();
-		for (int i = 0; i < list.size(); i++) {
-			String tag[] = list.get(i).getMeet_tags().split(" ");
-			tag_list.add(tag);
-		}
-
-		model.addAttribute("list", list);
-		model.addAttribute("tag_list", tag_list);
-
-		return "meeting/meetingListAjax";
-	}
+	/*
+	 * @PostMapping("/meeting_search") public String
+	 * ajaxReturnSearch(@RequestParam("search_target") String search_target, Model
+	 * model) { List<MeetingDto> list = new ArrayList();
+	 * 
+	 * list = meetingService.selectMeetingSearch(search_target);
+	 * 
+	 * List<String[]> tag_list = new ArrayList<String[]>(); for (int i = 0; i <
+	 * list.size(); i++) { String tag[] = list.get(i).getMeet_tags().split(" ");
+	 * tag_list.add(tag); }
+	 * 
+	 * model.addAttribute("list", list); model.addAttribute("tag_list", tag_list);
+	 * 
+	 * return "meeting/meetingListAjax"; }
+	 */
 
 	@GetMapping("/write")
 	public String writeForm() throws Exception {
@@ -144,24 +149,52 @@ public class MeetingController {
 	}
 
 	@PostMapping("/write")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public String write(MeetingDto dto) throws Exception {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setMember_no(user.getMember_no());
 		System.out.println(dto);
 		meetingService.insert(dto);
 		meetingService.insertMeeting(dto);
+		meetingService.insertMeetingMember(meetingService.getMeetingBoardNumber(), user.getMember_no(), dto.getMeeting_position(), 1, 1);
+		
 		return "redirect:/meeting";
 	}
 
 	@GetMapping("/{boardIdx}")
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
-		ModelAndView mv = new ModelAndView("meeting/meeting_read");
-		MeetingDto list = meetingService.selectMeetingRead(boardIdx);
-		meetingService.increaseView(boardIdx);
 
+		ModelAndView mv = new ModelAndView("meeting/meeting_read");
+		meetingService.increaseView(boardIdx);
+		MeetingDto list = meetingService.selectMeetingRead(boardIdx);
 		String tag[] = list.getMeet_tags().split(" ");
+
+		List<MeetingDto> meeting_member = meetingService.selectMeetingMember(boardIdx);
+		List<MeetingDto> recommend_list = meetingService.selectRecommendList(boardIdx, list.getMeet_field());
+		List<MeetingDto> reply_list = meetingService.selectReplyList(boardIdx);
+		List<MeetingDto> apply_list = meetingService.selectReplyList(boardIdx);
+
 		mv.addObject("list", list);
 		mv.addObject("tags", tag);
+		mv.addObject("meeting_member", meeting_member);
+		mv.addObject("recommend_list", recommend_list);
+		mv.addObject("reply_list", reply_list);
+	
 
 		return mv;
+	}
+
+	@PostMapping("/meeting_apply")
+	@ResponseBody
+	public String meeting_insert(@RequestParam("boardIdx") int boardIdx, @RequestParam(value = "member_no", defaultValue = "4") int member_no,
+			@RequestParam("meeting_position") String meeting_position,
+			@RequestParam(value = "meeting_tmp", defaultValue = "0") int meeting_tmp,
+			@RequestParam(value = "meeting_leader", defaultValue = "0") int meeting_leader) {
+
+		int result = meetingService.insertMeetingMember(boardIdx, member_no, meeting_position, meeting_tmp, meeting_leader);
+
+		return Integer.toString(result);
 	}
 
 }

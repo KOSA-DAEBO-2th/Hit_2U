@@ -16,6 +16,7 @@
 	<main class="main_content">
 		<div class="content_label font_32">
 			<a>모임</a>
+
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="" style="flex-basis: 15%;"></div>
@@ -39,7 +40,7 @@
 			<div class="search-box flex content_center">
 				<input type="text" class="search-txt" name="" id="search_box"
 					placeholder="전체에서 검색"
-					onkeyup="if(window.event.keyCode==13){meeting_search()}" />
+					onkeyup="if(window.event.keyCode==13){page(1)}" />
 				<div class="search-btn" href="#">
 					<i class="fas fa-search"></i>
 				</div>

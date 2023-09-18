@@ -5,6 +5,7 @@ window.onload = function () {
     } else {
         $(".row").empty();
         $(".row").append(sessionStorage.getItem("save"));
+        $(".search-txt").val(sessionStorage.getItem("search"));
         $(".btn_category").removeClass("btn_category_click");
         var topic = sessionStorage.getItem("topic");
         var select_topic;
@@ -20,21 +21,19 @@ window.onload = function () {
     }
 };
 
-//선택된 topic 요소에 click 클래스 추가 & 해당 요소의 값으로 ajax 통신
+//선택된 topic 요소에 click 클래스 추가 & 해당 요소의 값으로 ajax 요청
 $(document).on("click", ".btn_category", function () {
     $(".btn_category").removeClass("btn_category_click");
     $(this).addClass("btn_category_click");
     page();
 });
 
+//검색 버튼 클릭 시 ajax 요청
 $(document).on("click", ".search-btn", function () {
-    page($(".current_page").val());
+    page(1);
 });
 
-function meeting_search() {
-    page();
-}
-
+//왼쪽 화살표 클릭 시 ajax 요청
 $(document).on("click", ".fa-chevron-left", function () {
     var currentPage = Number($(".current_page").val()) - 1;
     if (currentPage <= 0) {
@@ -62,6 +61,7 @@ $(document).on("click", ".fa-chevron-left", function () {
     page(currentPage);
 });
 
+//오른쪽 화살표 클릭 시 ajax 요청
 $(document).on("click", ".fa-chevron-right", function () {
     var currentPage = Number($(".current_page").val()) + 1;
     var maxPage = Number($(".max_page").val());
@@ -89,10 +89,7 @@ $(document).on("click", ".fa-chevron-right", function () {
     page(currentPage);
 });
 
-$(document).on("click", ".page", function () {
-    page();
-});
-
+//페이지 불러오는 함수, 이전 정보 저장을 위해 sessionStorage 사용
 function page(currentPage) {
     var id = $(".search-txt").val();
     sessionStorage.setItem("page", Number($(".current_page").val()));
@@ -109,30 +106,33 @@ function page(currentPage) {
         dataType: "html",
         success: function (data) {
             $(".row").empty();
-            sessionStorage.setItem("save", data);
             $(".row").append(data);
-
-            var currentPage = Number($(".current_page").val());
-            var maxPage = Number($(".max_page").val());
-            if (currentPage > maxPage) {
-                $(".current_page").val(maxPage);
-            }
+            sessionStorage.setItem("save", data);
         },
         error: function () {
             alert("뭔가 오류있네");
         },
     });
 }
-window.onbeforeunload = function () {
-    var save = sessionStorage.getItem("save");
-    console.log(save);
-    $(".row").html(sessionStorage.getItem("save"));
-};
 
+//페이지 선택적 이동을 위한 함수
 function page_go() {
     var currentPage = Number($(".current_page").val());
     if (isNaN(currentPage)) {
-        alert("숫자만 입력해주세요.");
+        Swal.fire({
+            title: "숫자만 입력해 주세요.",
+            width: 500,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(https://sweetalert2.github.io/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("https://sweetalert2.github.io/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `,
+        });
+        $(".current_page").val("");
         return;
     }
     var maxPage = Number($(".max_page").val());

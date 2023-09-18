@@ -375,3 +375,11 @@
     color: #eee;
     opacity: 1;
 }
+
+.btn:hover {
+	border: 1px solid gray;
+}
+
+.btn_main{
+	background: royalblue;
+}

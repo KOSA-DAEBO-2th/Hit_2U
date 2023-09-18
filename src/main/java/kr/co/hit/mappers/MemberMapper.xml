@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.MemberDao">
 	<resultMap type="kr.co.hit.dto.MemberDto" id="memberMap">
+		<result property="member_no" column="member_no"/>
 		<result property="member_id" column="member_id"/>
 		<result property="password" column="password"/>
 		<result property="nickname" column="nickname"/>
@@ -33,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- getMember -->
 	<select id ="getMember" parameterType="String" resultType="kr.co.hit.dto.MemberDto" resultMap="memberMap">
-	SELECT member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
+	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
 	</select>
 	
 </mapper>
