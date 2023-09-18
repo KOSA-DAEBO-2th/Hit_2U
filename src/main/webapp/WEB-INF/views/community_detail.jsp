@@ -5,16 +5,12 @@
 <head>
 <title>Insert title here</title>
 <c:import url="includes/header.jsp"></c:import>
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <link
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath }/resources/css/community.css?after" --%>
-<!-- 	rel="stylesheet"> -->
-
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath }/resources/css/community_write.css" --%>
-<!-- 	rel="stylesheet" /> -->
 
 <link
 	href="${pageContext.request.contextPath }/resources/css/community_detail.css"
@@ -41,6 +37,7 @@
 	rel="stylesheet">
 </head>
 
+
 <script type="text/javascript">
 	function board_update() {
 		//alert("수정");
@@ -59,8 +56,51 @@
 	}
 	function board_reply() {
 		//alert("답변");
-		location.href = "replyform?b_no=${dto.b_no}";
+
+		var r_content = document.getElementById('r_content').value;
+
+		if (r_content == '') {
+			alert("댓글에 내용을 입력해주세요.");
+			return false;
+		}
+
+		location.href = "/community/community_detail?b_no=${dto.b_no}";
 	}
+
+	$(document)
+			.ready(
+					function() {
+						$("form")
+								.on(
+										'submit',
+										function(event) {
+											event.preventDefault();
+
+											var formData = $(this).serialize();
+
+											$
+													.ajax({
+														url : "${pageContext.request.contextPath}/community/${dto.b_no}/replies",
+														type : "POST",
+														data : formData,
+														success : function(data) {
+															var div = $("<div>")
+																	.append(
+																			"<span>"
+																					+ data.nickname
+																					+ "</span> <p>"
+																					+ data.r_content
+																					+ "</p>");
+															$("#comments")
+																	.prepend(
+																			div);
+														},
+														error : function() {
+															alert("Error adding comment");
+														}
+													});
+										});
+					});
 </script>
 
 <body>
@@ -90,14 +130,14 @@
 				</div>
 			</div>
 			<div>
-				<h1>${dto.b_title}</h1>
-				<div>
+				<div class="update_delete_container">
 					<%-- <form action="/community_delete" method="post" name="form">
 						<input type="hidden" name="b_no" id="b_no" value="${dto.b_no}"> --%>
-					<input type="button" value="수정" onclick="board_update()" /> <input
-						type="button" value="삭제" onclick="board_delete()" />
+					<input class="btn btn-primary btn-ghost btn-open" type="button" value="수정" onclick="board_update()" />
+					 <input class="btn btn-primary btn-jelly btn-blue" type="button" value="삭제" onclick="board_delete()" />
 					<!-- </form> -->
 				</div>
+				<h1>${dto.b_title}</h1>
 
 			</div>
 			<div>
@@ -108,94 +148,38 @@
 			</div>
 
 
-			<!-- =====================================	뤼튼		===================================== -->
-
-
 			<h2>Comments</h2>
-
-<%-- 			<c:forEach items="${reply}" var="reply"> --%>
-<!-- 				<div class="comment"> -->
-<!-- 					<p> -->
-<%-- 						<strong>${reply.nickname}</strong> --%>
-<!-- 					</p> -->
-<%-- 					<p>${reply.r_content}</p> --%>
-<!-- 					<p> -->
-<%-- 						<small>${reply.reply_date}</small> --%>
-<!-- 					</p> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
 
 			<h3>Add a Comment</h3>
 
 			<form
-				action="${pageContext.request.contextPath}/community/${board_no}/replies"
+				action="${pageContext.request.contextPath}/community/community_detail?b_no=${dto.b_no}&pg=${pg}"
 				method="post">
-				<input type="hidden" name="_method" value="post" />
-
-				<!-- Input fields for nickname and comment -->
-				<label for="nickname">Nickname:</label><br /> <input type="text"
-					id="nickname" name="nickname"><br /> <label for="r_content">Comment:</label><br />
+				<label for="r_content">Comment:</label><br />
 				<textarea id="r_content" name="r_content"></textarea>
-				<br />
+				<br /> <input type="hidden" name="nickname" value="Test User">
 
 				<!-- Submit button -->
-				<button type="submit">Submit Comment</button>
-
+				<div class="submit_btn_container">
+					<button class="btn btn-primary btn-jelly btn-blue" type="submit" onclick="board_reply()">댓글
+						등록</button>
+				</div>
 			</form>
+			<div class="border_line"></div>
 
-
-			<!-- =====================================		뤼튼			===================================== -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			<!-- =====================================	임시적으로 주석처리하였음 (여기서 아래로)		===================================== -->
-
-
-			<!-- 			<div> -->
-			<!-- 				<section> -->
-			<!-- 					<div> -->
-			<!-- 						<div class="box"> -->
-			<!-- 							<img class="profile" alt="" -->
-			<!-- 								src="/resources/images/profile_logo.png"> -->
-			<!-- 						</div> -->
-			<!-- 						<div class="reply-container"> -->
-			<!-- 							<textarea rows="" cols="" placeholder="댓글을 작성하세요."></textarea> -->
-			<!-- 						</div> -->
-			<!-- 						<div class="reply-button"> -->
-			<!-- 							<button type="button">댓글 쓰기</button> -->
-			<!-- 							<input type="button" value="답변" onclick="board_reply()" /> -->
-
-			<!-- 						</div> -->
-			<!-- 					</div> -->
-			<!-- 				</section> -->
-			<!-- 			</div> -->
-			<!-- 			<div> -->
-			<!-- 				<ul> -->
-			<!-- 					<li> -->
-			<!-- 						<div class="box"> -->
-			<!-- 							<a href="/community/profile"> <img class="profile" alt="" -->
-			<!-- 								src="/resources/images/profile_logo.png"></a> <a -->
-			<!-- 								href="/community/profile"> </a> -->
-			<!-- 						</div> -->
-			<!-- 						<div>2</div> -->
-			<!-- 						<div>3</div> -->
-			<!-- 					</li> -->
-			<!-- 				</ul> -->
-			<!-- 			</div> -->
-
-
-			<!-- =====================================	임시적으로 주석처리하였음 (여기서 위로)		===================================== -->
+			<div id="comments">
+				<c:forEach var="reply" items="${replies}">
+					<div class="reply_list">
+						<div>
+							<span>${reply.nickname}</span>
+							<p>${reply.r_content}</p>
+						</div>
+						<div>
+							<button class="btn btn-primary btn-jelly btn-blue">삭제</button>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
 
 		</div>
 	</main>

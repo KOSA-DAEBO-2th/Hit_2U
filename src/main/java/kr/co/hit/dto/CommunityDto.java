@@ -11,6 +11,8 @@ public class CommunityDto {
 	private String b_title, b_content;
 	private Date b_write_date;
 	
+	private String topic_name;
+	private int topic_no;
 	
 	
 }

@@ -1,7 +1,10 @@
-﻿<%@ include file="includes/header.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="includes/header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%> --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
 <title>Insert title here</title>
@@ -19,6 +22,24 @@
 <script async
 	src="${pageContext.request.contextPath}/resources/js/community.js"
 	type="text/javascript" defer></script>
+
+<script type="text/javascript">
+
+
+	window.onload = function() {
+	    var buttons = document.getElementsByClassName('btn_category');
+	    var currentPath = window.location.pathname + window.location.search;
+
+	    for (var i = 0; i < buttons.length; i++) {
+	        if (currentPath == buttons[i].getAttribute('href')) {
+	            buttons[i].classList.add('active');
+	        } else {
+	            buttons[i].classList.remove('active');
+	        }
+	    }
+	}
+</script>
+
 </head>
 <body>
 	<main class="main_content_sm">
@@ -27,12 +48,15 @@
 		</div>
 		<div class="content_category flex content_center padding_bottom_20">
 
-			<button onclick="window.location.href='/community'"
-				class="btn btn_category btn_category_click">전체</button>
-			<a href="/category?topic_no=3" class="btn btn_category">자유</a> <a
-				href="/category?topic_no=4" class="btn btn_category">고민</a> <a
+			<a id="btn_all" href="/community" class="btn btn_category">전체</a> <a
+				id="btn_free" href="/category?topic_no=3" class="btn btn_category">자유</a>
+			<a id="btn_worry" href="/category?topic_no=4"
+				class="btn btn_category">고민</a> <a id="btn_exercise"
 				href="/category?topic_no=5" class="btn btn_category">운동</a> <a
-				href="/category?topic_no=6" class="btn btn_category btn_anonymous">익명</a>
+				id="btn_anonymous" href="/category?topic_no=6"
+				class="btn btn_category btn_anonymous">익명</a>
+
+
 		</div>
 		<div class="flex content_center">
 			<div class="search-box flex content_center">
@@ -81,12 +105,7 @@
 												<div class="like_comment_box"></div>
 											</div>
 											<div class="main_title_box flex item_center">
-												<div class="topic">
-													<!-- 												<a href="#">자유</a> -->
-
-													자유
-
-												</div>
+												<div class="topic">자유</div>
 												<div class="like_comment_box">
 
 													<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
@@ -108,38 +127,45 @@
 				</div>
 			</div>
 		</article>
+
 		<div class="paging-container">
 			<table>
 				<tr>
 					<td>
-						<!-- 처음 이전 링크 --> <c:if test="${ pg>1 }">
-				[<a href="community?pg=1"> ◀◀ </a>]				
-				[<a href="community?pg=${pg-1}"> ◀ </a>]		
-			</c:if> <c:if test="${ pg<=1 }">
-			
-				[<span style="color: gray"> ◀◀ </span>]			
-				[<span style="color: gray"> ◀ </span>]			
-
-			</c:if> <c:forEach begin="${formPage}" end="${toPage}" var="i">
-							<c:if test="${i==pg}">[${i}]</c:if>
-							<c:if test="${i!=pg}"> 
-					[<a href="community?pg=${i}">${i}</a>]
-			    </c:if>
-
-						</c:forEach> <c:if test="${pg < allPage}">
-				[<a href="community?pg=${pg + 1}"> ▶ </a>]			
-				[<a href="community?pg=${allPage}"> ▶▶ </a>]			
-			</c:if> <c:if test="${pg >= allPage}">			
-				[<span style="color: gray"> ▶ </span>]			
-				[<span style="color: gray"> ▶▶ </span>]			
-
-			</c:if>
+						<!-- 처음 이전 링크 --> <c:if test="${currentPage > 1}">
+					[<a href="?topic_no=${param.topic_no}&amp;page=1"> ◀◀ </a>]
+					[<a href="?topic_no=${param.topic_no}&amp;page=${currentPage - 1}">
+								◀ </a>]
+				</c:if> <c:if test="${currentPage <= 1}">
+					[<span style="color: gray"> ◀◀ </span>]
+					[<span style="color: gray"> ◀ </span>]
+				</c:if> <!-- 페이지 번호 출력 --> <c:forEach begin="${startPageGroup}"
+							end="${endPageGroup}" step="1" varStatus="status">
+							<c:choose>
+								<c:when test="${status.index == currentPage}">
+                            [${status.index}]
+                        </c:when>
+								<c:otherwise>
+                            [<a
+										href="?topic_no=${param.topic_no}&amp;page=${status.index}">${status.index}</a>]
+                        </c:otherwise>
+							</c:choose>
+						</c:forEach> <!-- 다음 이후 링크 --> <c:if test="${currentPage < totalPages}">
+                    [<a
+								href="?topic_no=${param.topic_no}&amp;page=${currentPage + 1}">
+								▶</a>]	
+                    [<a
+								href="?topic_no=${param.topic_no}&amp;page=${totalPages}">
+								▶▶</a>]	
+			    </c:if> <c:if test="${currentPage >= totalPages}">
+			        [<span style="color: gray;"> ▶</span>]			
+			        [<span style="color: gray;"> ▶▶</span>]			
+		        </c:if>
 
 					</td>
 				</tr>
 			</table>
 		</div>
-
 	</main>
 	<c:import url="includes/footer.jsp"></c:import>
 </body>

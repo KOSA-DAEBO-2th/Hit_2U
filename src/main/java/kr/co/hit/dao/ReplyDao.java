@@ -6,8 +6,8 @@ import kr.co.hit.dto.ReplyDto;
 
 public interface ReplyDao {
 	
-	List<ReplyDto> selectByBoardNo(int board_no);
+	List<ReplyDto> getReplies(int b_no);
 
-	void insert(ReplyDto reply);
+	void addReply(ReplyDto reply);
 	
 }

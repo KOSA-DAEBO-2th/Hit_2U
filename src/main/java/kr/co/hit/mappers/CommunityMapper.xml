@@ -8,17 +8,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="CommunityList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
+		<!-- 커뮤니티 리스트 전체 출력 -->
+
 		SELECT * FROM (
 		SELECT
 		A.*,
 		@rownum := @rownum + 1 AS r
 		FROM
-		(SELECT * FROM BOARD where cat_no =1 ORDER BY b_no DESC) A,
+		(SELECT * FROM
+		BOARD where cat_no =1 ORDER BY b_no DESC) A,
 		(SELECT
 		@rownum := 0) R
 		) B
 		WHERE r BETWEEN #{start} AND #{end}
 
+	</select>
+
+
+	<select id="getPostsByTopic" parameterType="hashmap"
+		resultType="kr.co.hit.dto.CommunityDto">
+
+		SELECT * FROM (
+		SELECT A.*, @rownum := @rownum + 1 AS r
+		FROM
+		(SELECT * FROM BOARD WHERE cat_no = 1 AND topic_no = #{topicNo} ORDER
+		BY b_no DESC) A,
+		(SELECT @rownum := 0) R
+		) B WHERE r BETWEEN #{start}
+		AND #{end}
 	</select>
 
 	<select id="getCommunityCount" resultType="Integer">
@@ -31,19 +48,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="InsertCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
 
-		INSERT INTO BOARD
-		(b_no, b_title, b_content,
-		b_write_date, b_view, b_reply, b_recommend, member_no, cat_no)
-		VALUES(
-		(SELECT * FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM BOARD)
-		AS tmp),
-		#{b_title},#{b_content}, current_timestamp, 1,2,3,4,1)
+		INSERT INTO BOARD (b_no, b_title, b_content,
+		b_write_date, b_view,
+		b_reply, b_recommend, member_no,
+		cat_no, topic_no)
+		VALUES ((SELECT *
+		FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM
+		BOARD) AS tmp),
+		#{b_title}, #{b_content}, current_timestamp,
+		0 , 0 , 0 ,
+		#{member_no} ,
+		1 , #{topic_no})
 
 	</insert>
+
+	<!-- 주어진 토픽 이름에 해당하는 토픽 번호를 조회, 새 게시글을 작성할 때 사용자가 선택한 토픽의 번호를 알아내기 위해 사용 -->
+	<select id="getTopicNoByTopicName" parameterType="String"
+		resultType="int">
+		SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name}
+	</select>
+
+
 
 	<select id="getCommunityDetail"
 		resultType="kr.co.hit.dto.CommunityDto" parameterType="int">
 
+		<!-- 글 상세보기 -->
 		select b_no,
 		b_title,
 		b_content,
@@ -54,9 +84,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+
+	<select id="getPostCountByTopic" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no = #{topicNo}
+	</select>
+
+
 	<update id="updateCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
 
+		<!-- 글 수정 (토픽, 태그 추가 안됨) -->
 		update BOARD set
 		b_title=#{b_title},
 		b_content=#{b_content}
@@ -66,13 +104,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<update id="updateView" parameterType="int">
-	
+
+		<!-- 조회수 증가 -->
 		UPDATE BOARD SET B_VIEW = B_VIEW + 1
 		WHERE b_no = #{b_no}
 
 	</update>
 
 	<delete id="deleteCommunity" parameterType="int">
+
+		<!-- 게시글 삭제 -->
 		delete from BOARD where b_no = #{b_no}
 	</delete>
 </mapper>

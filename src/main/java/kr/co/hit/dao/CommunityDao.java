@@ -27,8 +27,15 @@ public interface CommunityDao {
 
 //	public int deleteCommunity(CommunityDto dto);
 	
-	
 	// 조회수 증가
 	public int updateView(int b_no);
+	
+	
+//	주어진 토픽 이름으로 토픽 번호를 조회하는 DAO 메서드
+	public int getTopicNoByTopicName(String topic_name);
+	
+	public List<CommunityDto> getPostsByTopic(HashMap map);
+
+	public int getPostCountByTopic(int topicNo);
 	
 }

@@ -12,17 +12,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.hit.dto.CommunityDto;
+import kr.co.hit.dto.ReplyDto;
 import kr.co.hit.service.CommunityService;
+import kr.co.hit.service.ReplyService;
 
 @Controller
 public class CommunityController {
 
 	@Autowired
 	private CommunityService communityService;
+	
+	@Autowired
+	private ReplyService replyService;
+	
 
-	// 밑에 페이징 처리 포함하는 커뮤니티 컨트롤러 진행중 작동 안될시에 밑에 삭제하고 위에 주석 풀어서 사용하면됨
 	@RequestMapping("/community")
 	public String community(HttpServletRequest request) {
 
@@ -76,34 +82,32 @@ public class CommunityController {
 
 		return "community_write_form";
 	}
-
-	// community_write
+	
+	// 이거 작동 안되면 위에거 주석 풀어서 사용하면됨
 	@RequestMapping("/community/community_write")
-	public String community_write(CommunityDto dto) {
-
-		communityService.InsertCommunity(dto);
-
-		return "redirect:/community";
+	public String community_write(CommunityDto dto, @RequestParam("topic") String topic) {
+	    dto.setTopic_name(topic);  // 사용자가 선택한 토픽 설정
+	    communityService.InsertCommunity(dto);
+	    return "redirect:/community";
 	}
+
 
 	// community detail
 	@RequestMapping("/community/community_detail")
 	public String community_detail(int b_no, Model model) {
 		
+		// 상세보기 클릭시 조회수 증가
 		communityService.updateView(b_no);
 
+		// 상세보기
 		CommunityDto dto = communityService.getCommunityDetail(b_no);
-//		CommunityDto dto1 = communityService.getCommunityDetail(b_view);
-		model.addAttribute("dto", dto);
-//		model.addAttribute("dto1", dto1);
-		
-		
-		System.out.println(b_no +" b_no 있냐");
-//		System.out.println(b_view+" b_view 있냐");
-		
-		
+		model.addAttribute("dto", dto);				
 		System.out.println(dto + "   detail");
-
+		
+		// 본문 아래 댓글 리스트 가져오기
+	    List<ReplyDto> replies = replyService.getReplies(b_no);
+	    model.addAttribute("replies", replies);
+		
 		return "community_detail";
 	}
 
@@ -125,11 +129,10 @@ public class CommunityController {
 		if (result == 0)
 			res = "fail";
 		return res;
-
 	}
 	
 	@RequestMapping(value="/community_delete/{dto.b_no}", method = RequestMethod.GET)
-	public String delete(@PathVariable("dto.b_no") int b_no    )
+	public String delete(@PathVariable("dto.b_no") int b_no)
 	{
 		System.out.println(b_no+" 오니?");
 //		communityService.deleteCommunity(Integer.parseInt(b_no));
@@ -139,6 +142,42 @@ public class CommunityController {
 		return "redirect:/community";
 		
 	}	
+	
+	@RequestMapping("/category")
+	public String category(@RequestParam("topic_no") int topicNo,
+	                       @RequestParam(value = "page", defaultValue = "1") int page,
+	                       HttpServletRequest request, Model model) {
+
+		int postsPerPage = 10; 
+		int startPost = (page - 1) * postsPerPage + 1; 
+		int endPost = startPost + postsPerPage - 1;
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("start", startPost);
+		map.put("end", endPost);
+		map.put("topicNo", topicNo);
+
+		List<CommunityDto> list = communityService.getPostsByTopic(map);
+
+		int totalPosts = communityService.getPostCountByTopic(topicNo); // 주제별 총 게시글 개수 조회
+		int totalPages = totalPosts / postsPerPage;
+		if (totalPosts % postsPerPage != 0) { 
+			totalPages++; 
+		}
+
+	    // 여기에 페이지 그룹 관련 코드 추가
+	    int startPageGroup = (page - 1) / 10 * 10 + 1;
+	    int endPageGroup = Math.min(startPageGroup + 9, totalPages); // 마지막 페이지 그룹이 범위를 초과하지 않도록 조정
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("startPageGroup", startPageGroup);
+	    model.addAttribute("endPageGroup", endPageGroup);
+
+		model.addAttribute("list", list);
+
+		return "category";
+	}
 	
 	
 

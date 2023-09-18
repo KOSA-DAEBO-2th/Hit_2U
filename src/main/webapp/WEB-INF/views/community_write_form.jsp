@@ -9,10 +9,6 @@
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
 
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath }/resources/css/community.css?after" --%>
-<!-- 	rel="stylesheet"> -->
-
 <link
 	href="${pageContext.request.contextPath }/resources/css/community_write_form.css"
 	rel="stylesheet" />
@@ -51,12 +47,14 @@
 			<div>
 				<div>
 					<div class="topic">
-						<label>토픽</label> <select>
-							<option>토픽을 선택해주세요.</option>
-							<option>자유</option>
-							<option>고민</option>
-							<option>운동</option>
-							<option>익명</option>
+						<label>토픽</label> <select name="topic">
+						
+							<option value="">토픽을 선택해주세요.</option>
+							<option value="자유">자유</option>
+							<option value="고민">고민</option>
+							<option value="운동">운동</option>
+							<option value="익명">익명</option>
+
 						</select>
 					</div>
 					<div class="title">

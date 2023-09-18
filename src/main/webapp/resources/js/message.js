@@ -60,37 +60,6 @@ function m_send() {
         },
     });
 
-
-function m_send(){
-	console.log("clickedddddd");
-	var m_receive = document.getElementById('m_receive').value;
-	console.log(m_receive);
-	var m_content = document.getElementById('m_content').value;
-	console.log(m_content);
-	var message = { "m_receive": m_receive, "m_content": m_content}
-	console.log(message);
-	
-	
-
-	$.ajax({
-		type: "POST",
-		url: "message_send",
-		contentType: 'application/json',
-		data: JSON.stringify(message),
-		success: function(data){
-			console.log("success");
-			//location.href = "message_list";
-			Swal.fire({
-				//position: 'top-end',
-				icon: 'success',
-				title: '전송이 완료되었습니다.',
-				showConfirmButton: false,
-				timer: 1500
-			});
-			m_list();
-
-		}
-	});  
 }
 
 function del() {
@@ -129,4 +98,5 @@ function del() {
 // 		list += ", ";
 // }
 // 	}
+
 }

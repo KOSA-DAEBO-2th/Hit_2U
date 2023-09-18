@@ -20,6 +20,8 @@
 	
 }
 
+
+
 .nickname:hover {
 	color: blue;
 }
@@ -36,7 +38,13 @@
 	padding-right: 2vw;
 }
 
-.write_btn {
+div.write_btn_container {
+	display: flex;
+	justify-content: flex-end;
+	padding-bottom: 1vw;
+}
+
+.write_btn2 {
 	color: white;
 }
 
@@ -46,4 +54,20 @@
 
 .board_list a:hover {
 	color: red;
+	background-color: aqua;
+}
+
+div.paging-container {
+	display: flex;
+	justify-content: center;
+}
+
+/* .btn_category.active { */
+
+/*     color: white; */
+/*     background-color: royalblue; */
+/* } */
+
+.btn.active {
+    background-color: blue !important;
 }
