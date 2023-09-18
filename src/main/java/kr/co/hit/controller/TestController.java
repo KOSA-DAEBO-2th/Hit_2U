@@ -107,7 +107,7 @@ public class TestController {
 		return "redirect:/meeting";
 	}
 
-	@RequestMapping(value = "image", headers = ("content-type=multipart/*"), method = RequestMethod.POST)
+	@RequestMapping(value = "/image", headers = ("content-type=multipart/*"), method = RequestMethod.POST)
 	public String imageUpload(@RequestParam("image") List<MultipartFile> files) throws IOException {
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MultipartFile multiFile = files.get(0);
