@@ -30,16 +30,16 @@
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item active" aria-current="page">사용자 정보</li>
-            <li class="breadcrumb-item"><a  onclick="writeList()"> 작성 글 </a></li>
-            <li class="breadcrumb-item"><a href="#"> 모임 현황 </a></li>
+            <li class="breadcrumb-item active"  onclick="profile()">사용자 정보</li>
+            <li class="breadcrumb-item" onclick="writeList()"> 작성 글 </li>
+            <li class="breadcrumb-item" onclick="meetingList()"><a href="#"> 모임 현황 </a></li>
             <li class="breadcrumb-item "><a href="#">수강 강의</a></li>
           </ol>
         </nav>
       </div>
     </div>
-	<h2>마이페이지</h2>
     <div class="row changeSection">
+	<h2>마이페이지</h2>
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -118,7 +118,7 @@
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
-                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> 게시판 별 게시글 작성 빈도</p>
+                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> 게시판 별 게시글 수</p>
                 <div>
   					<canvas id="board"></canvas>
 				</div>
@@ -129,7 +129,7 @@
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
               <div class="card-body">
-              <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> 게시판 별 댓글 작성 빈도</p>
+              <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> 게시판 별 댓글 수</p>
 				<div>
   					<canvas id="reply"></canvas>
 				</div>
