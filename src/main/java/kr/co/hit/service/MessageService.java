@@ -17,10 +17,10 @@ public class MessageService implements MessageDao{
 	private SqlSession sqlsession;
 
 	@Override
-	public List<MessageDto> selectMessageList() {
+	public List<MessageDto> selectMessageList(String id) {
 		MessageDao dao = sqlsession.getMapper(MessageDao.class);
 		List<MessageDto> list = new ArrayList<MessageDto>();
-		list = dao.selectMessageList();
+		list = dao.selectMessageList(id);
 		return list;
 	}
 
@@ -33,11 +33,22 @@ public class MessageService implements MessageDao{
 	}
 
 	@Override
-	public List<MessageDto> selectSendList() {
+	public List<MessageDto> selectSendList(String id) {
 		MessageDao dao = sqlsession.getMapper(MessageDao.class);
 		List<MessageDto> list = new ArrayList<MessageDto>();
-		list = dao.selectSendList();
+		list = dao.selectSendList(id);
 		return list;
+	}
+
+	@Override
+	public int deleteMessage(List<Integer> checkArr) {
+		MessageDao dao = sqlsession.getMapper(MessageDao.class);
+		System.out.println("========dao============");
+		for(int i=0; i<checkArr.size(); i++) {
+			System.out.println(checkArr.get(i));
+		}
+		int res = dao.deleteMessage(checkArr);
+		return res;
 	}
 	
 	

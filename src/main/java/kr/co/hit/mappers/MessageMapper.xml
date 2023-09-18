@@ -5,20 +5,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.MessageDao">
 	
-	<select id="selectMessageList" resultType="kr.co.hit.dto.MessageDto">
-		SELECT * FROM MESSAGE WHERE M_RECEIVE = '123' ORDER BY M_DATE DESC
+	<select id="selectMessageList" resultType="kr.co.hit.dto.MessageDto" parameterType="string">
+		SELECT * FROM MESSAGE WHERE M_RECEIVE = #{member_id} ORDER BY M_DATE DESC
 	</select>
 	
-	<select id="selectSendList" resultType="kr.co.hit.dto.MessageDto">
-		SELECT * FROM MESSAGE WHERE M_SEND = '123' ORDER BY M_DATE DESC
+	<select id="selectSendList" resultType="kr.co.hit.dto.MessageDto" parameterType="string">
+		SELECT * FROM MESSAGE WHERE M_SEND = #{member_id} ORDER BY M_DATE DESC
 	</select>
 	
 	<insert id="sendMessage">
-		INSERT INTO MESSAGE (M_SEND, M_RECEIVE, M_DATE, M_CONTENT, M_WATCH) VALUES( '123', #{m_receive}, NOW(), #{m_content}, 0 )
+		INSERT INTO MESSAGE (M_SEND, M_RECEIVE, M_DATE, M_CONTENT, M_WATCH) VALUES( #{m_send}, #{m_receive}, NOW(), #{m_content}, 0 )
 	</insert>
 	
 	<delete id="deleteMessage" parameterType="java.util.List">
-		DELETE FROM MESSAGE WHERE M_NO in <foreach collection="items" item="items" open="(" close=")" separator=",">#{item.val}</foreach>
+		DELETE FROM MESSAGE WHERE M_NO in <foreach collection="list" item="m_no" index="index" open="(" close=")" separator=",">#{m_no}</foreach>
 	</delete>
 	
 	

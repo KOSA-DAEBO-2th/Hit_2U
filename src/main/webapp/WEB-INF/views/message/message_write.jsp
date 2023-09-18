@@ -4,15 +4,15 @@
 <html>
 <head>
 <title>  </title>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> -->
 <link href="${pageContext.request.contextPath }/resources/css/message_write.css?after" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"> 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
 <script type="text/javascript">
 /* function m_send(){
 	console.log("clickedddddd");
@@ -50,7 +50,7 @@
         <p class="text-center">쪽지쓰기</p>
         <form action="message_send" method="post" >
             <div class="form-row mb-3">
-                <label for="to" class="col-2 col-sm-1 col-form-label">받는</label>
+                <label for="to" class="col-2 col-sm-1 col-form-label">받는 사람</label>
                 <div class="col-11 col-sm-11">
                     <input type="text" class="form-control" id="m_receive" name="m_receive" placeholder="id 입력">
                 </div>

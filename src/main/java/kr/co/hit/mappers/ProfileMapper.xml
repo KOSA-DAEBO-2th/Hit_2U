@@ -17,14 +17,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getWriteList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
 		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id 
 		FROM BOARD b left JOIN MEMBER m ON b.member_no=m.member_no 
-		WHERE m.member_id=#{member_id}
+		WHERE m.member_id=#{member_id} ORDER BY b_write_date DESC
 	</select>
 	
 	<select id="getReplyList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
 		SELECT b.b_no, b.b_title, b.b_content, r.r_content, r.reply_date 
-		FROM REPLY r LEFT JOIN BOARD b ON r.board_no=b.b_no 
+		FROM REPLY r LEFT JOIN BOARD b ON r.b_no=b.b_no 
 		LEFT JOIN MEMBER m ON r.nickname=m.nickname 
-		WHERE member_id = #{member_id}
+		WHERE member_id = #{member_id} ORDER BY reply_date DESC
 	</select>
 	
 	<select id="getCountWrite" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
@@ -37,11 +37,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getCountReply" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
 		SELECT cat_name, COUNT(c.cat_name) AS COUNT FROM REPLY r 
-		LEFT JOIN BOARD b ON r.board_no=b.b_no 
+		LEFT JOIN BOARD b ON r.b_no=b.b_no 
 		LEFT JOIN CATEGORY c ON b.cat_no=c.cat_no 
 		LEFT JOIN MEMBER m ON r.nickname=m.nickname 
 		WHERE m.member_id=#{member_id}  
 		GROUP BY c.cat_name
+	</select>
+	
+	<select id="getMeetingList" resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS, M.MEET_TOPIC_NAME, 
+		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply, mem.member_id  
+		FROM BOARD B INNER JOIN MEETING M ON B.B_NO = M.B_NO
+		INNER JOIN (SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING ) tmp
+		ON B.B_NO = tmp.B_NO 
+		LEFT JOIN MEMBER mem ON B.member_no = mem.member_no 
+		WHERE CAT_NO = 3 AND member_id = ${member_id}
+	</select>
+	
+	<select id="applyMeetingList" resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS, M.MEET_TOPIC_NAME, 
+		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply, mem.member_id, mm.meeting_position, mm.meeting_tmp 
+		FROM BOARD B INNER JOIN MEETING M ON B.B_NO = M.B_NO
+		INNER JOIN (SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING ) tmp
+		ON B.B_NO = tmp.B_NO
+		INNER JOIN MEETING_MEMBER mm ON B.b_no=mm.b_no
+		INNER JOIN MEMBER mem ON mm.member_no=mem.member_no
+		WHERE CAT_NO = 3 AND member_id= ${member_id}
 	</select>
 	
 </mapper>
