@@ -92,3 +92,41 @@ function m_send(){
 		}
 	});  
 }
+
+function del() {
+	//alert("삭제하시겠습니까?");
+	var confirm_val = confirm("삭제하시겠습니까?");
+	
+	if(confirm_val) {
+		var checkArr = new Array();
+		var m_no={};
+		$("input[class='chk']:checked").each(function(){
+			//m_no = {"m_no": $(this).val()};
+			//checkArr.push(m_no);
+			checkArr.push($(this).val());
+		});
+		console.log(checkArr);
+		$.ajax({
+		type: "POST",
+		url: "message_del",
+		contentType: 'application/json',
+		data: JSON.stringify(checkArr),
+		success: function(data){
+			console.log("delete success");
+			//location.href = "message_list";
+			console.log(data);
+			m_list();
+
+		}
+	});  
+	}
+	
+// 	let list = [];
+// 	$(".chk:checked").each(function(idx, item){
+// 	if(idx == 0){
+// 		list.push({"m_no":item});
+// 	} else {
+// 		list += ", ";
+// }
+// 	}
+}
