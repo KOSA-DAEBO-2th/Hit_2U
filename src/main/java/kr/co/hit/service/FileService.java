@@ -11,16 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.hit.aws.AwsS3;
-import kr.co.hit.dao.ImageDao;
+import kr.co.hit.dao.FileDao;
+import kr.co.hit.dao.MeetingDao;
 import kr.co.hit.dto.FileDto;
-import kr.co.hit.dto.ImageDto;
+import kr.co.hit.dto.MeetingDto;
 
 @Service
-public class TestService {
+public class FileService {
 
 @Autowired
 private SqlSession sqlsession;
-	
+
 	@Transactional(rollbackFor = Exception.class)
 	public void fileTest(List<MultipartFile> files) throws IOException {
 		MultipartFile multiFile = files.get(0);
@@ -54,11 +55,20 @@ private SqlSession sqlsession;
 	@Transactional(rollbackFor = Exception.class)
 	public int uploadThumb(List<MultipartFile> files, FileDto fileOne) throws IOException {
 		int result = 0;
+		AwsS3 awsS3 = AwsS3.getInstance();
+		
+		FileDao fileDao = sqlsession.getMapper(FileDao.class);
+		String Name = fileDao.searchName(fileOne.getB_no());
+		if(Name !=null) {
+			fileDao.deleteImage(Name);
+			System.out.println("이미 등록된 이미지 삭제 완료");
+			awsS3.delete(Name);
+			System.out.println("등록된 S3 이미지 삭제 완료");
+		}
+		
 		MultipartFile multiFile = files.get(0);
 
 		if (multiFile.getSize() != 0) {
-			AwsS3 awsS3 = AwsS3.getInstance();
-			System.out.println("인스턴스 생성하니?");
 
 			for (MultipartFile multipartfile : files) {
 				awsS3.upload(multipartfile, fileOne.getFile_name());
@@ -67,30 +77,5 @@ private SqlSession sqlsession;
 		}
 		return result;
 	}
-	
-	@Transactional(rollbackFor = Exception.class)
-	public int uploadImage(List<MultipartFile> files, ImageDto imageOne) throws IOException {
-		int result = 0;
-		AwsS3 awsS3 = AwsS3.getInstance();
-		
-		ImageDao imageDao = sqlsession.getMapper(ImageDao.class);
-		String Name = imageDao.searchName(imageOne.getMember_no());
-		if(Name !=null) {
-			imageDao.deleteImage(Name);
-			System.out.println("이미 등록된 이미지 삭제 완료");
-			awsS3.delete(Name);
-			System.out.println("등록된 S3 이미지 삭제 완료");
-		}
-		
-		MultipartFile multiFile = files.get(0);
-		
-		if (multiFile.getSize() != 0) {
-			
-			for (MultipartFile multipartfile : files) {
-				awsS3.upload(multipartfile, imageOne.getImage_name());
-			}
-			result = 1;
-		}
-		return result;
-	}
+
 }

@@ -5,6 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+
 <link href="${pageContext.request.contextPath }/resources/css/reset.css"
 	rel="stylesheet">
 <link
@@ -22,6 +26,7 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/css/util.css"
 	rel="stylesheet">
+
 </head>
 
 <body>
@@ -47,11 +52,34 @@
 				<div class="font_16 text_left password">비밀번호</div>
 				<input class="form-control" type="password" name="password">
 
-				<div class="font_16 text_right font_blue margin_top_20"><a href="#">계정찾기</a></div>
-				<button class="btn btn-primary btn-pulse btn-blue login_button" type="submit">로그인</button>
+				<div class="font_16 text_right font_blue margin_top_20">
+					<a href="#">계정찾기</a>
+				</div>
+				<button class="btn btn-primary btn-pulse btn-blue login_button"
+					type="submit">로그인</button>
 			</form>
-			
-			<div>아직 회원이 아니신가요? <a href="#" onclick="location.href='signup'">회원가입</a></div>
+			<div id="naverIdLogin" style="display: none;"></div>
+			<button class="btn btn-primary btn-pulse btn-blue login_button"
+				type="button" style="background-color: #54BD54" onclick="showLoginPopup();">네이버ID로 로그인
+			</button>
+			<script>
+
+    // 네이버 로그인을 위한 팝업창 생성
+    function showLoginPopup(){
+        let uri = 'https://nid.naver.com/oauth2.0/authorize?' +
+            'response_type=code' +                  // 인증과정에 대한 내부 구분값 code 로 전공 (고정값)
+            '&client_id=M2kIBHJWwsAGlcttIoT8' +     // 발급받은 client_id 를 입력
+            '&state=NAVER_LOGIN_TEST' +             // CORS 를 방지하기 위한 특정 토큰값(임의값 사용)
+            '&redirect_uri=http://localhost:8080/login/oauth2/code/naver';   // 어플케이션에서 등록했던 CallBack URL를 입력
+
+        // 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
+        window.open(uri, "Naver Login Test PopupScreen", "width=450, height=600");
+    }
+
+</script>
+			<div>
+				아직 회원이 아니신가요? <a href="#" onclick="location.href='signup'">회원가입</a>
+			</div>
 		</div>
 
 

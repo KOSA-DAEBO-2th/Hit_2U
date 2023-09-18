@@ -2,7 +2,6 @@ package kr.co.hit.dto;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

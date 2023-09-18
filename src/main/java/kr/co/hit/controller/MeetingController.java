@@ -2,26 +2,25 @@ package kr.co.hit.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.DefaultListSelectionModel;
-import javax.xml.stream.events.StartDocument;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.security.User;
+import kr.co.hit.service.FileService;
 import kr.co.hit.service.MeetingService;
 
 @Controller
@@ -30,7 +29,10 @@ public class MeetingController {
 
 	@Autowired
 	MeetingService meetingService;
-
+	
+	@Autowired
+	FileService fileService;
+	
 //	@GetMapping()
 //	public ModelAndView meeting() {
 //
@@ -101,9 +103,6 @@ public class MeetingController {
 			tag_list.add(tag);
 		}
 		
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(user.getMember_id());
-
 		model.addAttribute("list", list);
 		model.addAttribute("tag_list", tag_list);
 		model.addAttribute("maxPage", maxPage);
@@ -148,17 +147,34 @@ public class MeetingController {
 		return "meeting/meeting_write";
 	}
 
-	@PostMapping("/write")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	public String write(MeetingDto dto) throws Exception {
-		
-		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		dto.setMember_no(user.getMember_no());
+	@PostMapping(value = "write", headers = ("content-type=multipart/*"))
+	public String write(MeetingDto dto, @RequestParam("chooseFile") List<MultipartFile> files) throws Exception {
 		System.out.println(dto);
 		meetingService.insert(dto);
 		meetingService.insertMeeting(dto);
-		meetingService.insertMeetingMember(meetingService.getMeetingBoardNumber(), user.getMember_no(), dto.getMeeting_position(), 1, 1);
+		System.out.println("insertMeeing성공");
 		
+		MultipartFile multiFile = files.get(0);
+		UUID uuid = UUID.randomUUID();
+		
+		if (multiFile.getSize() != 0) {
+			for (MultipartFile multipartfile : files) {
+
+				FileDto fileOne = new FileDto();
+				String fileName = "Board/Meeting/" + uuid.toString() + "_" + multipartfile.getOriginalFilename();
+				String fileUrl = "https://2teams3.s3.ap-northeast-2.amazonaws.com/" + fileName;
+				fileOne.setFile_url(fileUrl);
+				fileOne.setFile_name(fileName);
+				fileOne.setFile_realname(multipartfile.getOriginalFilename());
+				fileOne.setFile_size(multipartfile.getSize());
+
+				fileService.uploadThumb(files, fileOne);
+				System.out.println("파일 S3 업로드 성공");
+
+				meetingService.insertThumb(fileOne);
+				System.out.println("파일 DB 저장 성공");
+			}
+		}
 		return "redirect:/meeting";
 	}
 

@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
@@ -60,13 +61,23 @@
                     <a href="#">공지사항</a>
             </nav>
             <div class="header_right">
+            <sec:authorize access="isAnonymous()">
                 <div style="flex-shrink: 0; width: 180px;">
                     <button class="btn btn-primary btn-ghost btn-open" onclick="location.href='/member/login'">로그인</button>
                     <button class="btn btn-primary btn-jelly btn-blue" onclick="location.href='/member/signup'">
                         회원가입
                     </button>
                 </div>
+                </sec:authorize>
+                 <sec:authorize access="isAuthenticated()">
+                <div style="flex-shrink: 0; font-size: 20px;">
+                	<sec:authentication property="principal.nickname"/>님 
+                	<i class="fa-solid fa-user" onclick="location.href='/profile'" style="margin-left:5px; margin-right:5px;"></i>
+                	<i class="fa-solid fa-right-from-bracket" onclick="location.href='/logout'"></i>
+                </div>
+                </sec:authorize>
             </div>
+            
         </header>
     </body>
 </html>
