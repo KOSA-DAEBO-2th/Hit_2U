@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.service.JoinService;
@@ -32,6 +34,18 @@ public class MemberController {
 	
 		return "member/signup";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value= "/checkId", method = RequestMethod.POST)
+    public int checkId(MemberDto dto) {
+		int result =0;
+        int flag = joinService.checkId(dto.getMember_id());
+        if(flag == 1) result =1; 
+        //아이디가 있을시 Y 없을시 N 으로jsp view 로 보냄
+       System.out.println(result);
+        return result;
+    }
+ 
 	
 	@PostMapping("/signok")
 	public String signok(MemberDto dto) {

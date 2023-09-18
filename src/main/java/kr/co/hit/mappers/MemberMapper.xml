@@ -37,4 +37,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
 	</select>
 	
+	<!-- ID중복검사 -->
+	<select id="checkId" parameterType="String" resultType="int">
+        select count(*) from MEMBER where member_id=#{member_id}
+    </select>
 </mapper>

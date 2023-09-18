@@ -15,6 +15,13 @@ function joinChk(){
         return false;
     }
     
+     var resultCheckId = document.getElementById("result_checkId");
+     if (resultCheckId.textContent.trim() === "") {
+          alert("아이디 중복 체크를 진행해주세요.");
+          document.join.checkId.focus();
+          return false;
+         }
+    
      if (!document.join.password.value) {
         alert("비밀번호를 입력하십시요.");
         document.join.password.focus();
@@ -42,6 +49,13 @@ function joinChk(){
         document.join.nickname.focus();
         return false;
     }
+    
+    var nicknameInput = document.getElementById("nicknameInput");
+    var nickname = nicknameInput.value.trim();
+     if (nickname.length < 2 || nickname.length > 8) {
+                alert("닉네임은 2~8자 이내로 입력해주세요.");
+                return false;
+            }
 
      if (!document.join.contact.value) {
         alert("연락처를 입력하십시요.");
