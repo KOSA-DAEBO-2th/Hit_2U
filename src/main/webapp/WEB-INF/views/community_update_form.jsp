@@ -9,10 +9,6 @@
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
 
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath }/resources/css/community.css?after" --%>
-<!-- 	rel="stylesheet"> -->
-
 <link
 	href="${pageContext.request.contextPath }/resources/css/community_write_form.css"
 	rel="stylesheet" />
@@ -68,8 +64,6 @@
 						<input type="text" id="b_title" name="b_title"
 							value="${dto.b_title}">
 					</div>
-					
-									
 										<div class="tagtag">
 											<label>태그 - <span>내용을 대표하는 태그 3개 정도 입력해주세요.</span>
 											</label> <input class="tag1-input" placeholder="태그를 입력해주세요."></input>

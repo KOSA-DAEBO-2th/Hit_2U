@@ -47,6 +47,12 @@ public class CommunityService implements CommunityDao {
 	public void InsertCommunity(CommunityDto dto) {
 
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+
+//		이거 작동안할시 지움
+		int topicNo = dao.getTopicNoByTopicName(dto.getTopic_name());
+		dto.setTopic_no(topicNo);
+		// 위에서 아래로
+
 		dao.InsertCommunity(dto);
 	}
 
@@ -83,10 +89,28 @@ public class CommunityService implements CommunityDao {
 	@Override
 	public int updateView(int b_no) {
 		System.out.println("update view");
-		
+
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		
+
 		return dao.updateView(b_no);
 	}
+
+	@Override
+	public int getTopicNoByTopicName(String topic_name) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.getTopicNoByTopicName(topic_name);
+	}
+
 	
+	public List<CommunityDto> getPostsByTopic(HashMap map) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.getPostsByTopic(map);
+	}
+
+	public int getPostCountByTopic(int topicNo) {
+		
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.getPostCountByTopic(topicNo);
+	}
+
 }

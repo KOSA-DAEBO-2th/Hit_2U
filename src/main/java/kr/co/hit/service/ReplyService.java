@@ -2,6 +2,7 @@ package kr.co.hit.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +12,19 @@ import kr.co.hit.dto.ReplyDto;
 @Service
 public class ReplyService {
 
-	@Autowired
-	private ReplyDao replyDao;
-	
-	public List<ReplyDto> getReplies(int board_no){
-		return replyDao.selectByBoardNo(board_no);
-	}
-	
-	public void saveReply(ReplyDto reply) {
-		
-		replyDao.insert(reply);
-	}
+    @Autowired
+    private SqlSession sqlSession;
+
+
+    public List<ReplyDto> getReplies(int boardNo) {
+        ReplyDao dao = sqlSession.getMapper(ReplyDao.class);
+        return dao.getReplies(boardNo);
+    }
+
+    public void addReply(ReplyDto reply) {
+        ReplyDao dao = sqlSession.getMapper(ReplyDao.class);
+        dao.addReply(reply);
+    }
 	
 	
 }
