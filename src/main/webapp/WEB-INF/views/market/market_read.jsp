@@ -53,7 +53,7 @@
 					</button>
 				</div>
 
-				<div>안녕하세요오오오옹</div>
+				<div class="padding_left_40 font_24" style="max-width: 570px;">안녕하세요오오오옹</div>
 
 			</div>
 
