@@ -1,8 +1,12 @@
 package kr.co.hit.controller;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.hit.dto.MemberDto;
+import kr.co.hit.dto.NaverLoginDto;
+import kr.co.hit.security.NaverLogin;
+import kr.co.hit.security.User;
 import kr.co.hit.service.JoinService;
 
 
@@ -23,10 +30,25 @@ public class MemberController {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
+	@Inject
+	private NaverLoginDto naver;
 	
-		return "member/login";
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model) {
+		
+		NaverLogin naverLogin = new NaverLogin(naver);
+		model.addAttribute("naver_url",naverLogin.getNaverAuthURL());
+		System.out.println(naverLogin.getNaverAuthURL());
+		return "/member/login";
+	}
+	
+	@RequestMapping(value = "/login/oauth2/code/naver", method = RequestMethod.POST)
+	public String naverLoginCallback(Model model, @RequestParam String code, HttpSession session) throws Exception {
+		NaverLogin naverLogin = new NaverLogin(naver);
+		User naverUser = naverLogin.getUserProfile(code);
+		System.out.println("profile"+naverUser);
+		model.addAttribute("result", naverUser);
+		return "loginResult";
 	}
 	
 	@RequestMapping("/signup")
@@ -56,16 +78,4 @@ public class MemberController {
 		
 		return "member/login";
 	}
-	
-//	@PostMapping("/loginok")
-//	public String loginok(MemberDto dto) {
-//		System.out.println("로그인 체크");
-//		System.out.println(dto.getMember_id());
-//		System.out.println(dto.getNickname());
-//		System.out.println(dto.getPassword());
-//		System.out.println(dto.getAuthority());
-//		System.out.println(dto.getEmail());
-//		System.out.println("세션 체크");
-//		return "/main";
-//	}
 }

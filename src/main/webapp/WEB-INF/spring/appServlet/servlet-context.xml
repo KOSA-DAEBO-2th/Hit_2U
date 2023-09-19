@@ -34,6 +34,21 @@
 	<context:component-scan
 		base-package="kr.co.hit.dao"></context:component-scan>
 
-
+	<beans:bean id="naverClientID" class="java.lang.String">
+		<beans:constructor-arg value="M2kIBHJWwsAGlcttIoT8" />
+	</beans:bean>
+	<beans:bean id="naverClientSecret" class="java.lang.String">
+		<beans:constructor-arg value="opO1dOKS30"/>
+	</beans:bean>
+	<beans:bean id="naverRedirectUrl" class="java.lang.String">
+		<beans:constructor-arg value="http://localhost:8080/login/oauth2/code/naver"/>
+	</beans:bean>
+	<beans:bean id="naverSns" class="kr.co.hit.dto.NaverLoginDto">
+		<beans:constructor-arg value="naver"></beans:constructor-arg>
+		<beans:constructor-arg ref="naverClientID"></beans:constructor-arg>
+		<beans:constructor-arg ref="naverClientSecret"></beans:constructor-arg>
+		<beans:constructor-arg ref="naverRedirectUrl"></beans:constructor-arg>		
+	</beans:bean>
+ 
 
 </beans:beans>

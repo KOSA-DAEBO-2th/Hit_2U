@@ -11,12 +11,24 @@ import kr.co.hit.dto.MemberDto;
 
 public class User implements UserDetails{
 
+	public User() {
+		super();
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	private int member_no, grade;
-	private String member_id, member_method, nickname, password, email, contact, git_link, baekjoon, authority;
-
+	private String member_id, naver_id, nickname, password, email, contact, git_link, baekjoon, authority;
 	private String enabled;
+	
+	public String getNaver_id() {
+		return naver_id;
+	}
+
+	public void setNaver_id(String naver_id) {
+		this.naver_id = naver_id;
+	}
+
 	private boolean isEnabled;
 	public String getEnabled() {
 		return enabled;
@@ -60,14 +72,6 @@ public class User implements UserDetails{
 
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
-	}
-
-	public String getMember_method() {
-		return member_method;
-	}
-
-	public void setMember_method(String member_method) {
-		this.member_method = member_method;
 	}
 
 	public String getMember_id() {
@@ -187,7 +191,6 @@ public class User implements UserDetails{
 	
 	public User(MemberDto dto, Collection<GrantedAuthority> auth) {
 		member_no = dto.getMember_no();
-		member_method = dto.getMember_method();
 		member_id = dto.getMember_id();
 		nickname = dto.getNickname();
 		password = dto.getPassword();
@@ -198,6 +201,7 @@ public class User implements UserDetails{
 		baekjoon = dto.getBaekjoon();
 		authority = dto.getAuthority();
 		authList = dto.getAuthList();
+		naver_id = dto.getNaver_id();
 		
 		isEnabled = true;
 		isAccountNonExpired = true;
@@ -209,7 +213,7 @@ public class User implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "User [member_no=" + member_no + ", member_method=" + member_method + ", member_id=" + member_id
+		return "User [member_no=" + member_no + ", naver_id=" + naver_id + ", member_id=" + member_id
 				+ ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", contact=" + contact
 				+ ", grade=" + grade + ", git_link=" + git_link + ", baekjoon=" + baekjoon + ", authority=" + authority
 				+ ", enabled=" + enabled + ", isEnabled=" + isEnabled + ", isAccountNonExpired=" + isAccountNonExpired

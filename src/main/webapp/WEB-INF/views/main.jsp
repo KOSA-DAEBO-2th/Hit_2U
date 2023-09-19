@@ -1,6 +1,15 @@
 ﻿<%@ include file="includes/header.jsp" %>
 <html>
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VY2GVDELY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5VY2GVDELY');
+</script>
 <link
 	href="${pageContext.request.contextPath }/resources/css/main.css?after"
 	rel="stylesheet">
