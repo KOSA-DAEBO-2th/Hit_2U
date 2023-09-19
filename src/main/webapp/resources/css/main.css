@@ -81,12 +81,10 @@
 }
 
 .main_user {
+	display: flex;
     color: #374151;
-    display: flex;
-    align-items: center;
     font-weight: 400;
     margin-bottom: 4px;
-    color: #374151;
 }
 
 .main_title {

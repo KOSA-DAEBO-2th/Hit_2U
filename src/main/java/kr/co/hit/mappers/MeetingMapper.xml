@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
 		M.MEET_TOPIC_NAME,
 		M.MEET_STATE,
-		M.MEET_FIELD, tmp.apply_max, tmp.apply
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY, F.FILE_URL
 		FROM BOARD B
 		INNER JOIN
 		MEETING M
@@ -50,18 +50,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		M.B_NO
 		INNER JOIN
 		(SELECT
-		b_no, backend + frontend + SERVER +
-		pm AS apply_max, backend_apply +
-		frontend_apply + server_apply +
-		pm_apply AS apply FROM MEETING ) tmp
+		B_NO, BACKEND + FRONTEND + SERVER +
+		PM AS APPLY_MAX, BACKEND_APPLY +
+		FRONTEND_APPLY + SERVER_APPLY +
+		PM_APPLY AS APPLY FROM MEETING ) TMP
 		ON
 		B.B_NO =
-		tmp.B_NO
+		TMP.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
 
 		WHERE CAT_NO =
-		3 AND B_TITLE LIKE CONCAT('%',
-		#{param1},'%') ORDER BY B.B_NO DESC LIMIT #{param2},
-		#{param3};
+		3 AND B_TITLE LIKE CONCAT('%',#{param1},'%') ORDER BY B.B_NO DESC LIMIT #{param2},#{param3};
 
 
 	</select>
@@ -134,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		t.b_no+1 FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
 		,#{b_title}
 		,#{b_content}
-		,CURDATE()
+		,NOW()
 		,#{member_no}
 		,3
 		)
@@ -163,11 +162,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 
 	</insert>
-	
-	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto" >
-		insert INTO FILE (file_name, file_realname,file_url, file_size,b_no) 
-	VALUES(#{file_name},#{file_realname},#{file_url},#{file_size},(SELECT
-		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t))
+
+	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
+		insert INTO FILE (file_name, file_realname,file_url, file_size,b_no,
+		thumbnail)
+		VALUES(#{file_name},#{file_realname},#{file_url},#{file_size},(SELECT
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t), #{thumbnail})
 	</insert>
 
 	<update id="increaseView">
@@ -217,8 +217,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectMeetingTopicList"
 		resultType="kr.co.hit.dto.MeetingDto">
-		SELECT B.B_NO,
-		B.B_TITLE,
+		SELECT B.B_NO, B.B_TITLE,
 		B.B_CONTENT, B.B_WRITE_DATE,
 		B.B_VIEW,
 		B.B_REPLY,
@@ -226,17 +225,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
 		M.MEET_TOPIC_NAME,
 		M.MEET_STATE,
-		M.MEET_FIELD
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY, F.FILE_URL
 		FROM BOARD B
 		INNER JOIN
 		MEETING M
 		ON B.B_NO =
 		M.B_NO
+		INNER JOIN
+		(SELECT
+		B_NO, BACKEND + FRONTEND + SERVER +
+		PM AS APPLY_MAX, BACKEND_APPLY +
+		FRONTEND_APPLY + SERVER_APPLY +
+		PM_APPLY AS APPLY FROM MEETING ) TMP
+		ON
+		B.B_NO =
+		TMP.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
 
 		WHERE
 		CAT_NO = 3 AND B_TITLE LIKE CONCAT('%',
 		#{param1},'%') AND
-		MEET_TOPIC_NAME = #{param2} LIMIT #{param3},
+		MEET_TOPIC_NAME = #{param2} ORDER BY B.B_NO DESC LIMIT #{param3},
 		#{param4};
 
 	</select>
@@ -299,12 +308,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUE (#{param1}, #{param2},
 		#{param3}, #{param4}, #{param5});
 	</insert>
-	
-	<select id="getMeetingBoardNumber"
-		resultType="int">
-		SELECT max(b_no) FROM BOARD WHERE cat_no =3 ;
+
+	<select id="getMeetingBoardNumber" resultType="int">
+		SELECT max(b_no)
+		FROM BOARD WHERE cat_no =3 ;
 	</select>
-	
-	
+
+
 
 </mapper>

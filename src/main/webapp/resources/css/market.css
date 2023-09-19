@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+#market {
+	color: royalblue;
+}
+
+.search_div {
+	justify-content: space-between;
+	padding-bottom: 20px;
+	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3);
+}
+
+.main_user {
+	color: #374151;
+	font-weight: 400;
+	margin-bottom: 10px;
+}
+
+.board_form {
+	padding: 20px 0px;
+	border-top: 1px solid hsla(220, 9%, 46%, 0.3);
+	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3);
+}
+
+.profile_form {
+	width: 24px;
+	height: 24px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin-right: 6px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.flask {
+	font-size: 10px;
+}
+.mc {
+    margin: 0px 4px;
+}
+.main_title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    padding-bottom: 10px;
+}
+
+.like_comment_box {
+    font-size: 12px;
+}
+.write_date{
+	font-size: 12px;
+}
+
+.hp_point {
+    margin-left: 4px;
+}
+
+.board_in_topic{
+	background-color: rgb(240, 246, 250);
+	color: rgb(0, 144, 249);
+	padding: 0px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+	
+}
+.market_category{
+	background-color: rgb(240, 246, 250);
+	color: gray;
+	padding: 0px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+	
+}
+
+.price_form{
+	color: #374151;
+	font-weight: 500;
+}
+
+
+.like_comment_box i{
+	margin-right: 2px;
+}
+
+
+
+
+
+
+
+
+.a_link{
+	text-decoration: none;
+	color: black;
+}
+.a_link:hover{
+	color: black;
+}
+
+article:hover {
+    background-color: #eff;
+}

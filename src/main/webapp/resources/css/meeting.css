@@ -23,6 +23,12 @@
 .card-body {
     padding: 10px;
 }
+.thum_form{
+	width: 100%;
+	height: 120px;
+	overflow: hidden;
+	border-radius: 15px 15px 0px 0px;
+}
 
 .icons {
     width: 20px;
@@ -41,12 +47,23 @@
 }
 
 .topic_study {
-    fill: #63a02a;
-    width: 56px;
+    background-color: #63a02a;
+    padding: 0px 10px;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    opacity: 0.95;
 }
 
 .topic_project {
-    
+    background-color: black;
+    padding: 0px 10px;
+    color: white;
+     position: absolute;
+    top: 10px;
+    left: 10px;
+    opacity: 0.95;
 }
 
 .page_test{

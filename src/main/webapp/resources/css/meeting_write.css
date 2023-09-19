@@ -43,10 +43,16 @@ select option[value=""][disabled] {
 	background-color: #f5f5f5;
 	border-radius: 4px;
 	border: 1px solid #eaeaea;
+	cursor: pointer;
 }
 
 .img_input_btn:hover {
 	box-shadow : 1px 1px 10px -5px rgb(220,220,220); 
+}
+
+.img_input_btn2{
+	width: 40%;
+	margin-bottom: 20px;
 }
 
 .position_select{
@@ -68,4 +74,15 @@ select option[value=""][disabled] {
 	border-radius: 8px;
 	padding: 5px;
 	cursor: pointer;
+}
+.star{
+	color: red;
+}
+
+.note-modal-footer{
+	height: 60px;
+}
+
+.form-group{
+	display: inherit;	
 }
