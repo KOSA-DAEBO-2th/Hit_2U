@@ -101,16 +101,22 @@ public class CommunityService implements CommunityDao {
 		return dao.getTopicNoByTopicName(topic_name);
 	}
 
-	
 	public List<CommunityDto> getPostsByTopic(HashMap map) {
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		return dao.getPostsByTopic(map);
 	}
 
 	public int getPostCountByTopic(int topicNo) {
-		
+
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
 		return dao.getPostCountByTopic(topicNo);
 	}
+
+	@Override
+	public List<CommunityDto> searchByTitle(String title) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		return dao.searchByTitle(title);
+	}
+
 
 }
