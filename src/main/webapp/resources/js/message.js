@@ -86,17 +86,9 @@ function del() {
 			console.log(data);
 			m_list();
 
-		}
-	});  
+			}
+		});  
 	}
-	
-// 	let list = [];
-// 	$(".chk:checked").each(function(idx, item){
-// 	if(idx == 0){
-// 		list.push({"m_no":item});
-// 	} else {
-// 		list += ", ";
-// }
-// 	}
-
 }
+
+

@@ -22,6 +22,8 @@
 	<h2><a href="/logout">로그아웃</a></h2>
 	<h2><a href="/">메인</a></h2>
 	
+	<h2><a href="/adminMain">관리자 메인</a></h2>
+	
 </body>
 
 </body>
