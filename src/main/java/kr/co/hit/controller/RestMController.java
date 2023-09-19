@@ -5,20 +5,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.hit.dto.AdminDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.MessageDto;
 import kr.co.hit.dto.ProfileDto;
 import kr.co.hit.security.User;
+import kr.co.hit.service.AdminService;
 import kr.co.hit.service.MailService;
 import kr.co.hit.service.MessageService;
 import kr.co.hit.service.ProfileService;
@@ -35,6 +36,9 @@ public class RestMController {
 	
 	@Autowired
 	MailService mailService;
+	
+	@Autowired
+	private AdminService adminService;
 	
 	@ResponseBody
 	@PostMapping("/message_send")
@@ -88,6 +92,21 @@ public class RestMController {
 		}
 		int result = messageService.deleteMessage(checkArr);
 		return result;
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/week_count")
+	public HashMap<String, List<AdminDto>> countWeek(Model model) {
+		System.out.println("count값 전송--");
+		List<AdminDto> cntW = adminService.cntWeekBoard();
+		List<AdminDto> cntR = adminService.cntWeekReply();
+		HashMap<String, List<AdminDto>> map = new HashMap<String, List<AdminDto>>();
+		map.put("cntW", cntW);
+		map.put("cntR", cntR);
+//		model.addAttribute("cntBoard", cntW.get(4).getCntWeek());
+//		model.addAttribute("cntReply", cntR.get(4).getReplyWeek());
+		return map;
 	}
 	
 	/*
