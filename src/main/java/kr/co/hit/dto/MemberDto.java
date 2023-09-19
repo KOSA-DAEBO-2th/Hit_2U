@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class MemberDto {
 	private int member_no, grade;
-	private String member_id, nickname, naver_id,password, email, contact, git_link, baekjoon, authority;
+	private String member_id, nickname, naver_id, password, email, contact, git_link, baekjoon, authority;
 
 	private List<MemberAuth> authList;
 }
