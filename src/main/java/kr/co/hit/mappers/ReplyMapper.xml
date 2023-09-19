@@ -4,19 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.hit.dao.ReplyDao">
-  <select id="getReplies" resultType="kr.co.hit.dto.ReplyDto">
-<!--       SELECT * FROM REPLY WHERE board_no = #{board_no} -->
-      SELECT * FROM REPLY WHERE b_no = #{b_no}
-      
-  </select>
-  
-  <insert id="addReply">
-<!--       INSERT INTO REPLY (reply_no, nickname, r_content, reply_date, board_no) -->
-<!--       VALUES (#{reply_no}, #{nickname}, #{r_content}, now(), #{board_no}) -->
-      
-      INSERT INTO REPLY (reply_no, nickname, r_content, reply_date, b_no)
-      VALUES (#{reply_no}, #{nickname}, #{r_content}, now(), #{b_no})
+	<select id="getReplies" resultType="kr.co.hit.dto.ReplyDto">
+		SELECT * FROM REPLY WHERE b_no = #{b_no}
 
-  </insert>
+	</select>
+
+	<insert id="addReply">
+
+		INSERT INTO REPLY (reply_no, nickname, r_content, reply_date, b_no)
+		VALUES (#{reply_no}, #{nickname}, #{r_content}, now(), #{b_no})
+
+	</insert>
+
+	<update id="updateBreply" parameterType="int">
+		UPDATE BOARD SET b_reply = (SELECT b_reply FROM (SELECT b_reply FROM BOARD
+		WHERE b_no = #{b_no}) tmp) +1 WHERE b_no=#{b_no}
+	</update>
 
 </mapper>
