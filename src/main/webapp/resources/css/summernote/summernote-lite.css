@@ -99,9 +99,6 @@
 .note-icon-bold::before {
     content: "";
 }
-.note-icon-caret::before {
-    content: "";
-}
 .note-icon-chain-broken::before {
     content: "";
 }

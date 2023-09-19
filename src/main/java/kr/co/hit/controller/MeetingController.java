@@ -1,9 +1,14 @@
 package kr.co.hit.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -149,10 +154,14 @@ public class MeetingController {
 
 	@PostMapping(value = "write", headers = ("content-type=multipart/*"))
 	public String write(MeetingDto dto, @RequestParam("chooseFile") List<MultipartFile> files) throws Exception {
-		System.out.println(dto);
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setMember_no(user.getMember_no());
+		
 		meetingService.insert(dto);
+		
 		meetingService.insertMeeting(dto);
-		System.out.println("insertMeeing성공");
+		meetingService.insertMeetingMember(meetingService.getMeetingBoardNumber(), user.getMember_no(), dto.getMeeting_position(), 1, 1);
+		
 		
 		MultipartFile multiFile = files.get(0);
 		UUID uuid = UUID.randomUUID();
@@ -211,6 +220,44 @@ public class MeetingController {
 		int result = meetingService.insertMeetingMember(boardIdx, member_no, meeting_position, meeting_tmp, meeting_leader);
 
 		return Integer.toString(result);
+	}
+	
+	@PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
+	@ResponseBody
+	public Map uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+		
+		JSONObject jsonObject = new JSONObject();
+		Map result = new HashMap<String, Object>();
+		
+		List<MultipartFile> files = new ArrayList();
+		files.add(multipartFile);
+		UUID uuid = UUID.randomUUID();
+		FileDto fileOne = new FileDto();
+		String fileName = "Board/Meeting/" + uuid.toString() + "_" + multipartFile.getOriginalFilename();
+		String fileUrl = "https://2teams3.s3.ap-northeast-2.amazonaws.com/" + fileName;
+		fileOne.setFile_url(fileUrl);
+		fileOne.setFile_name(fileName);
+		fileOne.setFile_realname(multipartFile.getOriginalFilename());
+		fileOne.setFile_size(multipartFile.getSize());
+		fileOne.setThumbnail(1);
+		
+		fileService.uploadThumb(files, fileOne);
+		 
+		meetingService.insertThumb(fileOne); 
+
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+			result.put("url", fileUrl);
+			result.put("responseCode", "success");
+				
+		} catch (IOException e) {	//저장된 파일 삭제
+			result.put("responseCode", "error");
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 }

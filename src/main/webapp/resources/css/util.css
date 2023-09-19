@@ -1,167 +1,185 @@
 @charset "UTF-8";
 
 .font_bold {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 .text_left {
-    text-align: left;
+	text-align: left;
 }
 
 .text_right {
-    text-align: right;
+	text-align: right;
 }
 
 .text_center {
-    text-align: center;
+	text-align: center;
 }
 
 .font_12 {
-    font-size: 12px;
+	font-size: 12px;
 }
 
 .font_14 {
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .font_16 {
-    font-size: 16px;
+	font-size: 16px;
 }
 
 .font_18 {
-    font-size: 18px;
+	font-size: 18px;
 }
+
 .font_20 {
-    font-size: 20px;
+	font-size: 20px;
 }
 
 .font_28 {
-    font-size: 28px;
+	font-size: 28px;
 }
 
 .font_30 {
-    font-size: 30px;
+	font-size: 30px;
 }
 
 .font_32 {
-    font-size: 32px;
+	font-size: 32px;
 }
 
 .margin_top_20 {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .margin_top_40 {
-    margin-top: 40px;
+	margin-top: 40px;
 }
 
 .margin_top_12 {
-    margin-top: 12px;
+	margin-top: 12px;
 }
 
 .margin_top_8 {
-    margin-top: 8px;
+	margin-top: 8px;
 }
 
 .margin_bottom_12 {
-    margin-bottom: 12px;
+	margin-bottom: 12px;
 }
 
 .margin_bottom_20 {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .margin_bottom_32 {
-    margin-bottom: 32px;
+	margin-bottom: 32px;
 }
 
 .margin_bottom_8 {
-    margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 .margin_left_8 {
-    margin-left: 8px;
+	margin-left: 8px;
 }
-.margin_left_20{
+
+.margin_left_20 {
 	margin-left: 20px;
 }
 
 .margin_right_12 {
-    margin-right: 12px;
+	margin-right: 12px;
 }
 
 .margin_right_6 {
-    margin-right: 6px;
+	margin-right: 6px;
 }
 
 .margin_right_20 {
-    margin-right: 20px;
+	margin-right: 20px;
 }
 
-.margin_right_60{
+.margin_right_60 {
 	margin-right: 60px;
 }
 
 .padding_bottom_20 {
-    padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 .padding_top_20 {
-    padding-top: 20px;
+	padding-top: 20px;
 }
 
 .padding_left_20 {
-    padding-left: 20px;
+	padding-left: 20px;
 }
 
 .padding_right_20 {
-    padding-right: 20px;
+	padding-right: 20px;
 }
+
 .font_gray {
-    color: rgb(121, 129, 136);
+	color: rgb(121, 129, 136);
 }
 
 .font_blue {
-    color: #0090f9;
+	color: #0090f9;
 }
+
 .font_main {
-    color: rgb(25, 27, 169);
+	color: rgb(25, 27, 169);
 }
 
 .font_lightgray {
-    color: #b1b1b1;
+	color: #b1b1b1;
 }
 
 .flex {
-    display: flex;
+	display: flex;
 }
 
 .item_center {
-    align-items: center;
+	align-items: center;
+}
+
+.item_end {
+	align-items: flex-end;
 }
 
 .direction_column {
-    flex-direction: column;
+	flex-direction: column;
 }
+
 .content_center {
-    justify-content: center;
+	justify-content: center;
 }
-.content_end{
+
+.content_end {
 	justify-content: flex-end;
 }
 
+.content_between {
+	justify-content: space-between;
+}
+
 .font_category {
-    color: #b1b1b1;
+	color: #b1b1b1;
 }
 
 .full_width {
-    width: 100%;
+	width: 100%;
 }
 
 .font_black {
-    color: black;
+	color: black;
 }
 
-.width_full{
+.width_full {
 	width: 100%;
+}
+
+.flex_1 {
+	flex: 1;
 }
