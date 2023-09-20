@@ -63,10 +63,23 @@ function m_send() {
 }
 
 function del() {
-	//alert("삭제하시겠습니까?");
-	var confirm_val = confirm("삭제하시겠습니까?");
-	
-	if(confirm_val) {
+
+	Swal.fire({
+		title: '삭제하시겠습니까?',
+		text: '선택한 쪽지가 삭제됩니다.',
+		icon: 'warning',
+		
+		showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+		confirmButtonColor: '#3085d6', // confrim 버튼 색깔 지정
+		cancelButtonColor: '#d33', // cancel 버튼 색깔 지정
+		confirmButtonText: '삭제', // confirm 버튼 텍스트 지정
+		cancelButtonText: '취소', // cancel 버튼 텍스트 지정
+		
+		reverseButtons: true, // 버튼 순서 거꾸로
+		
+	}).then(result => {
+	// 만약 Promise리턴을 받으면,
+	if (result.isConfirmed) { // 만약 모달창에서 confirm 버튼을 눌렀다면
 		var checkArr = new Array();
 		var m_no={};
 		$("input[class='chk']:checked").each(function(){
@@ -88,7 +101,44 @@ function del() {
 
 			}
 		});  
+
+		Swal.fire('삭제가 완료되었습니다.',  'success');
 	}
+	});
+
+
+
+
+
+
+
+
+	// //alert("삭제하시겠습니까?");
+	// var confirm_val = confirm("삭제하시겠습니까?");
+	
+	// if(confirm_val) {
+	// 	var checkArr = new Array();
+	// 	var m_no={};
+	// 	$("input[class='chk']:checked").each(function(){
+	// 		//m_no = {"m_no": $(this).val()};
+	// 		//checkArr.push(m_no);
+	// 		checkArr.push($(this).val());
+	// 	});
+	// 	console.log(checkArr);
+	// 	$.ajax({
+	// 	type: "POST",
+	// 	url: "message_del",
+	// 	contentType: 'application/json',
+	// 	data: JSON.stringify(checkArr),
+	// 	success: function(data){
+	// 		console.log("delete success");
+	// 		//location.href = "message_list";
+	// 		console.log(data);
+	// 		m_list();
+
+	// 		}
+	// 	});  
+	// }
 }
 
 

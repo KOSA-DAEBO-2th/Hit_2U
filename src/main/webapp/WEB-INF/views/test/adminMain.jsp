@@ -56,6 +56,39 @@
 	        });
 	    });
     </script>
+    <style type="text/css">
+            #searchRes {
+
+                overflow: auto;
+            }
+ 
+            #searchRes::-webkit-scrollbar {
+                width: 5px; /*스크롤바의 너비*/
+            }
+ 
+            #searchRes::-webkit-scrollbar-thumb {
+                background-color: dimgray; /*스크롤바의 색상*/
+            }
+ 
+            #searchRes::-webkit-scrollbar-track {
+                background-color: lightgray; /*스크롤바 트랙 색상*/
+            }
+            
+/*             .table-card-header, .table > th {
+            	position: sticky;
+            	top: 0;
+            } */
+            
+
+            
+            table>thead {
+            	position: sticky;
+            	top:0;
+            }
+            
+
+ 
+        </style>
 </head>
 <body>
 
@@ -117,26 +150,26 @@
               <div class="row">
               
               
-                <div class="col-lg-8 mb-4 order-0" style="max-height: 500px; overflow: scroll;">
+                <div class="col-lg-8 mb-4 order-0">
                   <div class="card">
                     <div class="d-flex align-items-end row">
                       
-                     <div class="row">
-        <div class="col-12 mb-3 mb-lg-5">
+                     <div class="row"  style="height: 500px;"  >
+        <div class="col-12 mb-3 mb-lg-5"       >
             <!-- <div class="overflow-hidden card table-nowrap table-card"> -->
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center table-card-header">
                     <h5 class="mb-0">회원/게시글</h5>
                     <a class="btn  btn-sm">수정</a>
                     <a class="btn btn-danger btn-sm" onclick="del()">삭제</a>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive" id="searchRes"  style="max-height: 400px; ">
                     <table class="table mb-0">
                         <thead class="small text-uppercase bg-body text-muted tableHead">
                             <tr>
-                                <th style="width:5%"></th>
-                                <th style="width:20%">게시판</th>
-                                <th style="width:55%">제목</th>
-                                <th style="width:20%">작성날짜</th>
+                                <th class="fixedHeader" style="width:5%"></th>
+                                <th class="fixedHeader" style="width:20%">게시판</th>
+                                <th class="fixedHeader" style="width:55%">제목</th>
+                                <th class="fixedHeader" style="width:20%">작성날짜</th>
                             </tr>
                         </thead>
                         
@@ -187,7 +220,7 @@
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex flex-column align-items-center gap-1">
                           <h2 class="mb-2 cntBoard">           </h2>
-                          <span>Total Orders</span>
+                          <span>총 게시글 수</span>
                         </div>
                         <div id="cntWeekBoard"></div>
                       </div>
@@ -265,11 +298,11 @@
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-0 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
-                      <div class="col-md-8">
-                        <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
+                      <div class="col-md-12">
+                        <h5 class="card-header m-0 me-2 pb-3">월별 가입자수</h5>
                         <div id="totalRevenueChart" class="px-2"></div>
                       </div>
-                      <div class="col-md-4">
+         <!--              <div class="col-md-4">
                         <div class="card-body">
                           <div class="text-center">
                             <div class="dropdown">
@@ -314,7 +347,7 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -378,8 +411,8 @@
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <div class="d-flex flex-column align-items-center gap-1">
-                          <h2 class="mb-2 cntBoard">           </h2>
-                          <span>Total Orders</span>
+                          <h2 class="mb-2 cntReply">           </h2>
+                          <span>총 댓글 수</span>
                         </div>
                         <div id="cntWeekReply"></div>
                       </div>
@@ -396,7 +429,7 @@
                               <small class="text-muted">자유게시판</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold comCnt">0</small>
+                              <small class="fw-semibold comCntR">0</small>
                             </div>
                           </div>
                         </li>
@@ -410,7 +443,7 @@
                               <small class="text-muted">코딩 질문 게시판</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold qnaCnt">0</small>
+                              <small class="fw-semibold qnaCntR">0</small>
                             </div>
                           </div>
                         </li>
@@ -424,7 +457,7 @@
                               <small class="text-muted">스터디, 프로젝트 인원 모집</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold meetCnt">0</small>
+                              <small class="fw-semibold meetCntR">0</small>
                             </div>
                           </div>
                         </li>
@@ -440,7 +473,7 @@
                               <small class="text-muted">강의 제공 / 외주 구하기</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-semibold freeCnt">0</small>
+                              <small class="fw-semibold freeCntR">0</small>
                             </div>
                           </div>
                         </li>
@@ -448,49 +481,7 @@
                     </div>
                   </div>
                 </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                    
-    
-    
-    
-    
-    
-    
-    
-                <!--/ Total Revenue -->
-                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-                  <div class="row">
-                    
-                  
-                  </div>
-                </div>
-              </div>
-    
-    
-    
-    
-    
-    
-    
-    
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+
               </div>
             </div>
             <!-- / Content -->
