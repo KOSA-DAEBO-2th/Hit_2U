@@ -100,8 +100,8 @@ public class LectureController {
 	public String write(LectureDto dto, @RequestParam("chooseFile") List<MultipartFile> files) throws Exception {
 		System.out.println(dto);
 		lectureService.insert(dto);
-		lectureService.insertMeeting(dto);
-		System.out.println("insertMeeing성공");
+		lectureService.insertLecture(dto);
+		System.out.println("insertLecture성공");
 		
 		MultipartFile multiFile = files.get(0);
 		UUID uuid = UUID.randomUUID();

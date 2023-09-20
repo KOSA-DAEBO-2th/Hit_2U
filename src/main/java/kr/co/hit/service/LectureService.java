@@ -1,5 +1,6 @@
 package kr.co.hit.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.LectureDao;
-import kr.co.hit.dao.MeetingDao;
+import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.LectureDto;
-import kr.co.hit.dto.MeetingDto;
 
 @Service
 public class LectureService implements LectureDao {
@@ -55,6 +55,25 @@ public class LectureService implements LectureDao {
 		LectureDao dao = sqlsession.getMapper(LectureDao.class);
 		LectureDto list = dao.selectLectureRead(boardIdx);
 		return list;
+	}
+
+	@Override
+	public void insert(LectureDto dto) {
+		LectureDao dao = sqlsession.getMapper(LectureDao.class);
+		dao.insert(dto);
+	}
+
+	@Override
+	public void insertLecture(LectureDto dto) {
+		LectureDao dao = sqlsession.getMapper(LectureDao.class);
+		dao.insertLecture(dto);
+		
+	}
+
+	@Override
+	public void insertThumb(FileDto fileOne) throws IOException {
+		LectureDao dao = sqlsession.getMapper(LectureDao.class);
+		dao.insertThumb(fileOne);
 	}
 
 	

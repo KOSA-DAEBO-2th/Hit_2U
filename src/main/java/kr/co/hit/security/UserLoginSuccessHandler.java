@@ -23,7 +23,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler{
 		});
 
 		if (roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect(request.getContextPath() + "/test/admin");
+			response.sendRedirect(request.getContextPath() + "/adminMain");
 			return;
 		}
 		if (roleNames.contains("ROLE_MEMBER")) {

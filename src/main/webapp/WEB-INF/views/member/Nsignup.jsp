@@ -27,16 +27,16 @@
 	defer="defer"></script>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+ <script>
+ window.onload = function() {
+	 swal.fire({
+	             icon: "info", // Alert 타입
+	             title: "네이버 계정으로 회원 가입", // Alert 제목
+	             text: "(연동된 정보가 없어서 회원 가입을 진행합니다)", // Alert 내용
+	         });
+ }
+ </script>
 </head>
-<script>
-$(document).ready(function(){
-	 swal(
-		        '연동된 회원 정보가 없어서 회원가입을 진행합니다.',
-		        '<b style="color:green;">네이버 회원 가입 진행</b>',
-		        'info'
-		    )
-})
-</script>
 <body>
 	<div class="login_main">
 
@@ -53,17 +53,14 @@ $(document).ready(function(){
 				<div class="font_16 line_text">회원가입에 필요한 정보를 입력해주세요</div>
 				<hr>
 			</div>
-			<form id="login_input" method="post" onsubmit="return joinChk();"
-				name="join" action="signok">
+			<form id="login_input" method="post" onsubmit="return njoinChk();"
+				name="join" action="/member/signok">
+				<input type="hidden" id="naver_id" value="${naver_id }"/>
+				
 				<div class="font_16 text_left">아이디</div>
 				<input class="form-control" type="text" name="member_id"
-					autocomplete="username" id="member_id"
-					placeholder="4~15자 이내로 입력해주세요" style="margin-bottom: 10px">
-				<div>
-					<span id="result_checkId" style="font-size: 12px;"></span>
-				</div>
-				<button class="btn btn-primary btn-blue" type="button" id="checkId"
-					style="display: block; margin: auto;">중복 검사</button>
+					autocomplete="username" id="member_id" value="${user.member_id}@naver.com"
+					placeholder="4~15자 이내로 입력해주세요" style="margin-bottom: 10px; color: green;" readonly>
 
 				<div class="font_16 text_left margin_top_20" style="margin-top: 0px;">비밀번호</div>
 				<input class="form-control" type="password" name="password"
@@ -75,11 +72,11 @@ $(document).ready(function(){
 
 				<div class="font_16 text_left margin_top_20">닉네임</div>
 				<input class="form-control" type="text" name="nickname"
-					id="nicknameInput" placeholder="2~8자 이내로 입력해주세요">
+					id="nicknameInput" placeholder="2~8자 이내로 입력해주세요" value="${user.nickname }">
 
 				<div class="font_16 text_left margin_top_20">연락처</div>
 				<input class="form-control" type="text" name="contact"
-					placeholder="010-1234-5678">
+					placeholder="010-1234-5678" value="${user.contact}">
 
 				<div class="font_16 text_left margin_top_20">깃허브 주소</div>
 				<input class="form-control" type="text" name="git_link"
@@ -89,9 +86,8 @@ $(document).ready(function(){
 				<input class="form-control" type="text" name="baekjoon"
 					placeholder="선택사항">
 
-				<div class="font_16 text_left margin_top_20">이메일</div>
-				<input class="form-control emailInput" type="email" name="email"
-					placeholder="example@hit.com" style="width: 60%;">
+				<input type="hidden" name="email"
+					placeholder="example@hit.com" style="width: 60%;" value="${user.email}">
 
 				<div class="g-recaptcha margin_top_20"
 					data-sitekey="6Lda2a0nAAAAAAfoQIS8lZDKG6gQ6IntD453FAQB"

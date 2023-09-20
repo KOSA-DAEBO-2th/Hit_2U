@@ -80,7 +80,7 @@ public class MemberController {
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
 		// 네이버에서 주는 고유 ID
-		String naverId = (String) response_obj.get("id");
+		String naver_id = (String) response_obj.get("id");
 		// 네이버에서 설정된 사용자 이름
 		String naverNickname = (String) response_obj.get("nickname");
 		// 네이버에서 설정된 이메일
@@ -91,37 +91,33 @@ public class MemberController {
 		int target_num = naverEmail.indexOf(target);
 		// 네이버 진짜 ID
 		String newId = (String) naverEmail.substring(0, target_num);
-		System.out.println(newId);
 
 		MemberDto member = new MemberDto();
 		member.setMember_id(newId); // 아이디
 		member.setNickname(naverNickname); // 닉네임
 		member.setEmail(naverEmail); // 이메일
-		member.setNaver_id(naverId); // 네이버 고유id번호
-
+		member.setNaver_id(naver_id); // 네이버 고유id번호
 		// 네이버로 연동된 회원정보 찾기 =>[가입된 이메일] 또는 [네이버 고유번호id]를 조회하여 비교
-		MemberDto naverIdChk = joinService.naverChk(newId);
+		MemberDto naverIdChk = joinService.naverChk(naver_id);
 
 		// 1.쌩판 홈페이지에 연동된 정보가 없는경우=>등록된 네이버 이메일x,네이버고유번호idx , 회원 가입절차 시작
 		if (naverIdChk == null) {
 			session.setAttribute("user", member);
-			System.out.println(member);
+			System.out.println("네이버 회원가입 전달정보"+member);
 			return "/member/Nsignup";
-			// 2.가입된 이메일은 있으나 네이버와의 연동이 안된경우
 		} else {
 			// 가입된 상태에서 네이버아이디=웹사이트아이디 인지, 혹은 다른아이디인지(네이버 고유번호로 id찾음)
 			// 시큐리티의 파라미터로 id값을 결정해서 로그인처리를 한다.
-			String id = joinService.naverChk(newId).getMember_id() == null ? newId
-					: joinService.naverChk(newId).getMember_id();
+			String id = joinService.naverChk(naver_id).getMember_id() == null ? newId
+					: joinService.naverChk(naver_id).getMember_id();
 			UserDetails navervo = (UserDetails) cusd.loadUserByUsername(id);
-			System.out.println(newId);
 			Authentication authentication = new UsernamePasswordAuthenticationToken(navervo, navervo.getPassword(),
 					navervo.getAuthorities());
 			SecurityContext securityContext = SecurityContextHolder.getContext();
 			securityContext.setAuthentication(authentication);
 			session = request.getSession(true);
 			session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-			return "redirect:/main";
+			return "redirect:/";
 		}
 	}
 
