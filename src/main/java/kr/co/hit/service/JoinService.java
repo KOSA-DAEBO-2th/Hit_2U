@@ -26,5 +26,12 @@ public class JoinService {
 		result = memberDao.checkId(id);
 		return result;
 	}
+
+	public MemberDto naverChk(String newId) {
+		MemberDto dto = new MemberDto();
+		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
+		dto = memberDao.getMember(newId);
+		return dto;
+	}
 	
 }
