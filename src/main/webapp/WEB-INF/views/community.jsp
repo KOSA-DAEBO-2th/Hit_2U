@@ -61,6 +61,7 @@ function submitSearch() {
 		<a href="/community/community_write_form" class="write_btn2">작성하기</a>
 	</button>
 </div>
+
 <article>
 	<div class="board_list">
 		<div style="width: 100%;">
@@ -127,37 +128,8 @@ function submitSearch() {
 		</div>
 	</div>
 </article>
-<!-- 		<div class="paging-container"> -->
-<!-- 			<table> -->
-<!-- 				<tr> -->
-<!-- 					<td> -->
-<%-- 						<!-- 처음 이전 링크 --> <c:if test="${ pg>1 }"> --%>
-<!-- 				[<a href="community?pg=1"> ◀◀ </a>]				 -->
-<%-- 				[<a href="community?pg=${pg-1}"> ◀ </a>]		 --%>
-<%-- 			</c:if> <c:if test="${ pg<=1 }"> --%>
 
-<!-- 				[<span style="color: gray"> ◀◀ </span>]			 -->
-<!-- 				[<span style="color: gray"> ◀ </span>]			 -->
 
-<%-- 			</c:if> <c:forEach begin="${formPage}" end="${toPage}" var="i"> --%>
-<%-- 							<c:if test="${i==pg}">[${i}]</c:if> --%>
-<%-- 							<c:if test="${i!=pg}">  --%>
-<%-- 					[<a href="community?pg=${i}">${i}</a>] --%>
-<%-- 			    </c:if> --%>
-
-<%-- 						</c:forEach> <c:if test="${pg < allPage}"> --%>
-<%-- 				[<a href="community?pg=${pg + 1}"> ▶ </a>]			 --%>
-<%-- 				[<a href="community?pg=${allPage}"> ▶▶ </a>]			 --%>
-<%-- 			</c:if> <c:if test="${pg >= allPage}">			 --%>
-<!-- 				[<span style="color: gray"> ▶ </span>]			 -->
-<!-- 				[<span style="color: gray"> ▶▶ </span>]			 -->
-
-<%-- 			</c:if> --%>
-
-<!-- 					</td> -->
-<!-- 				</tr> -->
-<!-- 			</table> -->
-<!-- 		</div> -->
 
 
 <div class="paging-container">

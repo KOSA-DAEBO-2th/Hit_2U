@@ -44,5 +44,4 @@ public interface CommunityDao {
 
 	public List<CommunityDto> searchByTitle(String title);
 
-
 }

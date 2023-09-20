@@ -155,7 +155,6 @@ function submitSearch() {
 		</div>
 	</a>
 </div>
-<hr>
 </c:forEach>
 				</div>
 			</div>
