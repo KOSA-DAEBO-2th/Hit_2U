@@ -41,4 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkId" parameterType="String" resultType="int">
         select count(*) from MEMBER where member_id=#{member_id}
     </select>
+    
+    <!-- NaverId등록 여부 -->
+    <select id="naverChk" parameterType="String" resultType="kr.co.hit.dto.MemberDto">
+    	select * from MEMBER where naver_id=#{newId}
+    </select>
+    
+    
 </mapper>

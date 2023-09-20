@@ -60,7 +60,7 @@
 			</form>
 			<div id="naverIdLogin" style="display: none;"></div>
 			<button class="btn btn-primary btn-pulse btn-blue login_button"
-				type="button" style="background-color: #54BD54" onclick="location.href='${naver.url}'">네이버ID로 로그인
+				type="button" style="background-color: #54BD54" onclick="location.href='${naverUrl}'">네이버ID로 로그인
 			</button>
 			<div>
 				아직 회원이 아니신가요? <a href="#" onclick="location.href='signup'">회원가입</a>
