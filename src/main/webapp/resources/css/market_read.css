@@ -9,10 +9,11 @@
 }
 
 .carousel {
-	--carousel-width: 0px;
+	-carousel-width: 0px;
 	--carousel-height: px;
 	width: 300px;
 	height: 300px;
+	width: 300px;
 }
 
 .carousel-item img {
@@ -20,6 +21,149 @@
 	height: 300px;
 }
 
-.market_read_top{
+.market_read_top {
 	padding: 20px 0px;
+	border-bottom: 1px solid gray;
+}
+
+.market_title {
+	font-size: 24px;
+	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.main_user {
+	color: #374151;
+	font-weight: 400;
+}
+
+.profile_form {
+	width: 24px;
+	height: 24px;
+	border-radius: 70%;
+	overflow: hidden;
+	margin-right: 6px;
+}
+
+.profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.flask {
+	font-size: 10px;
+}
+
+.mc {
+	margin: 0px 4px;
+}
+
+.main_title {
+	flex: 1;
+	font-size: 16px;
+	font-weight: 600;
+	padding-bottom: 10px;
+}
+
+.like_comment_box {
+	font-size: 12px;
+	color: #374151;
+	font-weight: 400;
+}
+
+.write_date {
+	font-size: 12px;
+}
+
+.hp_point {
+	margin-left: 4px;
+}
+
+.board_in_topic {
+	background-color: rgb(240, 246, 250);
+	color: rgb(0, 144, 249);
+	padding: 0px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+}
+
+.market_category {
+	background-color: rgb(240, 246, 250);
+	color: gray;
+	padding: 0px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+}
+
+.price_form {
+	color: #374151;
+	font-weight: 500;
+}
+
+.like_comment_box i {
+	margin-right: 2px;
+}
+
+.topic_name {
+	background-color: royalblue;
+	color: white;
+	font-weight: 600;
+	padding: 0px 10px;
+	margin: 14px 0px;
+}
+
+.product_value{
+	padding-left: 30px;
+	color: black;
+}
+
+.market_read_content{
+	padding: 40px 0px;
+	border-bottom: 1px solid gray;
+}
+
+.btn_form{
+	padding: 20px 0px;
+}
+
+.btn_market_list{
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	background-color: rgb(204, 204, 204);
+}
+
+.btn_market_list:hover {
+	background-color: rgb(204, 204, 204);
+}
+
+.btn_update{
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	color: white;
+	background-color: royalblue;
+	
+}
+
+.btn_update:hover {
+	color: white;
+	background-color: royalblue;
+}
+
+.btn_delete{
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	color: white;
+	background-color: #F05650;
+}
+
+.btn_delete:hover {
+	color: white;
+	background-color: #F05650;
 }
