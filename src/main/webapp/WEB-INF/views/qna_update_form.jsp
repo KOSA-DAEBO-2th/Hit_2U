@@ -42,7 +42,7 @@
 			<a>커뮤니티 (수정)</a>
 		</div>
 
-		<form name="writeform" method="post" action="/community_update"
+		<form name="writeform" method="post" action="/qna_update"
 			onsubmit="return board_write()">
 			<div>
 				<div>
@@ -54,10 +54,10 @@
 						<div class="input_section select">
 							<select class="form-select" name="topic">
 								<option value="">토픽을 선택해주세요.</option>
-								<option value="자유">자유</option>
-								<option value="고민">고민</option>
-								<option value="운동">운동</option>
-								<option value="익명">익명</option>
+								<option value="11">커리어</option>
+								<option value="12">기술</option>
+								<option value="13">알고리즘</option>
+								<option value="14">기타</option>
 							</select>
 						</div>
 					</div>

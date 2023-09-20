@@ -9,29 +9,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.hit.dto.CommunityDto;
+import kr.co.hit.dto.QnaDto;
 import kr.co.hit.dto.ReplyDto;
 import kr.co.hit.security.User;
 import kr.co.hit.service.CommunityService;
+import kr.co.hit.service.QnaService;
 import kr.co.hit.service.ReplyService;
 
 @Controller
-public class CommunityController {
+public class QnaController {
 
+	
 	@Autowired
-	private CommunityService communityService;
+	private QnaService qnaService;
 
 	@Autowired
 	private ReplyService replyService;
+	
+	@Autowired
+	private CommunityService communityService;
+	
+	
 
-	@RequestMapping("/community")
-	public String community(HttpServletRequest request, CommunityDto dto) {
+	@RequestMapping("/qna")
+	public String qna(HttpServletRequest request, QnaDto dto) {
 
 		int pg = 1;
 		String strPg = request.getParameter("pg");
@@ -45,7 +51,7 @@ public class CommunityController {
 		int start = (pg * rowSize) - (rowSize - 1);
 		int end = pg * rowSize;
 
-		int total = communityService.getCommunityCount(); // 총 게시물 수
+		int total = qnaService.getQnaCount(); // 총 게시물 수
 
 		System.out.println("시작번호: " + start + ", 끝번호: " + end + ", 전체: " + total);
 		
@@ -66,7 +72,7 @@ public class CommunityController {
 		map.put("start", start);
 		map.put("end", end);
 
-		List<CommunityDto> list = communityService.CommunityList(map);
+		List<QnaDto> list = qnaService.QnaList(map);
 
 		request.setAttribute("list", list);
 		request.setAttribute("pg", pg);
@@ -75,20 +81,13 @@ public class CommunityController {
 		request.setAttribute("toPage", toPage);
 		request.setAttribute("block", block);
 
-		return "community"; // community.jsp
-		
-
+		return "qna"; // qna.jsp
 	}
 
-	// community write page
-	@RequestMapping("/community/community_write_form")
-	public String community_write_form(CommunityDto dto) {
+	// qna write page
+	@RequestMapping("/qna/qna_write_form")
+	public String qna_write_form(QnaDto dto) {
 
-		// 로그인 후 글 작성 페이지 넘어갈수 있음
-//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		dto.setMember_no(user.getMember_no());
-//
-//		return "community_write_form";
 		
 	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -101,31 +100,31 @@ public class CommunityController {
 	    User user = (User) principal;
 	    dto.setMember_no(user.getMember_no());
 
-	    return "community_write_form";
+	    return "qna_write_form";
 	}
 
 	// 이거 작동 안되면 위에거 주석 풀어서 사용하면됨
-	@RequestMapping("/community/community_write")
-	public String community_write(CommunityDto dto, @RequestParam("topic") String topic) {
+	@RequestMapping("/qna/qna_write")
+	public String qna_write(QnaDto dto, @RequestParam("topic") String topic) {
 
 		// 로그인후 글 작성
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dto.setMember_no(user.getMember_no());
 
 		dto.setTopic_name(topic); // 사용자가 선택한 토픽 설정
-		communityService.InsertCommunity(dto);
-		return "redirect:/community";
+		qnaService.InsertQna(dto);
+		return "redirect:/qna";
 	}
 
-	// community detail
-	@RequestMapping("/community/community_detail")
-	public String community_detail(int b_no, Model model) {
+	// qna detail
+	@RequestMapping("/qna/qna_detail")
+	public String qna_detail(int b_no, Model model) {
 
 		// 상세보기 클릭시 조회수 증가
 		communityService.updateView(b_no);
 
 		// 상세보기
-		CommunityDto dto = communityService.getCommunityDetail(b_no);
+		QnaDto dto = qnaService.getQnaDetail(b_no);
 		model.addAttribute("dto", dto);
 		System.out.println(dto + "   detail");
 
@@ -133,47 +132,49 @@ public class CommunityController {
 		List<ReplyDto> replies = replyService.getReplies(b_no);
 		model.addAttribute("replies", replies);
 		
-		System.out.println("~~~~~community_detail~~~~~~");
+		System.out.println("~~~~~qna_detail~~~~~~");
 		System.out.println("dto: "+ dto);
 		System.out.println("replies " + replies);
-		
-		
 
-		return "community_detail";
+		return "qna_detail";
 	}
 
 	// update form
-	@RequestMapping("/community/community_update_form")
+	@RequestMapping("/qna/qna_update_form")
 	public String updateform(int b_no, Model model) {
+		
 
-		CommunityDto dto = communityService.getCommunityDetail(b_no);
+		QnaDto dto = qnaService.getQnaDetail(b_no);
+//		dto = qnaService.getQnaDetail(b_no);
+		
 		model.addAttribute("dto", dto);
-		System.out.println(dto + "   community_update_form");
+		System.out.println(dto + "   qna_update_form");
 
-		return "community_update_form";
+		return "qna_update_form";
 	}
 
-	@RequestMapping("/community_update")
-	public String update(CommunityDto dto) {
-		int result = communityService.updateCommunity(dto);
-		String res = "redirect:/community"; // 리다이렉트 URL를 재지정. 주소가 바뀜
+	@RequestMapping("/qna_update")
+	public String update(QnaDto dto) {
+		
+		int result = qnaService.updateQna(dto);
+		String res = "redirect:/qna"; // 리다이렉트 URL를 재지정. 주소가 바뀜
 		if (result == 0)
 			res = "fail";
 		return res;
 	}
 
-	@RequestMapping(value = "/community_delete/{dto.b_no}", method = RequestMethod.GET)
+	@RequestMapping(value = "/qna_delete/{dto.b_no}", method = RequestMethod.GET)
 	public String delete(@PathVariable("dto.b_no") int b_no) {
 		System.out.println(b_no + " 오니?");
-		communityService.deleteCommunity(b_no);
+		qnaService.deleteQna(b_no);
 
 		System.out.println(b_no + " 지워졌니?");
-		return "redirect:/community";
+		return "redirect:/qna";
 
 	}
 
-	@RequestMapping("/category")
-	public String category(@RequestParam("topic_no") int topicNo,
+	@RequestMapping("/category2")
+	public String category2(@RequestParam("topic_no") int topicNo,
 			@RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request, Model model) {
 
 		int postsPerPage = 10;
@@ -185,9 +186,9 @@ public class CommunityController {
 		map.put("end", endPost);
 		map.put("topicNo", topicNo);
 
-		List<CommunityDto> list = communityService.getPostsByTopic(map);
+		List<QnaDto> list = qnaService.getPostsByTopic2(map);
 
-		int totalPosts = communityService.getPostCountByTopic(topicNo); // 주제별 총 게시글 개수 조회
+		int totalPosts = qnaService.getPostCountByTopic2(topicNo); // 주제별 총 게시글 개수 조회
 		int totalPages = totalPosts / postsPerPage;
 		if (totalPosts % postsPerPage != 0) {
 			totalPages++;
@@ -204,21 +205,15 @@ public class CommunityController {
 
 		model.addAttribute("list", list);
 
-		return "category";
+		return "category2";
 	}
 
-	@RequestMapping("/community/search")
+	@RequestMapping("/qna/search")
 	public String search(@RequestParam("title") String title, Model model) {
-	    List<CommunityDto> list = communityService.searchByTitle(title);
+	    List<QnaDto> list = qnaService.searchByTitle2(title);
 	    model.addAttribute("list", list);
-	    return "community";
+	    return "qna";
 	}
-
 	
-//	@RequestMapping("/qna")
-//	public String qna() {
-//
-//		return "qna";
-//
-//	}
+
 }
