@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.hit.dao.MainDao">
+
+	<select id="CommunityMainList" parameterType="hashmap"
+		resultType="kr.co.hit.dto.MainDto">
+
+
+		SELECT * FROM BOARD WHERE cat_no = 1 ORDER BY b_view DESC
+		LIMIT 5;
+
+	</select>
+
+
+	<select id="QnaMainList" parameterType="hashmap"
+		resultType="kr.co.hit.dto.MainDto">
+
+		SELECT * FROM BOARD WHERE cat_no = 2 ORDER BY b_view DESC
+		LIMIT 5;
+
+	</select>
+
+
+	<select id="MarketMainList" parameterType="hashmap"
+		resultType="kr.co.hit.dto.MainDto">
+
+		SELECT * FROM BOARD WHERE cat_no = 4 ORDER BY b_view DESC
+		LIMIT 5;
+
+
+	</select>
+
+
+</mapper>

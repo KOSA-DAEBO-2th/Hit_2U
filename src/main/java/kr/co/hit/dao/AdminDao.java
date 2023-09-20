@@ -12,4 +12,9 @@ public interface AdminDao {
 	public List<AdminDto> cntWeekBoard();
 	public List<AdminDto> cntWeekReply();
 	
+	public void delBoard(List<Integer> checkArr);
+	public void delMember(List<Integer> checkArr);
+	
+	public List<AdminDto> memberChart();
+	
 }

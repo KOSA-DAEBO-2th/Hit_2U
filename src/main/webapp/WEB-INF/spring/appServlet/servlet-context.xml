@@ -27,13 +27,15 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverlogin" class="kr.co.hit.security.NaverLogin" />
+
 	<context:component-scan
 		base-package="kr.co.hit.service"></context:component-scan>
 	<context:component-scan
 		base-package="kr.co.hit.controller"></context:component-scan>
 	<context:component-scan
 		base-package="kr.co.hit.dao"></context:component-scan>
-
 
 
 </beans:beans>

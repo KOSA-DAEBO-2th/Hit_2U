@@ -44,7 +44,7 @@
                     <a href="/community" id="community">커뮤니티</a>
                 </div>
                 <div class="nav_link">
-                    <a href="#">Q & A</a>
+                    <a href="/qna" id="qna">Q & A</a>
                 </div>
                 <div class="nav_link">
                     <a href="/meeting" id="meeting">모임</a>

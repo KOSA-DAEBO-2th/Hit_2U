@@ -26,6 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			WHERE b.b_write_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() GROUP BY c.cat_name WITH ROLLUP ORDER BY cat_name;
 	</select>
 	
+	<delete id="delBoard" parameterType="java.util.List">
+		DELETE FROM BOARD WHERE b_no in <foreach collection="list" item="b_no" index="index" open="(" close=")" separator=",">#{b_no}</foreach>
+	</delete>
+	
+	<delete id="delMember" parameterType="java.util.List">
+		DELETE FROM MEMBER WHERE member_no in <foreach collection="list" item="member_no" index="index" open="(" close=")" separator=",">#{member_no}</foreach>
+	</delete>
+	
+	<select id="memberChart">
+		SELECT DATE_FORMAT(join_date, '%Y-%m') months, COUNT(*) count FROM MEMBER 
+			WHERE join_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 YEAR) AND NOW() 
+			GROUP BY months 
+			ORDER BY months
+	</select>
+	
 	
 </mapper>
 

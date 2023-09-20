@@ -1,27 +1,32 @@
 package kr.co.hit.dto;
 
+import org.apache.commons.lang3.StringUtils;
 
+import com.github.scribejava.core.builder.api.DefaultApi20;
+
+import kr.co.hit.security.NaverLoginApi;
 import lombok.Data;
 
 @Data
-public class NaverLoginDto {
+public class NaverLoginDto{
+	private String service;
+	private String clientId;
+	private String clientSecret;
+	private String redirectUrl;
+	private DefaultApi20 api20Instance;
 
-    // 접근 토큰, 발급 후 expires_in 파라미터에 설정된 시간(초)이 지나면 만료됨
-    private String access_token;
+	private boolean isNaver;
+	private boolean isGoogle;
 
-    // 갱신 토큰, 접근 토큰이 만료될 경우 접근 토큰을 다시 발급받을 때 사용
-    private String refresh_token;
+	public NaverLoginDto(String service, String cid, String cs, String rurl) {
+		this.service = service;
+		this.clientId = cid;
+		this.clientSecret = cs;
+		this.redirectUrl = rurl;
 
-    // 접근 토큰의 타입으로 Bearer와 MAC의 두 가지를 지원
-    private String token_type;
+		this.isNaver = StringUtils.equalsIgnoreCase("naver", this.service);
+		this.isGoogle = StringUtils.equalsIgnoreCase("google", this.service);
 
-    // 	접근 토큰의 유효 기간(초 단위)
-    private String expires_in;
-
-    // 에러 코드
-    private String error;
-
-    // 에러 메시지
-    private String error_description;
-
+		this.api20Instance = NaverLoginApi.getInstance();
+	}
 }

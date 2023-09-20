@@ -10,5 +10,6 @@ public interface MemberDao {
 	public MemberDto getMember(String member_id);
 	
 	public int checkId(String member_id);
-
+	
+	public MemberDto naverChk(String naverId);
 }

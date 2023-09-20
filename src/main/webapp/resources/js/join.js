@@ -96,3 +96,57 @@ function joinChk(){
     
     
 }
+
+function njoinChk(){
+
+     if (!document.join.password.value) {
+        alert("비밀번호를 입력하십시요.");
+        document.join.password.focus();
+        return false;
+    }
+    
+    var password = document.join.password.value;
+    var password_verify = document.join.password_verify.value;
+    var regPassword = /^[a-zA-Z0-9!@#$%^&*()_+]{6,16}$/;
+    
+     if (!regPassword.test(password)) {
+        alert("비밀번호는 비밀번호: 6~16자의 영문 대/소문자, 숫자, 특수문자를 사용가능합니다");
+        document.join.password.focus();
+        return false;
+    }
+    
+    if (password != password_verify) {
+        document.join.password_verify.focus();
+        alert("비밀번호확인이 비밀번호와 일치 하지 않습니다.");
+        return false;
+    }
+    
+     if (!document.join.nickname.value) {
+        alert("닉네임을 입력하십시요.");
+        document.join.nickname.focus();
+        return false;
+    }
+    
+    var nicknameInput = document.getElementById("nicknameInput");
+    var nickname = nicknameInput.value.trim();
+     if (nickname.length < 2 || nickname.length > 8) {
+                alert("닉네임은 2~8자 이내로 입력해주세요.");
+                return false;
+            }
+
+     if (!document.join.contact.value) {
+        alert("연락처를 입력하십시요.");
+        document.join.contact.focus();
+        return false;
+    }
+    
+    var contact = document.join.contact.value;
+    var regContact = /^\d{3}-\d{3,4}-\d{4}$/;
+     
+     if (!regContact.test(contact)) {
+        alert("연락처는 010-1234-5678 형태로 기입해주세요");
+        document.join.contact.focus();
+        return false;
+    }
+    
+}

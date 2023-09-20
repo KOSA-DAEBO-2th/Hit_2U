@@ -213,16 +213,8 @@ public class CommunityController {
 	    model.addAttribute("list", list);
 	    return "community";
 	}
-	
-	
 
-
-//	@RequestMapping("/community/profile")
-//	public String profile() {
-//
-//		return "profile";
-//	}
-//
+	
 //	@RequestMapping("/qna")
 //	public String qna() {
 //
