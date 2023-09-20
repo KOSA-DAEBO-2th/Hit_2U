@@ -39,45 +39,61 @@
 
 	<main class='main_content_sm'>
 		<div class="content_label font_32">
-			<a>커뮤니티 (업데이트 폼~~~~)</a>
+			<a>커뮤니티 (수정)</a>
 		</div>
 
-		<form name="writeform" method="post"
-			action="/community_update" onsubmit="return board_write()">
+		<form name="writeform" method="post" action="/community_update"
+			onsubmit="return board_write()">
 			<div>
 				<div>
 
 					<!-- 				밑에는 임시적으로 주석처리하였음 추후에 주석을 풀어야됨 -->
-										<div class="topic">
-											<label>토픽</label> <select>
-												<option>토픽을 선택해주세요.</option>
-												<option>자유</option>
-												<option>고민</option>
-												<option>운동</option>
-												<option>익명</option>
-											</select>
-										</div>
+					<div class="topic">
+						<label><div class="write_tab">토픽 *</div></label>
+
+						<div class="input_section select">
+							<select class="form-select" name="topic">
+								<option value="">토픽을 선택해주세요.</option>
+								<option value="자유">자유</option>
+								<option value="고민">고민</option>
+								<option value="운동">운동</option>
+								<option value="익명">익명</option>
+							</select>
+						</div>
+					</div>
 					<div class="title">
-						<label>제목</label> 
-						
-						<input type="hidden" name="b_no" value="${dto.b_no}"/>
-						<input type="text" id="b_title" name="b_title"
+						<label><div class="write_tab">제목 *</div></label> <input
+							type="hidden" name="b_no" value="${dto.b_no}" /> <input
+							class="form-control" type="text" id="b_title" name="b_title"
 							value="${dto.b_title}">
 					</div>
-										<div class="tagtag">
-											<label>태그 - <span>내용을 대표하는 태그 3개 정도 입력해주세요.</span>
-											</label> <input class="tag1-input" placeholder="태그를 입력해주세요."></input>
+					<div class="tagtag">
+						<label><div class="write_tab">태그 *</div>
+							<div class="sub_explain font_14 font_lightgray">내용을 대표하는 태그
+								3개 정도 입력해주세요.</div> <!-- 						<span>내용을 대표하는 태그 3개 정도 입력해주세요.</span> -->
+						</label> <input class="form-control" placeholder="태그를 입력해주세요."></input>
 
-										</div>
+					</div>
 					<div class="textarea">
-						<label>본문</label>
-						<textarea id="b_content" name="b_content"
-							placeholder="내용을 입력해주세요.">${dto.b_content}</textarea>
+						<label><div class="write_tab">본문 *</div></label>
+
+						<div class="input_section text">
+							<textarea id="summernote" name="b_content">${dto.b_content}</textarea>
+						</div>
+
+						<!-- 						<textarea id="b_content" name="b_content" -->
+						<%-- 							placeholder="내용을 입력해주세요.">${dto.b_content}</textarea> --%>
 					</div>
 				</div>
 				<div class="button-container">
-					<button>취소</button>
-					<button type="submit" onclick="board_write()">수정 등록</button>
+					<!-- 					<button>취소</button> -->
+					<!-- 					<button type="submit" onclick="board_write()">수정 등록</button> -->
+
+					<button class="btn btn-primary btn_main">취소</button>
+					<button type="submit" class="btn btn-primary btn_main"
+						onclick="board_write()">수정 등록</button>
+
+
 				</div>
 			</div>
 		</form>

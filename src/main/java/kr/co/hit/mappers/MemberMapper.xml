@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="git_link" column="git_link"/>
 		<result property="baekjoon" column="baekjoon"/>
 		<result property="authority" column="authority"/>
-		<result property="member_method" column="member_method"/>
+		<result property="naver_id" column="naver_id"/>
 		
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
@@ -28,17 +28,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원 가입 -->
 	<insert id = "insertMember" parameterType="kr.co.hit.dto.MemberDto">
-	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, member_method)
+	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, naver_id)
 	VALUES (#{member_id}, #{nickname}, #{password}, #{email}, #{contact}, 0, #{git_link}, #{baekjoon}, 'ROLE_USER', 'Online')
 	</insert>
 	
 	<!-- getMember -->
 	<select id ="getMember" parameterType="String" resultType="kr.co.hit.dto.MemberDto" resultMap="memberMap">
-	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, member_method FROM MEMBER WHERE member_id = #{member_id}
+	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, naver_id FROM MEMBER WHERE member_id = #{member_id}
 	</select>
 	
 	<!-- ID중복검사 -->
 	<select id="checkId" parameterType="String" resultType="int">
         select count(*) from MEMBER where member_id=#{member_id}
     </select>
+    
+    <!-- NaverId등록 여부 -->
+    <select id="naverChk" parameterType="String" resultType="kr.co.hit.dto.MemberDto">
+    	select * from MEMBER where naver_id=#{newId}
+    </select>
+    
+    
 </mapper>

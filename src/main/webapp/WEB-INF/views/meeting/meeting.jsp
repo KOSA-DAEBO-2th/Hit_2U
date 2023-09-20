@@ -16,7 +16,6 @@
 	<main class="main_content">
 		<div class="content_label font_32">
 			<a>모임</a>
-
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="" style="flex-basis: 15%;"></div>
@@ -52,37 +51,38 @@
 				<div class="row">
 					<c:forEach items="${list }" var="list" varStatus="i">
 						<div class="col-md-3" style="min-width: 300px;">
-							<!-- 							<div class="card mb-4 shadow-sm"> -->
-							<div class="card mb-4">
+							<div class="card mb-4" style="position: relative;">
 								<a href="meeting/${list.b_no }"
-									style="text-decoration: none; color: black"> <svg
-										class="bd-placeholder-img card-img-top" width="100%"
-										height="120" xmlns="http://www.w3.org/2000/svg"
-										preserveAspectRatio="xMidYMid slice" focusable="false"
-										role="img" aria-label="Placeholder: Thumbnail">
-                                            <title>Placeholder</title>
-                                            <image
-											href="${pageContext.request.contextPath }/resources/images/logo.png"
-											width="100%" height="100%"></image>
-                     
-							
-							<c:choose>
-											        <c:when test="${list.meet_topic_name == '스터디'}">
-											            <rect class="topic_study" x="10" y="10"
-													width="69" height="25" rx="1" ry="1" />
-											        </c:when>
-										
-											         <c:when test="${list.meet_topic_name == '프로젝트'}">
-											            <rect class="topic_project" x="10" y="10"
-													width="69" height="25" rx="1" ry="1" />
-     
-											         </c:when>
-										
-	
-										      </c:choose>
-                                            <text x="17" y="29"
-											fill="#EEE">${list.meet_topic_name}</text>
-                                        </svg>
+									style="text-decoration: none; color: black">
+									<div class="thum_form">
+										<c:choose>
+											<c:when test="${empty list.file_url}">
+
+												<img
+													src="${pageContext.request.contextPath }/resources/images/logo.png"
+													width="100%" height="100%" />
+											</c:when>
+											<c:otherwise>
+												<img src="${list.file_url}" width="100%" height="100%"></img>
+											</c:otherwise>
+										</c:choose>
+									</div> <c:choose>
+										<c:when test="${list.meet_topic_name == '스터디'}">
+											<div class="topic_study">${list.meet_topic_name}</div>
+											<!--     <rect class="topic_study" x="3" y="3"
+													width="3" height="3" rx="1" ry="1" /> -->
+										</c:when>
+
+										<c:when test="${list.meet_topic_name == '프로젝트'}">
+											<div class="topic_project">${list.meet_topic_name}</div>
+											<!--   <rect class="topic_project" x="10" y="10"
+													width="69" height="25" rx="1" ry="1" /> -->
+
+										</c:when>
+
+
+									</c:choose> 
+									 
 									<div class="card-body">
 										<h3 class="font_12 font_category">${list.meet_field }</h3>
 

@@ -1,127 +1,131 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+﻿<%@ include file="../includes/header.jsp"%>
 <html>
 <head>
-<title></title>
+<script
+	src="${pageContext.request.contextPath }/resources/js/summernote/summernote-lite.js"></script>
+<script
+	src="${pageContext.request.contextPath }/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 
-<!-- 부트스트랩 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after" rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/summernote/summernote-lite.css">
+<link
+	href="${pageContext.request.contextPath }/resources/css/meeting_write.css"
+	rel="stylesheet" />
+
+<script
+	src="${pageContext.request.contextPath}/resources/js/meeting_write.js"
+	type="text/javascript" defer></script>
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"
+	integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css"
+	integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.ko.min.js"
+	integrity="sha512-L4qpL1ZotXZLLe8Oo0ZyHrj/SweV7CieswUODAAPN/tnqN3PA1P+4qPu5vIryNor6HQ5o22NujIcAZIfyVXwbQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 </head>
 <body>
-	<%-- <c:import url="../includes/header.jsp"></c:import> --%>
+	<main class="main_content_sm">
+		<form id="lecture_insert" action="/lecture/write" method="post"
+			autocomplete="on" enctype="multipart/form-data">
+			<div class="write_wrap padding_bottom_20">
+				<div class="write_tab">유형 *</div>
+				<div class="input_section radio">
+					<input type="radio" class="btn-check" name="lecture_topic_name"
+						id="vbtn-radio1" autocomplete="off" checked value="디자인">
+					<label class="btn btn-outline-primary margin_right_20"
+						for="vbtn-radio1">디자인</label> <input type="radio"
+						class="btn-check" name="lecture_topic_name" id="vbtn-radio2"
+						autocomplete="off" value="직무레슨"> <label
+						class="btn btn-outline-primary" for="vbtn-radio2">직무레슨</label>
+				</div>
+				<div id="project_select" class="current margin_top_40">
+					<div class="write_tab ">서비스명 *</div>
+					<div class="sub_explain font_14 font_lightgray">직관적인 서비스명을
+						사용하시면 클릭률이 올라갑니다.</div>
 
+					<div class="input_section text">
+						<input class="form-control" type="text"
+							placeholder="3~20글자로 입력해주세요.    예)2주만에 마스터하는 자바스크립트" id="project_name"
+							name="b_title" />
+					</div>
+				</div>
 
-	<main role="main">
+				<div id="project_field" class="current margin_top_40">
+					<div class="write_tab ">서비스 분야 *</div>
+					<div class="sub_explain font_14 font_lightgray">아래 분야 중에 한가지를
+						선택해주세요.</div>
+					<div class="input_section select">
+						<select class="form-select" name="meet_field">
+							<option value="" disabled selected>분야를 선택해주세요.</option>
+							<option value="프론트">프론트</option>
+							<option value="백엔드">백엔드</option>
+							<option value="웹디자인">웹디자인</option>
+							<option value="앱디자인">앱디자인</option>
+							<option value="서버개발">서버개발</option>
+							<option value="취업">취업</option>
+						</select>
+					</div>
+				</div>
 
-		<div class="album py-5 bg-light">
-			<div class="container">
-
-				<div class="row">
-
-
-					<c:forEach begin="1" end="20">
-
-						<div class="col-md-3">
-							<div class="card mb-4 shadow-sm">
-							
-							<a href="lecture_detail"
-									style="text-decoration: none; color: black;">
-							
-								<svg class="bd-placeholder-img card-img-top" width="100%"
-									height="225" xmlns="http://www.w3.org/2000/svg"
-									preserveAspectRatio="xMidYMid slice" focusable="false"
-									role="img" aria-label="Placeholder: Thumbnail">
-                  <title>Placeholder</title>
-                  <rect width="100%" height="100%" fill="#55595c"></rect>
-                  <text x="50%" y="50%" fill="#eceeef" dy=".3em">
-                    Thumbnail
-                  </text>
-                </svg>
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting
-										text below as a natural lead-in to additional content. This
-										content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button"
-												class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-								
-								</a>
-								
-							</div>
+				<div id="project_field" class="current margin_top_40">
+					<div class="write_tab ">대표 이미지</div>
+					<div class="sub_explain font_14 font_lightgray">대표 이미지를 업로드
+						해주세요. 없다면 기본 이미지가 적용됩니다.</div>
+					<div class="input_section image flex">
+						<div class="img_input_btn flex item_center content_center">
+							<i class="fa-solid fa-camera font_30 font_gray"></i>
 						</div>
 
+						<div class="padding_left_20">
+							<input type="file" id="chooseFile" name="chooseFile"
+								accept="image/*" onchange="loadFile(this)">
+						</div>
+					</div>
+				</div>
 
+				<div id="project_explain" class="current margin_top_40">
+					<div class="write_tab ">서비스 설명 *</div>
+					<div class="sub_explain font_14 font_lightgray">설명이 풍부한 서비스는
+						아닌 서비스에 비해 지원율이 높습니다.</div>
+					<div class="input_section text">
+						<textarea id="summernote" name="b_content" form="meeting_insert"></textarea>
+					</div>
+				</div>
 
+				<div id="project_tag" class="current margin_top_40">
+					<div class="write_tab ">기술/언어 (최대 10개) *</div>
+					<div class="sub_explain font_14 font_lightgray">프로젝트에 적용하고자
+						하는 기술/디자인 플랫폼을 적어주세요.</div>
 
-						<!-- 						<div class="col-md-3">
-							<div class="card mb-4 box-shadow">
-
-								<a href="lecture_detail"
-									style="text-decoration: none; color: black;"> <img
-									class="card-img-top"
-									src="https://archive.org/download/placeholder-image/placeholder-image.jpg"
-									alt="Card image cap">
-									<div class="card-body">
-										<p class="card-text">This is a wider card with supporting
-											text below as a natural lead-in to additional content. This
-											content is a little bit longer.</p>
-										<div class="d-flex justify-content-between align-items-center">
-											<div class="btn-group">
-												<button type="button"
-													class="btn btn-sm btn-outline-secondary">View</button>
-												<button type="button"
-													class="btn btn-sm btn-outline-secondary">Edit</button>
-											</div>
-											<small class="text-muted">9 mins</small>
-										</div>
-									</div>
-
-								</a>
-
-							</div>
-						</div> -->
-
-					</c:forEach>
-
-
+					<div class="input_section text">
+						<input class="form-control" type="text"
+							placeholder="예) java react figma oracle" id="meet_tags"
+							name="meet_tags" />
+					</div>
 
 
 				</div>
+				<div class="flex content_end margin_top_40">
+					<input type="submit" class="btn btn-primary btn_main"
+						value="Submit">
+				</div>
 			</div>
-		</div>
-
+		</form>
 	</main>
-
-
-
-
 
 	<c:import url="../includes/footer.jsp"></c:import>
 
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
 	<script>
-		window.jQuery
-				|| document
-						.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')
+		
 	</script>
-	<script src="../../assets/js/vendor/popper.min.js"></script>
-	<script src="../../dist/js/bootstrap.min.js"></script>
-	<script src="../../assets/js/vendor/holder.min.js"></script>
-
-
 </body>
 </html>

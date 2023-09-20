@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.FileDao">
 	<select id="searchName" resultType="String" parameterType="int">
-		SELECT FILE_NAME FROM FILE WHERE B_NO = #{b_no}
+		SELECT FILE_NAME FROM FILE WHERE B_NO = #{b_no} and thumbnail = 0
 	</select>
 	
 	<delete id="deleteImage" parameterType="String">
-		DELETE FROM FILE WHERE FILE_NAME = #{Name}	
+		DELETE FROM FILE WHERE FILE_NAME = #{Name}
 	</delete>
 </mapper>

@@ -8,34 +8,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="CommunityList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
-		<!-- 커뮤니티 리스트 전체 출력 -->
 
-		SELECT * FROM (
+		SELECT *
+		FROM (
 		SELECT
 		A.*,
 		@rownum := @rownum + 1 AS r
-		FROM
-		(SELECT * FROM
-		BOARD where cat_no =1 ORDER BY b_no DESC) A,
-		(SELECT
-		@rownum := 0) R
+		FROM (
+		SELECT
+		BOARD.*,
+		MEMBER.nickname,
+		MEMBER.grade,
+		TOPIC.topic_name
+		FROM BOARD
+		INNER
+		JOIN MEMBER ON BOARD.member_no = MEMBER.member_no
+		left OUTER JOIN TOPIC
+		ON BOARD.topic_no = TOPIC.topic_no
+		WHERE BOARD.cat_no = 1
+		ORDER BY b_no
+		DESC
+		) A,
+		(SELECT @rownum := 0) R
 		) B
-		WHERE r BETWEEN #{start} AND #{end}
+		WHERE r BETWEEN #{start} AND #{end};
 
 	</select>
-
 
 	<select id="getPostsByTopic" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
-		SELECT * FROM (
-		SELECT A.*, @rownum := @rownum + 1 AS r
-		FROM
-		(SELECT * FROM BOARD WHERE cat_no = 1 AND topic_no = #{topicNo} ORDER
-		BY b_no DESC) A,
-		(SELECT @rownum := 0) R
-		) B WHERE r BETWEEN #{start}
-		AND #{end}
+		SELECT *
+		FROM (
+		SELECT
+		A.*,
+		@rownum := @rownum + 1 AS r
+		FROM (
+		SELECT
+		BOARD.*,
+		MEMBER.nickname,
+		TOPIC.topic_name
+		FROM BOARD
+		INNER JOIN
+		MEMBER ON BOARD.member_no = MEMBER.member_no
+		LEFT OUTER JOIN TOPIC ON
+		BOARD.topic_no = TOPIC.topic_no
+		WHERE BOARD.cat_no = 1 AND
+		BOARD.topic_no = #{topicNo}
+		ORDER BY b_no DESC) A,
+		(SELECT @rownum := 0)
+		R
+		) B WHERE r BETWEEN #{start} AND #{end}
+
+
 	</select>
 
 	<select id="getCommunityCount" resultType="Integer">
@@ -44,6 +69,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		BOARD WHERE CAT_NO = 1;
 
 	</select>
+
+	<select id="searchByTitle" parameterType="String"
+		resultType="kr.co.hit.dto.CommunityDto">
+
+		SELECT * FROM BOARD WHERE cat_no = 1 and b_title LIKE
+		CONCAT('%', #{title}, '%')
+
+	</select>
+
+
 
 	<insert id="InsertCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
@@ -68,28 +103,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name}
 	</select>
 
-
-
 	<select id="getCommunityDetail"
 		resultType="kr.co.hit.dto.CommunityDto" parameterType="int">
 
-		<!-- 글 상세보기 -->
-		select b_no,
-		b_title,
-		b_content,
-		b_view
-		from
+
+		SELECT
+		BOARD.b_no,
+		BOARD.b_title,
+		BOARD.b_content,
+		BOARD.b_view,
+		MEMBER.nickname,
+		(SELECT COUNT(*) FROM REPLY WHERE b_no = BOARD.b_no)
+		AS reply_count
+		FROM
 		BOARD
-		where b_no = #{b_no}
+		INNER JOIN
+		MEMBER ON BOARD.member_no =
+		MEMBER.member_no
+		WHERE
+		BOARD.b_no = #{b_no};
+
 
 	</select>
-
 
 	<select id="getPostCountByTopic" parameterType="int"
 		resultType="int">
-		SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no = #{topicNo}
+		SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no =
+		#{topicNo}
 	</select>
-
 
 	<update id="updateCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
@@ -97,7 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 글 수정 (토픽, 태그 추가 안됨) -->
 		update BOARD set
 		b_title=#{b_title},
-		b_content=#{b_content}
+		b_content=#{b_content} 
 		where b_no =
 		#{b_no}
 

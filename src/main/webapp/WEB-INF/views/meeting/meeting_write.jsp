@@ -83,16 +83,23 @@
 
 				<div id="project_field" class="current margin_top_40">
 					<div class="write_tab ">대표 이미지</div>
+					
 					<div class="sub_explain font_14 font_lightgray">대표 이미지를 업로드
 						해주세요. 없다면 기본 이미지가 적용됩니다.</div>
-					<div class="input_section image flex">
-						<div class="img_input_btn flex item_center content_center">
-							<i class="fa-solid fa-camera font_30 font_gray"></i>
-						</div>
-
+					<div class="input_section image flex item_end">
+					
+						<label for="chooseFile">
+							<div class="img_input_btn flex item_center content_center">
+								<i class="fa-solid fa-camera font_30 font_gray"></i>
+							</div>
+						</label>
 						<div class="padding_left_20">
 							<input type="file" id="chooseFile" name="chooseFile"
-								accept="image/*" onchange="loadFile(this)">
+								accept="image/*" onchange="loadFile(this) "
+								style="display: none;"> 
+								<label for="chooseFile" class="btn btn-primary img_input_btn2">이미지 업로드</label>
+								<div class="font_14"><text class="star">*</text> 가로/세로의 비율이 2:1일 때 썸네일이 가장 예쁩니다. </div>
+								<div class="font_14"><text class="star">*</text> 저작권에 위배되지 않는 파일만 업로드 해주세요.</div>
 						</div>
 					</div>
 				</div>

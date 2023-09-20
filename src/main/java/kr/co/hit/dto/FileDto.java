@@ -10,4 +10,5 @@ public class FileDto {
 	private String file_url;// 파일 경로
 	private long file_size; // 파일크기
 	private int b_no; //글번호
+	private int thumbnail;
 }

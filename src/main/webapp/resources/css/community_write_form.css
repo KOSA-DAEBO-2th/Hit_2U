@@ -29,12 +29,18 @@ button:first-child {
 	margin-right: 1vw;
 }
 
-button {
-	width: 100px;
-	height: 50px;
-	border: none;
-}
+/* button { */
+/* 	width: 100px; */
+/* 	height: 50px; */
+/* 	border: none; */
+/* } */
 
 input.tag1-input {
 	width: 100% display:block;
 }
+
+.write_tab {
+	font-size: 20px;
+	font-weight: bold;
+}
+

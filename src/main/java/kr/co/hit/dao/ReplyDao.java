@@ -10,4 +10,5 @@ public interface ReplyDao {
 
 	void addReply(ReplyDto reply);
 	
+	void updateBreply(int b_no);
 }

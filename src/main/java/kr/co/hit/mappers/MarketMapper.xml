@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.hit.dao.MarketDao">
+
+	<select id="selectMarketList"
+		resultType="kr.co.hit.dto.MarketDto">
+		SELECT B.b_no, B.b_title, B.b_content, B.b_write_date,
+		B.b_view, B.b_reply,
+		B.b_recommend, B.member_no, B.topic_no,
+		M.market_category, M.price, MEM.nickname, MEM.grade, T.topic_name
+		FROM
+		BOARD B
+		INNER JOIN MARKET M
+		ON B.b_no = M.b_no
+		INNER JOIN MEMBER MEM
+		ON
+		B.member_no = MEM.member_no
+		INNER JOIN TOPIC T
+		ON B.topic_no =
+		T.topic_no
+		WHERE B.cat_no = 4
+
+	</select>
+
+
+	<update id="increaseView">
+		UPDATE BOARD SET b_view = b_view+1 WHERE b_no =
+		#{boardIdx};
+
+
+	</update>
+	
+	<select id="selectMarketRead"
+		resultType="kr.co.hit.dto.MarketDto">
+		SELECT B.b_no, B.b_title, B.b_content, B.b_write_date,
+		B.b_view, B.b_reply,
+		B.b_recommend, B.member_no, B.topic_no,
+		M.market_category, M.price, MEM.nickname, MEM.grade, T.topic_name
+		FROM
+		BOARD B
+		INNER JOIN MARKET M
+		ON B.b_no = M.b_no
+		INNER JOIN MEMBER MEM
+		ON
+		B.member_no = MEM.member_no
+		INNER JOIN TOPIC T
+		ON B.topic_no =
+		T.topic_no
+		WHERE B.b_no = #{boardIdx}
+
+	</select>
+	
+	
+	
+
+</mapper>
