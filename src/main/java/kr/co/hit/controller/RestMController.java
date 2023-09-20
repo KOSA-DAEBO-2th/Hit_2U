@@ -133,4 +133,13 @@ public class RestMController {
 		return list;
 	}
 	
+	@GetMapping("/reportList")
+	public List<AdminDto> reportList(){
+		List<AdminDto> list = adminService.reportList();
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		return list;
+	}
+	
 }

@@ -1,17 +1,19 @@
 $(document).ready(function () {
-    $("#cbx_chkAll").click(function () {
-        console.log("clicked");
-        if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-        else $("input[name=chk]").prop("checked", false);
-    });
+	$('searchCat').change(function(){
+		var cat = $('#searchCat option:selected').val();
+		if(cat == '1'){
+			console.log("게시글");
+			$('.boardDiv').show();
+			search();
+		} else if(cat == '2') {
+			console.log("회원");
+			$('.memberDiv').show();
+			search();
+		} else {
+			$('.reportDiv').show();
+		}
 
-    $("input[name=chk]").click(function () {
-        var total = $("input[name=chk]").length;
-        var checked = $("input[name=chk]:checked").length;
-
-        if (total != checked) $("#cbx_chkAll").prop("checked", false);
-        else $("#cbx_chkAll").prop("checked", true);
-    });
+	});
 });
 
 
@@ -63,8 +65,8 @@ function search(){
                     console.log(data);
                     console.log(data[0].nickname);
                     $('.tableResult').empty();
-                    var tableH = '<tr><th><input type="checkbox"  id="cbx_chkAll" ></th>';
-                    tableH += '<th>ID</th><th>닉네임</th><th>권한</th></tr>';
+                    var tableH = '<tr><th style="width:5%"></th>';
+                    tableH += '<th style="width:30%">ID</th style="width:35%"><th>닉네임</th><th style="width:30%">권한</th></tr>';
                     $('.tableHead').empty();
                     $('.tableHead').append(tableH);
                     for(var i in data){
@@ -133,4 +135,67 @@ function del() {
 	});
 
 
+}
+
+function changeCat(){
+	var cat = $('#searchCat option:selected').val();
+		if(cat == '1'){
+			//console.log("게시글");
+			$('.divTitle').text("게시글");
+			//$('.listDiv').show();
+			search();
+		} else if(cat == '2') {
+			//console.log("회원");
+			$('.divTitle').text("회원");
+			//$('.listDiv').show();
+			search();
+		} else {
+			//$('.listDiv').hide();
+			//$('.reportDiv').show();
+			$('.divTitle').text("신고 목록");
+			reportList();
+			
+		}
+
+
+
+
+}
+
+function reportList(){
+	$.ajax({
+		type: "GET",
+		url: "reportList",
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function(data){
+			console.log("reportList success");
+	
+
+			console.log(data);
+			console.log(data[0].b_title);
+			$('.tableResult').empty();
+			var tableH = '<tr><th style="width:5%"></th>';
+			tableH += '<th style="width:20%">신고자</th><th style="width:20%">피신고자</th><th style="width:55%">신고 내용</th></tr>';
+			//tableH += '<th style="width:15%">  <button onclick="del()" value="1">s</button>  </th></tr>';
+			$('.tableHead').empty();
+			$('.tableHead').append(tableH);
+			
+			for(var i in data){
+				console.log(data[i]);
+				str = '<tr class="align-middle"><td><div class="d-flex align-items-center">';
+				str += '<input type="checkbox" class="chk" name="chk" value="'+data[i].b_no+'"></div></td>';
+				str += '<td>'+data[i].reporter+'</td>';
+				str += '<td>'+data[i].reported+'</td>';
+				//str += '<td>'+data[i].nickname+'</td>';
+				//<fmt:formatDate value="${ list.m_date }" pattern="yy-MM-dd [HH:mm]" type="date"/>
+				str += '<td>'+data[i].report_reason+'</td>';
+				$('.tableResult').append(str);
+			}
+	
+	
+
+
+		}
+	});
 }

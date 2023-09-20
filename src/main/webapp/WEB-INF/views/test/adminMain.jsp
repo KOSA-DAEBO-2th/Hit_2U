@@ -116,9 +116,10 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-            	<select class="form-select" id="searchCat" aria-label="Default select example" style="width: 100px; margin-right: 10px;">
+            	<select class="form-select" id="searchCat" onchange="changeCat()" aria-label="Default select example" style="width: 100px; margin-right: 10px;">
   					<option selected value="1">게시글</option>
   					<option value="2">회원</option>
+  					<option value="3">신고</option>
 				</select>
               <!-- Search -->
               <div class="navbar-nav align-items-center">
@@ -157,11 +158,13 @@
                      <div class="row"  style="height: 500px;"  >
         <div class="col-12 mb-3 mb-lg-5"       >
             <!-- <div class="overflow-hidden card table-nowrap table-card"> -->
+            	<div class="listDiv">
                 <div class="card-header d-flex justify-content-between align-items-center table-card-header">
-                    <h5 class="mb-0">회원/게시글</h5>
+                    <h5 class="mb-0 divTitle">게시글</h5>
                     <a class="btn  btn-sm">수정</a>
                     <a class="btn btn-danger btn-sm" onclick="del()">삭제</a>
                 </div>
+                
                 <div class="table-responsive" id="searchRes"  style="max-height: 400px; ">
                     <table class="table mb-0">
                         <thead class="small text-uppercase bg-body text-muted tableHead">
@@ -194,6 +197,7 @@
 
                         </tbody>
                     </table>
+                </div>
                 </div>
             <!-- </div> -->
         </div>
@@ -292,7 +296,7 @@
                 
                 
                 
-              <div class="row">
+              <!-- <div class="row"> -->
 <!-- ========================================= 아래꺼 쓸거임 ========================================================================================================================= -->
                <!-- Total Revenue -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-0 mb-4">
@@ -482,7 +486,7 @@
                   </div>
                 </div>
 
-              </div>
+             <!--  </div> -->
             </div>
             <!-- / Content -->
 
@@ -530,7 +534,7 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
+</div>
 
     <div class="buy-now">
       <a
@@ -565,19 +569,21 @@
 
 	<script type="text/javascript">
 	$(document).ready(function () {
-	    $("#cbx_chkAll").click(function () {
-	        console.log("clicked");
-	        if ($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-	        else $("input[name=chk]").prop("checked", false);
-	    });
+		$('searchCat').change(function(){
+			var cat = $('#searchCat option:selected').val();
+			if(cat == '1'){
+				console.log("게시글");
+				$('.boardDiv').show();
+				search();
+			} else if(cat == '2') {
+				console.log("회원");
+				$('.memberDiv').show();
+				search();
+			} else {
+				$('.reportDiv').show();
+			}
 
-	    $("input[name=chk]").click(function () {
-	        var total = $("input[name=chk]").length;
-	        var checked = $("input[name=chk]:checked").length;
-
-	        if (total != checked) $("#cbx_chkAll").prop("checked", false);
-	        else $("#cbx_chkAll").prop("checked", true);
-	    });
+		});
 	});
 	</script>
 </body>
