@@ -5,55 +5,121 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.MarketDao">
 
-	<select id="selectMarketList"
-		resultType="kr.co.hit.dto.MarketDto">
-		SELECT B.b_no, B.b_title, B.b_content, B.b_write_date,
-		B.b_view, B.b_reply,
-		B.b_recommend, B.member_no, B.topic_no,
-		M.market_category, M.price, MEM.nickname, MEM.grade, T.topic_name
-		FROM
-		BOARD B
+	<select id="selectMarketList" resultType="kr.co.hit.dto.MarketDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY,
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.PRICE, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
+		FROM BOARD B 
 		INNER JOIN MARKET M
-		ON B.b_no = M.b_no
+		ON B.B_NO = M.B_NO
 		INNER JOIN MEMBER MEM
-		ON
-		B.member_no = MEM.member_no
+		ON B.MEMBER_NO = MEM.MEMBER_NO 
 		INNER JOIN TOPIC T
-		ON B.topic_no =
-		T.topic_no
-		WHERE B.cat_no = 4
-
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 4 
+		ORDER BY B.B_NO DESC
+		LIMIT 0, 3;
 	</select>
-
+	
+	<select id="selectMarketListCount">
+		SELECT COUNT(*)
+		FROM BOARD B 
+		INNER JOIN MARKET M
+		ON B.B_NO = M.B_NO
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO = MEM.MEMBER_NO 
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 4 
+		ORDER BY B.B_NO DESC
+	</select>
+	
+	<select id="searchMarketList" parameterType="kr.co.hit.dto.MarketSearchDto" resultType="kr.co.hit.dto.MarketDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY,
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.PRICE, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
+		FROM BOARD B 
+		INNER JOIN MARKET M
+		ON B.B_NO = M.B_NO
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO = MEM.MEMBER_NO INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') ORDER BY B.B_NO DESC 
+		LIMIT #{page_start}, #{page_limit}
+	</select>
+	
+	<select id="searchMarketListCount" parameterType="kr.co.hit.dto.MarketSearchDto" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD B 
+		INNER JOIN MARKET M
+		ON B.B_NO = M.B_NO
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO = MEM.MEMBER_NO 
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') 
+		ORDER BY B.B_NO
+	</select>
 
 	<update id="increaseView">
-		UPDATE BOARD SET b_view = b_view+1 WHERE b_no =
-		#{boardIdx};
-
-
+		UPDATE BOARD SET B_VIEW = B_VIEW+1 WHERE B_NO = #{boardIdx};
 	</update>
 	
-	<select id="selectMarketRead"
-		resultType="kr.co.hit.dto.MarketDto">
-		SELECT B.b_no, B.b_title, B.b_content, B.b_write_date,
-		B.b_view, B.b_reply,
-		B.b_recommend, B.member_no, B.topic_no,
-		M.market_category, M.price, MEM.nickname, MEM.grade, T.topic_name
-		FROM
-		BOARD B
+	<select id="selectMarketRead" resultType="kr.co.hit.dto.MarketDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		M.MARKET_CATEGORY, M.PRICE, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME, M.STATE, M.TRADING, M.DISCOUNT
+		FROM BOARD B
 		INNER JOIN MARKET M
-		ON B.b_no = M.b_no
+		ON B.B_NO = M.B_NO
 		INNER JOIN MEMBER MEM
-		ON
-		B.member_no = MEM.member_no
+		ON B.MEMBER_NO = MEM.MEMBER_NO
 		INNER JOIN TOPIC T
-		ON B.topic_no =
-		T.topic_no
-		WHERE B.b_no = #{boardIdx}
-
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.B_NO = #{boardIdx}
 	</select>
 	
+	<insert id="insertBoard" parameterType="kr.co.hit.dto.MarketDto">
+		INSERT INTO BOARD(B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, MEMBER_NO, CAT_NO, TOPIC_NO)
+		VALUES((SELECT T.B_NO+1 FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T),#{b_title},#{b_content},NOW(),#{member_no},4, ${topic_no})
+	</insert>
+	
+	<insert id="insertMarket" parameterType="kr.co.hit.dto.MarketDto">
+		INSERT INTO MARKET(B_NO, MARKET_CATEGORY, PRICE, STATE, TRADING, DISCOUNT)
+		VALUES((SELECT T.B_NO FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T),#{market_category},#{price},#{state},#{trading},#{discount})
+	</insert>
+	
+	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE (FILE_NAME, FILE_REALNAME, FILE_URL, FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname}, #{file_url}, #{file_size}, (SELECT T.B_NO FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T), #{thumbnail})
+	</insert>
+	
+	<update id="updateBoard" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE BOARD
+		SET TOPIC_NO = #{topic_no}, B_TITLE = #{b_title}, B_CONTENT = #{b_content}
+		WHERE B_NO = #{b_no}
+	</update>
+	
+	<update id="updateMarket" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE MARKET
+		SET PRICE = #{price}, MARKET_CATEGORY = #{market_category}, STATE = #{state},
+		TRADING = #{trading}, DISCOUNT = #{discount}
+		WHERE B_NO = #{b_no}
+	</update>
+	
+	<insert id="updateSummerNote" parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE (FILE_NAME, FILE_REALNAME, FILE_URL, FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname} ,#{file_url}, #{file_size}, #{b_no}, #{thumbnail})
+	</insert>
+	
+	<delete id="deleteFile">
+		DELETE FROM FILE WHERE B_NO = #{boardIdx}
+	</delete>
+	
+	<delete id="deleteMarket">
+		DELETE FROM MARKET WHERE B_NO = #{boardIdx}
+	</delete>
+	
+	<delete id="deleteBoard">
+		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
+	</delete>
 	
 	
-
 </mapper>
