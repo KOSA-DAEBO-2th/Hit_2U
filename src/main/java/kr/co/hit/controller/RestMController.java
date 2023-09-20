@@ -108,14 +108,29 @@ public class RestMController {
 //		model.addAttribute("cntReply", cntR.get(4).getReplyWeek());
 		return map;
 	}
+
 	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("/profile_writeList") public ModelAndView
-	 * loadWriteList(@RequestBody MemberDto dto) {
-	 * System.out.println("update controller"); profileService.updateInfo(dto);
-	 * ModelAndView mav = new ModelAndView("profile/profile"); return mav; }
-	 */
+	@ResponseBody
+	@PostMapping("/admin_del")
+	public void admin_del_mem(@RequestBody List<Integer> checkArr) {  
+		int size = checkArr.size();
+		System.out.println("========delete admin============");
+		for(int i=0; i<size; i++) {
+			System.out.println(checkArr.get(i));
+		}
+		int cat = checkArr.get(size-1);
+		checkArr.remove(size-1);
+		if(cat == 1) {
+			adminService.delBoard(checkArr);
+		}
+		else adminService.delMember(checkArr);
+	}
+	
+	@ResponseBody
+	@GetMapping("/join_count")
+	public List<AdminDto> memberChart(){
+		List<AdminDto> list = adminService.memberChart();
+		return list;
+	}
 	
 }

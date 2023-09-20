@@ -31,6 +31,8 @@ public class AdminController {
 //		int cntReply = adminService.cntWeekReply();
 //		model.addAttribute("cntBoard", cntBoard);
 //		model.addAttribute("cntReply", cntReply);
+		List<AdminDto> list = adminService.searchBoard("");
+		model.addAttribute("list", list);
 		return "/test/adminMain";
 	}
 	

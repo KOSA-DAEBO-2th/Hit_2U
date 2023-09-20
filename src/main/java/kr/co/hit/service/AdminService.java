@@ -43,4 +43,23 @@ public class AdminService implements AdminDao {
 		return cnt;
 	}
 
+	@Override
+	public void delBoard(List<Integer> checkArr) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		dao.delBoard(checkArr);
+	}
+
+	@Override
+	public void delMember(List<Integer> checkArr) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		dao.delMember(checkArr);
+	}
+
+	@Override
+	public List<AdminDto> memberChart() {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		List<AdminDto> list = dao.memberChart();
+		return list;
+	}
+
 }
