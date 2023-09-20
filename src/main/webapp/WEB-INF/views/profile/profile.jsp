@@ -32,7 +32,7 @@
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item active"  onclick="profile()">사용자 정보</li>
             <li class="breadcrumb-item" onclick="writeList()"> 작성 글 </li>
-            <li class="breadcrumb-item" onclick="meetingList()"><a href="#"> 모임 현황 </a></li>
+            <li class="breadcrumb-item" onclick="meetingList()"> 모임 현황</li>
             <li class="breadcrumb-item "><a href="#">수강 강의</a></li>
           </ol>
         </nav>
