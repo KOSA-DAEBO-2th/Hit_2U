@@ -71,8 +71,9 @@
                  <sec:authorize access="isAuthenticated()">
                 <div style="flex-shrink: 0; font-size: 20px;">
                 	<sec:authentication property="principal.nickname"/>님 
-                	<i class="fa-solid fa-user" onclick="location.href='/profile'" style="margin-left:5px; margin-right:5px;"></i>
-                	<i class="fa-solid fa-right-from-bracket" onclick="location.href='/logout'"></i>
+                	<i class="fa-solid fa-user" onclick="location.href='/profile'" style="margin-left:5px; margin-right:5px; cursor:pointer;"></i>
+                	<i class="fa-regular fa-envelope"  onclick="location.href='/message'" style="margin-left:5px; margin-right:10px; cursor:pointer;"></i>
+                	<i class="fa-solid fa-right-from-bracket" onclick="location.href='/logout'" style="cursor:pointer;"></i>
                 </div>
                 </sec:authorize>
             </div>
