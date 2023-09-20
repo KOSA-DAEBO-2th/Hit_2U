@@ -13,5 +13,5 @@ public class LectureDto {
 	private String b_title, b_content, lecture_topic_name, lecture_state, lecture_field, lecture_tags, nickname, git_link, grade,
 			r_content, member_id, file_url;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date b_write_date, meet_start_day, meet_end_day, reply_date;
+	private Date b_write_date, reply_date;
 }

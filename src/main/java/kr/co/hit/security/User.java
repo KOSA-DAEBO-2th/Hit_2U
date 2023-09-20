@@ -1,6 +1,7 @@
 package kr.co.hit.security;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +21,7 @@ public class User implements UserDetails{
 	private int member_no, grade;
 	private String member_id, naver_id, nickname, password, email, contact, git_link, baekjoon, authority;
 	private String enabled;
+	private Date join_date;
 	
 	public String getNaver_id() {
 		return naver_id;

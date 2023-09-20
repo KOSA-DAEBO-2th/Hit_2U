@@ -8,5 +8,5 @@ import lombok.Data;
 public class ProfileDto {
 	private int b_no, member_no, count;
 	private String b_title, b_content, member_id, r_content, cat_name;
-	private Date b_write_date, reply_date;
+	private Date b_write_date, reply_date, join_date;
 }

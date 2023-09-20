@@ -28,7 +28,6 @@ public class CustomUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String member_id) throws UsernameNotFoundException {
 		MemberDto dto = dao.getMember(member_id);
 		
-		System.out.println(dto);
 		if(dto==null) throw new UsernameNotFoundException("Invalid User");
 			
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -36,7 +35,6 @@ public class CustomUserDetailService implements UserDetailsService {
 			grantedAuthorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
 		}
 		User user = new User(dto, grantedAuthorities);
-		System.out.println(user);
 		return user;
 	}
 
