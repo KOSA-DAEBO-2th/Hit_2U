@@ -135,6 +135,38 @@ public class MarketService implements MarketDao {
 	}
 
 
+	@Override
+	public List<MarketDto> searchMarketImgList(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		List<MarketDto> list = dao.searchMarketImgList(boardIdx);
+		return list;
+	}
+
+
+	@Override
+	public List<MarketDto> selectReplyList(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		List<MarketDto> list = dao.selectReplyList(boardIdx);
+		return list;
+	}
+
+
+	@Override
+	public int insertReply(MarketDto dto) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		int result = dao.insertReply(dto);
+		return result;
+	}
+
+
+	@Override
+	public void increaseReply(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		dao.increaseReply(boardIdx);
+		
+	}
+
+
 	
 
 }

@@ -4,10 +4,15 @@
 	color: royalblue;
 }
 
-.search_div {
-	justify-content: space-between;
+.middle_form{
 	padding-bottom: 20px;
 	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3);
+}
+
+.search_div {
+	justify-content: space-between;
+/* 	padding-bottom: 20px;
+	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3); */
 }
 
 .main_user {
@@ -128,4 +133,8 @@ article:hover {
 
 .page_arrow{
 	cursor: pointer;
+}
+
+.hidden{
+	display: none;
 }
