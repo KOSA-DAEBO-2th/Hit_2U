@@ -115,18 +115,25 @@
 						</div>
 					</div>
 
-					<div class="margin_top_12 margin_bottom_12 font_gray">
+					<div class="margin_top_8 margin_bottom_4 font_gray">
 						· 카테고리<span class="product_value">${list.market_category }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class="margin_bottom_4 font_gray">
 						· 상품상태<span class="product_value">${list.state }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class="margin_bottom_4 font_gray">
 						· 교환방법<span class="product_value">${list.trading }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class=" margin_bottom_8 font_gray">
 						· 네고여부<span class="product_value">${list.discount }</span>
 					</div>
+					<div class="flex">
+						<button class="btn btn_apply2 margin_right_12"><i class="fa-solid fa-heart"></i>  관심 (${list.b_recommend })</button>
+						<button class="btn btn_apply2 market_cmp_btn">거래완료</button>
+					</div>
+
+
+
 				</div>
 
 
@@ -164,7 +171,7 @@
 				</div>
 			</sec:authorize>
 
-	
+
 
 
 
