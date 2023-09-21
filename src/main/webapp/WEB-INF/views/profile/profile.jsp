@@ -30,12 +30,7 @@
 	<c:set var="image_url">
 		<sec:authentication property="principal.image_url" />
 	</c:set>
-	<h2>
-		<a href="/logout">로그아웃</a>
-	</h2>
-	<h2>
-		<a href="/chatting">채팅</a>
-	</h2>
+
 
 	<main class='main_content'>
 		<section style="background-color: #eee;">

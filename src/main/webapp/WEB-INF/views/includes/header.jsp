@@ -199,6 +199,9 @@
                 <div class="nav_link">
                     <a href="/lecture">강의</a>
                 </div>
+                <div class="nav_link">
+                    <a href="/chat/chatting">채팅</a>
+                </div>
             </nav>
             <div class="header_right">
             <sec:authorize access="isAnonymous()">
