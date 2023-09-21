@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="baekjoon" column="baekjoon"/>
 		<result property="authority" column="authority"/>
 		<result property="naver_id" column="naver_id"/>
+		<result property="image_url" column="image_url"/>
 		
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
@@ -42,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- getMember -->
 	<select id ="getMember" parameterType="String" resultType="kr.co.hit.dto.MemberDto" resultMap="memberMap">
-	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, naver_id, join_date FROM MEMBER WHERE member_id = #{member_id}
+	SELECT * FROM MEMBER M LEFT JOIN IMAGE I ON M.member_no = I.member_no WHERE member_id = #{member_id}
 	</select>
 	
 	<!-- ID중복검사 -->
