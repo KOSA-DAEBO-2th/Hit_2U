@@ -2,14 +2,17 @@ package kr.co.hit.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -131,6 +134,22 @@ public class RestMController {
 	public List<AdminDto> memberChart(){
 		List<AdminDto> list = adminService.memberChart();
 		return list;
+	}
+	
+	@GetMapping("/reportList")
+	public List<AdminDto> reportList(){
+		List<AdminDto> list = adminService.reportList();
+		for(int i=0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping("/roleChange")
+	public int changeRole( @RequestBody AdminDto dto) {  //@RequestBody Map<String, String> map
+		int result = adminService.changeRole(dto);
+		return result;
 	}
 	
 }
