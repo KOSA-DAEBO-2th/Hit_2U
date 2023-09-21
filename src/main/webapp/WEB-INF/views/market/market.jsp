@@ -25,27 +25,75 @@
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="flex full_width content_center">
-				<button id="total" class="btn btn_category btn_category_click"
-					value="total">전체</button>
-				<button id="btn_sell" class="btn btn_category" value="sell">팝니다</button>
-				<button id="btn_buy" class="btn btn_category" value="buy">삽니다</button>
+
+				<c:choose>
+					<c:when test="${empty currunt_topic}">
+						<form action="/market/search" onsubmit="return formChk();">
+							<div id="total" class="btn btn_category btn_category_click"
+								value="total" name="topic_option"
+								onclick="location.href='/market/search/total'">전체</div>
+							<div id="btn_sell" class="btn btn_category" value="sell"
+								name="topic_option"
+								onclick="location.href='/market/search/sell'">팝니다</div>
+							<div id="btn_buy" class="btn btn_category" value="buy"
+								name="topic_option" onclick="location.href='/market/search/buy'">삽니다</div>
+					</c:when>
+					<c:otherwise>
+						<form action="/market/search/${currunt_topic}"
+							onsubmit="return formChk(this);">
+							<div id="total"
+								class="btn btn_category <c:if test="${currunt_topic eq 'total'}">btn_category_click</c:if>"
+								value="total" name="topic_option"
+								onclick="location.href='/market/search/total'">전체</div>
+							<div id="btn_sell"
+								class="btn btn_category <c:if test="${currunt_topic eq 'sell'}">btn_category_click</c:if>"
+								value="sell" name="topic_option"
+								onclick="location.href='/market/search/sell'">팝니다</div>
+							<div id="btn_buy"
+								class="btn btn_category <c:if test="${currunt_topic eq 'buy'}">btn_category_click</c:if>"
+								value="buy" name="topic_option"
+								onclick="location.href='/market/search/buy'">삽니다</div>
+					</c:otherwise>
+				</c:choose>
+
+
+
+
 			</div>
-
-
 		</div>
-		<div class="search_div flex content_center">
-			<div class="flex" style="flex-basis: 15%;">
-				<button class="btn btn_write font_14"
-					onclick="location.href='/market/write'">
-					<i class="fa-solid fa-pen margin_right_6"></i>작성하기
-				</button>
+		<div class="middle_form">
+			<div class="search_div flex content_center">
+				<div class="" style="flex-basis: 15%;">
+
+
+					<div class="btn btn_write font_14" data-bs-toggle="collapse"
+						href="#collapseExample" role="button" aria-expanded="false"
+						aria-controls="collapseExample">상세검색 </div>
+
+
+				</div>
+				<div class="search-box flex content_center">
+					<input type="text" class="search-txt" name="b_title" placeholder=""
+						<c:if test="${!empty search_option.b_title}">value="${search_option.b_title }"</c:if>>
+					<a class="search-btn"> <i class="fas fa-search"></i>
+					</a>
+				</div>
+
+				<div class="flex"
+					style="flex-basis: 15%; justify-content: flex-end;">
+					<div class="btn btn_write font_14"
+						onclick="location.href='/market/write'">
+						<i class="fa-solid fa-pen margin_right_6"></i>작성하기
+					</div>
+				</div>
+
 			</div>
-			<div class="search-box flex content_center">
-				<input type="text" class="search-txt" name="" placeholder="전체에서 검색">
-				<a class="search-btn" href="#"> <i class="fas fa-search"></i>
-				</a>
+
+			<div class="collapse " id="collapseExample">
+				<div class="">상세 검색 옵션 추가</div>
 			</div>
-			<div class="" style="flex-basis: 15%;"></div>
+
+
 		</div>
 
 
@@ -53,7 +101,7 @@
 			<c:forEach items="${list }" var="list" varStatus="i">
 
 				<article>
-					<a class="a_link" href="market/${list.b_no }">
+					<a class="a_link" href="/market/${list.b_no }">
 						<div class="board_form width_full">
 							<div class="main_user flex item_center font_14">
 								<div class="flex_1">
@@ -88,8 +136,8 @@
 									<div class="price_form">
 										<text>&#8361; </text>
 
-										<text class="price">
-										<fmt:formatNumber value="${list.price}" pattern="#,###" /></text>
+										<text class="price"> <fmt:formatNumber
+											value="${list.price}" pattern="#,###" /></text>
 									</div>
 								</div>
 								<div class="flex item_center like_comment_box">
@@ -106,7 +154,38 @@
 			</c:forEach>
 		</section>
 
+		<div class="flex content_center item_center">
+			<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
+
+			<c:choose>
+				<c:when test="${page_init eq 1}">
+					<input type="text"
+						class="form-control page_test margin_left_20 current_page"
+						name="page" value="1" />
+				</c:when>
+
+				<c:otherwise>
+					<input type="text"
+						class="form-control page_test margin_left_20 current_page"
+						name="page" value="${search_option.page }" />
+				</c:otherwise>
+
+
+			</c:choose>
+
+			<text class=" font_main font_bold"
+				style="font-size: 25px; margin: 0px 15px;">/</text>
+			<input type="text"
+				class="form-control page_test margin_right_20 max_page"
+				value="${maxPage }" disabled /> <i
+				class="fa-solid fa-chevron-right font_20 font_main page_arrow">
+			</i>
+			<button class="hidden"></button>
+		</div>
+
+
 	</main>
 	<c:import url="../includes/footer.jsp"></c:import>
+	<form action="/market/search">
 </body>
 </html>

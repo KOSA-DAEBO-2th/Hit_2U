@@ -139,5 +139,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	
+	<insert id="insert" parameterType="kr.co.hit.dto.LectureDto">
+		insert INTO BOARD(b_no,
+		b_title, b_content, b_write_date, member_no, cat_no)
+		VALUES((SELECT
+		t.b_no+1 FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t)
+		,#{b_title}
+		,#{b_content}
+		,NOW()
+		,#{member_no}
+		,5
+		)
+
+	</insert>
+
+	<insert id="insertLecture"
+		parameterType="kr.co.hit.dto.LectureDto">
+		insert INTO LECTURE(b_no, 
+		lecture_tags, lecture_topic_name, lecture_field)
+		VALUES (
+		(SELECT
+		t.b_no FROM (SELECT MAX(b_no) b_no FROM
+		BOARD) AS t)
+		,#{lecture_tags}
+		,#{lecture_topic_name}
+		,#{lecture_field}
+		)
+
+	</insert>
 
 </mapper>

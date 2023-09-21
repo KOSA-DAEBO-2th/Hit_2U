@@ -4,10 +4,15 @@
 	color: royalblue;
 }
 
-.search_div {
-	justify-content: space-between;
+.middle_form{
 	padding-bottom: 20px;
 	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3);
+}
+
+.search_div {
+	justify-content: space-between;
+/* 	padding-bottom: 20px;
+	border-bottom: 1px solid hsla(220, 9%, 46%, 0.3); */
 }
 
 .main_user {
@@ -39,69 +44,97 @@
 .flask {
 	font-size: 10px;
 }
+
 .mc {
-    margin: 0px 4px;
+	margin: 0px 4px;
 }
+
 .main_title {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 600;
-    padding-bottom: 10px;
+	flex: 1;
+	font-size: 16px;
+	font-weight: 600;
+	padding-bottom: 10px;
 }
 
 .like_comment_box {
-    font-size: 12px;
+	font-size: 12px;
 }
-.write_date{
+
+.write_date {
 	font-size: 12px;
 }
 
 .hp_point {
-    margin-left: 4px;
+	margin-left: 4px;
 }
 
-.board_in_topic{
+.board_in_topic {
 	background-color: rgb(240, 246, 250);
 	color: rgb(0, 144, 249);
 	padding: 0px 10px;
 	border-radius: 4px;
 	font-weight: 600;
-	
 }
-.market_category{
+
+.market_category {
 	background-color: rgb(240, 246, 250);
 	color: gray;
 	padding: 0px 10px;
 	border-radius: 4px;
 	font-weight: 600;
-	
 }
 
-.price_form{
+.price_form {
 	color: #374151;
 	font-weight: 500;
 }
 
-
-.like_comment_box i{
+.like_comment_box i {
 	margin-right: 2px;
 }
 
-
-
-
-
-
-
-
-.a_link{
+.a_link {
 	text-decoration: none;
 	color: black;
 }
-.a_link:hover{
+
+.a_link:hover {
 	color: black;
 }
 
 article:hover {
-    background-color: #eff;
+	background-color: #eff;
+}
+
+.search-btn {
+	border: none;
+	background-color: inherit;
+}
+
+.page_test{
+	width: 50px;
+	height: 30px;
+	text-align: center;
+}
+
+.btn_go{
+	width: 50px;
+	height: 30px;
+	padding: 0px;
+	text-align: center;
+	background-color: royalblue;
+	color: white;
+	
+}
+.btn_go:hover {
+	background-color: royalblue;
+	color: white;
+}
+
+.page_arrow{
+	cursor: pointer;
+}
+
+.hidden{
+	display: none;
 }

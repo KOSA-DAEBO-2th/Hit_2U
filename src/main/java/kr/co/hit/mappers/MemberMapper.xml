@@ -16,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="baekjoon" column="baekjoon"/>
 		<result property="authority" column="authority"/>
 		<result property="naver_id" column="naver_id"/>
+		<result property="image_url" column="image_url"/>
 		
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
@@ -28,13 +29,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원 가입 -->
 	<insert id = "insertMember" parameterType="kr.co.hit.dto.MemberDto">
-	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority, naver_id)
-	VALUES (#{member_id}, #{nickname}, #{password}, #{email}, #{contact}, 0, #{git_link}, #{baekjoon}, 'ROLE_USER', 'Online')
+	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority,naver_id)
+	VALUES (#{member_id}, #{nickname}, #{password}, #{email}, #{contact}, 0, #{git_link}, #{baekjoon}, 'ROLE_USER',#{naver_id})
 	</insert>
+	
+	<!-- 네이버 연동 회원 가입 -->
+	<insert id = "insertNMember" parameterType="kr.co.hit.dto.MemberDto">
+	INSERT INTO MEMBER (member_id, nickname, password, email, contact, grade, git_link, baekjoon, authority)
+	VALUES (#{member_id}, #{nickname}, #{password}, #{email}, #{contact}, 0, #{git_link}, #{baekjoon}, 'ROLE_USER')
+	</insert>
+	
+	<!-- 네이버 아이디 연동 -->
 	
 	<!-- getMember -->
 	<select id ="getMember" parameterType="String" resultType="kr.co.hit.dto.MemberDto" resultMap="memberMap">
-	SELECT member_no, member_id, password, nickname, email, contact, grade, git_link, baekjoon, authority, naver_id FROM MEMBER WHERE member_id = #{member_id}
+	SELECT * FROM MEMBER M LEFT JOIN IMAGE I ON M.member_no = I.member_no WHERE member_id = #{member_id}
 	</select>
 	
 	<!-- ID중복검사 -->
@@ -44,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- NaverId등록 여부 -->
     <select id="naverChk" parameterType="String" resultType="kr.co.hit.dto.MemberDto">
-    	select * from MEMBER where naver_id=#{newId}
+    	select * from MEMBER where naver_id=#{naver_id}
     </select>
     
     

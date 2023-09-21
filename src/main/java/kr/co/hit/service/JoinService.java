@@ -27,10 +27,10 @@ public class JoinService {
 		return result;
 	}
 
-	public MemberDto naverChk(String newId) {
+	public MemberDto naverChk(String naver_id) {
 		MemberDto dto = new MemberDto();
 		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
-		dto = memberDao.getMember(newId);
+		dto = memberDao.naverChk(naver_id);
 		return dto;
 	}
 	

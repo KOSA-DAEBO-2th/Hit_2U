@@ -1,6 +1,7 @@
 package kr.co.hit.security;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -18,11 +19,30 @@ public class User implements UserDetails{
 	private static final long serialVersionUID = 1L;
 
 	private int member_no, grade;
-	private String member_id, naver_id, nickname, password, email, contact, git_link, baekjoon, authority;
+	private String member_id, naver_id, nickname, password, email, contact, git_link, baekjoon, authority, image_url;
 	private String enabled;
+	private Date join_date;
 	
+	
+	
+	public String getImage_url() {
+		return image_url;
+	}
+
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+
 	public String getNaver_id() {
 		return naver_id;
+	}
+
+	public Date getJoin_date() {
+		return join_date;
+	}
+
+	public void setJoin_date(Date join_date) {
+		this.join_date = join_date;
 	}
 
 	public void setNaver_id(String naver_id) {
@@ -202,6 +222,8 @@ public class User implements UserDetails{
 		authority = dto.getAuthority();
 		authList = dto.getAuthList();
 		naver_id = dto.getNaver_id();
+		image_url = dto.getImage_url();
+		
 		
 		isEnabled = true;
 		isAccountNonExpired = true;
@@ -213,13 +235,16 @@ public class User implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "User [member_no=" + member_no + ", naver_id=" + naver_id + ", member_id=" + member_id
-				+ ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", contact=" + contact
-				+ ", grade=" + grade + ", git_link=" + git_link + ", baekjoon=" + baekjoon + ", authority=" + authority
-				+ ", enabled=" + enabled + ", isEnabled=" + isEnabled + ", isAccountNonExpired=" + isAccountNonExpired
-				+ ", isAccountNonLocked=" + isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired
-				+ ", authList=" + authList + ", authorities=" + authorities + "]";
+		return "User [member_no=" + member_no + ", grade=" + grade + ", member_id=" + member_id + ", naver_id="
+				+ naver_id + ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", contact="
+				+ contact + ", git_link=" + git_link + ", baekjoon=" + baekjoon + ", authority=" + authority
+				+ ", image_url=" + image_url + ", enabled=" + enabled + ", join_date=" + join_date + ", isEnabled="
+				+ isEnabled + ", isAccountNonExpired=" + isAccountNonExpired + ", isAccountNonLocked="
+				+ isAccountNonLocked + ", isCredentialsNonExpired=" + isCredentialsNonExpired + ", authList=" + authList
+				+ ", authorities=" + authorities + "]";
 	}
+	
+
 
 	
 }
