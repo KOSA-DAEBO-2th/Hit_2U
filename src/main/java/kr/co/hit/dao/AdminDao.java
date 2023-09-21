@@ -19,4 +19,6 @@ public interface AdminDao {
 	
 	public List<AdminDto> reportList();
 	
+	public int changeRole(AdminDto dto);
+	
 }

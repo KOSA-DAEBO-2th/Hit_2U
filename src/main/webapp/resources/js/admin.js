@@ -71,8 +71,8 @@ function search(){
                     $('.tableHead').append(tableH);
                     for(var i in data){
                         console.log(data[i]);
-                        str = '<tr class="align-middle"><td><div class="d-flex align-items-center">';
-                        str += '<input type="checkbox" class="chk" name="chk" value="'+data[i].member_no+'"></div></td>';
+                        str = '<tr class="align-middle" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-bs-param="'+data[i].member_no+'" ><td>  '+ data[i].member_no +'</td>';                   // <div class="d-flex align-items-center">';
+                        //str += '<input type="checkbox" class="chk" name="chk" value="'+data[i].member_no+'"></div></td>';
                         str += '<td>'+data[i].member_id+'</td>';
                         str += '<td>'+data[i].nickname+'</td>';
                         str += '<td>'+data[i].authority+'</td>';
@@ -175,7 +175,7 @@ function reportList(){
 			console.log(data);
 			console.log(data[0].b_title);
 			$('.tableResult').empty();
-			var tableH = '<tr><th style="width:5%"></th>';
+			var tableH = '<tr class="roww"><th style="width:5%"></th>';
 			tableH += '<th style="width:20%">신고자</th><th style="width:20%">피신고자</th><th style="width:55%">신고 내용</th></tr>';
 			//tableH += '<th style="width:15%">  <button onclick="del()" value="1">s</button>  </th></tr>';
 			$('.tableHead').empty();
@@ -198,4 +198,50 @@ function reportList(){
 
 		}
 	});
+}
+
+var num;
+$(document).on('click', "#printTable tr", function(){
+	console.log("테이블 행 클릭-----");
+	// var num = $(this).find("td:eq(0)").val();
+	//var num = $(this).find("td:eq(0)").attr('value');
+	num = $(this).find("td:eq(0)").text().trim();
+	console.log(num);
+});
+
+
+$(document).on("click", ".btn_change_submit", function () {
+	var param = $(this).attr("data-bs-param");
+	var role = $("#role_change option:selected").val();
+	console.log(role);
+	console.log("num: "+ num);
+    authority_change(role, num);
+});
+
+
+// var role = $("#role_change option:selected").val();
+// 	console.log(role);
+
+function authority_change(role, num) {
+	console.log("role: "+role);
+	console.log("no: "+num);
+    $.ajax({
+        url: "/roleChange",
+        type: "POST",
+		contentType: 'application/json',
+        dataType: 'json',
+		
+        data: JSON.stringify( {
+            authority: role,
+            member_no: num,
+        }),
+        success: function () {
+            console.log("업데이트 성공");
+			alert("변경이 완료되었습니다");
+			//location.reload();
+        },
+        error: function () {
+            alert("뭔가 오류있네");
+        },
+    });
 }

@@ -5,7 +5,6 @@
 <html>
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="sweetalert2.all.min.js"></script>
 <title>  </title>
 
 <!-- Fonts -->
@@ -74,19 +73,11 @@
                 background-color: lightgray; /*스크롤바 트랙 색상*/
             }
             
-/*             .table-card-header, .table > th {
-            	position: sticky;
-            	top: 0;
-            } */
-            
-
-            
             table>thead {
             	position: sticky;
             	top:0;
             }
             
-
  
         </style>
 </head>
@@ -165,8 +156,9 @@
                     <a class="btn btn-danger btn-sm" onclick="del()">삭제</a>
                 </div>
                 
+                
                 <div class="table-responsive" id="searchRes"  style="max-height: 400px; ">
-                    <table class="table mb-0">
+                    <table class="table mb-0" id="printTable">
                         <thead class="small text-uppercase bg-body text-muted tableHead">
                             <tr>
                                 <th class="fixedHeader" style="width:5%"></th>
@@ -178,9 +170,8 @@
                         
                         
                         <tbody class="tableResult">
-                        
                         	<c:forEach items="${ list }" var="list">
-                        
+                        	
                             <tr class="align-middle">
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -192,7 +183,6 @@
                                 <td> <span class="d-inline-block align-middle">${ list.b_title }</span></td>
                                 <td> <fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date"/> </td>
                             </tr>
-                        	
                         	</c:forEach>
 
                         </tbody>
@@ -544,6 +534,34 @@
         >Go to HOME</a
       >
     </div>
+    
+    
+    		<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">권한 변경</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        회원 권한 변경하기 <text class="apply_position font_blue"></text><br>
+      	<select class="form-select" id="role_change" aria-label="Default select example" style="width: 200px; margin-right: 10px;">
+      		<option>ROLE_USER</option>
+      		<option>ROLE_BLACK</option>
+      		<option>ROLE_ADMIN</option>
+      	</select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_apply_cancle" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary btn_change_submit">변경</button>
+      </div>
+    </div>
+  </div>
+</div>
+   
+    
+    
 
 	  <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -566,6 +584,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
 
 	<script type="text/javascript">
 	$(document).ready(function () {
@@ -585,6 +604,8 @@
 
 		});
 	});
+	
+
 	</script>
 </body>
 </html>

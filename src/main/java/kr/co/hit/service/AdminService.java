@@ -69,4 +69,11 @@ public class AdminService implements AdminDao {
 		return list;
 	}
 
+	@Override
+	public int changeRole(AdminDto dto) {
+		AdminDao dao = sqlsession.getMapper(AdminDao.class);
+		int res = dao.changeRole(dto);
+		return res;
+	}
+
 }
