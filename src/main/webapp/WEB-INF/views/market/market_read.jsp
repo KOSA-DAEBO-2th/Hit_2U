@@ -25,12 +25,30 @@
 			<div class="market_read_top flex">
 				<div id="carouselExampleFade" class="carousel slide carousel-fade">
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img
-								src="https://2teams3.s3.ap-northeast-2.amazonaws.com/Board/Meeting/9d76d146-3699-406b-9da6-6211494d7c36_KakaoTalk_20230905_101123810.jpg"
-								class="d-block " alt="...">
-						</div>
-						<div class="carousel-item">
+						<c:if test="${empty img_list}">
+							<div class="carousel-item active">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/no_img.jpg"
+									class="d-block " alt="...">
+							</div>
+						</c:if>
+
+						<c:forEach items="${img_list }" var="img_list" varStatus="i">
+							<c:choose>
+								<c:when test="${i.index == 0}">
+									<div class="carousel-item active">
+										<img src="${img_list.file_url }" class="d-block " alt="...">
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="carousel-item">
+										<img src="${img_list.file_url }" class="d-block " alt="...">
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<!-- 						<div class="carousel-item">
 							<img
 								src="https://2teams3.s3.ap-northeast-2.amazonaws.com/Board/Meeting/10846923-d996-4695-92f3-3c254e5d0049_KakaoTalk_20230919_102736404.png"
 								class="d-block " alt="...">
@@ -39,7 +57,7 @@
 							<img
 								src="https://2teams3.s3.ap-northeast-2.amazonaws.com/Board/Meeting/dc26f1bb-cab3-45cd-a324-6897ee1c0f16_KakaoTalk_20230919_091252679.png"
 								class="d-block " alt="...">
-						</div>
+						</div> -->
 					</div>
 					<button class="carousel-control-prev" type="button"
 						data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -123,26 +141,103 @@
 				<div class="btn_form">
 					<div class="flex" style="justify-content: space-between;">
 						<div>
-							<button class="btn btn_market_list" onclick="history.back()">목록으로</button>
-						</div>
-						<div>
-							<button class="btn btn_update margin_right_6" onclick="location.href='/market/update/${list.b_no}'">수정</button>
-							<button class="btn btn_delete" onclick="location.href='/market/delete/${list.b_no}'">삭제</button>
+							<button class="btn btn_market_list btn_14"
+								onclick="history.back()">목록으로</button>
 						</div>
 					</div>
 				</div>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<div class="flex btn_form">
-					<div class="flex">
-						<button class="btn btn_market_list" onclick="history.back()">목록으로</button>
-						<div class="flex_1">
-							<button class="btn btn_market_list" onclick="location.href='/market/update/${list.b_no}'">수정</button>
-							<button class="btn btn_market_list" onclick="history.back()">삭제</button>
+				<div class="btn_form">
+					<div class="flex" style="justify-content: space-between;">
+						<div>
+							<button class="btn btn_market_list btn_14"
+								onclick="history.back()">목록으로</button>
+						</div>
+						<div>
+							<button class="btn btn_update margin_right_6 btn_14"
+								onclick="location.href='/market/update/${list.b_no}'">수정</button>
+							<button class="btn btn_delete btn_14"
+								onclick="location.href='/market/delete/${list.b_no}'">삭제</button>
 						</div>
 					</div>
 				</div>
 			</sec:authorize>
+
+	
+
+
+
+
+
+
+
+			<div class="question_form">
+				<span class="content_tab">댓글 (${fn:length(reply_list)}) </span>
+				<div class="question_section padding_top_20 padding_bottom_20">
+					<div class="reply_section font_14">
+						<sec:authorize access="isAnonymous()">
+							<textarea cols="20" wrap="hard" class="reply_input"
+								placeholder="로그인한 사용자만 댓글 입력이 가능합니다." readonly></textarea>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<textarea cols="20" wrap="hard" class="reply_input"
+								placeholder="댓글을 입력해주세요."></textarea>
+						</sec:authorize>
+
+
+						<div class="flex reply_add">
+							<div>
+								<text class="reply_current_value"></text>
+								/
+								<text class="font_gray">1,000</text>
+							</div>
+							<div>
+								<button class="btn reply_submit">등록</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="reply_ajax">
+					<c:choose>
+						<c:when test="${reply_list == null or fn:length(reply_list) == 0}">
+							<div
+								class="reply_answer_section flex no_reply item_center font_14 content_center">등록된
+								댓글이 없습니다.</div>
+						</c:when>
+
+						<c:otherwise>
+							<c:forEach items="${reply_list }" var="reply_list" varStatus="i">
+								<div class="question_section padding_top_20 padding_bottom_20">
+
+
+									<div class="reply_answer_section">
+										<div class="flex item_center">
+											<div class="img_form margin_right_20">
+												<a href="#"><img class="reply_profile" title="profile"
+													src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
+											</div>
+											<div class="userid">${reply_list.nickname}</div>
+											<div class="flex content_end reply_date font_12">
+												<fmt:formatDate value="${reply_list.reply_date }"
+													pattern="yy.MM.dd HH:mm" />
+											</div>
+										</div>
+										<div class="padding_top_20 font_14 reply_output">
+											${reply_list.r_content }</div>
+									</div>
+
+
+
+
+								</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+			</div>
 
 
 
@@ -151,6 +246,7 @@
 	</main>
 	<script type="text/javascript">
 		var date = "${list.b_write_date}";
+		var b_no = "${list.b_no}";
 	</script>
 </body>
 <c:import url="../includes/footer.jsp"></c:import>
