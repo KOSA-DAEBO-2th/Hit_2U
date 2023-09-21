@@ -42,7 +42,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN MEMBER MEM
 		ON B.MEMBER_NO = MEM.MEMBER_NO INNER JOIN TOPIC T
 		ON B.TOPIC_NO = T.TOPIC_NO
-		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') ORDER BY B.B_NO DESC 
+		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') 
+		AND TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%') 
+		ORDER BY B.B_NO DESC 
 		LIMIT #{page_start}, #{page_limit}
 	</select>
 	
@@ -56,6 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN TOPIC T
 		ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') 
+		AND TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%') 
 		ORDER BY B.B_NO
 	</select>
 
@@ -76,6 +79,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE B.B_NO = #{boardIdx}
 	</select>
 	
+	<select id="searchMarketImgList" resultType="kr.co.hit.dto.MarketDto">
+		SELECT FILE_URL FROM FILE WHERE B_NO = #{boardIdx};
+	</select>
+	
 	<insert id="insertBoard" parameterType="kr.co.hit.dto.MarketDto">
 		INSERT INTO BOARD(B_NO, B_TITLE, B_CONTENT, B_WRITE_DATE, MEMBER_NO, CAT_NO, TOPIC_NO)
 		VALUES((SELECT T.B_NO+1 FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T),#{b_title},#{b_content},NOW(),#{member_no},4, ${topic_no})
@@ -88,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
 		INSERT INTO FILE (FILE_NAME, FILE_REALNAME, FILE_URL, FILE_SIZE, B_NO, THUMBNAIL)
-		VALUES(#{file_name}, #{file_realname}, #{file_url}, #{file_size}, (SELECT T.B_NO FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T), #{thumbnail})
+		VALUES(#{file_name}, #{file_realname}, #{file_url}, #{file_size}, (SELECT T.B_NO +1 FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T), #{thumbnail})
 	</insert>
 	
 	<update id="updateBoard" parameterType="kr.co.hit.dto.FileDto">
@@ -120,6 +127,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteBoard">
 		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
 	</delete>
+	
+	
+	<select id="selectReplyList" resultType="kr.co.hit.dto.MarketDto">
+		SELECT * FROM REPLY WHERE B_NO = #{boardIdx};
+	</select>
+	
+	<insert id="insertReply" parameterType="kr.co.hit.dto.MarketDto">
+		INSERT INTO REPLY (REPLY_NO, NICKNAME, R_CONTENT, REPLY_DATE, B_NO)
+		VALUES((SELECT T.REPLY_NO+1 FROM (SELECT MAX(REPLY_NO) REPLY_NO FROM REPLY) AS T), #{nickname} ,#{r_content}, NOW(), #{b_no})
+	</insert>
+	
+	<update id="increaseReply">
+		UPDATE BOARD SET B_REPLY = B_REPLY+1 WHERE B_NO = #{boardIdx};
+	</update>
 	
 	
 </mapper>

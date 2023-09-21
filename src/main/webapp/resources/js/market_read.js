@@ -26,3 +26,67 @@ function elapsedTime(date) {
     $(".day_cal").text("(방금 전)");
     return;
 }
+
+$(".reply_add").hide();
+
+$(document).on("keyup", ".reply_input", function () {
+    var reply_value = $(".reply_input").val().length;
+    $(".reply_current_value").text(reply_value.toLocaleString("ko-KR"));
+    reply_value_check(reply_value);
+});
+
+function reply_value_check(reply_value) {
+    if (reply_value >= 1 && reply_value <= 1000) {
+        $(".reply_add").show();
+        $(".reply_current_value").css({
+            color: "black",
+        });
+        $(".reply_input").css({
+            height: "100px",
+        });
+    } else if (reply_value >= 1001) {
+        $(".reply_current_value").css({
+            color: "red",
+        });
+    } else {
+        $(".reply_add").hide();
+        $(".reply_input").css({
+            height: "40px",
+        });
+    }
+}
+
+$(document).on("click", ".reply_submit", function () {
+    var reply_value = Number($(".reply_current_value").text().split(",").join(""));
+    if (reply_value > 1000) {
+        alert("1000 !!!!!!!!");
+        return;
+    }
+    reply_input(b_no);
+});
+
+function reply_input(b_no) {
+    var r_content = $(".reply_input").val();
+    r_content = r_content.replace(/(?:\r\n|\r|\n)/g, "<br/>");
+
+    $.ajax({
+        url: "/market/reply",
+        type: "POST",
+        data: {
+            b_no: b_no,
+            r_content: r_content,
+        },
+        dataType: "html",
+        success: function (data) {
+            $(".question_form").empty();
+            $(".question_form").append(data);
+            $(".reply_add").hide();
+            var height = $(".reply_answer_section").last().offset();
+            // $(".reply_answer_section").last()
+            $("html, body").animate({ scrollTop: height.top }, 200);
+        },
+        error: function () {
+            alert("뭔가 오류있네");
+        },
+    });
+}

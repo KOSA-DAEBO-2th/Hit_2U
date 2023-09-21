@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -69,7 +69,7 @@
                 </div>
                 </sec:authorize>
                  <sec:authorize access="isAuthenticated()">
-                <div style="flex-shrink: 0; font-size: 20px;">
+                <div style="flex-shrink: 0; font-size: 18px;">
                 	<sec:authentication property="principal.nickname"/>님 
                 	<i class="fa-solid fa-user" onclick="location.href='/profile'" style="margin-left:5px; margin-right:5px; cursor:pointer;"></i>
                 	<i class="fa-regular fa-envelope"  onclick="location.href='/message'" style="margin-left:5px; margin-right:10px; cursor:pointer;"></i>

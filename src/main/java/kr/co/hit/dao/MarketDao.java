@@ -18,6 +18,7 @@ public interface MarketDao {
 	public void insertThumb(FileDto fileOne) throws IOException;
 	public int searchMarketListCount(MarketSearchDto dto);
 	public List<MarketDto> searchMarketList(MarketSearchDto dto);
+	public List<MarketDto> searchMarketImgList(int boardIdx);
 	
 	//update
 	public int updateBoard(MarketDto dto);
@@ -28,4 +29,11 @@ public interface MarketDao {
 	public int deleteFile(int boardIdx);
 	public int deleteMarket(int boardIdx);
 	public int deleteBoard(int boardIdx);
+	
+	
+	//reply
+	
+	public List<MarketDto> selectReplyList(int boardIdx);
+	public int insertReply(MarketDto dto);
+	public void increaseReply(int boardIdx);
 }

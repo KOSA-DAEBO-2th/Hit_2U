@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.MarketDto;
 import kr.co.hit.dto.MarketSearchDto;
+import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.security.User;
 import kr.co.hit.service.FileService;
 import kr.co.hit.service.MarketService;
@@ -57,9 +59,7 @@ public class MarketController {
 	public ModelAndView meetingSearch(MarketSearchDto dto) {
 		
 		ModelAndView mv = new ModelAndView("market/market");
-		if(dto.getB_title() == null) {
-			dto.setB_title("");
-		}
+		
 		int limit = 3;
 		dto.setPage_limit(limit);
 		int start = (dto.getPage() - 1) * limit;
@@ -81,12 +81,18 @@ public class MarketController {
 	public ModelAndView meetingtotal(@PathVariable("topic") String topic, MarketSearchDto dto) {
 		
 		ModelAndView mv = new ModelAndView("market/market");
-		if(dto.getPage() == 0) {
+		if(dto.getPage() <= 0) {
 			dto.setPage(1);
 		}
-		if(dto.getB_title() == null) {
-			dto.setB_title("");
+		
+		if(topic.equals("sell")) {
+			dto.setTopic_name("팝니다");
+		}else if(topic.equals("buy")) {
+			dto.setTopic_name("삽니다");
+		}else {
+			dto.setTopic_name("");
 		}
+
 			
 		int limit = 3;
 		dto.setPage_limit(limit);
@@ -94,6 +100,9 @@ public class MarketController {
 		dto.setPage_start(start);
 		int listcount = marketService.searchMarketListCount(dto);
 		int maxPage = ((listcount - 1) / limit) + 1;
+		if(dto.getPage() > maxPage) {
+			dto.setPage(maxPage);
+		}
 		
 		List<MarketDto> list = marketService.searchMarketList(dto);
 		
@@ -112,8 +121,12 @@ public class MarketController {
 		ModelAndView mv = new ModelAndView("market/market_read");
 		marketService.increaseView(boardIdx);
 		MarketDto list = marketService.selectMarketRead(boardIdx);
-
+		List<MarketDto> img_list = marketService.searchMarketImgList(boardIdx);
+		
+		List<MarketDto> reply_list = marketService.selectReplyList(boardIdx);
 		mv.addObject("list", list);
+		mv.addObject("img_list", img_list);
+		mv.addObject("reply_list", reply_list);
 
 		return mv;
 	}
@@ -129,7 +142,6 @@ public class MarketController {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dto.setMember_no(user.getMember_no());
 
-		System.out.println(dto);
 
 		int board_ok = marketService.insertBoard(dto);
 
@@ -244,6 +256,21 @@ public class MarketController {
 		int board_ok = marketService.deleteBoard(boardIdx);
 
 		return "redirect:/market";
+	}
+	
+	@PostMapping("/reply")
+	public String ajaxReturnPage(MarketDto dto, Model model) {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setNickname(user.getNickname());
+		
+		int market_reply_ok = marketService.insertReply(dto);
+		marketService.increaseReply(dto.getB_no());
+		List<MarketDto> reply_list = marketService.selectReplyList(dto.getB_no());
+		
+		model.addAttribute("reply_list", reply_list);
+
+		return "market/marketReplyAjax";
 	}
 
 }
