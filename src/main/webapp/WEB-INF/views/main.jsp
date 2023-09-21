@@ -26,7 +26,6 @@
 									<a href="#">취업준비</a>
 								</div>
 								<div style="width: 100%;">
-
 									<div class="main_user">
 										<div style="flex: 1;">
 											<div class="flex item_center">

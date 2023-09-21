@@ -19,7 +19,6 @@ public class MainService implements MainDao{
 
 	public List<MainDto> CommunityMainList(HashMap map) {
 		
-
 		MainDao dao = sqlsession.getMapper(MainDao.class);
 		return dao.CommunityMainList(map);
 	}
