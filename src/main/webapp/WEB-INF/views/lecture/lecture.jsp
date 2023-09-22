@@ -34,7 +34,7 @@
 <body>
 	<main class="main_content">
 		<div class="content_label font_32">
-			<a>강의</a>
+			<a>프리랜서</a>
 
 		</div>
 		<div class="content_category flex padding_bottom_20">
@@ -43,8 +43,8 @@
 			<div class="flex full_width content_center">
 				<button id="total" class="btn btn_category btn_category_click"
 					value="전체">전체</button>
-				<button id="project" class="btn btn_category" value="디자인">디자인</button>
-				<button id="study" class="btn btn_category" value="직무레슨">직무레슨</button>
+				<button id="project" class="btn btn_category" value="외주">외주</button>
+				<button id="study" class="btn btn_category" value="강의">강의</button>
 			</div>
 
 			<div class="flex" style="justify-content: flex-end; flex-basis: 15%;">
@@ -87,13 +87,13 @@
                                  </c:otherwise>
                               </c:choose>
                            </div> <c:choose>
-                              <c:when test="${list.lecture_topic_name == '직무강의'}">
+                              <c:when test="${list.lecture_topic_name == '강의'}">
                                  <div class="topic_study">${list.lecture_topic_name}</div>
                                  <!--     <rect class="topic_study" x="3" y="3"
                                        width="3" height="3" rx="1" ry="1" /> -->
                               </c:when>
 
-                              <c:when test="${list.lecture_topic_name == '디자인'}">
+                              <c:when test="${list.lecture_topic_name == '외주'}">
                                  <div class="topic_project">${list.lecture_topic_name}</div>
                                  <!--   <rect class="topic_project" x="10" y="10"
                                        width="69" height="25" rx="1" ry="1" /> -->

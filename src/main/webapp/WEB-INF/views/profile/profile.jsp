@@ -27,9 +27,7 @@
 <body>
 	<c:import url="../includes/header.jsp"></c:import>
 
-	<c:set var="image_url">
-		<sec:authentication property="principal.image_url" />
-	</c:set>
+	<c:set var="image_url" value="${dto.image_url}"/>
 
 
 	<main class='main_content'>
@@ -72,8 +70,8 @@
 								<!--             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
 								<div class="d-flex justify-content-center mb-2">
-									<button type="button" class="btn btn-primary">Follow</button>
-									<button type="button" class="btn btn-outline-primary ms-1"
+									<!-- <button type="button" class="btn btn-primary">Follow</button> -->
+									<button type="button" class="btn btn-primary"
 										onclick="location.href='profile_edit'">수정</button>
 								</div>
 							</div>
@@ -106,19 +104,16 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">ID</p>
+										<p class="mb-0">계정 ID</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.member_id }</p>
-										<p class="text-muted mb-0">
-											<sec:authentication property="principal.member_id" />
-										</p>
 									</div>
 								</div>
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">NickName</p>
+										<p class="mb-0">닉네임</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.nickname }</p>
@@ -127,7 +122,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">Email</p>
+										<p class="mb-0">이메일</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.email }</p>
@@ -136,7 +131,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">Mobile</p>
+										<p class="mb-0">연락처</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.contact }</p>
@@ -149,8 +144,7 @@
 							<div class="col-md-6">
 								<div class="card mb-4 mb-md-0">
 									<div class="card-body">
-										<p class="mb-4">
-											<span class="text-primary font-italic me-1">assigment</span>
+										<p class="mb-4" style="text-align: center">
 											게시판 별 게시글 수
 										</p>
 										<div>
@@ -163,8 +157,7 @@
 							<div class="col-md-6">
 								<div class="card mb-4 mb-md-0">
 									<div class="card-body">
-										<p class="mb-4">
-											<span class="text-primary font-italic me-1">assigment</span>
+										<p class="mb-4" style="text-align: center">
 											게시판 별 댓글 수
 										</p>
 										<div>
