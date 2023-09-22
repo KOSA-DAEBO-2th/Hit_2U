@@ -40,12 +40,12 @@
 				<div class="write_tab">유형 *</div>
 				<div class="input_section radio">
 					<input type="radio" class="btn-check" name="lecture_topic_name"
-						id="vbtn-radio1" autocomplete="off" checked value="디자인">
+						id="vbtn-radio1" autocomplete="off" checked value="외주">
 					<label class="btn btn-outline-primary margin_right_20"
-						for="vbtn-radio1">디자인</label> <input type="radio"
+						for="vbtn-radio1">외주</label> <input type="radio"
 						class="btn-check" name="lecture_topic_name" id="vbtn-radio2"
-						autocomplete="off" value="직무레슨"> <label
-						class="btn btn-outline-primary" for="vbtn-radio2">직무레슨</label>
+						autocomplete="off" value="강의"> <label
+						class="btn btn-outline-primary" for="vbtn-radio2">강의</label>
 				</div>
 				<div id="project_select" class="current margin_top_40">
 					<div class="write_tab ">서비스명 *</div>
@@ -64,7 +64,7 @@
 					<div class="sub_explain font_14 font_lightgray">아래 분야 중에 한가지를
 						선택해주세요.</div>
 					<div class="input_section select">
-						<select class="form-select" name="meet_field">
+						<select class="form-select" name="lecture_field">
 							<option value="" disabled selected>분야를 선택해주세요.</option>
 							<option value="프론트">프론트</option>
 							<option value="백엔드">백엔드</option>
@@ -97,7 +97,7 @@
 					<div class="sub_explain font_14 font_lightgray">설명이 풍부한 서비스는
 						아닌 서비스에 비해 지원율이 높습니다.</div>
 					<div class="input_section text">
-						<textarea id="summernote" name="b_content" form="meeting_insert"></textarea>
+						<textarea id="summernote" name="b_content" form="lecture_insert"></textarea>
 					</div>
 				</div>
 
@@ -108,8 +108,8 @@
 
 					<div class="input_section text">
 						<input class="form-control" type="text"
-							placeholder="예) java react figma oracle" id="meet_tags"
-							name="meet_tags" />
+							placeholder="예) java react figma oracle" id="lecture_tags"
+							name="lecture_tags" />
 					</div>
 
 
