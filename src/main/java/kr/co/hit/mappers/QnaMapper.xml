@@ -2,97 +2,108 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="kr.co.hit.dao.QnaDao">
 
-	<select id="QnaList" parameterType="hashmap"
+	<select id="selectQnaList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.QnaDto">
 
-		<!-- 커뮤니티 리스트 전체 출력 -->
-		<!-- SELECT * FROM ( -->
-		<!-- SELECT -->
-		<!-- A.*, -->
-		<!-- @rownum := @rownum + 1 AS r -->
-		<!-- FROM -->
-		<!-- (SELECT -->
-		<!-- BOARD.*, MEMBER.nickname, MEMBER.grade FROM BOARD -->
-		<!-- INNER JOIN MEMBER ON -->
-		<!-- BOARD.member_no = MEMBER.member_no -->
-		<!-- WHERE cat_no =1 ORDER BY b_no DESC) -->
-		<!-- A, -->
-		<!-- (SELECT @rownum := 0) R -->
-		<!-- ) B -->
-		<!-- WHERE r BETWEEN #{start} AND #{end} -->
-
-
-
-		SELECT *
-		FROM (
-		SELECT
-		A.*,
-		@rownum := @rownum + 1 AS r
-		FROM (
-		SELECT
-		BOARD.*,
-		MEMBER.nickname,
-		MEMBER.grade,
-		TOPIC.topic_name
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD
-		INNER
-		JOIN MEMBER ON BOARD.member_no = MEMBER.member_no
-		left OUTER JOIN TOPIC
-		ON BOARD.topic_no = TOPIC.topic_no
-		WHERE BOARD.cat_no = 2
-		ORDER BY b_no
+		B
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN
+		TOPIC T
+		ON B.TOPIC_NO =
+		T.TOPIC_NO
+		WHERE B.CAT_NO = 2
+		ORDER BY B.B_NO
 		DESC
-		) A,
-		(SELECT @rownum := 0) R
-		) B
-		WHERE r BETWEEN #{start} AND #{end};
+		LIMIT 0, 10;
 
 	</select>
 
-	<select id="getPostsByTopic2" parameterType="hashmap"
+	<select id="selectQnaListCount">
+		SELECT COUNT(*)
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON
+		B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 2
+		ORDER BY B.B_NO DESC
+	</select>
+
+	<select id="searchQnaList"
+		parameterType="kr.co.hit.dto.QnaSearchDto"
 		resultType="kr.co.hit.dto.QnaDto">
-
-		SELECT *
-		FROM (
-		SELECT
-		A.*,
-		@rownum := @rownum + 1 AS r
-		FROM (
-		SELECT
-		BOARD.*,
-		MEMBER.nickname,
-		TOPIC.topic_name
-		FROM BOARD
-		INNER JOIN MEMBER ON BOARD.member_no = MEMBER.member_no
-		LEFT OUTER JOIN TOPIC ON BOARD.topic_no = TOPIC.topic_no
-		WHERE BOARD.cat_no = 2 AND BOARD.topic_no = #{topicNo}
-		ORDER BY b_no DESC) A,
-		(SELECT @rownum := 0) R
-		) B WHERE r BETWEEN #{start} AND #{end}
-
-
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW, B.B_REPLY,
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		MEM.NICKNAME, MEM.GRADE,
+		T.TOPIC_NAME
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO =
+		MEM.MEMBER_NO INNER JOIN TOPIC T
+		ON B.TOPIC_NO =
+		T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 2 AND B_TITLE LIKE
+		CONCAT('%',#{b_title},'%')
+		AND TOPIC_NAME LIKE
+		CONCAT('%',#{topic_name},'%')
+		ORDER BY B.B_NO DESC
+		LIMIT #{page_start},
+		#{page_limit}
 	</select>
 
-	<select id="getQnaCount" resultType="Integer">
-
-		SELECT COUNT(*) FROM
-		BOARD WHERE CAT_NO = 2;
-
+	<select id="searchQnaListCount"
+		parameterType="kr.co.hit.dto.QnaSearchDto" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 2 AND B_TITLE
+		LIKE CONCAT('%',#{b_title},'%')
+		AND TOPIC_NAME
+		LIKE CONCAT('%',#{topic_name},'%')
+		ORDER BY B.B_NO
 	</select>
 
-	<select id="searchByTitle2" parameterType="String"
+	<update id="increaseView">
+		UPDATE BOARD SET B_VIEW = B_VIEW+1 WHERE B_NO =
+		#{boardIdx};
+	</update>
+
+	<select id="selectQnaDetail"
 		resultType="kr.co.hit.dto.QnaDto">
-
-		SELECT * FROM BOARD WHERE cat_no = 2 and b_title LIKE
-		CONCAT('%', #{title}, '%')
-
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO = MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO =
+		T.TOPIC_NO
+		WHERE B.B_NO = #{boardIdx}
 	</select>
 
-
-
-	<insert id="InsertQna"
+	<insert id="insertQna"
 		parameterType="kr.co.hit.dto.QnaDto">
 
 		INSERT INTO BOARD (b_no, b_title, b_content,
@@ -109,88 +120,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</insert>
 
-	<!-- 주어진 토픽 이름에 해당하는 토픽 번호를 조회, 새 게시글을 작성할 때 사용자가 선택한 토픽의 번호를 알아내기 위해 사용 -->
-	<select id="getTopicNoByTopicName2" parameterType="String"
-		resultType="int">
-		SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name}
+	<select id="searchQnaImgList"
+		resultType="kr.co.hit.dto.QnaDto">
+		SELECT FILE_URL FROM FILE WHERE B_NO = #{boardIdx};
 	</select>
 
-	<select id="getQnaDetail"
-		resultType="kr.co.hit.dto.QnaDto" parameterType="int">
+	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE
+		(FILE_NAME, FILE_REALNAME, FILE_URL, FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname}, #{file_url}, #{file_size},
+		(SELECT T.B_NO +1 FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T),
+		#{thumbnail})
+	</insert>
 
-		<!-- 글 상세보기 -->
-		<!-- select b_no, -->
-		<!-- b_title, -->
-		<!-- b_content, -->
-		<!-- b_view -->
-		<!-- from -->
-		<!-- BOARD -->
-		<!-- where b_no = #{b_no} -->
-
-
-		<!-- SELECT -->
-		<!-- BOARD.b_no, -->
-		<!-- BOARD.b_title, -->
-		<!-- BOARD.b_content, -->
-		<!-- BOARD.b_view, -->
-		<!-- MEMBER.nickname -->
-		<!-- FROM -->
-		<!-- BOARD -->
-		<!-- INNER JOIN -->
-		<!-- MEMBER ON BOARD.member_no = -->
-		<!-- MEMBER.member_no -->
-		<!-- WHERE -->
-		<!-- BOARD.b_no = #{b_no}; -->
-
-
-		SELECT
-		BOARD.b_no,
-		BOARD.b_title,
-		BOARD.b_content,
-		BOARD.b_view,
-		MEMBER.nickname,
-		(SELECT COUNT(*) FROM REPLY WHERE b_no = BOARD.b_no)
-		AS reply_count
-		FROM
-		BOARD
-		INNER JOIN
-		MEMBER ON BOARD.member_no =
-		MEMBER.member_no
+	<update id="updateBoard" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE BOARD
+		SET TOPIC_NO
+		= #{topic_no}, B_TITLE = #{b_title}, B_CONTENT = #{b_content}
 		WHERE
-		BOARD.b_no = #{b_no};
-
-
-	</select>
-
-	<select id="getPostCountByTopic2" parameterType="int"
-		resultType="int">
-		SELECT COUNT(*) FROM BOARD WHERE cat_no = 2 AND topic_no =
-		#{topicNo}
-	</select>
-
-	<update id="updateQna"
-		parameterType="kr.co.hit.dto.QnaDto">
-
-		<!-- 글 수정 (토픽, 태그 추가 안됨) -->
-		update BOARD set
-		b_title=#{b_title},
-		b_content=#{b_content} 
-		where b_no =
-		#{b_no}
-
+		B_NO = #{b_no}
 	</update>
 
-<!-- 	<update id="updateView2" parameterType="int"> -->
+	<update id="updateMarket" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE MARKET
+		SET PRICE =
+		#{price}, MARKET_CATEGORY = #{market_category}, STATE = #{state},
+		TRADING = #{trading}, DISCOUNT = #{discount}
+		WHERE B_NO = #{b_no}
+	</update>
 
+	<insert id="updateSummerNote"
+		parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE (FILE_NAME, FILE_REALNAME, FILE_URL,
+		FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname}
+		,#{file_url}, #{file_size}, #{b_no}, #{thumbnail})
+	</insert>
 
-<!-- 		UPDATE BOARD SET B_VIEW = B_VIEW + 1 -->
-<!-- 		WHERE b_no = #{b_no} -->
-
-<!-- 	</update> -->
-
-	<delete id="deleteQna" parameterType="int">
-
-		<!-- 게시글 삭제 -->
-		delete from BOARD where b_no = #{b_no}
+	<delete id="deleteFile">
+		DELETE FROM FILE WHERE B_NO = #{boardIdx}
 	</delete>
+
+	<delete id="deleteQna">
+		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
+	</delete>
+
+
+
+	<select id="selectReplyList"
+		resultType="kr.co.hit.dto.QnaDto">
+		SELECT * FROM REPLY WHERE B_NO = #{boardIdx};
+	</select>
+
+	<insert id="insertReply" parameterType="kr.co.hit.dto.MarketDto">
+		INSERT INTO REPLY
+		(REPLY_NO, NICKNAME, R_CONTENT, REPLY_DATE, B_NO)
+		VALUES((SELECT
+		T.REPLY_NO+1 FROM (SELECT MAX(REPLY_NO) REPLY_NO FROM REPLY) AS T),
+		#{nickname} ,#{r_content}, NOW(), #{b_no})
+	</insert>
+
+	<update id="increaseReply">
+		UPDATE BOARD SET B_REPLY = B_REPLY+1 WHERE B_NO =
+		#{boardIdx};
+	</update>
+
 </mapper>

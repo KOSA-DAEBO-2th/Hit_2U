@@ -1,47 +1,73 @@
 package kr.co.hit.dao;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import kr.co.hit.dto.CommunityDto;
+import kr.co.hit.dto.CommunitySearchDto;
+import kr.co.hit.dto.FileDto;
 
 public interface CommunityDao {
 
+	// select
+	public List<CommunityDto> selectCommunityList();
+	public int selectCommunityListCount();
+	public void increaseView(int boardIdx);
+	public CommunityDto selectCommunityDetail(int boardIdx);
+	public int insertBoard(CommunityDto dto);
+
+	
+	
+
+	// search
+
+	public List<CommunityDto> selectReplyList(int boardIdx);
+	public List<CommunityDto> searchCommunityImgList(int boardIdx);
+	public int searchCommunityListCount(CommunitySearchDto dto);
+	
+	
+	
+	
+	
+	
+	
+
+	
 	// insert
-	public void InsertCommunity(CommunityDto dto);
+	
+	public int insertCommunity(CommunityDto dto);
 
-//	// select all
-//	public List<CommunityDto> CommunityList(); 
 
-	// community detail
+
+
+
+	public List<CommunityDto> searchCommunityList(CommunitySearchDto dto);
+
+	public int InsertCommunity(CommunityDto dto);
+
+	public void updateView(int b_no);
+
 	public CommunityDto getCommunityDetail(int b_no);
 
-	// update community
+	public int updateBoard(CommunityDto dto);
+
 	public int updateCommunity(CommunityDto dto);
 
-	// select all with paging
-	public List<CommunityDto> CommunityList(HashMap map);
+	public int deleteFile(int boardIdx);
 
-	// count community list
-	public int getCommunityCount();
+	public int deleteCommunity(int boardIdx);
 
-	// delete
-	public int deleteCommunity(int b_no);
+//	public int deleteBoard(int boardIdx);
 
-//	public int deleteCommunity(CommunityDto dto);
+	public void updateSummerNote(FileDto fileOne) throws IOException;
 
-	// 조회수 증가
-	public int updateView(int b_no);
+	public int selectCommunityListCount(CommunitySearchDto dto);
 
-//	주어진 토픽 이름으로 토픽 번호를 조회하는 DAO 메서드
-	public int getTopicNoByTopicName(String topic_name);
+	public int insertReply(CommunityDto dto);
 
-	public List<CommunityDto> getPostsByTopic(HashMap map);
+	public void increaseReply(int b_no);
 
-	public int getPostCountByTopic(int topicNo);
 
-	public List<CommunityDto> searchByTitle(String title);
+
 
 }

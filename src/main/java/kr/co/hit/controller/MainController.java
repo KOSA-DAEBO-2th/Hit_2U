@@ -20,7 +20,7 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 
-	@RequestMapping("/main2")
+	@RequestMapping("/")
 	public String main(HttpServletRequest request, Model model, MainDto dto) {
 		
 		HashMap map = new HashMap();
@@ -33,7 +33,7 @@ public class MainController {
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("marketList", marketList);
 		
-		return "main2";
+		return "/main";
 
 	}
 }

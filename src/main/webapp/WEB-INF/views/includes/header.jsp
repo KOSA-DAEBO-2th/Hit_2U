@@ -45,123 +45,6 @@
 	type="text/javascript" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
-<body>
-	<header class="header">
-		<div class="header_left">
-			<a href="/"><img
-				src="${pageContext.request.contextPath}/resources/images/logo.png"
-				width="180" height="48px" /></a>
-		</div>
-		<nav class="nav header_center flex">
-			<div class="nav_link">
-				<a href="/community" id="community">커뮤니티</a>
-			</div>
-			<div class="nav_link">
-				<a href="/qna" id="qna">Q & A</a>
-			</div>
-			<div class="nav_link">
-				<a href="/meeting" id="meeting">모임</a>
-			</div>
-			<div class="nav_link">
-				<a href="/lecture">프리랜서</a>
-			</div>
-			<div class="nav_link">
-				<a href="/market" id="market">HIT 마켓</a>
-			</div>
-			<div class="nav_link">
-				<a href="/lecture">강의</a>
-			</div>
-			<div class="nav_link">
-				<a href="/main2">main2</a>
-			</div>
-		</nav>
-		<div class="header_right">
-			<sec:authorize access="isAnonymous()">
-				<div style="flex-shrink: 0; width: 180px;">
-					<button class="btn btn-primary btn-ghost btn-open"
-						onclick="location.href='/member/login'">로그인</button>
-					<button class="btn btn-primary btn-jelly btn-blue"
-						onclick="location.href='/member/signup'">회원가입</button>
-				</div>
-			</sec:authorize>
-			<sec:authorize access="isAuthenticated()">
-				<div style="flex-shrink: 0; font-size: 20px;">
-					<sec:authentication property="principal.nickname" />
-					님 <i class="fa-solid fa-user" onclick="location.href='/profile'"
-						style="margin-left: 5px; margin-right: 5px; cursor: pointer;"></i>
-					<i class="fa-regular fa-envelope"
-						onclick="location.href='/message'"
-						style="margin-left: 5px; margin-right: 10px; cursor: pointer;"></i>
-					<i class="fa-solid fa-right-from-bracket"
-						onclick="location.href='/logout'" style="cursor: pointer;"></i>
-				</div>
-			</sec:authorize>
-		</div>
-
-	</header>
-</body>
-
-<%-- <link href="${pageContext.request.contextPath }/resources/css/util.css" --%>
-<!-- 	rel="stylesheet" /> -->
-<!-- <script src="https://kit.fontawesome.com/d7766e5822.js" -->
-<!-- 	crossorigin="anonymous"></script> -->
-<!-- <script async -->
-<%-- 	src="${pageContext.request.contextPath}/resources/js/header.js" --%>
-<!-- 	type="text/javascript" defer></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
-<!-- </head> -->
-<!-- <body> -->
-<!-- 	<header class="header"> -->
-<!-- 		<div class="header_left"> -->
-<!-- 			<a href="/"><img -->
-<%-- 				src="${pageContext.request.contextPath}/resources/images/logo.png" --%>
-<!-- 				width="180" height="48px" /></a> -->
-<!-- 		</div> -->
-<!-- 		<nav class="nav header_center flex"> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/community" id="community">커뮤니티</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/qna" id="qna">Q & A</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/meeting" id="meeting">모임</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/lecture">프리랜서</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/market" id="market">HIT 마켓</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/lecture">강의</a> -->
-<!-- 			</div> -->
-<!-- 			<div class="nav_link"> -->
-<!-- 				<a href="/main2">main2</a> -->
-<!-- 			</div> -->
-<!-- 		</nav> -->
-<!-- 		<div class="header_right"> -->
-<%-- 			<sec:authorize access="isAnonymous()"> --%>
-<!-- 				<div style="flex-shrink: 0; width: 180px;"> -->
-<!-- 					<button class="btn btn-primary btn-ghost btn-open" -->
-<!-- 						onclick="location.href='/member/login'">로그인</button> -->
-<!-- 					<button class="btn btn-primary btn-jelly btn-blue" -->
-<!-- 						onclick="location.href='/member/signup'">회원가입</button> -->
-<!-- 				</div> -->
-<%-- 			</sec:authorize> --%>
-<%-- 			<sec:authorize access="isAuthenticated()"> --%>
-<!-- 				<div style="flex-shrink: 0; font-size: 20px;"> -->
-<%-- 					<sec:authentication property="principal.nickname" /> --%>
-<!-- 					님 <i class="fa-solid fa-user" onclick="location.href='/profile'" -->
-<!-- 						style="margin-left: 5px; margin-right: 5px;"></i> <i -->
-<!-- 						class="fa-solid fa-right-from-bracket" -->
-<!-- 						onclick="location.href='/logout'"></i> -->
-<!-- 				</div> -->
-<%-- 			</sec:authorize> --%>
-<!-- 		</div> -->
-
-<!-- 	</header> -->
-<!-- </body> -->
 
         <link href="${pageContext.request.contextPath }/resources/css/util.css" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script>
@@ -199,6 +82,9 @@
                 <div class="nav_link">
                     <a href="/chat/chatting">채팅</a>
                 </div>
+<!--                 			<div class="nav_link"> -->
+<!-- 				<a href="/main2">main2</a> -->
+<!-- 			</div> -->
             </nav>
             <div class="header_right">
             <sec:authorize access="isAnonymous()">

@@ -26,6 +26,108 @@ function board_write() {
 }
 
 
+ 				function board_update() {
+			location.href = "community_update_form?b_no=${dto.b_no}";
+			}
+
+			function board_delete() {
+
+					if (confirm("정말 삭제하시겠습니까?") == true) {
+					location.href = "/community_delete/${dto.b_no}";
+				} else {
+						return false;
+				}
+		}
+		function board_reply() {
+					
+				var r_content = document.getElementById('r_content').value;
+
+				if (r_content == '') {
+					alert("댓글에 내용을 입력해주세요.");
+					return false;
+					}
+				}
+				$(document)
+					.ready(
+							function() {
+								$("form")
+									.on(
+												'submit',
+												function(event) {
+												event.preventDefault();
+
+												var formData = $(this)
+														.serialize();
+													$
+														.ajax({
+																url : "${pageContext.request.contextPath}/community/${dto.b_no}/replies",
+															type : "POST",
+																data : formData,
+																dataType : "json",
+																success : function(
+																	data) {
+																	
+															var div = $(
+																		"<div>")
+																		.addClass(
+																				"reply_list");
+																var contentDiv = $(
+																			"<div>")
+																			.append(
+																					"<span>"
+																						+ data.nickname
+																							+ "</span><p>"
+																							+ data.r_content
+																							+ "</p>");
+																	var deleteButtonDiv = $(
+																			"<div>")
+																			.append(
+																					'<button class="btn btn-primary btn-jelly btn-blue">삭제</button>');
+
+																	div
+																			.append(contentDiv);
+																	div
+																			.append(deleteButtonDiv);
+
+																	$(
+																				"#comments")
+ 																				.prepend(
+																						div);
+																	},
+																	error : function(
+																			xhr,
+																		textStatus,
+																	errorThrown) {
+																if (xhr.status === 403) {
+																	window.location.href = '/member/login';
+																	} else if (xhr.status === 404) {
+																		alert('User not found.');
+																	} else {
+																		// 																			alert('로그인');
+																		window.location.href = '/member/login';
+																	}
+																}
+															});
+												});
+							});
+
+
+
+
+function submitSearch() {
+	var title = document.getElementById('search_box').value;
+	if (title) {
+		location.href = '/community/search?title='
+				+ encodeURIComponent(title);
+	}
+}
+
+
+
+
+
+
+
 $(document).ready(function () {
     //여기 아래 부분
     $("#summernote").summernote({
