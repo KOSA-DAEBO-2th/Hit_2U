@@ -23,10 +23,12 @@
 <body>
 	
 	<c:import url="../includes/header.jsp"></c:import>
-	<div class="container bootdey">
+	<!-- <div class="container bootdey"> -->
+	
+	<main class="main_content">
 <div class="email-app">
     <nav>
-        <a onclick="m_write();" class="btn btn-primary btn-block">쪽지쓰기</a>
+        <a onclick="m_write();" class="btn btn-primary btn-blue" style="width: 100%;">쪽지쓰기</a>
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link " onclick="m_list();"><i class="fa fa-inbox"></i> 받은쪽지함 <span class="badge badge-danger">4</span></a>
@@ -34,28 +36,17 @@
             <li class="nav-item">
                 <a class="nav-link" onclick="m_sendList();"><i class="fa fa-rocket"></i> 보낸쪽지함</a>
             </li>
-            <!-- <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-rocket"></i> Sent</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="m_list();"><i class="fa fa-trash-o"></i> Trash</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-bookmark"></i> Important</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-inbox"></i> Inbox <span class="badge badge-danger">4</span></a>
-            </li> -->
+
         </ul>
     </nav>
-    <main>
-	<div class="main_area" >
+    
+	<div class="main_area" style="width: 100%" >
 		<c:import url="message_list.jsp"></c:import>
 	</div>
-    </main>
+    
 </div>
-</div>
+<!-- </div> -->
 	<c:import url="../includes/footer.jsp"></c:import>
-
+</main>
 </body>
 </html>
