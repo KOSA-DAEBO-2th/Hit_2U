@@ -20,8 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getWriteList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
-		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id 
+		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id, c.* 
 		FROM BOARD b left JOIN MEMBER m ON b.member_no=m.member_no 
+		LEFT JOIN CATEGORY c ON b.cat_no=c.cat_no 
 		WHERE m.member_id=#{member_id} ORDER BY b_write_date DESC
 	</select>
 	
@@ -69,5 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN MEMBER mem ON mm.member_no=mem.member_no
 		WHERE CAT_NO = 3 AND member_id= ${member_id}
 	</select>
+	
+	<insert id="report">
+		INSERT INTO REPORT (member_no, report_member, report_reason) VALUES(#{reported}, #{reporter}, #{report_reason})
+	</insert>
 	
 </mapper>

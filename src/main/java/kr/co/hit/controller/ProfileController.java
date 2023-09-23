@@ -1,21 +1,19 @@
 package kr.co.hit.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
-import kr.co.hit.dto.MessageDto;
 import kr.co.hit.dto.ProfileDto;
 import kr.co.hit.security.User;
-import kr.co.hit.service.JoinService;
 import kr.co.hit.service.ProfileService;
 
 @Controller
@@ -90,6 +88,15 @@ public class ProfileController {
 //		System.out.println("====================================================================");
 		mav.addObject("apply", apply);
 		return mav;
+	}
+	
+	@RequestMapping("/memberProfile/{member_id}")
+	public String memberProfile(@PathVariable("member_id") String member_id, Model model) {
+		MemberDto dto = profileService.getUserInfo(member_id);
+		model.addAttribute("dto", dto);
+		List<ProfileDto> list = profileService.getWriteList(member_id);
+		model.addAttribute("list", list);
+		return "/profile/memberProfile";
 	}
 	
 	

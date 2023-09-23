@@ -42,9 +42,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="reportList" resultType="kr.co.hit.dto.AdminDto">
-		SELECT a.*, b.nickname reporter FROM 
-			(SELECT m.nickname reported, r.* FROM REPORT r INNER JOIN MEMBER m ON m.member_no=r.member_no) a INNER JOIN 
-			(SELECT r.report_member, m.nickname, r.report_no FROM REPORT r INNER JOIN MEMBER m ON m.member_no=r.report_member) b ON a.report_no = b.report_no
+		SELECT a.*, b.member_id reporter FROM 
+			(SELECT m.member_id reported, r.* FROM REPORT r INNER JOIN MEMBER m ON m.member_no=r.member_no) a INNER JOIN 
+			(SELECT r.report_member, m.member_id, r.report_no FROM REPORT r INNER JOIN MEMBER m ON m.member_no=r.report_member) b ON a.report_no = b.report_no
 	</select>
 	
 	<update id="changeRole" parameterType="kr.co.hit.dto.AdminDto">
