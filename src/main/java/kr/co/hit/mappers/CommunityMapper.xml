@@ -5,156 +5,453 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="kr.co.hit.dao.CommunityDao">
 
-	<select id="CommunityList" parameterType="hashmap"
+	<select id="selectCommunityList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
+		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
+		<!-- B.B_VIEW, -->
+		<!-- B.B_REPLY, -->
+		<!-- B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
+		<!-- MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME -->
+		<!-- FROM BOARD -->
+		<!-- B -->
+		<!-- INNER JOIN MEMBER MEM -->
+		<!-- ON B.MEMBER_NO = -->
+		<!-- MEM.MEMBER_NO -->
+		<!-- INNER JOIN -->
+		<!-- TOPIC T -->
+		<!-- ON B.TOPIC_NO = -->
+		<!-- T.TOPIC_NO -->
+		<!-- WHERE B.CAT_NO = 1 -->
+		<!-- ORDER BY B.B_NO -->
+		<!-- DESC -->
+		<!-- LIMIT 0, 10; -->
 
-		SELECT *
-		FROM (
+
 		SELECT
-		A.*,
-		@rownum := @rownum + 1 AS r
-		FROM (
-		SELECT
-		BOARD.*,
-		MEMBER.nickname,
-		MEMBER.grade,
-		TOPIC.topic_name
+		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND, B.MEMBER_NO,
+		CASE
+		WHEN B.TOPIC_NO = 6 THEN '익명'
+		ELSE MEM.NICKNAME
+		END AS NICKNAME,
+		MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD
+		B
+		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 1
+		ORDER BY
+		B.B_NO DESC
+		LIMIT 0,
+		10;
+
+
+	</select>
+
+	<select id="selectCommunityListCount">
+		SELECT COUNT(*)
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON
+		B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE B.CAT_NO = 1
+		ORDER BY B.B_NO DESC
+	</select>
+
+	<select id="searchCommunityList"
+		parameterType="kr.co.hit.dto.CommunitySearchDto"
+		resultType="kr.co.hit.dto.CommunityDto">
+		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
+		<!-- B.B_VIEW, B.B_REPLY, -->
+		<!-- B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
+		<!-- MEM.NICKNAME, MEM.GRADE, -->
+		<!-- T.TOPIC_NAME -->
+		<!-- FROM BOARD B -->
+		<!-- INNER JOIN MEMBER MEM -->
+		<!-- ON B.MEMBER_NO = -->
+		<!-- MEM.MEMBER_NO INNER JOIN TOPIC T -->
+		<!-- ON B.TOPIC_NO = -->
+		<!-- T.TOPIC_NO -->
+		<!-- WHERE -->
+		<!-- B.CAT_NO = 1 AND B_TITLE LIKE -->
+		<!-- CONCAT('%',#{b_title},'%') -->
+		<!-- AND TOPIC_NAME LIKE -->
+		<!-- CONCAT('%',#{topic_name},'%') -->
+		<!-- ORDER BY B.B_NO DESC -->
+		<!-- LIMIT #{page_start}, -->
+		<!-- #{page_limit} -->
+
+		SELECT
+		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		CASE
+		WHEN B.TOPIC_NO = 6 THEN '익명'
+		ELSE
+		MEM.NICKNAME
+		END AS NICKNAME,
+		MEM.GRADE, T.TOPIC_NAME
+		FROM BOARD
+		B
 		INNER
-		JOIN MEMBER ON BOARD.member_no = MEMBER.member_no
-		left OUTER JOIN TOPIC
-		ON BOARD.topic_no = TOPIC.topic_no
-		WHERE BOARD.cat_no = 1
-		ORDER BY b_no
-		DESC
-		) A,
-		(SELECT @rownum := 0) R
-		) B
-		WHERE r BETWEEN #{start} AND #{end};
+		JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
+		INNER JOIN TOPIC T ON
+		B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 1 AND
+		B_TITLE LIKE
+		CONCAT('%',#{b_title},'%') AND
+		TOPIC_NAME LIKE
+		CONCAT('%',#{topic_name},'%')
+		ORDER BY
+		B.B_NO DESC
+		LIMIT #{page_start},
+		#{page_limit};
+
 
 	</select>
 
-	<select id="getPostsByTopic" parameterType="hashmap"
-		resultType="kr.co.hit.dto.CommunityDto">
 
-		SELECT *
-		FROM (
+	<select id="searchCommunityListCount"
+		parameterType="kr.co.hit.dto.CommunitySearchDto" resultType="int">
 		SELECT
-		A.*,
-		@rownum := @rownum + 1 AS r
-		FROM (
+		COUNT(*)
+		FROM BOARD B
+		INNER JOIN MEMBER MEM
+		ON B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN TOPIC T
+		ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 1 AND B_TITLE
+		LIKE CONCAT('%',#{b_title},'%')
+		AND TOPIC_NAME
+		LIKE CONCAT('%',#{topic_name},'%')
+		ORDER BY B.B_NO
+	</select>
+
+	<update id="increaseView">
+		UPDATE BOARD SET B_VIEW = B_VIEW+1 WHERE B_NO =
+		#{boardIdx};
+	</update>
+
+
+	<select id="selectCommunityDetail"
+		resultType="kr.co.hit.dto.CommunityDto">
+		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
+		<!-- B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
+		<!-- MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME -->
+		<!-- FROM BOARD B -->
+		<!-- INNER JOIN MEMBER MEM -->
+		<!-- ON B.MEMBER_NO = MEM.MEMBER_NO -->
+		<!-- INNER JOIN TOPIC T -->
+		<!-- ON B.TOPIC_NO = -->
+		<!-- T.TOPIC_NO -->
+		<!-- WHERE B.B_NO = #{boardIdx} -->
+
 		SELECT
-		BOARD.*,
-		MEMBER.nickname,
-		TOPIC.topic_name
+		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		CASE
+		WHEN B.TOPIC_NO = 6 THEN '익명'
+		ELSE
+		MEM.NICKNAME
+		END AS NICKNAME,
+		MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD
-		INNER JOIN
-		MEMBER ON BOARD.member_no = MEMBER.member_no
-		LEFT OUTER JOIN TOPIC ON
-		BOARD.topic_no = TOPIC.topic_no
-		WHERE BOARD.cat_no = 1 AND
-		BOARD.topic_no = #{topicNo}
-		ORDER BY b_no DESC) A,
-		(SELECT @rownum := 0)
-		R
-		) B WHERE r BETWEEN #{start} AND #{end}
+		B
+		INNER
+		JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
+		INNER JOIN TOPIC T ON
+		B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.B_NO = #{boardIdx};
 
 
-	</select>
 
-	<select id="getCommunityCount" resultType="Integer">
 
-		SELECT COUNT(*) FROM
-		BOARD WHERE CAT_NO = 1;
 
-	</select>
-
-	<select id="searchByTitle" parameterType="String"
-		resultType="kr.co.hit.dto.CommunityDto">
-
-		SELECT * FROM BOARD WHERE cat_no = 1 and b_title LIKE
-		CONCAT('%', #{title}, '%')
 
 	</select>
 
 
 
-	<insert id="InsertCommunity"
+	<insert id="insertCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
 
-		INSERT INTO BOARD (b_no, b_title, b_content,
+		<!-- INSERT INTO BOARD (b_no, b_title, b_content, -->
+		<!-- b_write_date, b_view, -->
+		<!-- b_reply, b_recommend, member_no, -->
+		<!-- cat_no, topic_no) -->
+		<!-- VALUES ((SELECT * -->
+		<!-- FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM -->
+		<!-- BOARD) AS tmp), -->
+		<!-- #{b_title}, #{b_content}, current_timestamp, -->
+		<!-- 0 , 0 , 0 , -->
+		<!-- #{member_no} , -->
+		<!-- 1 , #{topic_no}) -->
+
+
+
+		<!-- board에 익명 부여 -->
+		INSERT INTO BOARD (
+		b_no, b_title, b_content,
 		b_write_date, b_view,
-		b_reply, b_recommend, member_no,
-		cat_no, topic_no)
-		VALUES ((SELECT *
-		FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM
-		BOARD) AS tmp),
-		#{b_title}, #{b_content}, current_timestamp,
+		b_reply, b_recommend,
+		member_no,
+		cat_no, topic_no,
+		is_anonymous
+		)
+		VALUES (
+		(SELECT * FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM BOARD)
+		AS
+		tmp),
+		#{b_title}, #{b_content},
+		current_timestamp,
 		0 , 0 , 0 ,
 		#{member_no} ,
-		1 , #{topic_no})
+		1 , #{topic_no},
+		CASE WHEN #{topic_no} = 6 THEN 1 ELSE 0
+		END
+		)
+
 
 	</insert>
 
-	<!-- 주어진 토픽 이름에 해당하는 토픽 번호를 조회, 새 게시글을 작성할 때 사용자가 선택한 토픽의 번호를 알아내기 위해 사용 -->
-	<select id="getTopicNoByTopicName" parameterType="String"
-		resultType="int">
-		SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name}
+
+	<!-- <insert id="insertBoard" -->
+	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
+	<!-- INSERT INTO BOARD(B_NO, B_TITLE, B_CONTENT, -->
+	<!-- B_WRITE_DATE, MEMBER_NO, CAT_NO, TOPIC_NO) -->
+	<!-- VALUES((SELECT T.B_NO+1 FROM -->
+	<!-- (SELECT MAX(B_NO) B_NO FROM BOARD) AS -->
+	<!-- T),#{b_title},#{b_content},NOW(),#{member_no},1, ${topic_no}) -->
+	<!-- </insert> -->
+
+
+	<!-- =========================================================== -->
+
+
+
+	<select id="searchCommunityImgList"
+		resultType="kr.co.hit.dto.CommunityDto">
+		SELECT FILE_URL FROM FILE WHERE B_NO = #{boardIdx};
 	</select>
 
-	<select id="getCommunityDetail"
-		resultType="kr.co.hit.dto.CommunityDto" parameterType="int">
+
+
+
+
+	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE
+		(FILE_NAME, FILE_REALNAME, FILE_URL, FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname}, #{file_url}, #{file_size},
+		(SELECT T.B_NO +1 FROM (SELECT MAX(B_NO) B_NO FROM BOARD) AS T),
+		#{thumbnail})
+	</insert>
+
+	<update id="updateBoard" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE BOARD
+		SET TOPIC_NO
+		= #{topic_no}, B_TITLE = #{b_title}, B_CONTENT = #{b_content}
+		WHERE
+		B_NO = #{b_no}
+	</update>
+
+	<update id="updateMarket" parameterType="kr.co.hit.dto.FileDto">
+		UPDATE MARKET
+		SET PRICE =
+		#{price}, MARKET_CATEGORY = #{market_category}, STATE = #{state},
+		TRADING = #{trading}, DISCOUNT = #{discount}
+		WHERE B_NO = #{b_no}
+	</update>
+
+	<insert id="updateSummerNote"
+		parameterType="kr.co.hit.dto.FileDto">
+		INSERT INTO FILE (FILE_NAME, FILE_REALNAME, FILE_URL,
+		FILE_SIZE, B_NO, THUMBNAIL)
+		VALUES(#{file_name}, #{file_realname}
+		,#{file_url}, #{file_size}, #{b_no}, #{thumbnail})
+	</insert>
+
+	<delete id="deleteFile">
+		DELETE FROM FILE WHERE B_NO = #{boardIdx}
+	</delete>
+
+	<delete id="deleteCommunity">
+		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
+	</delete>
+
+	<!-- <delete id="deleteBoard"> -->
+	<!-- DELETE FROM BOARD WHERE B_NO = #{boardIdx} -->
+	<!-- </delete> -->
+
+
+
+
+	<!-- =========================================================== -->
+
+
+
+	<select id="selectReplyList"
+		resultType="kr.co.hit.dto.CommunityDto">
 
 
 		SELECT
-		BOARD.b_no,
-		BOARD.b_title,
-		BOARD.b_content,
-		BOARD.b_view,
-		MEMBER.nickname,
-		(SELECT COUNT(*) FROM REPLY WHERE b_no = BOARD.b_no)
-		AS reply_count
-		FROM
-		BOARD
-		INNER JOIN
-		MEMBER ON BOARD.member_no =
-		MEMBER.member_no
-		WHERE
-		BOARD.b_no = #{b_no};
+		R.B_NO,
+		R.r_CONTENT,
+		R.reply_DATE,
+		CASE
+		WHEN B.TOPIC_NO = 6 THEN '익명'
+		ELSE R.NICKNAME
+		END AS NICKNAME
+		FROM REPLY R
+		INNER JOIN BOARD B ON R.B_NO = B.B_NO
+		WHERE R.B_NO = #{boardIdx};
 
 
 	</select>
 
-	<select id="getPostCountByTopic" parameterType="int"
-		resultType="int">
-		SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no =
-		#{topicNo}
-	</select>
+	<insert id="insertReply" parameterType="kr.co.hit.dto.MarketDto">
+		INSERT INTO REPLY
+		(REPLY_NO, NICKNAME, R_CONTENT, REPLY_DATE, B_NO)
+		VALUES((SELECT
+		T.REPLY_NO+1 FROM (SELECT MAX(REPLY_NO) REPLY_NO FROM REPLY) AS T),
+		#{nickname} ,#{r_content}, NOW(), #{b_no})
+	</insert>
 
-	<update id="updateCommunity"
-		parameterType="kr.co.hit.dto.CommunityDto">
-
-		<!-- 글 수정 (토픽, 태그 추가 안됨) -->
-		update BOARD set
-		b_title=#{b_title},
-		b_content=#{b_content} 
-		where b_no =
-		#{b_no}
-
+	<update id="increaseReply">
+		UPDATE BOARD SET B_REPLY = B_REPLY+1 WHERE B_NO =
+		#{boardIdx};
 	</update>
 
-	<update id="updateView" parameterType="int">
+	<!-- <select id="getPostsByTopic" parameterType="hashmap" -->
+	<!-- resultType="kr.co.hit.dto.CommunityDto"> -->
 
-		<!-- 조회수 증가 -->
-		UPDATE BOARD SET B_VIEW = B_VIEW + 1
-		WHERE b_no = #{b_no}
+	<!-- SELECT * -->
+	<!-- FROM ( -->
+	<!-- SELECT -->
+	<!-- A.*, -->
+	<!-- @rownum := @rownum + 1 AS r -->
+	<!-- FROM ( -->
+	<!-- SELECT -->
+	<!-- BOARD.*, -->
+	<!-- MEMBER.nickname, -->
+	<!-- TOPIC.topic_name -->
+	<!-- FROM BOARD -->
+	<!-- INNER JOIN -->
+	<!-- MEMBER ON BOARD.member_no = MEMBER.member_no -->
+	<!-- LEFT OUTER JOIN TOPIC ON -->
+	<!-- BOARD.topic_no = TOPIC.topic_no -->
+	<!-- WHERE BOARD.cat_no = 1 AND -->
+	<!-- BOARD.topic_no = #{topicNo} -->
+	<!-- ORDER BY b_no DESC) A, -->
+	<!-- (SELECT @rownum := 0) -->
+	<!-- R -->
+	<!-- ) B WHERE r BETWEEN #{start} AND #{end} -->
 
-	</update>
 
-	<delete id="deleteCommunity" parameterType="int">
+	<!-- </select> -->
 
-		<!-- 게시글 삭제 -->
-		delete from BOARD where b_no = #{b_no}
-	</delete>
+	<!-- <select id="getCommunityCount" resultType="Integer"> -->
+
+	<!-- SELECT COUNT(*) FROM -->
+	<!-- BOARD WHERE CAT_NO = 1; -->
+
+	<!-- </select> -->
+
+	<!-- <select id="searchByTitle" parameterType="String" -->
+	<!-- resultType="kr.co.hit.dto.CommunityDto"> -->
+
+	<!-- SELECT * FROM BOARD WHERE cat_no = 1 and b_title LIKE -->
+	<!-- CONCAT('%', #{title}, '%') -->
+
+	<!-- </select> -->
+
+
+
+	<!-- <insert id="InsertCommunity" -->
+	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
+
+	<!-- INSERT INTO BOARD (b_no, b_title, b_content, -->
+	<!-- b_write_date, b_view, -->
+	<!-- b_reply, b_recommend, member_no, -->
+	<!-- cat_no, topic_no) -->
+	<!-- VALUES ((SELECT * -->
+	<!-- FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM -->
+	<!-- BOARD) AS tmp), -->
+	<!-- #{b_title}, #{b_content}, current_timestamp, -->
+	<!-- 0 , 0 , 0 , -->
+	<!-- #{member_no} , -->
+	<!-- 1 , #{topic_no}) -->
+
+	<!-- </insert> -->
+
+	<!-- <select id="getTopicNoByTopicName" parameterType="String" -->
+	<!-- resultType="int"> -->
+	<!-- SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name} -->
+	<!-- </select> -->
+
+	<!-- <select id="getCommunityDetail" -->
+	<!-- resultType="kr.co.hit.dto.CommunityDto" parameterType="int"> -->
+
+
+	<!-- SELECT -->
+	<!-- BOARD.b_no, -->
+	<!-- BOARD.b_title, -->
+	<!-- BOARD.b_content, -->
+	<!-- BOARD.b_view, -->
+	<!-- MEMBER.nickname, -->
+	<!-- (SELECT COUNT(*) FROM REPLY WHERE b_no = BOARD.b_no) -->
+	<!-- AS reply_count -->
+	<!-- FROM -->
+	<!-- BOARD -->
+	<!-- INNER JOIN -->
+	<!-- MEMBER ON BOARD.member_no = -->
+	<!-- MEMBER.member_no -->
+	<!-- WHERE -->
+	<!-- BOARD.b_no = #{b_no}; -->
+
+
+	<!-- </select> -->
+
+	<!-- <select id="getPostCountByTopic" parameterType="int" -->
+	<!-- resultType="int"> -->
+	<!-- SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no = -->
+	<!-- #{topicNo} -->
+	<!-- </select> -->
+
+	<!-- <update id="updateCommunity" -->
+	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
+
+	<!-- update BOARD set -->
+	<!-- b_title=#{b_title}, -->
+	<!-- b_content=#{b_content} -->
+	<!-- where b_no = -->
+	<!-- #{b_no} -->
+
+	<!-- </update> -->
+
+	<!-- <update id="updateView" parameterType="int"> -->
+
+	<!-- UPDATE BOARD SET B_VIEW = B_VIEW + 1 -->
+	<!-- WHERE b_no = #{b_no} -->
+
+	<!-- </update> -->
+
+	<!-- <delete id="deleteCommunity" parameterType="int"> -->
+
+	<!-- delete from BOARD where b_no = #{b_no} -->
+	<!-- </delete> -->
 </mapper>

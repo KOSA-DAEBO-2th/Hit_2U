@@ -1,224 +1,253 @@
 package kr.co.hit.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.CommunityDto;
-import kr.co.hit.dto.ReplyDto;
+import kr.co.hit.dto.CommunitySearchDto;
+import kr.co.hit.dto.FileDto;
 import kr.co.hit.security.User;
 import kr.co.hit.service.CommunityService;
-import kr.co.hit.service.ReplyService;
+import kr.co.hit.service.FileService;
 
 @Controller
+@RequestMapping("/community")
 public class CommunityController {
 
 	@Autowired
 	private CommunityService communityService;
-
+	
 	@Autowired
-	private ReplyService replyService;
+	FileService fileService;
 
-	@RequestMapping("/community")
-	public String community(HttpServletRequest request, CommunityDto dto) {
+	@GetMapping()
+	public ModelAndView community(String topic_option) {
 
-		int pg = 1;
-		String strPg = request.getParameter("pg");
-
-		if (strPg != null) {
-			pg = Integer.parseInt(strPg);
-
-		}
-
-		int rowSize = 10;
-		int start = (pg * rowSize) - (rowSize - 1);
-		int end = pg * rowSize;
-
-		int total = communityService.getCommunityCount(); // 총 게시물 수
-
-		System.out.println("시작번호: " + start + ", 끝번호: " + end + ", 전체: " + total);
+		ModelAndView mv = new ModelAndView("community/community");
+		List<CommunityDto> list = communityService.selectCommunityList();
+		int limit = 10;
+		int listcount = communityService.selectCommunityListCount();
+		int maxPage = ((listcount - 1) / limit) + 1;
 		
-		// 페이지수
-		int allPage = (int) Math.ceil(total / (double) rowSize); 
-
-		System.out.println("전체 페이지수:" + allPage);
-
-		int block = 10; // 한페이지에 보여줄 범위
-		int formPage = ((pg - 1) / block * block) + 1; // 보여줄 페이지의 시작
-		int toPage = ((pg - 1) / block * block) + block; // 보여줄 페이지의 끝
-
-		if (toPage > allPage) { // 20 > 17
-			toPage = allPage;
-		}
-
-		HashMap map = new HashMap();
-		map.put("start", start);
-		map.put("end", end);
-
-		List<CommunityDto> list = communityService.CommunityList(map);
-
-		request.setAttribute("list", list);
-		request.setAttribute("pg", pg);
-		request.setAttribute("allPage", allPage);
-		request.setAttribute("formPage", formPage);
-		request.setAttribute("toPage", toPage);
-		request.setAttribute("block", block);
-
-		return "community"; // community.jsp
-		
+		mv.addObject("maxPage", maxPage);
+		mv.addObject("list", list);
+		mv.addObject("page_init", 1);
+		return mv;
 
 	}
-
-	// community write page
-	@RequestMapping("/community/community_write_form")
-	public String community_write_form(CommunityDto dto) {
-
-		// 로그인 후 글 작성 페이지 넘어갈수 있음
-//		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//		dto.setMember_no(user.getMember_no());
-//
-//		return "community_write_form";
+	
+	@GetMapping("/search")
+	public ModelAndView communitySearch(CommunitySearchDto dto) {
 		
-	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-	    // 로그인하지 않은 경우, 로그인 페이지로 리다이렉트
-	    if (principal instanceof String && ((String) principal).equals("anonymousUser")) {
-	        return "redirect:/member/login";
-	    }
-
-	    // 로그인 후 글 작성 페이지 넘어갈수 있음
-	    User user = (User) principal;
-	    dto.setMember_no(user.getMember_no());
-
-	    return "community_write_form";
+		ModelAndView mv = new ModelAndView("community/community");
+		
+		int limit = 10;
+		dto.setPage_limit(limit);
+		int start = (dto.getPage() - 1) * limit;
+		dto.setPage_start(start);
+		int listcount = communityService.searchCommunityListCount(dto);
+		int maxPage = ((listcount - 1) / limit) + 1;
+		
+		
+		List<CommunityDto> list = communityService.searchCommunityList(dto);
+		
+		
+		mv.addObject("list", list);
+		mv.addObject("search_option", dto);
+		mv.addObject("maxPage", maxPage);
+		return mv;
 	}
+	
+	@GetMapping("/search/{topic}")
+	public ModelAndView communitytotal(@PathVariable("topic") String topic, CommunitySearchDto dto) {
+		
+		ModelAndView mv = new ModelAndView("community/community");
+		if(dto.getPage() <= 0) {
+			dto.setPage(1);
+		}
+		
+		if(topic.equals("free")) {
+			dto.setTopic_name("자유");
+		}else if(topic.equals("komin")) {
+			dto.setTopic_name("고민");
+		}else if(topic.equals("health")) {
+			dto.setTopic_name("운동");
+		}else if(topic.equals("anonymous")) {
+			dto.setTopic_name("익명");
+		}else {
+			dto.setTopic_name("");
+		}
 
-	// 이거 작동 안되면 위에거 주석 풀어서 사용하면됨
-	@RequestMapping("/community/community_write")
-	public String community_write(CommunityDto dto, @RequestParam("topic") String topic) {
+			
+		int limit = 10;
+		dto.setPage_limit(limit);
+		int start = (dto.getPage() - 1) * limit;
+		dto.setPage_start(start);
+		int listcount = communityService.searchCommunityListCount(dto);
+		int maxPage = ((listcount - 1) / limit) + 1;
+		if(dto.getPage() > maxPage) {
+			dto.setPage(maxPage);
+		}
+		
+		List<CommunityDto> list = communityService.searchCommunityList(dto);
+		
+		mv.addObject("list", list);
+		mv.addObject("search_option", dto);
+		mv.addObject("currunt_topic", topic);
+		mv.addObject("maxPage", maxPage);
+		return mv;
+	}
+	
+	
+	
+	@GetMapping("/{boardIdx}")
+	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
 
-		// 로그인후 글 작성
+		ModelAndView mv = new ModelAndView("community/community_detail");
+		communityService.increaseView(boardIdx);
+		CommunityDto list = communityService.selectCommunityDetail(boardIdx);
+		List<CommunityDto> img_list = communityService.searchCommunityImgList(boardIdx);
+		
+		List<CommunityDto> reply_list = communityService.selectReplyList(boardIdx);
+		mv.addObject("list", list);
+		mv.addObject("img_list", img_list);
+		mv.addObject("reply_list", reply_list);
+
+		return mv;
+	}	
+	
+	
+	@GetMapping("/community_write_form")
+	public String writeForm() throws Exception {
+		return "community/community_write_form";
+	}
+	
+	@PostMapping(value = "/write")
+	public String write(CommunityDto dto) {
+
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dto.setMember_no(user.getMember_no());
 
-		dto.setTopic_name(topic); // 사용자가 선택한 토픽 설정
-		communityService.InsertCommunity(dto);
+
+//		int board_ok = communityService.insertBoard(dto);
+
+		int community_ok = communityService.insertCommunity(dto);
+
 		return "redirect:/community";
-	}
-
-	// community detail
-	@RequestMapping("/community/community_detail")
-	public String community_detail(int b_no, Model model) {
-
-		// 상세보기 클릭시 조회수 증가
-		communityService.updateView(b_no);
-
-		// 상세보기
-		CommunityDto dto = communityService.getCommunityDetail(b_no);
-		model.addAttribute("dto", dto);
-		System.out.println(dto + "   detail");
-
-		// 본문 아래 댓글 리스트 가져오기
-		List<ReplyDto> replies = replyService.getReplies(b_no);
-		model.addAttribute("replies", replies);
-		
-		System.out.println("~~~~~community_detail~~~~~~");
-		System.out.println("dto: "+ dto);
-		System.out.println("replies " + replies);
-		
-		
-
-		return "community_detail";
-	}
-
-	// update form
-	@RequestMapping("/community/community_update_form")
-	public String updateform(int b_no, Model model) {
-
-		CommunityDto dto = communityService.getCommunityDetail(b_no);
-		model.addAttribute("dto", dto);
-		System.out.println(dto + "   community_update_form");
-
-		return "community_update_form";
-	}
-
-	@RequestMapping("/community_update")
-	public String update(CommunityDto dto) {
-		int result = communityService.updateCommunity(dto);
-		String res = "redirect:/community"; // 리다이렉트 URL를 재지정. 주소가 바뀜
-		if (result == 0)
-			res = "fail";
-		return res;
-	}
-
-	@RequestMapping(value = "/community_delete/{dto.b_no}", method = RequestMethod.GET)
-	public String delete(@PathVariable("dto.b_no") int b_no) {
-		System.out.println(b_no + " 오니?");
-		communityService.deleteCommunity(b_no);
-
-		System.out.println(b_no + " 지워졌니?");
-		return "redirect:/community";
-
-	}
-
-	@RequestMapping("/category")
-	public String category(@RequestParam("topic_no") int topicNo,
-			@RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request, Model model) {
-
-		int postsPerPage = 10;
-		int startPost = (page - 1) * postsPerPage + 1;
-		int endPost = startPost + postsPerPage - 1;
-
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("start", startPost);
-		map.put("end", endPost);
-		map.put("topicNo", topicNo);
-
-		List<CommunityDto> list = communityService.getPostsByTopic(map);
-
-		int totalPosts = communityService.getPostCountByTopic(topicNo); // 주제별 총 게시글 개수 조회
-		int totalPages = totalPosts / postsPerPage;
-		if (totalPosts % postsPerPage != 0) {
-			totalPages++;
-		}
-
-		// 여기에 페이지 그룹 관련 코드 추가
-		int startPageGroup = (page - 1) / 10 * 10 + 1;
-		int endPageGroup = Math.min(startPageGroup + 9, totalPages); // 마지막 페이지 그룹이 범위를 초과하지 않도록 조정
-
-		model.addAttribute("currentPage", page);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("startPageGroup", startPageGroup);
-		model.addAttribute("endPageGroup", endPageGroup);
-
-		model.addAttribute("list", list);
-
-		return "category";
-	}
-
-	@RequestMapping("/community/search")
-	public String search(@RequestParam("title") String title, Model model) {
-	    List<CommunityDto> list = communityService.searchByTitle(title);
-	    model.addAttribute("list", list);
-	    return "community";
-	}
+	}	
+	
 
 	
-//	@RequestMapping("/qna")
-//	public String qna() {
-//
-//		return "qna";
-//
-//	}
+	
+	@GetMapping("/update/{boardIdx}")
+	public ModelAndView updateForm(@PathVariable("boardIdx") int boardIdx) throws Exception {
+
+		ModelAndView mv = new ModelAndView("community/community_update_form");
+
+		CommunityDto list = communityService.selectCommunityDetail(boardIdx);
+		mv.addObject("list", list);
+
+		return mv;
+	}	
+	
+	@PostMapping("/update/{boardIdx}")
+	public String update(@PathVariable("boardIdx") int boardIdx, CommunityDto dto) {
+
+
+		dto.setB_no(boardIdx);
+
+		int board_ok = communityService.updateBoard(dto);
+		int community_ok = communityService.updateCommunity(dto);
+
+		return "redirect:/community/" + Integer.toString(boardIdx);
+	}	
+	
+	
+	@PostMapping(value = "/uploadSummernoteImageFile/{boardIdx}", produces = "application/json")
+	@ResponseBody
+	public Map UpdateSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, @PathVariable("boardIdx") int boardIdx) throws Exception {
+
+		JSONObject jsonObject = new JSONObject();
+		Map result = new HashMap<String, Object>();
+
+		List<MultipartFile> files = new ArrayList();
+		files.add(multipartFile);
+		UUID uuid = UUID.randomUUID();
+		FileDto fileOne = new FileDto();
+		String fileName = "Board/Community/" + uuid.toString() + "_" + multipartFile.getOriginalFilename();
+		String fileUrl = "https://2teams3.s3.ap-northeast-2.amazonaws.com/" + fileName;
+		fileOne.setFile_url(fileUrl);
+		fileOne.setFile_name(fileName);
+		fileOne.setFile_realname(multipartFile.getOriginalFilename());
+		fileOne.setFile_size(multipartFile.getSize());
+		fileOne.setThumbnail(1);
+		fileOne.setB_no(boardIdx);
+
+		fileService.uploadThumb(files, fileOne);
+
+		communityService.updateSummerNote(fileOne);
+
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+//			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
+			result.put("url", fileUrl);
+			result.put("responseCode", "success");
+
+		} catch (IOException e) { // 저장된 파일 삭제
+			result.put("responseCode", "error");
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
+	
+	@GetMapping("/delete/{boardIdx}")
+	public String delete(@PathVariable("boardIdx") int boardIdx) throws Exception {
+		
+		int file_ok = communityService.deleteFile(boardIdx);
+		int community_ok = communityService.deleteCommunity(boardIdx);
+		
+		
+		
+//		int board_ok = communityService.deleteBoard(boardIdx);
+
+		return "redirect:/community";
+	}	
+	
+	
+	@PostMapping("/reply")
+	public String ajaxReturnPage(CommunityDto dto, Model model) {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setNickname(user.getNickname());
+		
+		int community_reply_ok = communityService.insertReply(dto);
+		communityService.increaseReply(dto.getB_no());
+		List<CommunityDto> reply_list = communityService.selectReplyList(dto.getB_no());
+		
+		model.addAttribute("reply_list", reply_list);
+
+		return "community/communityReplyAjax";
+	}	
+	
 }

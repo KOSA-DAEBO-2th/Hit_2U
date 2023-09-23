@@ -156,7 +156,7 @@ public class MeetingController {
 	public String write(MeetingDto dto, @RequestParam("chooseFile") List<MultipartFile> files) throws Exception {
 		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dto.setMember_no(user.getMember_no());
-		
+		System.out.println(user);
 		meetingService.insert(dto);
 		
 		meetingService.insertMeeting(dto);

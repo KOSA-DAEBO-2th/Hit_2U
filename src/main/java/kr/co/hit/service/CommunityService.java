@@ -1,6 +1,6 @@
 package kr.co.hit.service;
 
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.CommunityDao;
+import kr.co.hit.dao.MarketDao;
 import kr.co.hit.dto.CommunityDto;
+import kr.co.hit.dto.CommunitySearchDto;
+import kr.co.hit.dto.FileDto;
 
 @Service
 public class CommunityService implements CommunityDao {
@@ -16,107 +19,182 @@ public class CommunityService implements CommunityDao {
 	@Autowired
 	private SqlSession sqlsession;
 
-//	// 커뮤니티 리스트
+	@Override
+	public List<CommunityDto> selectCommunityList() {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		List<CommunityDto> list = dao.selectCommunityList();
+		return list;
+	}
+	
+	
+	public void increaseView(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		dao.increaseView(boardIdx);
+	}
+	
+	@Override
+	public CommunityDto selectCommunityDetail(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		CommunityDto list = dao.selectCommunityDetail(boardIdx);
+		return list;
+	}
+	
+	@Override
+	public int insertBoard(CommunityDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.insertBoard(dto);
+		return result;
+	}
+	
+	
+
+	@Override
+	public int updateBoard(CommunityDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.updateBoard(dto);
+		return result;
+	}
+	
+	@Override
+	public int updateCommunity(CommunityDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.updateBoard(dto);
+		return result;
+	}
+	
+	@Override
+	public int deleteFile(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.deleteCommunity(boardIdx);
+		return result;
+	}
+	
+	@Override
+	public int deleteCommunity(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.deleteCommunity(boardIdx);
+		return result;
+		
+	}
+	
 //	@Override
-//	public List<CommunityDto> CommunityList() {
-//
+//	public int deleteBoard(int boardIdx) {
 //		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-//		List<CommunityDto> list = new ArrayList<CommunityDto>();
-//		list = dao.CommunityList();
-//
-//		return list;
+//		int result = dao.deleteBoard(boardIdx);
+//		return result;
 //	}
-
-	// 커뮤니티 리스트 with 페이징
+	
 	@Override
-	public List<CommunityDto> CommunityList(HashMap map) {
-
+	public void updateSummerNote(FileDto fileOne) throws IOException {
 		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.CommunityList(map);
+		dao.updateSummerNote(fileOne);
+		
+	}
+	
+	@Override
+	public List<CommunityDto> searchCommunityList(CommunitySearchDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		List<CommunityDto> list = dao.searchCommunityList(dto);
+		return list;
+	}
+	
+	
+	@Override
+	public int searchCommunityListCount(CommunitySearchDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.searchCommunityListCount(dto);
+		return result;
+	}
+	
+	@Override
+	public int selectCommunityListCount(CommunitySearchDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.selectCommunityListCount();
+		return result;
+	}
+	
+	
+	@Override
+	public int selectCommunityListCount() {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.selectCommunityListCount();
+		return result;
+	}
+	
+	@Override
+	public List<CommunityDto> selectReplyList(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		List<CommunityDto> list = dao.selectReplyList(boardIdx);
+		return list;
+	}
+	
+	
+	@Override
+	public int insertReply(CommunityDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.insertReply(dto);
+		return result;
+	}
+	
+	@Override
+	public void increaseReply(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		dao.increaseReply(boardIdx);
+		
+	}
+	
+	
+	
+	
+	
+	
+//	==================================================================
+	
+
+
+	
+
+	@Override
+	public int insertCommunity(CommunityDto dto) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.insertCommunity(dto);
+		return result;
 	}
 
-	// 총 게시물 수
-	@Override
-	public int getCommunityCount() {
 
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.getCommunityCount();
-	}
 
 	@Override
-	public void InsertCommunity(CommunityDto dto) {
-
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-
-//		이거 작동안할시 지움
-		int topicNo = dao.getTopicNoByTopicName(dto.getTopic_name());
-		dto.setTopic_no(topicNo);
-		// 위에서 아래로
-
-		dao.InsertCommunity(dto);
+	public void updateView(int b_no) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public CommunityDto getCommunityDetail(int b_no) {
-
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.getCommunityDetail(b_no);
+		// TODO Auto-generated method stub
+		return null;
 	}
+//================================================================
 
-	public int updateCommunity(CommunityDto dto) {
-
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.updateCommunity(dto);
-	}
-
-//	@Override
-//	public int deleteCommunity(CommunityDto dto) {
-//
-//		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-//		
-//		return deleteCommunity(dto);
-//	}
 
 	@Override
-	public int deleteCommunity(int b_no) {
-
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-
-		return dao.deleteCommunity(b_no);
-
+	public List<CommunityDto> searchCommunityImgList(int boardIdx) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 
 	@Override
-	public int updateView(int b_no) {
-		System.out.println("update view");
-
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-
-		return dao.updateView(b_no);
+	public int InsertCommunity(CommunityDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	@Override
-	public int getTopicNoByTopicName(String topic_name) {
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.getTopicNoByTopicName(topic_name);
-	}
 
-	public List<CommunityDto> getPostsByTopic(HashMap map) {
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.getPostsByTopic(map);
-	}
 
-	public int getPostCountByTopic(int topicNo) {
 
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.getPostCountByTopic(topicNo);
-	}
 
-	@Override
-	public List<CommunityDto> searchByTitle(String title) {
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		return dao.searchByTitle(title);
-	}
+
 
 
 }

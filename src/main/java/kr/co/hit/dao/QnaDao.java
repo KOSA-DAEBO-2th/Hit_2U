@@ -1,41 +1,76 @@
 package kr.co.hit.dao;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import kr.co.hit.dto.CommunityDto;
 import kr.co.hit.dto.QnaDto;
+import kr.co.hit.dto.QnaSearchDto;
+import kr.co.hit.dto.FileDto;
 
 public interface QnaDao {
-	// insert Qna
-	public void InsertQna(QnaDto dto);
 
-	// Qna detail
+	// select
+	public List<QnaDto> selectQnaList();
+
+	public int selectQnaListCount();
+
+	public QnaDto selectQnaDetail(int boardIdx);
+
+	// search
+
+	public List<QnaDto> selectReplyList(int boardIdx);
+	public List<QnaDto> searchQnaImgList(int boardIdx);
+	
+	
+	public int searchQnaListCount(QnaSearchDto dto);
+	
+	
+
+	
+	public void increaseView(int boardIdx);
+
+	
+	// insert
+	
+	public int insertBoard(QnaDto dto);
+	public int insertQna(QnaDto dto);
+
+
+
+
+
+	public List<QnaDto> searchQnaList(QnaSearchDto dto);
+
+	public int InsertQna(QnaDto dto);
+
+	public void updateView(int b_no);
+
 	public QnaDto getQnaDetail(int b_no);
 
-	// update Qna
+	public int updateBoard(QnaDto dto);
+
 	public int updateQna(QnaDto dto);
 
-	// select all with paging
+	public int deleteFile(int boardIdx);
+
+	public int deleteQna(int boardIdx);
+
+//	public int deleteBoard(int boardIdx);
+
+	public void updateSummerNote(FileDto fileOne) throws IOException;
+
+	public int selectQnaListCount(QnaSearchDto dto);
+
+	public int insertReply(QnaDto dto);
+
+	public void increaseReply(int b_no);
+
 	public List<QnaDto> QnaList(HashMap map);
 
-	// count Qna list
-	public int getQnaCount();
-
-	// delete
-	public int deleteQna(int b_no);
-
-//		public int deleteCommunity(CommunityDto dto);
+	int getQnaCount();
 
 
 
-//		주어진 토픽 이름으로 토픽 번호를 조회하는 DAO 메서드
-	public int getTopicNoByTopicName2(String topic_name);
-
-	public List<QnaDto> getPostsByTopic2(HashMap map);
-
-	public int getPostCountByTopic2(int topicNo);
-
-	public List<QnaDto> searchByTitle2(String title);
 
 }
