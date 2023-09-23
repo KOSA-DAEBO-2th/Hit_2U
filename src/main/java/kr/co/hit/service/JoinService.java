@@ -19,6 +19,12 @@ public class JoinService {
 		result = memberDao.insertMember(dto);
 		return result;
 	}
+	public int insertNMember(MemberDto dto) {
+		int result =0;
+		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
+		result = memberDao.insertNMember(dto);
+		return result;
+	}
 
 	public int checkId(String id) {
 		int result =0;
