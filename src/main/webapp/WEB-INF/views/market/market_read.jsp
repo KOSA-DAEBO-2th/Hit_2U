@@ -201,14 +201,14 @@
 									onclick="location.href='/market/completed/${list.b_no}'">거래완료</button>
 							</c:if>
 
-							<c:if test="${list.nickname eq '영회아저씨'}">
+							<c:if test="${list.nickname eq '주영회(33세)'}">
 								<button class="btn btn_update margin_right_6 btn_14"
 								onclick="location.href='/market/update/${list.b_no}'">수정</button>
-							<button class="btn btn_delete btn_14"
-								onclick="location.href='/market/delete/${list.b_no}'">삭제</button>
+							<button class="btn btn_delete btn_14">삭제</button>
 							</c:if>
 
-							
+			<%-- 				<button class="btn btn_delete btn_14"
+								onclick="location.href='/market/delete/${list.b_no}'">삭제</button> --%>
 						</div>
 					</div>
 				</div>
@@ -299,7 +299,7 @@
 															</c:set>
 															<c:set var="test">${reply_list.nickname }</c:set>
 
-															<c:if test="${test eq '영회아저씨'}">
+															<c:if test="${test eq '주영회(33세)'}">
 																<div class="reply_cursor reply_update">수정</div>
 																<div style="margin: 0px 8px;">/</div>
 																<div class="reply_cursor reply_delete">삭제</div>
