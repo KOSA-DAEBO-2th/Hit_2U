@@ -14,5 +14,6 @@ public class CommunityDto {
 	private String topic_name;
 	private int topic_no, grade;
 	
+	private String image_url;
 	
 }

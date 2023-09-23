@@ -60,7 +60,6 @@ public interface QnaDao {
 
 	public void updateSummerNote(FileDto fileOne) throws IOException;
 
-	public int selectQnaListCount(QnaSearchDto dto);
 
 	public int insertReply(QnaDto dto);
 
@@ -69,6 +68,8 @@ public interface QnaDao {
 	public List<QnaDto> QnaList(HashMap map);
 
 	int getQnaCount();
+
+	public int deleteReplyBno(int boardIdx);
 
 
 
