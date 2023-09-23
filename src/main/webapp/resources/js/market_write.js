@@ -16,20 +16,9 @@ $("#summernote").summernote({
     ],
     fontSizes: ["8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "28", "30", "36", "50", "72"],
     callbacks: {
-        //여기 부분이 이미지를 첨부하는 부분
         onImageUpload: function (files) {
             uploadSummernoteImageFile(files[0], this);
         },
-        // ,
-        // onPaste: function (e) {
-        //     var clipboardData = e.originalEvent.clipboardData;
-        //     if (clipboardData && clipboardData.items && clipboardData.items.length) {
-        //         var item = clipboardData.items[0];
-        //         if (item.kind === "file" && item.type.indexOf("image/") !== -1) {
-        //             e.preventDefault();
-        //         }
-        //     }
-        // },
     },
 });
 

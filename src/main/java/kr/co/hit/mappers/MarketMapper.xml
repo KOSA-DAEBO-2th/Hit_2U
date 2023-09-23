@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE B.CAT_NO = 4 
 		ORDER BY B.B_NO DESC
-		LIMIT 0, 3;
+		LIMIT 0, 5;
 	</select>
 	
 	<select id="selectMarketListCount">
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="searchMarketList" parameterType="kr.co.hit.dto.MarketSearchDto" resultType="kr.co.hit.dto.MarketDto">
 		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY,
-		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.PRICE, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.STATE, M.PRICE, M.TRADING, M.DISCOUNT, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD B 
 		INNER JOIN MARKET M
 		ON B.B_NO = M.B_NO
@@ -43,7 +43,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON B.MEMBER_NO = MEM.MEMBER_NO INNER JOIN TOPIC T
 		ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') 
-		AND TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%') 
+		AND TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%')
+		AND MARKET_CATEGORY LIKE CONCAT('%',#{market_category},'%')
+		AND STATE LIKE CONCAT('%',#{state},'%')
+		AND TRADING LIKE CONCAT('%',#{trading},'%')
+		AND DISCOUNT LIKE CONCAT('%',#{discount},'%')
+		AND COMPLETED LIKE CONCAT('%',#{completed},'%')
+		
 		ORDER BY B.B_NO DESC 
 		LIMIT #{page_start}, #{page_limit}
 	</select>
@@ -59,6 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE B.CAT_NO = 4 AND B_TITLE LIKE CONCAT('%',#{b_title},'%') 
 		AND TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%') 
+		AND MARKET_CATEGORY LIKE CONCAT('%',#{market_category},'%')
+		AND STATE LIKE CONCAT('%',#{state},'%')
+		AND TRADING LIKE CONCAT('%',#{trading},'%')
+		AND DISCOUNT LIKE CONCAT('%',#{discount},'%')
+		AND COMPLETED LIKE CONCAT('%',#{completed},'%')
+		
 		ORDER BY B.B_NO
 	</select>
 
@@ -68,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectMarketRead" resultType="kr.co.hit.dto.MarketDto">
 		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
-		M.MARKET_CATEGORY, M.PRICE, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME, M.STATE, M.TRADING, M.DISCOUNT
+		M.MARKET_CATEGORY, M.PRICE, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME, M.STATE, M.TRADING, M.DISCOUNT, M.COMPLETED
 		FROM BOARD B
 		INNER JOIN MARKET M
 		ON B.B_NO = M.B_NO
@@ -140,6 +152,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="increaseReply">
 		UPDATE BOARD SET B_REPLY = B_REPLY+1 WHERE B_NO = #{boardIdx};
+	</update>
+	
+	<update id="updateReply" parameterType="kr.co.hit.dto.MarketDto">
+		UPDATE REPLY SET R_CONTENT = #{r_content} WHERE REPLY_NO = #{reply_no};
+	</update>
+	
+	<delete id="deleteReply" parameterType="kr.co.hit.dto.MarketDto">
+		DELETE FROM REPLY WHERE REPLY_NO = #{reply_no}
+	</delete>
+	
+	<update id="decreaseReply" parameterType="kr.co.hit.dto.MarketDto">
+		UPDATE BOARD SET B_REPLY = B_REPLY-1 WHERE B_NO = #{b_no};
+	</update>
+	
+	<insert id="insertLike">
+		INSERT INTO BOARD_LIKE (LIKE_NO, B_NO, MEMBER_NO)
+		VALUES((SELECT T.LIKE_NO+1 FROM (SELECT MAX(LIKE_NO) LIKE_NO FROM BOARD_LIKE) AS T),#{param1},#{param2})
+	</insert>
+	
+	<update id="increaseLike">
+		UPDATE BOARD SET B_RECOMMEND = B_RECOMMEND+1 WHERE B_NO = #{boardIdx};
+	</update>
+	
+	<select id="selectLikeList" resultType="kr.co.hit.dto.MarketDto">
+		SELECT * FROM BOARD_LIKE WHERE B_NO = #{boardIdx};
+	</select>
+	
+	<delete id="deleteLike">
+		DELETE FROM BOARD_LIKE WHERE B_NO = #{param1} AND MEMBER_NO = #{param2}
+	</delete>
+	
+	<update id="decreaseLike">
+		UPDATE BOARD SET B_RECOMMEND = B_RECOMMEND-1 WHERE B_NO = #{boardIdx};
+	</update>
+	
+	<update id="completedTrade">
+		UPDATE MARKET SET COMPLETED = 1 WHERE B_NO = #{boardIdx};
 	</update>
 	
 	

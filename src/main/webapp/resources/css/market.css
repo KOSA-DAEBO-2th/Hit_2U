@@ -138,3 +138,30 @@ article:hover {
 .hidden{
 	display: none;
 }
+
+.btn_search_option{
+	width: auto;
+	height: auto;
+	padding: 5px 10px;
+	border-radius: 8px;
+    color: black;
+    border-color: gray;
+    margin: 0px;
+
+}
+.btn_search_option:hover{
+	color: black;
+	border-color: black;
+}
+
+.input_section{
+	margin-right: 10px;
+}
+
+.completed_category {
+	background-color: rgb(240, 246, 250);
+	color: red;
+	padding: 0px 10px;
+	border-radius: 4px;
+	font-weight: 600;
+}

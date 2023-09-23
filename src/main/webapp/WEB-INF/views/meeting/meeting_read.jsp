@@ -198,7 +198,9 @@
 
 
 												<div class="recommend_content">
-													${recommend_list.b_content }</div>
+											
+													<c:out value='${recommend_list.b_content.replaceAll("\\\<.*?\\\>","")}' />
+													</div>
 											</div>
 										</div>
 										<div class="flex">

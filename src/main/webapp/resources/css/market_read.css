@@ -9,7 +9,7 @@
 }
 
 .carousel {
-	-carousel-width: 0px;
+	-carousel-width: 0px; 
 	--carousel-height: px;
 	width: 300px;
 	height: 300px;
@@ -147,11 +147,13 @@
 	padding: 5px 10px;
 	color: white;
 	background-color: royalblue;
+	opacity: 0.7;
 }
 
 .btn_update:hover {
 	color: white;
 	background-color: royalblue;
+	opacity: 0.7;
 }
 
 .btn_delete {
@@ -159,11 +161,13 @@
 	height: inherit;
 	padding: 5px 10px;
 	color: white;
+	opacity: 0.7;
 	background-color: #F05650;
 }
 
 .btn_delete:hover {
 	color: white;
+	opacity: 0.7;
 	background-color: #F05650;
 }
 
@@ -181,7 +185,19 @@
 	height: 40px;
 }
 
+.reply_update_input {
+	resize: none;
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 40px;
+}
+
 .reply_add {
+	justify-content: space-between;
+}
+
+.reply_update_add {
 	justify-content: space-between;
 }
 
@@ -196,10 +212,6 @@
 .reply_profile {
 	width: 40px;
 	height: 40px;
-}
-
-.reply_output {
-	
 }
 
 .no_reply {
@@ -235,6 +247,18 @@
 	font-size: 12px;
 }
 
+.reply_update_btn {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	background-color: rgb(204, 204, 204);
+	font-size: 12px;
+}
+
+.reply_update_btn:hover {
+	background-color: rgb(204, 204, 204);
+}
+
 .btn_14 {
 	font-size: 14px;
 }
@@ -251,7 +275,31 @@
 	font-size: 14px;
 }
 
-.market_cmp_btn{
+.btn_like {
+	width: 25%;
+	height: 39px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+.btn_like:hover{
+	background-color: royalblue;
+	color: white;
+}
+
+.market_cmp_btn {
 	background-color: rgb(204, 204, 204);
 	color: black;
+}
+
+.reply_cursor {
+	cursor: pointer;
+}
+
+.reply_update:hover {
+	font-weight: 700;
+}
+
+.reply_delete:hover {
+	font-weight: 700;
 }

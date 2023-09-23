@@ -167,6 +167,78 @@ public class MarketService implements MarketDao {
 	}
 
 
+	@Override
+	public int updateReply(MarketDto dto) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		int result = dao.updateReply(dto);
+		return result;
+	}
+
+
+	@Override
+	public int deleteReply(MarketDto dto) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		int result = dao.deleteReply(dto);
+		return result;
+	}
+
+
+	@Override
+	public void decreaseReply(MarketDto dto) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		dao.decreaseReply(dto);
+		
+	}
+
+
+	@Override
+	public int insertLike(int boardIdx, int member_no) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		int result = dao.insertLike(boardIdx, member_no);
+		return result;
+	}
+
+
+	@Override
+	public void increaseLike(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		dao.increaseLike(boardIdx);
+		
+	}
+
+
+	@Override
+	public List<MarketDto> selectLikeList(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		List<MarketDto> list = dao.selectLikeList(boardIdx);
+		return list;
+	}
+
+
+	@Override
+	public int deleteLike(int boardIdx, int member_no) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		int result = dao.deleteLike(boardIdx, member_no);
+		return result;
+	}
+
+
+	@Override
+	public void decreaseLike(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		dao.decreaseLike(boardIdx);
+		
+	}
+
+
+	@Override
+	public void completedTrade(int boardIdx) {
+		MarketDao dao = sqlsession.getMapper(MarketDao.class);
+		dao.completedTrade(boardIdx);
+		
+	}
+
+
 	
 
 }
