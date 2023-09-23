@@ -290,7 +290,8 @@
 			<div class="read_right_form">
 				<div class="leader_form">
 					<span class="font_18 font_bold">리더 정보</span>
-					<div class="userid_form flex">
+					<div class="userid_form flex" onclick="location.href='/memberProfile/${meeting_member[0].member_id}'" style="cursor: pointer;">
+
 						<div>
 							<img class="icons_40" title="profile"
 								src="${pageContext.request.contextPath}/resources/images/maple.jpg" />
@@ -302,12 +303,13 @@
 									class="icons_16 margin_left_8" title="github"
 									src="${pageContext.request.contextPath}/resources/icons/github.svg" /></a>
 							</div>
-
-							<div class="icon_area font_12">
+							<div class="icon_area font_12" >
 								<i class="fa-solid fa-flask"></i> 300
 							</div>
 						</div>
 					</div>
+
+					
 					<div class="project_date">
 						<div class="font_18 font_bold margin_bottom_12">${list.meet_topic_name}
 							기간</div>
@@ -347,7 +349,6 @@
     </div>
   </div>
 </div>
-
 
 	<c:import url="../includes/footer.jsp"></c:import>
 	

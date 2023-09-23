@@ -1,26 +1,50 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
-
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
-    <head>
-    <link rel="icon" type="image/jpg"  href="${pageContext.request.contextPath }/resources/images/maple.jpg"/>
-        <title></title>
-        <link href="${pageContext.request.contextPath }/resources/css/reset.css" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after" rel="stylesheet" />
-        <!-- 부트스트랩 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Jquery -->
+<head>
+<link rel="icon" type="image/jpg"
+	href="${pageContext.request.contextPath }/resources/images/maple.jpg" />
+<title></title>
+<link href="${pageContext.request.contextPath }/resources/css/reset.css"
+	rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css?after"
+	rel="stylesheet" />
+<!-- 부트스트랩 -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Jquery -->
 
-        <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
-                <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet" />
-        <link href="${pageContext.request.contextPath }/resources/css/footer.css" rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath }/resources/css/button.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath }/resources/css/header.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath }/resources/css/footer.css"
+	rel="stylesheet" />
+
+<link href="${pageContext.request.contextPath }/resources/css/util.css"
+	rel="stylesheet" />
+<script src="https://kit.fontawesome.com/d7766e5822.js"
+	crossorigin="anonymous"></script>
+<script async
+	src="${pageContext.request.contextPath}/resources/js/header.js"
+	type="text/javascript" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
 
         <link href="${pageContext.request.contextPath }/resources/css/util.css" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script>
@@ -56,8 +80,11 @@
                     <a href="/market" id="market">HIT 마켓</a>
                 </div>
                 <div class="nav_link">
-                    <a href="/lecture">강의</a>
+                    <a href="/chat/chatting">채팅</a>
                 </div>
+<!--                 			<div class="nav_link"> -->
+<!-- 				<a href="/main2">main2</a> -->
+<!-- 			</div> -->
             </nav>
             <div class="header_right">
             <sec:authorize access="isAnonymous()">

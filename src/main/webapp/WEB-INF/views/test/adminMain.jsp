@@ -152,8 +152,7 @@
             	<div class="listDiv">
                 <div class="card-header d-flex justify-content-between align-items-center table-card-header">
                     <h5 class="mb-0 divTitle">게시글</h5>
-                    <a class="btn  btn-sm">수정</a>
-                    <a class="btn btn-danger btn-sm" onclick="del()">삭제</a>
+                    <a class="btn btn-danger btn-sm" onclick="del()" style="color: white;">삭제</a>
                 </div>
                 
                 
@@ -530,7 +529,7 @@
       <a
         href="localhost:8080"
         target="_blank"
-        class="btn btn-danger btn-buy-now"
+        class="btn btn-primary btn-buy-now"
         >Go to HOME</a
       >
     </div>

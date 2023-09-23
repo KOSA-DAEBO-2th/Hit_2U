@@ -33,8 +33,7 @@ public class MainController {
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("marketList", marketList);
 		
-
-		return "main";
+		return "/main";
 
 	}
 }

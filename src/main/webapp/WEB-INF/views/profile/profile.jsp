@@ -27,15 +27,8 @@
 <body>
 	<c:import url="../includes/header.jsp"></c:import>
 
-	<c:set var="image_url">
-		<sec:authentication property="principal.image_url" />
-	</c:set>
-	<h2>
-		<a href="/logout">로그아웃</a>
-	</h2>
-	<h2>
-		<a href="/chatting">채팅</a>
-	</h2>
+	<c:set var="image_url" value="${dto.image_url}"/>
+
 
 	<main class='main_content'>
 		<section style="background-color: #eee;">
@@ -55,7 +48,7 @@
 					</div>
 				</div>
 				<div class="row changeSection">
-					<h2>마이페이지</h2>
+					<h2></h2>
 					<div class="col-lg-4">
 						<div class="card mb-4">
 							<div class="card-body text-center">
@@ -77,8 +70,8 @@
 								<!--             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
 								<div class="d-flex justify-content-center mb-2">
-									<button type="button" class="btn btn-primary">Follow</button>
-									<button type="button" class="btn btn-outline-primary ms-1"
+									<!-- <button type="button" class="btn btn-primary">Follow</button> -->
+									<button type="button" class="btn btn-primary"
 										onclick="location.href='profile_edit'">수정</button>
 								</div>
 							</div>
@@ -111,19 +104,16 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">ID</p>
+										<p class="mb-0">계정 ID</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.member_id }</p>
-										<p class="text-muted mb-0">
-											<sec:authentication property="principal.member_id" />
-										</p>
 									</div>
 								</div>
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">NickName</p>
+										<p class="mb-0">닉네임</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.nickname }</p>
@@ -132,7 +122,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">Email</p>
+										<p class="mb-0">이메일</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.email }</p>
@@ -141,7 +131,7 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
-										<p class="mb-0">Mobile</p>
+										<p class="mb-0">연락처</p>
 									</div>
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.contact }</p>
@@ -154,8 +144,7 @@
 							<div class="col-md-6">
 								<div class="card mb-4 mb-md-0">
 									<div class="card-body">
-										<p class="mb-4">
-											<span class="text-primary font-italic me-1">assigment</span>
+										<p class="mb-4" style="text-align: center">
 											게시판 별 게시글 수
 										</p>
 										<div>
@@ -168,8 +157,7 @@
 							<div class="col-md-6">
 								<div class="card mb-4 mb-md-0">
 									<div class="card-body">
-										<p class="mb-4">
-											<span class="text-primary font-italic me-1">assigment</span>
+										<p class="mb-4" style="text-align: center">
 											게시판 별 댓글 수
 										</p>
 										<div>
@@ -192,8 +180,8 @@
 		$(document).ready(
 				function() {
 
-					var countW = [ 0, 0, 0, 0 ];
-					var countR = [ 0, 0, 0, 0 ];
+					var countW = [ 0, 0, 0, 0, 0 ];
+					var countR = [ 0, 0, 0, 0, 0 ];
 
 					$.ajax({
 						type : "GET",
@@ -216,11 +204,14 @@
 								case "QnA":
 									countW[1] = data.cntW[i].count;
 									break;
+								case "마켓":
+									countR[2] = data.cntR[i].count;
+									break;
 								case "모임":
-									countW[2] = data.cntW[i].count;
+									countW[3] = data.cntW[i].count;
 									break;
 								case "프리랜서":
-									countW[3] = data.cntW[i].count;
+									countW[4] = data.cntW[i].count;
 									break;
 								return countW;
 							}
@@ -235,11 +226,14 @@
 							case "QnA":
 								countR[1] = data.cntR[i].count;
 								break;
-							case "모임":
+							case "마켓":
 								countR[2] = data.cntR[i].count;
 								break;
-							case "프리랜서":
+							case "모임":
 								countR[3] = data.cntR[i].count;
+								break;
+							case "프리랜서":
+								countR[4] = data.cntR[i].count;
 								break;
 							return countR;
 						}
@@ -253,12 +247,13 @@
 					new Chart(board, {
 						type : 'doughnut',
 						data : {
-							labels : [ '커뮤니티', 'QnA', '모임', '프리랜서' ],
+							labels : [ '커뮤니티', 'QnA', '마켓', '모임', '프리랜서' ],
 							datasets : [ {
 								label : '게시글 개수',
 								data : countW,
 								backgroundColor : [ 'rgba(255, 99, 132, 1)',
 										'rgba(54, 162, 235, 1)',
+										'rgba(133, 146, 163, 1))',
 										'rgba(255, 206, 86, 1)',
 										'rgba(75, 192, 192, 1)' ],
 								hoverOffset : 4
@@ -270,12 +265,13 @@
 					new Chart(ctx, {
 						type : 'doughnut',
 						data : {
-							labels : [ '커뮤니티', 'QnA', '모임', '프리랜서' ],
+							labels : [ '커뮤니티', 'QnA','마켓', '모임', '프리랜서' ],
 							datasets : [ {
 								label : '댓글 개수',
 								data : countR,
 								backgroundColor : [ 'rgba(255, 99, 132, 1)',
 										'rgba(54, 162, 235, 1)',
+										'rgba(133, 146, 163, 0.8))',
 										'rgba(255, 206, 86, 1)',
 										'rgba(75, 192, 192, 1)' ],
 								hoverOffset : 4
