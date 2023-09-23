@@ -28,6 +28,7 @@
 										src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
 								</div>
 								<div class="nickname_form">${list.nickname }</div>
+								
 								<span class="mc">·</span>
 								<div class="flex item_center icon_form">
 									<i class="fa-solid fa-flask flask"></i>
