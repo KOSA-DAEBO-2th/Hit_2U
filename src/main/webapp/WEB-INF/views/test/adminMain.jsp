@@ -78,6 +78,9 @@
             	top:0;
             }
             
+            .my-swal {
+            	z-index: 2000;
+            }
  
         </style>
 </head>

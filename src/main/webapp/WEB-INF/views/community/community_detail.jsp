@@ -7,7 +7,7 @@
 	href="${pageContext.request.contextPath }/resources/css/community_detail.css"
 	rel="stylesheet" />
 <script async
-	src="${pageContext.request.contextPath}/resources/js/market_read.js"
+	src="${pageContext.request.contextPath}/resources/js/community_detail_form.js"
 	type="text/javascript" defer></script>
 </head>
 <body>
@@ -28,6 +28,7 @@
 										src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
 								</div>
 								<div class="nickname_form">${list.nickname }</div>
+								
 								<span class="mc">·</span>
 								<div class="flex item_center icon_form">
 									<i class="fa-solid fa-flask flask"></i>
@@ -80,8 +81,13 @@
 						<div>
 							<button class="btn btn_update margin_right_6 btn_14"
 								onclick="location.href='/community/update/${list.b_no}'">수정</button>
-							<button class="btn btn_delete btn_14"
-								onclick="location.href='/community/delete/${list.b_no}'">삭제</button>
+							<!-- 							<button class="btn btn_delete btn_14" -->
+							<%-- 								onclick="location.href='/community/delete/${list.b_no}'">삭제</button> --%>
+															<button class="btn btn_delete btn_14" 
+															onclick="deleteAndAlert('/community/delete/${list.b_no}')">삭제</button>
+	
+
+
 						</div>
 					</div>
 				</div>
@@ -128,8 +134,7 @@
 											</div>
 											<div class="userid">${reply_list.nickname}</div>
 
-											<div class="flex content_end reply_date font_12">
-											</div>
+											<div class="flex content_end reply_date font_12"></div>
 										</div>
 										<div class="padding_top_20 font_14 reply_output">
 											${reply_list.r_content }</div>

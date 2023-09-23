@@ -51,7 +51,6 @@
 									</div>
 								</div>
 
-
 								<div class="main_title_box flex item_center">
 									<div class="main_title">프로그래밍의 길은 험난하네요</div>
 									<div class="like_comment_box">
@@ -60,7 +59,6 @@
 											class="fa-regular fa-comment font_12 icon_area"></i> <span
 											class="comment_count">18</span>
 									</div>
-
 								</div>
 							</div>
 					</article>
@@ -244,11 +242,12 @@
 					<c:forEach var="qnaList" items="${qnaList}">
 						<div class="main_community_list">
 							<article>
-								<a class="a_link" href="/qna/${qnaList.b_no}">
+<%-- 								<a class="a_link" href="/qna/${qnaList.b_no}"> --%>
 
 									<div class="board_list">
 										<div class="topic">
 											<a href="#">${qnaList.topic_name}</a>
+
 										</div>
 										<div style="width: 100%;">
 											<div class="main_user">
@@ -277,24 +276,19 @@
 													<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
 														class="like_count">0</span> <i
 														class="fa-regular fa-comment font_12 icon_area"></i> <span
-														class="comment_count">0</span>
+														class="comment_count">${qnaList.b_reply}</span>
 												</div>
 											</div>
 										</div>
 									</div>
 
-								</a>
-
-
+<!-- 								</a> -->
 							</article>
 						</div>
 					</c:forEach>
 				</section>
 			</div>
-
-
-
-
+			
 			<!-- 			우측 상단 -->
 
 			<div class="main_right_column"">
@@ -342,7 +336,7 @@
 												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
 													class="like_count">0</span> <i
 													class="fa-regular fa-comment font_12 icon_area"></i> <span
-													class="comment_count">0</span>
+													class="comment_count">${communityList.b_reply}</span>
 											</div>
 										</div>
 									</div>
@@ -400,7 +394,7 @@
 												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
 													class="like_count">0</span> <i
 													class="fa-regular fa-comment font_12 icon_area"></i> <span
-													class="comment_count">0</span>
+													class="comment_count">${marketList.b_reply}</span>
 											</div>
 										</div>
 									</div>

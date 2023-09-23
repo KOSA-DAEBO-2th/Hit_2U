@@ -32,7 +32,8 @@ private static final List<Session> sessionList = new ArrayList<Session>();
 	
 	@GetMapping
 	public String viewPage(){
-		return "socketTest";
+//		return "socketTest";
+		return "chatting";
 	}
 	
 	
@@ -57,19 +58,20 @@ private static final List<Session> sessionList = new ArrayList<Session>();
 		try {
 			//메세지 보낸 사람에게 표시됨
 			final Basic basic = session.getBasicRemote();
-			basic.sendText(message);
-			System.out.println("principal : " + session.getUserPrincipal());
+			//basic.sendText(message);
+			
+			//System.out.println("principal : " + session.getUserPrincipal());
 			//System.out.println(session.getUserPrincipal().getClass().getn);
-			Map<String, Object> map = session.getUserProperties();
-			System.out.println(map.get("User"));
+			//Map<String, Object> map = session.getUserProperties();
+			//System.out.println(map.get("User"));
 			
-			
+			System.out.println("session=="+session);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		// 다른 사람에게 메세지 보내기
-		sendAllSessionToMessage(session,message, session.getUserPrincipal().getName());
+		sendAllSessionToMessage(session,message);         //   ,session.getUserPrincipal().getName()
 	}
 	
 	@OnError
@@ -83,11 +85,14 @@ private static final List<Session> sessionList = new ArrayList<Session>();
 	}
 	
 	
-	private void sendAllSessionToMessage(Session self, String msg, String nick){ // 연결된 모든 사용자에게 메세지 전달
+	private void sendAllSessionToMessage(Session self, String msg){ // 연결된 모든 사용자에게 메세지 전달
 		try {
+			System.out.println("sessionList:::"+SocketController.sessionList);
+			System.out.println("self: "+self);
 			for(Session s : SocketController.sessionList){
 				if(!self.getId().equals(s.getId())){ 
-					s.getBasicRemote().sendText(msg+ ","+nick);
+					s.getBasicRemote().sendText(msg);
+//					s.getBasicRemote().sendText(msg+ ","+nick);
 				}
 			}
 		} catch (Exception e) {

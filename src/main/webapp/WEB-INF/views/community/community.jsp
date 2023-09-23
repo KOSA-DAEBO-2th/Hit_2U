@@ -1,14 +1,13 @@
 ﻿<%@ include file="../includes/header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html>
+
 <head>
 <link
 	href="${pageContext.request.contextPath }/resources/css/community.css"
 	rel="stylesheet" />
 <script async
-	src="${pageContext.request.contextPath}/resources/js/market.js"
+	src="${pageContext.request.contextPath}/resources/js/community2.js"
 	type="text/javascript" defer></script>
 <script async
 	src="${pageContext.request.contextPath}/resources/js/util.js"
@@ -21,50 +20,53 @@
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="flex full_width content_center">
-<c:choose>
-	<c:when test="${empty currunt_topic}">
-		<form action="/community/search" onsubmit="return formChk();">
-			<div id="total" class="btn btn_category btn_category_click"
-				value="total" name="topic_option"
-				onclick="location.href='/community/search/total'">전체</div>
-			<div id="btn_free" class="btn btn_category" value="free"
-				name="topic_option"
-				onclick="location.href='/community/search/free'">자유</div>
-			<div id="btn_komin" class="btn btn_category" value="komin"
-				name="topic_option" onclick="location.href='/community/search/komin'">고민</div>
-			<div id="btn_health" class="btn btn_category" value="health"
-			name="topic_option" onclick="location.href='/community/search/health'">운동</div>
-			<div id="btn_anonymous" class="btn btn_category" value="anonymous"
-			name="topic_option" onclick="location.href='/community/search/anonymous'">익명</div>
-			</form>
-			
-	</c:when>
-	<c:otherwise>
-		<form action="/community/search/${currunt_topic}"
-			onsubmit="return formChk(this);">
-			<div id="total"
-				class="btn btn_category <c:if test="${currunt_topic eq 'total'}">btn_category_click</c:if>"
-				value="total" name="topic_option"
-				onclick="location.href='/community/search/total'">전체</div>
-			<div id="btn_sell"
-				class="btn btn_category <c:if test="${currunt_topic eq 'free'}">btn_category_click</c:if>"
-				value="free" name="topic_option"
-				onclick="location.href='/community/search/free'">자유</div>
-			<div id="btn_buy"
-				class="btn btn_category <c:if test="${currunt_topic eq 'komin'}">btn_category_click</c:if>"
-				value="komin" name="topic_option"
-				onclick="location.href='/community/search/komin'">고민</div>
-			<div id="btn_buy"
-				class="btn btn_category <c:if test="${currunt_topic eq 'health'}">btn_category_click</c:if>"
-				value="health" name="topic_option"
-				onclick="location.href='/community/search/health'">운동</div>	
-			<div id="btn_buy"
-				class="btn btn_category <c:if test="${currunt_topic eq 'anonymous'}">btn_category_click</c:if>"
-				value="anonymous" name="topic_option"
-				onclick="location.href='/community/search/anonymous'">익명</div>
-			</form>	
-	</c:otherwise>
-</c:choose>
+				<c:choose>
+					<c:when test="${empty currunt_topic}">
+						<form action="/community/search" onsubmit="return formChk();">
+							<div id="total" class="btn btn_category btn_category_click"
+								value="total" name="topic_option"
+								onclick="location.href='/community/search/total'">전체</div>
+							<div id="btn_free" class="btn btn_category" value="free"
+								name="topic_option"
+								onclick="location.href='/community/search/free'">자유</div>
+							<div id="btn_komin" class="btn btn_category" value="komin"
+								name="topic_option"
+								onclick="location.href='/community/search/komin'">고민</div>
+							<div id="btn_health" class="btn btn_category" value="health"
+								name="topic_option"
+								onclick="location.href='/community/search/health'">운동</div>
+							<div id="btn_anonymous" class="btn btn_category"
+								value="anonymous" name="topic_option"
+								onclick="location.href='/community/search/anonymous'">익명</div>
+						</form>
+
+					</c:when>
+					<c:otherwise>
+						<form action="/community/search/${currunt_topic}"
+							onsubmit="return formChk(this);">
+							<div id="total"
+								class="btn btn_category <c:if test="${currunt_topic eq 'total'}">btn_category_click</c:if>"
+								value="total" name="topic_option"
+								onclick="location.href='/community/search/total'">전체</div>
+							<div id="btn_sell"
+								class="btn btn_category <c:if test="${currunt_topic eq 'free'}">btn_category_click</c:if>"
+								value="free" name="topic_option"
+								onclick="location.href='/community/search/free'">자유</div>
+							<div id="btn_buy"
+								class="btn btn_category <c:if test="${currunt_topic eq 'komin'}">btn_category_click</c:if>"
+								value="komin" name="topic_option"
+								onclick="location.href='/community/search/komin'">고민</div>
+							<div id="btn_buy"
+								class="btn btn_category <c:if test="${currunt_topic eq 'health'}">btn_category_click</c:if>"
+								value="health" name="topic_option"
+								onclick="location.href='/community/search/health'">운동</div>
+							<div id="btn_buy"
+								class="btn btn_category <c:if test="${currunt_topic eq 'anonymous'}">btn_category_click</c:if>"
+								value="anonymous" name="topic_option"
+								onclick="location.href='/community/search/anonymous'">익명</div>
+						</form>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div class="middle_form">
@@ -95,7 +97,7 @@
 		<section class="board_section">
 			<c:forEach items="${list }" var="list" varStatus="i">
 				<article>
-				<a class="a_link" href="/community/${list.b_no }">
+					<a class="a_link" href="/community/${list.b_no }">
 						<div class="board_form width_full">
 							<div class="main_user flex item_center font_14">
 								<div class="flex_1">
@@ -112,10 +114,7 @@
 										<sapn class="hp_point">${list.grade }</sapn>
 									</div>
 								</div>
-								<div class="flex item_center write_date">
-									<fmt:formatDate value="${list.b_write_date}"
-										pattern="yyyy-MM-dd HH:mm" />
-								</div>
+								<div class="flex item_center write_date"></div>
 							</div>
 							<div class="main_title_box flex item_center">
 								<div class="main_title">${list.b_title }</div>
@@ -136,31 +135,66 @@
 				</article>
 			</c:forEach>
 		</section>
-		<div class="flex content_center item_center">
-			<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
-			<c:choose>
-				<c:when test="${page_init eq 1}">
-					<input type="text"
-						class="form-control page_test margin_left_20 current_page"
-						name="page" value="1" />
-				</c:when>
-				<c:otherwise>
-					<input type="text"
-						class="form-control page_test margin_left_20 current_page"
-						name="page" value="${search_option.page }" />
-				</c:otherwise>
-			</c:choose>
-			<text class=" font_main font_bold"
-				style="font-size: 25px; margin: 0px 15px;">/</text>
-			<input type="text"
-				class="form-control page_test margin_right_20 max_page"
-				value="${maxPage }" disabled /> <i
-				class="fa-solid fa-chevron-right font_20 font_main page_arrow">
-			</i>
-			<button class="hidden"></button>
-		</div>
+
+		<!-- 페이징 왼쪽, 오른쪽 버튼, 페이지 번호 검색 -->
+		<form action="/community/search">
+			<div class="flex content_center item_center">
+				<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
+
+				<c:choose>
+					<c:when test="${page_init eq 1}">
+						<input type="text"
+							class="form-control page_test margin_left_20 current_page"
+							name="page" value="1" />
+					</c:when>
+
+					<c:otherwise>
+						<input type=" text "
+							class=" form - control page_test margin_left_20 current_page "
+							name=" page " value=" ${ search_option.page } " />
+					</c:otherwise>
+
+				</c:choose>
+					
+					<text class=" font_main font_bold"
+						style="font-size: 25px; margin: 0px 15px;">/</text> <input
+					type="text" class="form-control page_test margin_right_20 max_page"
+					value="${maxPage }" disabled /> <i
+					class="fa-solid fa-chevron-right font_20 font_main page_arrow">
+				</i>
+					<button class="hidden"></button>
+			</div>
+		</form>
+
+		<!-- 새로추가된 코드 -->
+
+<!-- 		<div class="flex content_center item_center"> -->
+<!-- 			<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i> -->
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${page_init eq 1}"> --%>
+<!-- 					<input type="text" -->
+<!-- 						class="form-control page_test margin_left_20 current_page" -->
+<!-- 						name="page" value="1" /> -->
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 					<input type="text" -->
+<!-- 						class="form-control page_test margin_left_20 current_page" -->
+<%-- 						name="page" value="${search_option.page }" /> --%>
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
+
+<!-- 			<text class=" font_main font_bold" -->
+<!-- 				style="font-size: 25px; margin: 0px 15px;">/</text> -->
+<!-- 			<input type="text" -->
+<!-- 				class="form-control page_test margin_right_20 max_page" -->
+<%-- 				value="${maxPage }" disabled /> <i --%>
+<!-- 				class="fa-solid fa-chevron-right font_20 font_main page_arrow"> -->
+<!-- 			</i> -->
+<!-- 			<button class="hidden"></button> -->
+<!-- 		</div> -->
+
 	</main>
 	<c:import url="../includes/footer.jsp"></c:import>
-	<form action="/community/search">
+	<form action="/market/search">
 </body>
 </html>

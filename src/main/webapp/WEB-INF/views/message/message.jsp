@@ -31,7 +31,7 @@
         <a onclick="m_write();" class="btn btn-primary btn-blue" style="width: 100%;">쪽지쓰기</a>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link " onclick="m_list();"><i class="fa fa-inbox"></i> 받은쪽지함 <span class="badge badge-danger">4</span></a>
+                <a class="nav-link " onclick="m_list();"><i class="fa fa-inbox"></i> 받은쪽지함<!--  <span class="badge badge-danger">4</span> --></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" onclick="m_sendList();"><i class="fa fa-rocket"></i> 보낸쪽지함</a>

@@ -63,7 +63,6 @@
 
 	<c:set var="image_url" value="${dto.image_url}"/>
 
-
 	<main class='main_content'>
 		<section style="background-color: #eee;">
 			<div class="container py-5">
@@ -74,14 +73,14 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<c:choose>
-									<c:when test="${image_url eq 'null'}">
+									<c:when test="${empty image_url}">
 										<img
 											src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
 											alt="avatar" class="rounded-circle img-fluid"
 											style="width: 150px;">
 									</c:when>
-									<c:when test="${image_url ne 'null'}">
-										<img src="${image_url }" alt="avatar"
+									<c:when test="${not empty image_url}">
+										<img src="${image_url}" alt="avatar"
 											class="rounded-circle img-fluid" style="width: 150px;">
 									</c:when>
 								</c:choose>
@@ -179,16 +178,7 @@
                         
                         <tbody>
                         
-                        	<c:forEach items="${ list }" var="list">
-                        	<c:choose>
-                        		<c:when test="${list.cat_no} eq 1"><c:out value="33"></c:out> </c:when><%-- <c:set var="link" value="/community/community_detail?b_no="/> <c:param name="link1" value="/community/community_detail?b_no="></c:param> </c:when> 
-                        		<c:when test="${list.cat_no} eq 2"> <c:set var="link" value="/qna/qna_detail?b_no="/> <c:param name="link1" value="/qna/qna_detail?b_no="></c:param> </c:when> 
-                        		<c:when test="${list.cat_no} eq 3"> <c:set var="link" value="/meeting/"/> <c:param name="link1" value="/meeting/"></c:param> </c:when> 
-                        		<c:when test="${list.cat_no} eq 4"> <c:set var="link" value="/market/"/> <c:param name="link1" value="/market/"></c:param> </c:when> 
-                        		<c:when test="${list.cat_no} eq 5"> <c:set var="link" value="/lecture/"/>  <c:param name="link1" value="/lecture/"></c:param></c:when>  --%>
-                        	</c:choose>
-                        	<%-- <c:if test="${ list.cat_no } eq 1" ></c:if> --%>
-                        
+                        	<c:forEach items="${ list }" var="list">                        
                             <tr class="align-middle" style="cursor: pointer;">
 <%--                                 <td>
                                     <div class="d-flex align-items-center">

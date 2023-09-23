@@ -237,8 +237,18 @@ function authority_change(role, num) {
         }),
         success: function () {
             console.log("업데이트 성공");
-			alert("변경이 완료되었습니다");
-			//location.reload();
+			//alert("변경이 완료되었습니다");
+			Swal.fire({
+				customClass: { container: 'my-swal' },
+				//position: 'top-end',
+				icon: 'success',
+				title: 'Your work has been saved',
+				showConfirmButton: false,
+				timer: 1000
+			});
+			setTimeout(()=> $('#staticBackdrop').modal('hide'), 1100);
+			// $('#staticBackdrop').modal('hide');
+			
         },
         error: function () {
             alert("뭔가 오류있네");
