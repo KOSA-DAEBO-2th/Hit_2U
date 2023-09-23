@@ -11,7 +11,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/summernote/summernote-lite.css">
 <link
-	href="${pageContext.request.contextPath }/resources/css/market_write.css"
+	href="${pageContext.request.contextPath }/resources/css/community_write_form.css"
 	rel="stylesheet" />
 
 <script

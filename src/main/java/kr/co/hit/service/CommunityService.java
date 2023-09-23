@@ -106,12 +106,7 @@ public class CommunityService implements CommunityDao {
 		return result;
 	}
 	
-	@Override
-	public int selectCommunityListCount(CommunitySearchDto dto) {
-		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
-		int result = dao.selectCommunityListCount();
-		return result;
-	}
+
 	
 	
 	@Override
@@ -120,6 +115,9 @@ public class CommunityService implements CommunityDao {
 		int result = dao.selectCommunityListCount();
 		return result;
 	}
+	
+
+	
 	
 	@Override
 	public List<CommunityDto> selectReplyList(int boardIdx) {
@@ -143,8 +141,13 @@ public class CommunityService implements CommunityDao {
 		
 	}
 	
-	
-	
+	@Override
+	public int deleteReplyBno(int boardIdx) {
+		CommunityDao dao = sqlsession.getMapper(CommunityDao.class);
+		int result = dao.deleteReplyBno(boardIdx);
+		return result;
+
+	}
 	
 	
 	
@@ -189,6 +192,9 @@ public class CommunityService implements CommunityDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
 
 
 
