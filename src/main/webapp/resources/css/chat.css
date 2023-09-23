@@ -195,3 +195,7 @@ body {
 .message_template {
   display: none;
 }
+
+.messages::-webkit-scrollbar {
+    display: none; 
+}
