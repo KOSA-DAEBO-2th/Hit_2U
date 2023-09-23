@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.co.hit.dao.MarketDao">
 
 	<select id="selectMarketList" resultType="kr.co.hit.dto.MarketDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY,
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, MEM.PROFILE,
 		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.PRICE, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD B 
 		INNER JOIN MARKET M
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="searchMarketList" parameterType="kr.co.hit.dto.MarketSearchDto" resultType="kr.co.hit.dto.MarketDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY,
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, MEM.PROFILE,
 		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, M.MARKET_CATEGORY, M.STATE, M.PRICE, M.TRADING, M.DISCOUNT, M.COMPLETED, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
 		FROM BOARD B 
 		INNER JOIN MARKET M
@@ -79,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="selectMarketRead" resultType="kr.co.hit.dto.MarketDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, MEM.PROFILE,
 		M.MARKET_CATEGORY, M.PRICE, MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME, M.STATE, M.TRADING, M.DISCOUNT, M.COMPLETED
 		FROM BOARD B
 		INNER JOIN MARKET M
@@ -142,7 +142,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="selectReplyList" resultType="kr.co.hit.dto.MarketDto">
-		SELECT * FROM REPLY WHERE B_NO = #{boardIdx};
+<!-- 		SELECT * FROM REPLY WHERE B_NO = #{boardIdx}; -->
+		SELECT * 
+		FROM REPLY R
+		LEFT OUTER JOIN
+		MEMBER M
+		ON M.NICKNAME = R.NICKNAME
+		WHERE B_NO = #{boardIdx}
+		
 	</select>
 	
 	<insert id="insertReply" parameterType="kr.co.hit.dto.MarketDto">
