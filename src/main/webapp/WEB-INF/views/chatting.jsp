@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<c:import url="./includes/header.jsp"></c:import>
 <%-- <div id="getNickname" ><sec:authentication property="principal.nickname"/></div> --%>
 <div class="chat_window">
     <div class="top_menu">

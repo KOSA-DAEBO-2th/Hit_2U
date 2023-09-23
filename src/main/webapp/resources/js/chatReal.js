@@ -209,7 +209,7 @@
             if(get=="연결 완료"){
 
             } else{
-                sendMessage(get, left);
+                sendMessage(get, 'right');
             }
             
 
@@ -230,13 +230,13 @@
         //$('.sendBtn').click(function (e) {
             e.preventDefault();
             ws.send($("#textInput").val());
-            //return sendMessage(getMessageText());
+            return sendMessage(getMessageText(), 'left');
         });
         $('.message_input').keyup(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
                 ws.send($("#textInput").val());
-                //return sendMessage(getMessageText());
+                return sendMessage(getMessageText(), 'left');
             }
         });
 
