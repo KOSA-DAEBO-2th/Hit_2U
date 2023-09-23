@@ -56,6 +56,12 @@ function m_send() {
         success: function (data) {
             console.log("success");
             //location.href = "message_list";
+			Swal.fire({
+				icon: 'success',
+				title: '전송이 완료되었습니다',
+				showConfirmButton: false,
+				timer: 1000
+			})
             m_list();
         },
     });

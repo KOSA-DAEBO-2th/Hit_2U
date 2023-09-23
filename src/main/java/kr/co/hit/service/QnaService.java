@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.QnaDao;
+import kr.co.hit.dao.CommunityDao;
 import kr.co.hit.dao.MarketDao;
 import kr.co.hit.dto.QnaDto;
 import kr.co.hit.dto.QnaSearchDto;
@@ -181,11 +182,7 @@ public class QnaService implements QnaDao {
 	}
 
 
-	@Override
-	public int selectQnaListCount(QnaSearchDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 
 	@Override
@@ -199,6 +196,13 @@ public class QnaService implements QnaDao {
 	public int getQnaCount() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	public int deleteReplyBno(int boardIdx) {
+		QnaDao dao = sqlsession.getMapper(QnaDao.class);
+		int result = dao.deleteReplyBno(boardIdx);
+		return result;
 	}
 
 

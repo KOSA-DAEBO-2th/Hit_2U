@@ -227,7 +227,7 @@ public class QnaController {
 		int file_ok = qnaService.deleteFile(boardIdx);
 		int qna_ok = qnaService.deleteQna(boardIdx);
 		
-		
+		int delete_reply_ok = qnaService.deleteReplyBno(boardIdx);
 		
 //		int board_ok = qnaService.deleteBoard(boardIdx);
 

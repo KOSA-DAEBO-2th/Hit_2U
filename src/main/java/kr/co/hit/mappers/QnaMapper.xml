@@ -166,6 +166,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 
+	<delete id="deleteReplyBno">
+		DELETE FROM REPLY WHERE B_NO = #{BOARDIDX}
+	</delete>
+
+
 
 	<select id="selectReplyList"
 		resultType="kr.co.hit.dto.QnaDto">

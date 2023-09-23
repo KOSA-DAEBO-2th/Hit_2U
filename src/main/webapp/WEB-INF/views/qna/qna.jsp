@@ -5,10 +5,10 @@
 <html>
 <head>
 <link
-	href="${pageContext.request.contextPath }/resources/css/community.css"
+	href="${pageContext.request.contextPath }/resources/css/qna.css"
 	rel="stylesheet" />
 <script async
-	src="${pageContext.request.contextPath}/resources/js/market.js"
+	src="${pageContext.request.contextPath}/resources/js/qna.js"
 	type="text/javascript" defer></script>
 <script async
 	src="${pageContext.request.contextPath}/resources/js/util.js"

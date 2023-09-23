@@ -53,7 +53,7 @@
 	
 	 <div class="chat">
    		<div>
-   		<div id="getNickname" ><sec:authentication property="principal.nickname"/></div>
+   		<%-- <div id="getNickname" ><sec:authentication property="principal.nickname"/></div> --%>
    			<div class="chat_body" >
 		        <h2 class="chat_title">1번방</h2>		
 		        <button class="chat_back">◀</button>
