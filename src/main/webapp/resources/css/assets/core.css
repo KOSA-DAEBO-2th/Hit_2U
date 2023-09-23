@@ -14717,7 +14717,7 @@ body {
   bottom: 3rem;
   right: 1.625rem;
   z-index: 999999;
-  box-shadow: 0 1px 20px 1px #ff3e1d;
+  box-shadow: 0 1px 20px 1px #0000ff;
 }
 .buy-now .btn-buy-now:hover {
   box-shadow: none;

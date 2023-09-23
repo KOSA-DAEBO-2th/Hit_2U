@@ -49,6 +49,7 @@ public class RestMController {
 		System.out.println(dto);
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		dto.setM_send(user.getMember_id());
+		System.out.println(dto);
 		messageService.sendMessage(dto);
 		ModelAndView mav = new ModelAndView("message/message");
 		return mav;
@@ -150,6 +151,29 @@ public class RestMController {
 	public int changeRole( @RequestBody AdminDto dto) {  //@RequestBody Map<String, String> map
 		int result = adminService.changeRole(dto);
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/message_send_to")
+	public int message_send_to(@RequestBody MessageDto dto ) {
+		System.out.println(dto);
+		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setM_send(user.getMember_id());
+		System.out.println(dto);
+		int res = messageService.sendMessage(dto);
+		System.out.println("res: "+res);
+		return res;
+	}
+	
+	@ResponseBody
+	@PostMapping("/report")
+	public int report(@RequestBody AdminDto dto ) {  //profile에 있음
+		System.out.println(dto);
+		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setReporter(user.getMember_no());
+		int res = profileService.report(dto);
+		System.out.println("res: "+res);
+		return res;
 	}
 	
 }

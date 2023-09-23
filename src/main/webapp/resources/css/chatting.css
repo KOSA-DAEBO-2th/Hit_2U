@@ -114,7 +114,7 @@ main .chat_count {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-   	display: none;
+   	/* display: none; */
 }
  
 .chat > div {
@@ -218,7 +218,7 @@ main .chat_count {
 }
  
 .chat .chat_me .chat_content {
-    background: yellow;
+    background-color: yellow;
 }
  
 .chat .chat_other .chat_content {

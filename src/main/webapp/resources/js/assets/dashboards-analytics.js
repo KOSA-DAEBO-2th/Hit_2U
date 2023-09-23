@@ -377,9 +377,9 @@
         width: 130,
         type: 'donut'
       },
-      labels: ['커뮤니티', 'QnA', '모임', '프리랜서'],
+      labels: ['커뮤니티', 'QnA', '마켓', '모임', '프리랜서'],
       series: cntBoard,
-      colors: [config.colors.primary, config.colors.success, config.colors.info,  config.colors.secondary],
+      colors: [config.colors.primary, config.colors.success, axisColor, config.colors.info,  config.colors.secondary],
       stroke: {
         width: 5,
         colors: cardColor
@@ -446,9 +446,9 @@
         width: 130,
         type: 'donut'
       },
-      labels: ['커뮤니티', 'QnA', '모임', '프리랜서'],
+      labels: ['커뮤니티', 'QnA','마켓', '모임', '프리랜서'],
       series: cntReply,
-      colors: [config.colors.primary, config.colors.success, config.colors.info,  config.colors.secondary],
+      colors: [config.colors.primary, config.colors.success, axisColor, config.colors.info,  config.colors.secondary],
       stroke: {
         width: 5,
         colors: cardColor

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.hit.dao.ProfileDao;
+import kr.co.hit.dto.AdminDto;
 import kr.co.hit.dto.ImageDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
@@ -86,6 +87,14 @@ public class ProfileService implements ProfileDao{
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
 		List<MeetingDto> dto = dao.applyMeetingList(id);
 		return dto;
+	}
+
+
+	@Override
+	public int report(AdminDto dto) {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		int res = dao.report(dto);
+		return res;
 	}
 
 
