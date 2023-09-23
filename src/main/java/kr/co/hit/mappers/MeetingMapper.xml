@@ -253,7 +253,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectMeetingMember"
 		resultType="kr.co.hit.dto.MeetingDto">
-		SELECT M.nickname, M.git_link, M.grade, MEM.meeting_leader,
+		SELECT M.member_id, M.nickname, M.git_link, M.grade, MEM.meeting_leader,
 		MEM.meeting_position FROM
 		MEETING_MEMBER MEM
 		INNER JOIN

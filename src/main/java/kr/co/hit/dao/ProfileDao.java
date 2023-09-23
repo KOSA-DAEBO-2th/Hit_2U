@@ -3,6 +3,7 @@ package kr.co.hit.dao;
 import java.io.IOException;
 import java.util.List;
 
+import kr.co.hit.dto.AdminDto;
 import kr.co.hit.dto.ImageDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
@@ -28,5 +29,7 @@ public interface ProfileDao {
 	//모임리스트
 	public List<MeetingDto> getMeetingList(String id);
 	public List<MeetingDto> applyMeetingList(String id);
+	
+	public int report(AdminDto dto);
 	
 }

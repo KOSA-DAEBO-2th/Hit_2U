@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<div class="row changeSection">
-					<h2>마이페이지</h2>
+					<h2></h2>
 					<div class="col-lg-4">
 						<div class="card mb-4">
 							<div class="card-body text-center">
@@ -180,8 +180,8 @@
 		$(document).ready(
 				function() {
 
-					var countW = [ 0, 0, 0, 0 ];
-					var countR = [ 0, 0, 0, 0 ];
+					var countW = [ 0, 0, 0, 0, 0 ];
+					var countR = [ 0, 0, 0, 0, 0 ];
 
 					$.ajax({
 						type : "GET",
@@ -204,11 +204,14 @@
 								case "QnA":
 									countW[1] = data.cntW[i].count;
 									break;
+								case "마켓":
+									countR[2] = data.cntR[i].count;
+									break;
 								case "모임":
-									countW[2] = data.cntW[i].count;
+									countW[3] = data.cntW[i].count;
 									break;
 								case "프리랜서":
-									countW[3] = data.cntW[i].count;
+									countW[4] = data.cntW[i].count;
 									break;
 								return countW;
 							}
@@ -223,11 +226,14 @@
 							case "QnA":
 								countR[1] = data.cntR[i].count;
 								break;
-							case "모임":
+							case "마켓":
 								countR[2] = data.cntR[i].count;
 								break;
-							case "프리랜서":
+							case "모임":
 								countR[3] = data.cntR[i].count;
+								break;
+							case "프리랜서":
+								countR[4] = data.cntR[i].count;
 								break;
 							return countR;
 						}
@@ -241,12 +247,13 @@
 					new Chart(board, {
 						type : 'doughnut',
 						data : {
-							labels : [ '커뮤니티', 'QnA', '모임', '프리랜서' ],
+							labels : [ '커뮤니티', 'QnA', '마켓', '모임', '프리랜서' ],
 							datasets : [ {
 								label : '게시글 개수',
 								data : countW,
 								backgroundColor : [ 'rgba(255, 99, 132, 1)',
 										'rgba(54, 162, 235, 1)',
+										'rgba(133, 146, 163, 1))',
 										'rgba(255, 206, 86, 1)',
 										'rgba(75, 192, 192, 1)' ],
 								hoverOffset : 4
@@ -258,12 +265,13 @@
 					new Chart(ctx, {
 						type : 'doughnut',
 						data : {
-							labels : [ '커뮤니티', 'QnA', '모임', '프리랜서' ],
+							labels : [ '커뮤니티', 'QnA','마켓', '모임', '프리랜서' ],
 							datasets : [ {
 								label : '댓글 개수',
 								data : countR,
 								backgroundColor : [ 'rgba(255, 99, 132, 1)',
 										'rgba(54, 162, 235, 1)',
+										'rgba(133, 146, 163, 0.8))',
 										'rgba(255, 206, 86, 1)',
 										'rgba(75, 192, 192, 1)' ],
 								hoverOffset : 4

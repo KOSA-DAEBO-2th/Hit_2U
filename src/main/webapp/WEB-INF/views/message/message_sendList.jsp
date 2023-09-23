@@ -11,45 +11,45 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
-<script type="text/javascript">
-$(document).ready(function() {
-	$("#cbx_chkAll").click(function() {
-		console.log("clicked");
-		if($("#cbx_chkAll").is(":checked")) $("input[name=chk]").prop("checked", true);
-		else $("input[name=chk]").prop("checked", false);
-	});
 
-	$("input[name=chk]").click(function() {
-		var total = $("input[name=chk]").length;
-		var checked = $("input[name=chk]:checked").length;
+<style type="text/css">
+	tr {
+		height: 40px;
+	}
+	
+	td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		whie-space: nowrap;
+		max-height: 30px;
+	}
+		
+	table {
+		table-layout: fixed;
+	}
 
-		if(total != checked) $("#cbx_chkAll").prop("checked", false);
-		else $("#cbx_chkAll").prop("checked", true); 
-	});
-});
-</script>
+</style>
+
 </head>
 <body>
-	<%-- <c:import url="../includes/header.jsp"></c:import> --%>
-	<h1>보낸쪽지</h1>
 	<main class='main_content'>
 		<!-- <div class="container"> -->
     <div class="row">
         <div class="col-12 mb-3 mb-lg-5">
             <div class="overflow-hidden card table-nowrap table-card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">보낸 쪽지</h5>
-                    <a href="#!" class="btn btn-danger btn-sm" onclick="del()">삭제</a>
+                    <h3 class="mb-0">보낸 쪽지</h3>
+                    <a href="#!" class="btn btn-danger " onclick="del()">삭제</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead class="small text-uppercase bg-body text-muted">
                             <tr>
-                                <th><input type="checkbox" id="cbx_chkAll"></th>
-                                <th>받는사람</th>
-                                <th>내용</th>
-                                <th>날짜</th>
-                                <th class="text-end">Action</th>
+                                <th style="width: 10%"><input type="checkbox" id="cbx_chkAll"></th>
+                                <th style="width: 20%">받는사람</th>
+                                <th style="width: 50%">내용</th>
+                                <th style="width: 20%">날짜</th>
+                                <!-- <th class="text-end">Action</th> -->
                             </tr>
                         </thead>
                         
@@ -68,7 +68,7 @@ $(document).ready(function() {
                                 <td>${ list.m_receive }</td>
                                 <td> <span class="d-inline-block align-middle">${ list.m_content }</span></td>
                                 <td> <fmt:formatDate value="${ list.m_date }" pattern="yy-MM-dd [HH:mm]" type="date"/> </td>
-                                <td class="text-end">
+<!--                                 <td class="text-end">
                                     <div class="drodown">
                                         <a data-bs-toggle="dropdown" href="#" class="btn p-1" aria-expanded="false">
                                   <i class="fa fa-bars" aria-hidden="true"></i>
@@ -78,7 +78,7 @@ $(document).ready(function() {
                                             <a href="#!" class="dropdown-item">Delete user</a>
                                         </div>
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                         	
                         	</c:forEach>
