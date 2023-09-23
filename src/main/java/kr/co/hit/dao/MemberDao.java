@@ -7,6 +7,8 @@ public interface MemberDao {
 	//
 	public int insertMember(MemberDto dto);
 
+	public int insertNMember(MemberDto dto);
+
 	public MemberDto getMember(String member_id);
 	
 	public int checkId(String member_id);
