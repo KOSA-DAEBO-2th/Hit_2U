@@ -31,7 +31,7 @@ $(document).on("click", ".btn_msg_submit", function () {
 function send_message(content){
     console.log($('#receive-id').val()+"================");
     var to = $('#receive-id').val();
-    //이거 ajax 작성해야함
+    
     $.ajax({
         url: "/message_send_to",
         type: "POST",
@@ -44,11 +44,15 @@ function send_message(content){
         }),
         success: function (e) {
             console.log("전송 성공");
-            console.log(e);
-			alert("전송이 완료되었습니다");
-            $('#sendMsgModal').modal('hide');
-			//modal.hide();    getElementByID 해서 가져와서
-			//location.reload();
+            Swal.fire({
+                icon: 'success',
+                title: '전송되었습니다',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        setTimeout(()=> $('#sendMsgModal').modal('hide'), 1100);
+            
+			
         },
         error: function () {
             alert("전송실패");
@@ -81,10 +85,14 @@ function send_message(content){
         success: function (e) {
             console.log("신고 성공");
             console.log(e);
-			alert("신고가 완료되었습니다");
-            $('#reportModal').modal('hide');
-			//modal.hide();    getElementByID 해서 가져와서
-			//location.reload();
+			Swal.fire({
+                icon: 'success',
+                title: '신고되었습니다',
+                showConfirmButton: false,
+                timer: 1000
+            });
+        setTimeout(()=> $('#reportModal').modal('hide'), 1100);
+            
         },
         error: function () {
             alert("신고실패");
@@ -104,8 +112,8 @@ $(document).on('click', "#tableView tr", function(){
     var link;
 
     switch(cat_no){
-        case '1': link = "/community/community_detail?b_no="+b_no; break;
-        case '2': link = "/qna/qna_detail?b_no="+b_no; break;
+        case '1': link = "/community/"+b_no; break;
+        case '2': link = "/qna/"+b_no; break;
         case '3': link = "/meeting/"+b_no; break;
         case '4': link = "/market/"+b_no; break;
         case '5': link = "/lecture/"+b_no; break;

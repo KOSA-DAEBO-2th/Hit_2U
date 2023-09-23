@@ -9,9 +9,9 @@ $(function(){
 		
 		ws.onmessage = function(e){ // 서버로부터 메세지를 받았을 때 실행
             console.log("=================================================");
-            console.log(e);
-			console.log(e.data); //전달 받은 메세지 = e
-            console.log(nickname);
+            console.log("e: "+e);
+			console.log("e.data: "+e.data); //전달 받은 메세지 = e
+            //console.log(nickname);
             console.log(e.timeStamp);
             
             //const date = messageInfo.date;
@@ -32,7 +32,7 @@ $(function(){
                 <li>
                     <div class="sender">
                         <div>
-                            <div class="nickname">${nickname}</div>
+                            <div class="nickname">닉네임</div>
                             <div class="message">
                                 <span class=chat_in_time>${currentFormatDate}</span>
                                 <span class="chat_content" style="background:yellow;">${e.data}</span>
@@ -83,6 +83,8 @@ $(function(){
 			e.preventDefault();
             console.log($("#textInput").val());
 			ws.send($("#textInput").val());
+
+            
 
             
 
