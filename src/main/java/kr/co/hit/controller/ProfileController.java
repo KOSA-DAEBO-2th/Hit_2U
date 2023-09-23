@@ -68,11 +68,6 @@ public class ProfileController {
 		return "profile/writeList";
 	}
 	
-	@RequestMapping("/profile_main")
-	public String profile() {
-		
-		return "profile/profile_main";
-	}
 	
 	@RequestMapping("/profile_meetingList")
 	public ModelAndView meetingList() {
