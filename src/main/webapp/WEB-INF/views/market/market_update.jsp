@@ -87,7 +87,7 @@
 						
 						<div class="input_section select" style="flex-basis: 250px;">
 							<select class="form-select" name="trading">
-								<option value="" disabled selected>교환방법</option>
+								<option value="" selected>교환방법</option>
 								<option value="택배" <c:if test="${list.trading eq '택배'}">selected</c:if>>택배</option>
 								<option value="직거래" <c:if test="${list.trading eq '직거래'}">selected</c:if>>직거래</option>
 
@@ -96,7 +96,7 @@
 						
 						<div class="input_section select" style="flex-basis: 250px;">
 							<select class="form-select" name="discount">
-								<option value="" disabled selected>네고여부</option>
+								<option value="" selected>네고여부</option>
 								<option value="가능" <c:if test="${list.discount eq '가능'}">selected</c:if>>가능</option>
 								<option value="불가능" <c:if test="${list.discount eq '불가능'}">selected</c:if>>불가능</option>
 

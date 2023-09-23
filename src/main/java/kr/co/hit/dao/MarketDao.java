@@ -30,10 +30,22 @@ public interface MarketDao {
 	public int deleteMarket(int boardIdx);
 	public int deleteBoard(int boardIdx);
 	
+	//like
+	public int insertLike(int boardIdx, int member_no);
+	public void increaseLike(int boardIdx);
+	public List<MarketDto> selectLikeList(int boardIdx);
+	public int deleteLike(int boardIdx, int member_no);
+	public void decreaseLike(int boardIdx);
+	
 	
 	//reply
 	
 	public List<MarketDto> selectReplyList(int boardIdx);
 	public int insertReply(MarketDto dto);
 	public void increaseReply(int boardIdx);
+	public int updateReply(MarketDto dto);
+	public int deleteReply(MarketDto dto);
+	public void decreaseReply(MarketDto dto);
+	
+	public void completedTrade(int boardIdx);
 }

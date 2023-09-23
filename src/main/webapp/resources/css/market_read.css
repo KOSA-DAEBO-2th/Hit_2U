@@ -9,7 +9,7 @@
 }
 
 .carousel {
-	-carousel-width: 0px;
+	-carousel-width: 0px; 
 	--carousel-height: px;
 	width: 300px;
 	height: 300px;
@@ -116,21 +116,21 @@
 	margin: 14px 0px;
 }
 
-.product_value{
+.product_value {
 	padding-left: 30px;
 	color: black;
 }
 
-.market_read_content{
+.market_read_content {
 	padding: 40px 0px;
 	border-bottom: 1px solid gray;
 }
 
-.btn_form{
+.btn_form {
 	padding: 20px 0px;
 }
 
-.btn_market_list{
+.btn_market_list {
 	width: inherit;
 	height: inherit;
 	padding: 5px 10px;
@@ -141,30 +141,33 @@
 	background-color: rgb(204, 204, 204);
 }
 
-.btn_update{
+.btn_update {
 	width: inherit;
 	height: inherit;
 	padding: 5px 10px;
 	color: white;
 	background-color: royalblue;
-	
+	opacity: 0.7;
 }
 
 .btn_update:hover {
 	color: white;
 	background-color: royalblue;
+	opacity: 0.7;
 }
 
-.btn_delete{
+.btn_delete {
 	width: inherit;
 	height: inherit;
 	padding: 5px 10px;
 	color: white;
+	opacity: 0.7;
 	background-color: #F05650;
 }
 
 .btn_delete:hover {
 	color: white;
+	opacity: 0.7;
 	background-color: #F05650;
 }
 
@@ -182,44 +185,52 @@
 	height: 40px;
 }
 
+.reply_update_input {
+	resize: none;
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 40px;
+}
+
 .reply_add {
 	justify-content: space-between;
 }
 
-.question_section{
+.reply_update_add {
+	justify-content: space-between;
+}
+
+.question_section {
 	border-bottom: 1px solid gray;
 }
 
-.reply_answer_section{
+.reply_answer_section {
 	padding: 0px 20px;
 }
 
-
-.reply_profile{
+.reply_profile {
 	width: 40px;
 	height: 40px;
 }
 
-.reply_output {
-}
-
-.no_reply{
+.no_reply {
 	margin-top: 20px;
 	background-color: rgb(247, 247, 247);
 	height: 80px;
 	color: #C9C9D9
 }
 
-.reply_date{
+.reply_date {
 	flex: 1;
 	color: #C9C9D9;
 }
 
-.btn_form{
+.btn_form {
 	border-bottom: 1px solid gray;
 }
 
-.question_form{
+.question_form {
 	padding: 20px 0px;
 }
 
@@ -228,7 +239,7 @@
 	font-weight: bold;
 }
 
-.reply_submit{
+.reply_submit {
 	width: inherit;
 	height: inherit;
 	padding: 5px 10px;
@@ -236,9 +247,59 @@
 	font-size: 12px;
 }
 
-.btn_14{
+.reply_update_btn {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	background-color: rgb(204, 204, 204);
+	font-size: 12px;
+}
+
+.reply_update_btn:hover {
+	background-color: rgb(204, 204, 204);
+}
+
+.btn_14 {
 	font-size: 14px;
 }
+
 .reply_submit:hover {
 	background-color: rgb(204, 204, 204);
+}
+
+.btn_apply2 {
+	width: 25%;
+	height: 39px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+
+.btn_like {
+	width: 25%;
+	height: 39px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+.btn_like:hover{
+	background-color: royalblue;
+	color: white;
+}
+
+.market_cmp_btn {
+	background-color: rgb(204, 204, 204);
+	color: black;
+}
+
+.reply_cursor {
+	cursor: pointer;
+}
+
+.reply_update:hover {
+	font-weight: 700;
+}
+
+.reply_delete:hover {
+	font-weight: 700;
 }

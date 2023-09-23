@@ -45,7 +45,7 @@ public class MarketController {
 		
 		ModelAndView mv = new ModelAndView("market/market");
 		List<MarketDto> list = marketService.selectMarketList();
-		int limit = 3;
+		int limit = 5;
 		int listcount = marketService.selectMarketListCount();
 		int maxPage = ((listcount - 1) / limit) + 1;
 		
@@ -59,8 +59,24 @@ public class MarketController {
 	public ModelAndView meetingSearch(MarketSearchDto dto) {
 		
 		ModelAndView mv = new ModelAndView("market/market");
+		if(dto.getMarket_category() == null) {
+			dto.setMarket_category("");
+		}
+		if(dto.getState() == null) {
+			dto.setState("");
+		}
+		if(dto.getTrading() == null) {
+			dto.setTrading("");
+		}
+		if(dto.getDiscount() == null) {
+			dto.setDiscount("");
+		}
+		if(dto.getCompleted() == null) {
+			dto.setCompleted("");
+		}
 		
-		int limit = 3;
+	
+		int limit = 5;
 		dto.setPage_limit(limit);
 		int start = (dto.getPage() - 1) * limit;
 		dto.setPage_start(start);
@@ -85,6 +101,24 @@ public class MarketController {
 			dto.setPage(1);
 		}
 		
+		if(dto.getMarket_category() == null) {
+			dto.setMarket_category("");
+		}
+		
+		if(dto.getState() == null) {
+			dto.setState("");
+		}
+		
+		if(dto.getTrading() == null) {
+			dto.setTrading("");
+		}
+		if(dto.getDiscount() == null) {
+			dto.setDiscount("");
+		}
+		if(dto.getCompleted() == null) {
+			dto.setCompleted("");
+		}
+		
 		if(topic.equals("sell")) {
 			dto.setTopic_name("팝니다");
 		}else if(topic.equals("buy")) {
@@ -94,7 +128,7 @@ public class MarketController {
 		}
 
 			
-		int limit = 3;
+		int limit = 5;
 		dto.setPage_limit(limit);
 		int start = (dto.getPage() - 1) * limit;
 		dto.setPage_start(start);
@@ -119,16 +153,56 @@ public class MarketController {
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
 
 		ModelAndView mv = new ModelAndView("market/market_read");
+
+		
 		marketService.increaseView(boardIdx);
 		MarketDto list = marketService.selectMarketRead(boardIdx);
 		List<MarketDto> img_list = marketService.searchMarketImgList(boardIdx);
-		
 		List<MarketDto> reply_list = marketService.selectReplyList(boardIdx);
+		List<MarketDto> like_List = marketService.selectLikeList(boardIdx);
+		List<Integer> like = new ArrayList<Integer>();
+		
 		mv.addObject("list", list);
 		mv.addObject("img_list", img_list);
 		mv.addObject("reply_list", reply_list);
-
+		
+		for (int i = 0; i < like_List.size(); i++) {
+			like.add(like_List.get(i).getMember_no());
+		}
+		mv.addObject("like", like);
 		return mv;
+	}
+	
+	@GetMapping("/{boardIdx}/like")
+	public String read_like(@PathVariable("boardIdx") int boardIdx) throws Exception {
+
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		marketService.insertLike(boardIdx, user.getMember_no());
+		marketService.increaseLike(boardIdx);
+
+		return "redirect:/market/"+Integer.toString(boardIdx);
+		
+	}
+	
+	@GetMapping("/{boardIdx}/likeCancle")
+	public String likeCancle(@PathVariable("boardIdx") int boardIdx) throws Exception {
+
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		marketService.deleteLike(boardIdx, user.getMember_no());
+		marketService.decreaseLike(boardIdx);
+
+		return "redirect:/market/"+Integer.toString(boardIdx);
+		
+	}
+	
+	@GetMapping("/completed/{boardIdx}")
+	public String completed(@PathVariable("boardIdx") int boardIdx) throws Exception {
+
+		marketService.completedTrade(boardIdx);
+
+
+		return "redirect:/market/"+Integer.toString(boardIdx);
+		
 	}
 
 	@GetMapping("/write")
@@ -207,7 +281,7 @@ public class MarketController {
 		int board_ok = marketService.updateBoard(dto);
 		int market_ok = marketService.updateMarket(dto);
 
-		return "redirect:/market/" + Integer.toString(boardIdx);
+		return "/market/" + Integer.toString(boardIdx);
 	}
 	
 	@PostMapping(value = "/uploadSummernoteImageFile/{boardIdx}", produces = "application/json")
@@ -272,5 +346,34 @@ public class MarketController {
 
 		return "market/marketReplyAjax";
 	}
+	
+	@PostMapping("/reply/update")
+	public String replyUpdate(MarketDto dto, Model model) {
+		
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		dto.setNickname(user.getNickname());
+
+		
+		int market_reply_ok = marketService.updateReply(dto);
+		List<MarketDto> reply_list = marketService.selectReplyList(dto.getB_no());
+		
+		model.addAttribute("reply_list", reply_list);
+
+		return "market/marketReplyAjax";
+	}
+	
+	@PostMapping("/reply/delete")
+	public String replyDelete(MarketDto dto, Model model) {
+		
+		int market_reply_ok = marketService.deleteReply(dto);
+		marketService.decreaseReply(dto);
+		List<MarketDto> reply_list = marketService.selectReplyList(dto.getB_no());
+		
+		model.addAttribute("reply_list", reply_list);
+
+		return "market/marketReplyAjax";
+	}
+	
+	
 
 }
