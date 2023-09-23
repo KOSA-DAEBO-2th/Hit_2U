@@ -74,7 +74,7 @@
                     <a href="/meeting" id="meeting">모임</a>
                 </div>
                 <div class="nav_link">
-                    <a href="/lecture">프리랜서</a>
+                    <a href="/lecture" id="lecture">프리랜서</a>
                 </div>
                 <div class="nav_link">
                     <a href="/market" id="market">HIT 마켓</a>
@@ -82,9 +82,6 @@
                 <div class="nav_link">
                     <a href="/chat/chatting">채팅</a>
                 </div>
-<!--                 			<div class="nav_link"> -->
-<!-- 				<a href="/main2">main2</a> -->
-<!-- 			</div> -->
             </nav>
             <div class="header_right">
             <sec:authorize access="isAnonymous()">

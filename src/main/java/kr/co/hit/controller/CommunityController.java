@@ -226,7 +226,7 @@ public class CommunityController {
 		
 		int file_ok = communityService.deleteFile(boardIdx);
 		int community_ok = communityService.deleteCommunity(boardIdx);
-		
+		int delete_reply_ok = communityService.deleteReplyBno(boardIdx);
 		
 		
 //		int board_ok = communityService.deleteBoard(boardIdx);
