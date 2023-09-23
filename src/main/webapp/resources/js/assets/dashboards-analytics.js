@@ -423,9 +423,9 @@
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Weekly',
+                label: 'Monthly',
                 formatter: function (w) {
-                  return '38%';
+                  return '28%';
                 }
               }
             }
@@ -492,9 +492,9 @@
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Weekly',
+                label: 'Monthly',
                 formatter: function (w) {
-                  return '38%';
+                  return '31%';
                 }
               }
             }
