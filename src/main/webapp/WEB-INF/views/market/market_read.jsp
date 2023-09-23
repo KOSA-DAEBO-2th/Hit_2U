@@ -1,6 +1,7 @@
 <%@ include file="../includes/header.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <html>
 <head>
 
@@ -14,6 +15,7 @@
 	type="text/javascript" defer></script>
 </head>
 <body>
+
 
 	<main class="main_content flex content_center">
 
@@ -115,18 +117,57 @@
 						</div>
 					</div>
 
-					<div class="margin_top_12 margin_bottom_12 font_gray">
+					<div class="margin_top_8 margin_bottom_4 font_gray">
 						· 카테고리<span class="product_value">${list.market_category }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class="margin_bottom_4 font_gray">
 						· 상품상태<span class="product_value">${list.state }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class="margin_bottom_4 font_gray">
 						· 교환방법<span class="product_value">${list.trading }</span>
 					</div>
-					<div class="margin_bottom_12 font_gray">
+					<div class=" margin_bottom_8 font_gray">
 						· 네고여부<span class="product_value">${list.discount }</span>
 					</div>
+					<div class="flex">
+						<%-- 						<button class="btn btn_like margin_right_12" onclick="location.href='/market/${list.b_no}/like'"> --%>
+
+
+						<sec:authorize access="isAnonymous()">
+							<button class="btn btn_like margin_right_12">
+								<i class="fa-solid fa-heart"></i> 관심 (${list.b_recommend })
+							</button>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<c:set var="login_no">
+								<sec:authentication property="principal.member_no" />
+							</c:set>
+
+							<c:choose>
+								<c:when test="${fn:contains(like, login_no)}">
+									<button class="btn btn_like margin_right_12"
+										onclick="location.href='/market/${list.b_no}/likeCancle'">
+										<i class="fa-solid fa-heart"></i> 관심 중(${list.b_recommend })
+									</button>
+								</c:when>
+
+								<c:otherwise>
+									<button class="btn btn_like margin_right_12"
+										onclick="location.href='/market/${list.b_no}/like'">
+										<i class="fa-solid fa-heart"></i> 관심(${list.b_recommend })
+									</button>
+								</c:otherwise>
+							</c:choose>
+						</sec:authorize>
+
+						<c:if test="${list.completed eq 1 }">
+							<button class="btn btn_apply2 market_cmp_btn">거래완료</button>
+						</c:if>
+
+					</div>
+
+
+
 				</div>
 
 
@@ -155,6 +196,11 @@
 								onclick="history.back()">목록으로</button>
 						</div>
 						<div>
+							<c:if test="${list.completed eq 0 }">
+								<button class="btn btn_update margin_right_6 btn_14"
+									onclick="location.href='/market/completed/${list.b_no}'">거래완료</button>
+							</c:if>
+
 							<button class="btn btn_update margin_right_6 btn_14"
 								onclick="location.href='/market/update/${list.b_no}'">수정</button>
 							<button class="btn btn_delete btn_14"
@@ -164,7 +210,7 @@
 				</div>
 			</sec:authorize>
 
-	
+
 
 
 
@@ -175,25 +221,27 @@
 			<div class="question_form">
 				<span class="content_tab">댓글 (${fn:length(reply_list)}) </span>
 				<div class="question_section padding_top_20 padding_bottom_20">
-					<div class="reply_section font_14">
-						<sec:authorize access="isAnonymous()">
-							<textarea cols="20" wrap="hard" class="reply_input"
-								placeholder="로그인한 사용자만 댓글 입력이 가능합니다." readonly></textarea>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<textarea cols="20" wrap="hard" class="reply_input"
-								placeholder="댓글을 입력해주세요."></textarea>
-						</sec:authorize>
+					<div class="reply_update_load_form">
+						<div class="reply_section font_14">
+							<sec:authorize access="isAnonymous()">
+								<textarea cols="20" wrap="hard" class="reply_input"
+									placeholder="로그인한 사용자만 댓글 입력이 가능합니다." readonly></textarea>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+								<textarea cols="20" wrap="hard" class="reply_input"
+									placeholder="댓글을 입력해주세요."></textarea>
+							</sec:authorize>
 
 
-						<div class="flex reply_add">
-							<div>
-								<text class="reply_current_value"></text>
-								/
-								<text class="font_gray">1,000</text>
-							</div>
-							<div>
-								<button class="btn reply_submit">등록</button>
+							<div class="flex reply_add">
+								<div>
+									<text class="reply_current_value"></text>
+									/
+									<text class="font_gray">1,000</text>
+								</div>
+								<div>
+									<button class="btn reply_submit">등록</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -213,24 +261,63 @@
 
 
 									<div class="reply_answer_section">
-										<div class="flex item_center">
+										<input class="reply_no" type="hidden"
+											value="${reply_list.reply_no }">
+
+										<div class="userid_form flex">
 											<div class="img_form margin_right_20">
 												<a href="#"><img class="reply_profile" title="profile"
 													src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
 											</div>
-											<div class="userid">${reply_list.nickname}</div>
-											<div class="flex content_end reply_date font_12">
-												<fmt:formatDate value="${reply_list.reply_date }"
-													pattern="yy.MM.dd HH:mm" />
+											<div class="flex direction_column">
+												<div class="flex item_center">
+
+													<div class="userid">${reply_list.nickname}</div>
+												</div>
+												<div class="icon_area font_12">
+													<i class="fa-solid fa-flask"></i> 300
+												</div>
+
+
+											</div>
+											<div class="flex content_end reply_date font_12"">
+												<div class="flex" style="flex-direction: column;">
+													<div>
+														<fmt:formatDate value="${reply_list.reply_date }"
+															pattern="yy.MM.dd HH:mm" />
+													</div>
+													<div class="flex"
+														style="justify-content: flex-end; color: #212529; font-weight: 500;">
+
+														<sec:authorize access="isAuthenticated()">
+															<c:set var="reply_id"><sec:authentication property="principal.nickname"/></c:set>
+															<c:set var="test">${reply_list.nickname }</c:set>
+
+															<c:if test="${test eq '주영회(33세)'}" >
+																<div class="reply_cursor reply_update">수정</div>
+																<div style="margin: 0px 8px;">/</div>
+																<div class="reply_cursor reply_delete">삭제</div>
+															</c:if>
+
+														</sec:authorize>
+
+
+
+
+
+													</div>
+												</div>
+
+											</div>
+
+										</div>
+										<div class="reply_update_form">
+											<div class="padding_top_20 font_14">
+												<%-- <textarea cols="20"  class="reply_output" readonly>${reply_list.r_content }</textarea> --%>
+												<span class="reply_output">${reply_list.r_content }</span>
 											</div>
 										</div>
-										<div class="padding_top_20 font_14 reply_output">
-											${reply_list.r_content }</div>
 									</div>
-
-
-
-
 								</div>
 							</c:forEach>
 						</c:otherwise>
