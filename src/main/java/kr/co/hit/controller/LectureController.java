@@ -130,7 +130,7 @@ public class LectureController {
 	@GetMapping("/{boardIdx}")
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
 
-		ModelAndView mv = new ModelAndView("meeting/meeting_read");
+		ModelAndView mv = new ModelAndView("lecture/lecture_read");
 		lectureService.increaseView(boardIdx);
 		LectureDto list = lectureService.selectLectureRead(boardIdx);
 		String tag[] = list.getLecture_tags().split(" ");

@@ -65,7 +65,7 @@
 									</c:when>
 								</c:choose>
 								<h5 class="my-3">
-									<sec:authentication property="principal.nickname" />
+									${ dto.nickname }
 								</h5>
 								<!--             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p> -->
