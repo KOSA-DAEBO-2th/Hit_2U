@@ -76,5 +76,12 @@ public class LectureService implements LectureDao {
 		dao.insertThumb(fileOne);
 	}
 
+	@Override
+	public List<LectureDto> selectEvalList(int boardIdx) {		
+		LectureDao dao = sqlsession.getMapper(LectureDao.class);
+		List<LectureDto> list = dao.selectEvalList(boardIdx);
+		return list;
+	}
+
 	
 }
