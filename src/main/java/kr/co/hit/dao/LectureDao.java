@@ -15,6 +15,7 @@ public interface LectureDao {
 	
 	public LectureDto selectLectureRead(int boardIdx);
 	public void increaseView(int boardIdx);
+	public List<LectureDto> selectEvalList(int boardIdx);
 	
 	public void insert(LectureDto dto);
 	public void insertLecture(LectureDto dto);
