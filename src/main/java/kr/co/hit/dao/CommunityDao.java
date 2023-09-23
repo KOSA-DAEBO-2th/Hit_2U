@@ -61,11 +61,13 @@ public interface CommunityDao {
 
 	public void updateSummerNote(FileDto fileOne) throws IOException;
 
-	public int selectCommunityListCount(CommunitySearchDto dto);
+
 
 	public int insertReply(CommunityDto dto);
 
 	public void increaseReply(int b_no);
+	
+	public int deleteReplyBno(int boardIdx);
 
 
 

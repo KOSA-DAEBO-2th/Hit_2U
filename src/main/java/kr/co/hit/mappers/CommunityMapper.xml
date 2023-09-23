@@ -288,6 +288,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteFile">
 		DELETE FROM FILE WHERE B_NO = #{boardIdx}
 	</delete>
+	
+	<delete id="deleteReplyBno">
+		DELETE FROM REPLY WHERE B_NO = #{BOARDIDX}
+	</delete>
+	
+	
 
 	<delete id="deleteCommunity">
 		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
