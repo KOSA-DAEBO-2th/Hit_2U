@@ -3,12 +3,13 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
+<link href="/resources/css/assets/star.css" rel="stylesheet" />
 <link
-	href="${pageContext.request.contextPath }/resources/css/meeting_read.css"
+	href="${pageContext.request.contextPath }/resources/css/lecture_read.css"
 	rel="stylesheet" />
 
 <script async
-	src="${pageContext.request.contextPath}/resources/js/meeting_read.js"
+	src="${pageContext.request.contextPath}/resources/js/lecture_read.js"
 	type="text/javascript" defer></script>
 </head>
 <body>
@@ -28,9 +29,11 @@
 				<div class="test">
 					<ul class="flex">
 						<li class="read_select active info">정보</li>
-						<li class="read_select question">질문 (${list.b_reply})</li>
+						<li class="read_select question">수강평 (${list.b_reply})</li>
 					</ul>
 				</div>
+				<div class="read_content">
+					<div class="info_form">
 
 						<div class="skill_section">
 							<span class="content_tab"># 태그</span>
@@ -46,25 +49,24 @@
 							<span class="content_tab">소개</span>
 							<div class="main_text font_14 margin_top_20">
 								${list.b_content }</div>
-
 						</div>
 
 						<div class="memeber_section padding_bottom_20 padding_top_20">
-							<span class="content_tab">강사</span>
+							<span class="content_tab">강사 정보</span>
 							<div class="flex member_scroll">
-								<c:forEach items="${meeting_member }" var="meeting_member"
+								<c:forEach items="${lecture_member }" var="lecture_member"
 									varStatus="i">
 									<div class="member_form margin_top_20 margin_right_12">
 										<div class="flex">
 											<div>
-												<a href="${meeting_member.git_link }"><img
+												<a href="${lecture_member.git_link }"><img
 													class="icons_40" title="profile"
 													src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
 											</div>
 											<div class="flex direction_column">
 												<div class="flex item_center">
-													<div class="userid">${meeting_member.nickname }</div>
-													<a href="${meeting_member.git_link }"><img
+													<div class="userid">${lecture_member.nickname }</div>
+													<a href="${lecture_member.git_link }"><img
 														class="icons_16 margin_left_8" title="github"
 														src="${pageContext.request.contextPath}/resources/icons/github.svg" /></a>
 												</div>
@@ -78,15 +80,15 @@
 										<div class="user_interest font_14 margin_top_12">관심분야:
 											스프링</div>
 										<div class="user_role font_14">역할:
-											${meeting_member.meeting_position}</div>
-										<c:choose>
-											<c:when test="${meeting_member.meeting_leader == 1 }">
-												<div class="leader_position margin_top_12">리더</div>
-											</c:when>
-											<c:otherwise>
-												<div class="member_position margin_top_12">멤버</div>
-											</c:otherwise>
-										</c:choose>
+											${lecture_member.lecture_position}</div>
+										<%-- <c:choose>
+									<c:when test="${lecture_member.lecture_leader == 1 }">
+										<div class="leader_position margin_top_12">리더</div>
+									</c:when>
+									<c:otherwise>
+										<div class="member_position margin_top_12">멤버</div>
+									</c:otherwise>
+								</c:choose> --%>
 
 									</div>
 								</c:forEach>
@@ -125,10 +127,10 @@
 													${recommend_list.apply_max }</div>
 
 											</div>
-											<div class="recommend_field">${recommend_list.meet_field }</div>
+											<div class="recommend_field">${recommend_list.lecture_field }</div>
 										</div>
-										<a href="/meeting/${recommend_list.b_no }"><div
-												class="recoomend_link margin_top_10">바로가기</div></a>
+										<a href="/lecture/${recommend_list.b_no }"><div
+												class="recomend_link margin_top_10">바로가기</div></a>
 
 									</div>
 								</c:forEach>
@@ -144,17 +146,35 @@
 						<div class="question_section padding_top_20 padding_bottom_20">
 
 							<div class="reply_section font_14">
-								<textarea class="reply_input" placeholder="이 강의에 질문/리뷰를 올려주세요!"></textarea>
-								<div class="flex reply_add">
+								<form class="mb-3" action="/lecture/insertReview" name="myform" id="myform" method="post">
+									<fieldset>
+										<span class="text-bold">별점을 선택해주세요</span> <input type="radio"
+											name="reviewStar" value="5" id="rate1"><label
+											for="rate1">★</label> <input type="radio" name="reviewStar"
+											value="4" id="rate2"><label for="rate2">★</label> <input
+											type="radio" name="reviewStar" value="3" id="rate3"><label
+											for="rate3">★</label> <input type="radio" name="reviewStar"
+											value="2" id="rate4"><label for="rate4">★</label> <input
+											type="radio" name="reviewStar" value="1" id="rate5"><label
+											for="rate5">★</label>
+									</fieldset>
 									<div>
-										<text class="reply_current_value"></text>
-										/
-										<text class="font_gray">1,000</text>
+										<textarea class="col-auto form-control" id="reviewContents"
+											placeholder="좋은 수강평을 남겨주세요!!!"></textarea>
+										<div class="flex reply_add">
+											<div>
+												<text class="reply_current_value"></text>
+												/
+												<text class="font_gray">1,000</text>
+											</div>
+										</div>
+											<div class="flex content_end margin_top_40">
+												<input type="submit" class="btn btn-primary btn_main"
+													value="리뷰 등록">
+											</div>
+
 									</div>
-									<div>
-										<button class="reply_submit">등록</button>
-									</div>
-								</div>
+								</form>
 							</div>
 
 						</div>
@@ -198,13 +218,12 @@
 
 					</div>
 
-
 				</div>
 
 			</div>
 			<div class="read_right_form">
 				<div class="leader_form">
-					<span class="font_18 font_bold">리더 정보</span>
+					<span class="font_18 font_bold">강사 정보</span>
 					<div class="userid_form flex">
 						<div>
 							<img class="icons_40" title="profile"
@@ -212,8 +231,8 @@
 						</div>
 						<div class="flex direction_column">
 							<div class="flex item_center">
-								<div class="userid">${meeting_member[0].nickname }</div>
-								<a href="${meeting_member[0].git_link }"><img
+								<div class="userid">${lecture_member[0].nickname }</div>
+								<a href="${lecture_member[0].git_link }"><img
 									class="icons_16 margin_left_8" title="github"
 									src="${pageContext.request.contextPath}/resources/icons/github.svg" /></a>
 							</div>
@@ -224,14 +243,14 @@
 						</div>
 					</div>
 					<div class="project_date">
-						<div class="font_18 font_bold margin_bottom_12">${list.meet_topic_name}
+						<div class="font_18 font_bold margin_bottom_12">${list.lecture_topic_name}
 							기간</div>
 						<div class="font_14">2023.09.08 ~ 2023.09.17</div>
 					</div>
 					<div class="project_date">
-						<div class="font_18 font_bold margin_bottom_12">${list.meet_topic_name}
+						<div class="font_18 font_bold margin_bottom_12">${list.lecture_topic_name}
 							분야</div>
-						<div class="font_14">${list.meet_field }</div>
+						<div class="font_14">${list.lecture_field }</div>
 					</div>
 					<div class="margin_top_12">
 						<button class="btn btn_apply2">좋아요</button>
@@ -239,35 +258,17 @@
 				</div>
 			</div>
 		</div>
-		
 
 
 	</main>
 
-		<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">포지션 지원</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        해당 포지션에 지원하시겠습니까? <text class="apply_position font_blue"></text>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn_apply_cancle" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary btn_apply_submit">지원</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 	<c:import url="../includes/footer.jsp"></c:import>
-	
-<script type="text/javascript">
-	var boardIdx = ${list.b_no};
-</script>
+
+	<script type="text/javascript">
+		var boardIdx = $
+		{
+			list.b_no
+		};
+	</script>
 </body>
 </html>

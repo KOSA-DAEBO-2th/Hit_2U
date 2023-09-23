@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.LectureDto;
 import kr.co.hit.dto.MeetingDto;
+import kr.co.hit.dto.MemberDto;
 import kr.co.hit.service.FileService;
 import kr.co.hit.service.LectureService;
 
@@ -130,23 +133,43 @@ public class LectureController {
 	@GetMapping("/{boardIdx}")
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
 
-		ModelAndView mv = new ModelAndView("meeting/meeting_read");
+		ModelAndView mv = new ModelAndView("lecture/lecture_read");
 		lectureService.increaseView(boardIdx);
 		LectureDto list = lectureService.selectLectureRead(boardIdx);
 		String tag[] = list.getLecture_tags().split(" ");
 
 //		List<LectureDto> lecture_member = lectureService.selectLectureMember(boardIdx);
 //		List<LectureDto> recommend_list = lectureService.selectRecommendList(boardIdx, list.getLecture_field());
-//		List<LectureDto> reply_list = lectureService.selectReplyList(boardIdx);
+		List<LectureDto> reply_list = lectureService.selectEvalList(boardIdx);
 //		List<LectureDto> apply_list = lectureService.selectReplyList(boardIdx);
 
 		mv.addObject("list", list);
 		mv.addObject("tags", tag);
 //		mv.addObject("lecture_member", lecture_member);
 //		mv.addObject("recommend_list", recommend_list);
-//		mv.addObject("reply_list", reply_list);
+		mv.addObject("reply_list", reply_list);
 	
 
 		return mv;
+	}
+	
+	@ResponseBody
+	@PostMapping("/insertReview")
+	public String review() {
+		
+		return null;
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/checkId", method = RequestMethod.POST)
+	public int checkId(MemberDto dto) {
+		int result = 0;
+//		int flag = joinService.checkId(dto.getMember_id());
+//		if (flag == 1)
+//			result = 1;
+		// 아이디가 있을시 Y 없을시 N 으로jsp view 로 보냄
+		System.out.println(result);
+		return result;
 	}
 }

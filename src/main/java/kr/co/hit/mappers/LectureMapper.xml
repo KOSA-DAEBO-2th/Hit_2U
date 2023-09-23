@@ -118,8 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{boardIdx};
 
 	</update>
-	
-		<select id="selectLectureRead"
+
+	<select id="selectLectureRead"
 		resultType="kr.co.hit.dto.LectureDto">
 		SELECT B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
 		B.B_VIEW,
@@ -137,9 +137,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{boardIdx};
 
 	</select>
-	
-	
-	
+
+
+
 	<insert id="insert" parameterType="kr.co.hit.dto.LectureDto">
 		insert INTO BOARD(b_no,
 		b_title, b_content, b_write_date, member_no, cat_no)
@@ -156,11 +156,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertLecture"
 		parameterType="kr.co.hit.dto.LectureDto">
-		insert INTO LECTURE(b_no, 
+		insert INTO LECTURE(b_no,
 		lecture_tags, lecture_topic_name, lecture_field)
 		VALUES (
 		(SELECT
-		t.b_no FROM (SELECT MAX(b_no) b_no FROM
+		t.b_no FROM (SELECT
+		MAX(b_no) b_no FROM
 		BOARD) AS t)
 		,#{lecture_tags}
 		,#{lecture_topic_name}
@@ -171,9 +172,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
-		insert INTO FILE (file_name, file_realname,file_url, file_size,b_no,
+		insert INTO FILE
+		(file_name, file_realname,file_url, file_size,b_no,
 		thumbnail)
 		VALUES(#{file_name},#{file_realname},#{file_url},#{file_size},(SELECT
 		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t), #{thumbnail})
 	</insert>
+
+	<select id="selectEvalList"
+		resultType="kr.co.hit.dto.LectureDto">
+			SELECT * FROM LECTURE_EVALUATION E
+		LEFT JOIN MEMBER M
+		ON E.member_no = M.MEMBER_no
+		WHERE b_no = #{boardIdx}
+		ORDER by
+		eval_date desc;
+	</select>
+
 </mapper>

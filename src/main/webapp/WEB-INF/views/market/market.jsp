@@ -183,7 +183,7 @@
 									<div class="flex item_center">
 										<div class="profile_form">
 											<img class="profile"
-												src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+												src="${list.profile}">
 										</div>
 										<div class="nickname_form">${list.nickname }</div>
 										<span class="mc">·</span>

@@ -63,7 +63,6 @@
 
 	<c:set var="image_url" value="${dto.image_url}"/>
 
-
 	<main class='main_content'>
 		<section style="background-color: #eee;">
 			<div class="container py-5">
@@ -74,14 +73,14 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<c:choose>
-									<c:when test="${image_url eq 'null'}">
+									<c:when test="${empty image_url}">
 										<img
 											src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
 											alt="avatar" class="rounded-circle img-fluid"
 											style="width: 150px;">
 									</c:when>
-									<c:when test="${image_url ne 'null'}">
-										<img src="${image_url }" alt="avatar"
+									<c:when test="${not empty image_url}">
+										<img src="${image_url}" alt="avatar"
 											class="rounded-circle img-fluid" style="width: 150px;">
 									</c:when>
 								</c:choose>
