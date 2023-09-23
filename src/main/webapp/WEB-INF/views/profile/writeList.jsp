@@ -37,8 +37,8 @@
 
 										<c:forEach items="${ list }" var="list">
 
-											<tr class="align-middle" onclick="location:href='${link}'" style="cursor: pointer;">
-												<td>${ list.cat_name }</td>
+											<tr class="align-middle" style="cursor: pointer;">
+												<td>${ list.cat_name } <div style="display: none;">${list.b_no}</div><div style="display: none;">${list.cat_no }</div> </td>
 												<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${ list.b_title }
 													<%-- <c:choose>
 														<c:when test="${fn:length(list.b_title)>10}">
