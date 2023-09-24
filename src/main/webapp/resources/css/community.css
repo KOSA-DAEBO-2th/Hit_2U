@@ -131,6 +131,18 @@ article:hover {
 	color: white;
 }
 
+
+
+.btn_category_click_anonymous{
+    background-color: gray; /* 원하는 회색 톤으로 수정 가능 */
+    /* 필요한 다른 스타일 속성들... */
+}
+
+#btn_anonymous:hover {
+    background-color: gray; /* 원하는 회색 톤으로 수정 가능 */
+    /* 필요한 다른 스타일 속성들... */
+}
+
 .page_arrow{
 	cursor: pointer;
 }

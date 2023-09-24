@@ -18,6 +18,12 @@ public interface MainDao {
 	
 	// Market top 5 list in Main
 	public List<MainDto> MarketMainList(HashMap map);
+
+
+	// Hit top 5 list in Main
+	public List<MainDto> HitMainList(HashMap map);
+	
+	
 	
 	
 }

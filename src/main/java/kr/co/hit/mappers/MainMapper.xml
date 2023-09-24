@@ -8,41 +8,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="CommunityMainList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.MainDto">
 
-<!-- 		SELECT * FROM BOARD WHERE cat_no = 1 ORDER BY b_no DESC -->
-<!-- 		LIMIT 5; -->
+		<!-- grade를 포함한 쿼리문 -->
+
+		<!-- SELECT -->
+		<!-- B.*, -->
+		<!-- CASE -->
+		<!-- WHEN B.TOPIC_NO = 6 THEN '익명' -->
+		<!-- ELSE (SELECT M.nickname -->
+		<!-- FROM MEMBER M WHERE M.member_no = B.member_no -->
+		<!-- LIMIT 1) -->
+		<!-- END AS nickname, -->
+		<!-- (SELECT T.topic_name FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 
+			1) -->
+		<!-- AS -->
+		<!-- topic_name, -->
+		<!-- (SELECT M.grade FROM MEMBER M WHERE M.member_no = -->
+		<!-- B.member_no LIMIT 1) AS -->
+		<!-- grade -->
+		<!-- FROM BOARD B -->
+		<!-- WHERE -->
+		<!-- B.cat_no = 1 and -->
+		<!-- is_anonymous != 1 -->
+		<!-- ORDER BY b_no DESC -->
+		<!-- LIMIT 5; -->
 
 
-<!-- 	SELECT -->
-<!-- 	B.*, -->
-<!-- 	(SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
-<!-- 	B.member_no LIMIT 1) AS -->
-<!-- 	nickname, -->
-<!-- 	(SELECT T.topic_name FROM TOPIC T -->
-<!-- 	WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
-<!-- 	topic_name -->
-<!-- 	FROM BOARD B -->
-<!-- 	WHERE -->
-<!-- 	B.cat_no = 1 -->
-<!-- 	ORDER BY b_no DESC -->
-<!-- 	LIMIT 5; -->
+		SELECT
+		B.*,
+		CASE
+		WHEN B.TOPIC_NO = 6 THEN '익명'
+		ELSE (SELECT M.nickname
+		FROM MEMBER M WHERE M.member_no = B.member_no
+		LIMIT 1)
+		END AS nickname,
+		(SELECT T.topic_name FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 1)
+		AS
+		topic_name,
+		(SELECT M.grade FROM MEMBER M WHERE M.member_no =
+		B.member_no LIMIT 1) AS
+		grade,
+		(SELECT M.profile FROM MEMBER M WHERE
+		M.member_no = B.member_no LIMIT 1) AS
+		profile
+		FROM BOARD B
+		WHERE
+		B.cat_no
+		= 1 and is_anonymous != 1
+		ORDER BY b_no DESC
+		LIMIT 5;
 
 
-	SELECT
-	B.*,
-	CASE
-	WHEN B.TOPIC_NO = 6 THEN '익명'
-	ELSE (SELECT M.nickname FROM
-	MEMBER M WHERE M.member_no = B.member_no LIMIT
-	1)
-	END AS nickname,
-	(SELECT T.topic_name FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 1) AS
-	topic_name
-	FROM BOARD B
-	WHERE
-	B.cat_no = 1
-	ORDER BY b_no DESC
-	LIMIT 5;
-		
 
 	</select>
 
@@ -53,14 +68,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- SELECT * FROM BOARD WHERE cat_no = 2 ORDER BY b_no DESC -->
 		<!-- LIMIT 5; -->
 
+		<!-- SELECT -->
+		<!-- B.*, -->
+		<!-- (SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
+		<!-- B.member_no LIMIT 1) AS -->
+		<!-- nickname, -->
+		<!-- (SELECT T.topic_name FROM TOPIC T -->
+		<!-- WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
+		<!-- topic_name -->
+		<!-- FROM BOARD B -->
+		<!-- WHERE -->
+		<!-- B.cat_no = 2 -->
+		<!-- ORDER BY b_no DESC -->
+		<!-- LIMIT 5; -->
+
+		<!-- SELECT -->
+		<!-- B.*, -->
+		<!-- (SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
+		<!-- B.member_no LIMIT 1) AS -->
+		<!-- nickname, -->
+		<!-- (SELECT T.topic_name FROM TOPIC T -->
+		<!-- WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
+		<!-- topic_name, -->
+		<!-- (SELECT M.grade FROM -->
+		<!-- MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS -->
+		<!-- grade -->
+		<!-- FROM BOARD B -->
+		<!-- WHERE -->
+		<!-- B.cat_no = 2 -->
+		<!-- ORDER BY b_no DESC -->
+		<!-- LIMIT 5; -->
+
 		SELECT
 		B.*,
-		(SELECT M.nickname FROM MEMBER M WHERE M.member_no =
-		B.member_no LIMIT 1) AS
+		(SELECT M.nickname FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
 		nickname,
-		(SELECT T.topic_name FROM TOPIC T
-		WHERE T.cat_no = B.cat_no LIMIT 1) AS
-		topic_name
+		(SELECT T.topic_name FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 1) AS
+		topic_name,
+		(SELECT M.grade FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+		grade,
+		(SELECT M.profile FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+		profile
 		FROM BOARD B
 		WHERE
 		B.cat_no = 2
@@ -76,21 +124,123 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- SELECT * FROM BOARD WHERE cat_no = 4 ORDER BY b_no DESC -->
 		<!-- LIMIT 5; -->
 
-		SELECT
-		B.*,
-		(SELECT M.nickname FROM MEMBER M WHERE M.member_no =
-		B.member_no LIMIT 1) AS
-		nickname,
-		(SELECT T.topic_name FROM TOPIC T
-		WHERE T.cat_no = B.cat_no LIMIT 1) AS
-		topic_name
-		FROM BOARD B
-		WHERE
-		B.cat_no = 4
-		ORDER BY b_no DESC
-		LIMIT 5;
+		<!-- SELECT -->
+		<!-- B.*, -->
+		<!-- (SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
+		<!-- B.member_no LIMIT 1) AS -->
+		<!-- nickname, -->
+		<!-- (SELECT T.topic_name FROM TOPIC T -->
+		<!-- WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
+		<!-- topic_name -->
+		<!-- FROM BOARD B -->
+		<!-- WHERE -->
+		<!-- B.cat_no = 4 -->
+		<!-- ORDER BY b_no DESC -->
+		<!-- LIMIT 5; -->
+
+
+	<!-- SELECT -->
+	<!-- B.*, -->
+	<!-- (SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
+	<!-- B.member_no LIMIT 1) AS -->
+	<!-- nickname, -->
+	<!-- (SELECT T.topic_name FROM TOPIC T -->
+	<!-- WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
+	<!-- topic_name, -->
+	<!-- (SELECT M.grade FROM -->
+	<!-- MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS -->
+	<!-- grade -->
+	<!-- FROM BOARD B -->
+	<!-- WHERE -->
+	<!-- B.cat_no = 4 -->
+	<!-- ORDER BY b_no DESC -->
+	<!-- LIMIT 5; -->
+
+	SELECT
+	B.*,
+	(SELECT M.nickname FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+	nickname,
+	(SELECT T.topic_name FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 1) AS
+	topic_name,
+	(SELECT M.grade FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+	grade,
+	(SELECT M.profile FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+	profile
+	FROM BOARD B
+	WHERE
+	B.cat_no = 4
+	ORDER BY b_no DESC
+	LIMIT 5;
 
 	</select>
+
+
+	<select id="HitMainList" parameterType="hashmap"
+		resultType="kr.co.hit.dto.MainDto">
+
+
+		<!-- SELECT -->
+		<!-- B.*, -->
+		<!-- (SELECT M.nickname FROM MEMBER M WHERE -->
+		<!-- M.member_no = B.member_no LIMIT 1) AS -->
+		<!-- nickname, -->
+		<!-- (SELECT T.topic_name -->
+		<!-- FROM TOPIC T WHERE T.cat_no = B.cat_no LIMIT 1) AS -->
+		<!-- topic_name, -->
+		<!-- (SELECT -->
+		<!-- M.grade FROM MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS -->
+		<!-- grade -->
+		<!-- FROM BOARD B -->
+		<!-- WHERE -->
+		<!-- B.cat_no IN (1,2,4) -->
+		<!-- ORDER BY b_recommend DESC -->
+		<!-- LIMIT 5; -->
+
+<!-- 		SELECT -->
+<!-- 		B.*, -->
+<!-- 		(SELECT M.nickname FROM MEMBER M WHERE M.member_no = -->
+<!-- 		B.member_no LIMIT 1) AS -->
+<!-- 		nickname, -->
+<!-- 		(SELECT T.topic_name FROM TOPIC T -->
+<!-- 		WHERE -->
+<!-- 		T.cat_no = B.cat_no LIMIT 1) AS -->
+<!-- 		topic_name, -->
+<!-- 		(SELECT M.grade FROM -->
+<!-- 		MEMBER M -->
+<!-- 		WHERE M.member_no = B.member_no LIMIT 1) AS -->
+<!-- 		grade -->
+<!-- 		FROM BOARD B -->
+<!-- 		WHERE -->
+<!-- 		B.cat_no IN (1,2,4) -->
+<!-- 		AND b_write_date >= CURDATE() - INTERVAL 7 DAY -->
+<!-- 		ORDER -->
+<!-- 		BY b_recommend DESC -->
+<!-- 		LIMIT 5; -->
+
+	SELECT
+	B.*,
+	(SELECT M.nickname FROM MEMBER M WHERE M.member_no =
+	B.member_no LIMIT 1) AS
+	nickname,
+	(SELECT T.topic_name FROM TOPIC T WHERE
+	T.cat_no = B.cat_no LIMIT 1) AS
+	topic_name,
+	(SELECT M.grade FROM MEMBER M
+	WHERE M.member_no = B.member_no LIMIT 1) AS
+	grade,
+	(SELECT M.profile FROM
+	MEMBER M WHERE M.member_no = B.member_no LIMIT 1) AS
+	profile
+	FROM BOARD B
+	WHERE
+	B.cat_no IN (1,2,4)
+	AND b_write_date >= CURDATE() - INTERVAL 7 DAY
+	ORDER BY b_recommend DESC
+	LIMIT 5;
+
+
+	</select>
+
 
 
 </mapper>

@@ -24,11 +24,14 @@
 						<div class="flex_1">
 							<div class="flex item_center" onclick="location.href='/memberProfile/${list.member_id}'" style="cursor: pointer;">
 								<div class="profile_form">
-									<img class="profile"
-										src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+									<!-- 									<img class="profile" -->
+									<%-- 										src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+									<!-- 										<img class="profile" src="https://i.namu.wiki/i/l9JWhPivO-KKFbsrt4fEwBh-KCMDLsmA1f93kmd_lJLNnPxmZHmU7GoARSDXJJ4atDBU_dDKQcM8s93h-H_PxQ.svg"> -->
+									<img class="profile" src="${list.profile}">
+
 								</div>
 								<div class="nickname_form">${list.nickname }</div>
-								
+
 								<span class="mc">·</span>
 								<div class="flex item_center icon_form">
 									<i class="fa-solid fa-flask flask"></i>
@@ -79,73 +82,78 @@
 								onclick="history.back()">목록으로</button>
 						</div>
 						<div>
-							<button class="btn btn_update margin_right_6 btn_14"
-								onclick="location.href='/community/update/${list.b_no}'">수정</button>
+
+							<!-- 						밑에는 시현영상 촬영을 위해 임시적으로 주석처리하였음 -->
+							<!-- 							<button class="btn btn_update margin_right_6 btn_14" -->
+							<%-- 								onclick="location.href='/community/update/${list.b_no}'">수정</button> --%>
 							<!-- 							<button class="btn btn_delete btn_14" -->
-							<%-- 								onclick="location.href='/community/delete/${list.b_no}'">삭제</button> --%>
-															<button class="btn btn_delete btn_14" 
-															onclick="deleteAndAlert('/community/delete/${list.b_no}')">삭제</button>
-	
+							<%-- 								onclick="deleteAndAlert('/community/delete/${list.b_no}')">삭제</button> --%>
+
 
 
 						</div>
 					</div>
 				</div>
 			</sec:authorize>
-			<div class="question_form">
-				<span class="content_tab">댓글 (${fn:length(reply_list)}) </span>
-				<div class="question_section padding_top_20 padding_bottom_20">
-					<div class="reply_section font_14">
-						<sec:authorize access="isAnonymous()">
-							<textarea cols="20" wrap="hard" class="reply_input"
-								placeholder="로그인한 사용자만 댓글 입력이 가능합니다." readonly></textarea>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<textarea cols="20" wrap="hard" class="reply_input"
-								placeholder="댓글을 입력해주세요."></textarea>
-						</sec:authorize>
-						<div class="flex reply_add">
-							<div>
-								<text class="reply_current_value"></text>
-								/
-								<text class="font_gray">1,000</text>
-							</div>
-							<div>
-								<button class="btn reply_submit">등록</button>
-							</div>
-						</div>
-					</div>
+<div class="question_form">
+	<span class="content_tab">댓글 (${fn:length(reply_list)}) </span>
+	<div class="question_section padding_top_20 padding_bottom_20">
+		<div class="reply_section font_14">
+			<sec:authorize access="isAnonymous()">
+				<textarea cols="20" wrap="hard" class="reply_input"
+					placeholder="로그인한 사용자만 댓글 입력이 가능합니다." readonly></textarea>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<textarea cols="20" wrap="hard" class="reply_input"
+					placeholder="댓글을 입력해주세요."></textarea>
+			</sec:authorize>
+			<div class="flex reply_add">
+				<div>
+					<text class="reply_current_value"></text>
+					/
+					<text class="font_gray">1,000</text>
 				</div>
-				<div class="reply_ajax">
-					<c:choose>
-						<c:when test="${reply_list == null or fn:length(reply_list) == 0}">
-							<div
-								class="reply_answer_section flex no_reply item_center font_14 content_center">등록된
-								댓글이 없습니다.</div>
-						</c:when>
-						<c:otherwise>
-							<c:forEach items="${reply_list }" var="reply_list" varStatus="i">
-								<div class="question_section padding_top_20 padding_bottom_20">
-									<div class="reply_answer_section">
-										<div class="flex item_center">
-											<div class="img_form margin_right_20">
-												<a href="#"><img class="reply_profile" title="profile"
-													src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
-											</div>
-											<div class="userid">${reply_list.nickname}</div>
-
-											<div class="flex content_end reply_date font_12"></div>
-										</div>
-										<div class="padding_top_20 font_14 reply_output">
-											${reply_list.r_content }</div>
-									</div>
-								</div>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
+				<div>
+					<button class="btn reply_submit">등록</button>
 				</div>
 			</div>
 		</div>
+</div>
+	<div class="reply_ajax">
+		<c:choose>
+			<c:when test="${reply_list == null or fn:length(reply_list) == 0}">
+				<div
+					class="reply_answer_section flex no_reply item_center font_14 content_center">등록된
+					댓글이 없습니다.</div>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${reply_list }" var="reply_list" varStatus="i">
+					<div class="question_section padding_top_20 padding_bottom_20">
+						<div class="reply_answer_section">
+							<div class="flex item_center">
+								<div class="img_form margin_right_20">
+									<!-- 												<a href="#"><img class="reply_profile" title="profile" -->
+									<%-- 		
+									<a href="#">											src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a> --%>
+									<img class="reply_profile" title="profile"
+										src="${list.profile}" /></a>
+
+
+								</div>
+								<div class="userid">${reply_list.nickname}</div>
+
+								<div class="flex content_end reply_date font_12"></div>
+							</div>
+							<div class="padding_top_20 font_14 reply_output">
+								${reply_list.r_content }</div>
+						</div>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+	</div>
+</div>
+</div>
 	</main>
 	<script type="text/javascript">
 		var date = "${list.b_write_date}";

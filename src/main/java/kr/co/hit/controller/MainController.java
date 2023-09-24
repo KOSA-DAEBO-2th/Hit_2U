@@ -28,10 +28,12 @@ public class MainController {
 		List<MainDto> communityList = mainService.CommunityMainList(map);
 		List<MainDto> qnaList = mainService.QnaMainList(map);
 		List<MainDto> marketList = mainService.MarketMainList(map);
+		List<MainDto> hitList = mainService.HitMainList(map);
 
 		model.addAttribute("communityList", communityList);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("marketList", marketList);
+		model.addAttribute("hitList", hitList);
 		
 		return "/main";
 
