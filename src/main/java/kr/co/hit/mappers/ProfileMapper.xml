@@ -83,4 +83,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO REPORT (member_no, report_member, report_reason) VALUES(#{reported}, #{report_member}, #{report_reason})
 	</insert>
 	
+	
+	<select id="selectLectureList2"
+		resultType="kr.co.hit.dto.LectureDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO,
+		L.LECTURE_TAGS,
+		L.LECTURE_TOPIC_NAME,
+		L.LECTURE_STATE, L.LECTURE_FIELD
+		FROM BOARD B
+		INNER JOIN
+		LECTURE L
+		ON B.B_NO =
+		L.B_NO
+
+		WHERE CAT_NO = 5  AND B.B_NO IN (358, 294, 292)
+	</select>
+	
 </mapper>

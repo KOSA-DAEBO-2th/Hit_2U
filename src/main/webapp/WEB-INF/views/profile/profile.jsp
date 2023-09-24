@@ -42,7 +42,7 @@
 									정보</li>
 								<li class="breadcrumb-item" onclick="writeList()">작성 글</li>
 								<li class="breadcrumb-item" onclick="meetingList()">모임 현황</li>
-								<li class="breadcrumb-item "><a href="#">수강 강의</a></li>
+								<li class="breadcrumb-item" onclick="lectureList()">수강 강의</li>
 							</ol>
 						</nav>
 					</div>

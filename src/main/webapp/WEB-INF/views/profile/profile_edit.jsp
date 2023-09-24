@@ -137,6 +137,13 @@
 
 		function imageChange() {
 			document.getElementById("imageUpload").submit();
+			Swal.fire({
+                icon: 'success',
+                title: '변경되었습니다',
+                showConfirmButton: false,
+                timer: 1000
+            });
+			//setTimeout(()=> location.href = "profile", 1100);
 		}
 
 		function updateInfo() {
