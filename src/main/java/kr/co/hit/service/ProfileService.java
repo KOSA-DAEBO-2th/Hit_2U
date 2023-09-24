@@ -77,17 +77,17 @@ public class ProfileService implements ProfileDao{
 	}
 
 	@Override
-	public List<MeetingDto> getMeetingList(String id) {
+	public List<MeetingDto> getMeetingList(int member_no) {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
-		List<MeetingDto> dto = dao.getMeetingList(id);
+		List<MeetingDto> dto = dao.getMeetingList(member_no);
 		return dto;
 	}
 
 
 	@Override
-	public List<MeetingDto> applyMeetingList(String id) {
+	public List<MeetingDto> applyMeetingList() {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
-		List<MeetingDto> dto = dao.applyMeetingList(id);
+		List<MeetingDto> dto = dao.applyMeetingList();
 		return dto;
 	}
 

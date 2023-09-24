@@ -28,8 +28,8 @@ public interface ProfileDao {
 	public List<ProfileDto> getCountReply(String id);
 	
 	//모임리스트
-	public List<MeetingDto> getMeetingList(String id);
-	public List<MeetingDto> applyMeetingList(String id);
+	public List<MeetingDto> getMeetingList(int member_no);
+	public List<MeetingDto> applyMeetingList();
 	
 	public int report(AdminDto dto);
 	

@@ -78,13 +78,14 @@ public class ProfileController {
 	public ModelAndView meetingList() {
 		ModelAndView mav = new ModelAndView("profile/meetingList");
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<MeetingDto> list = profileService.getMeetingList(user.getMember_id());
-		System.out.println(user.getMember_id());
+		List<MeetingDto> list = profileService.getMeetingList(user.getMember_no());
+//		System.out.println(user.getMember_id());
+		
 		mav.addObject("list", list);
 		
-		List<MeetingDto> apply = profileService.applyMeetingList(user.getMember_id());
+		List<MeetingDto> apply = profileService.applyMeetingList();
 //		System.out.println("====================================================================");
-//		System.out.println(apply);
+		System.out.println(apply.get(0).getFile_url());
 //		System.out.println("====================================================================");
 		mav.addObject("apply", apply);
 		return mav;
