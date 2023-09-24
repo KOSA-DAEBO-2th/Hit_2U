@@ -242,7 +242,7 @@ function authority_change(role, num) {
 				customClass: { container: 'my-swal' },
 				//position: 'top-end',
 				icon: 'success',
-				title: 'Your work has been saved',
+				title: '변경이 완료되었습니다',
 				showConfirmButton: false,
 				timer: 1000
 			});
