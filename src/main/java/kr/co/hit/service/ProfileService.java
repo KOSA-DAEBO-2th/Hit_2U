@@ -7,9 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.hit.dao.LectureDao;
 import kr.co.hit.dao.ProfileDao;
 import kr.co.hit.dto.AdminDto;
 import kr.co.hit.dto.ImageDto;
+import kr.co.hit.dto.LectureDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.ProfileDto;
@@ -75,17 +77,17 @@ public class ProfileService implements ProfileDao{
 	}
 
 	@Override
-	public List<MeetingDto> getMeetingList(String id) {
+	public List<MeetingDto> getMeetingList(int member_no) {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
-		List<MeetingDto> dto = dao.getMeetingList(id);
+		List<MeetingDto> dto = dao.getMeetingList(member_no);
 		return dto;
 	}
 
 
 	@Override
-	public List<MeetingDto> applyMeetingList(String id) {
+	public List<MeetingDto> applyMeetingList() {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
-		List<MeetingDto> dto = dao.applyMeetingList(id);
+		List<MeetingDto> dto = dao.applyMeetingList();
 		return dto;
 	}
 
@@ -102,6 +104,13 @@ public class ProfileService implements ProfileDao{
 	public List<ProfileDto> getMemberWrite(String id) {
 		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
 		List<ProfileDto> list = dao.getMemberWrite(id);
+		return list;
+	}
+	
+	@Override
+	public List<LectureDto> selectLectureList2() {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		List<LectureDto> list = dao.selectLectureList2();
 		return list;
 	}
 

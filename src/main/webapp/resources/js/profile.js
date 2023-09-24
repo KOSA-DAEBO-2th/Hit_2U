@@ -18,6 +18,11 @@ function meetingList(){
     $('.changeSection').load("profile_meetingList");
 }
 
+function lectureList(){
+	console.log("모임어쩌구 눌림");
+    $('.changeSection').load("profile_lectureList");
+}
+
 ///////////////////////////////////////////////////////////////////////////////memberProfile
 
 

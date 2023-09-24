@@ -59,28 +59,114 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getMeetingList" resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
+	
+		SELECT B.B_NO, B.B_TITLE,
+		B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE,
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY,
+		F.FILE_URL
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT
+		B_NO, BACKEND + FRONTEND + SERVER +
+		PM AS APPLY_MAX,
+		BACKEND_APPLY +
+		FRONTEND_APPLY + SERVER_APPLY +
+		PM_APPLY AS APPLY FROM
+		MEETING ) TMP
+		ON
+		B.B_NO =
+		TMP.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE
+		WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
+
+		WHERE CAT_NO = 3 AND MEMBER_NO = ${member_no}
+	
+	
+	
+<!-- 	
 		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS, M.MEET_TOPIC_NAME, 
-		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply, mem.member_id  
+		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply, mem.member_id  ,F.FILE_URL
 		FROM BOARD B INNER JOIN MEETING M ON B.B_NO = M.B_NO
 		INNER JOIN (SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING ) tmp
 		ON B.B_NO = tmp.B_NO 
 		LEFT JOIN MEMBER mem ON B.member_no = mem.member_no 
-		WHERE CAT_NO = 3 AND member_id = ${member_id}
+		LEFT OUTER
+		JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F
+		ON B.B_NO
+		= F.B_NO
+		WHERE CAT_NO = 3 AND member_id = ${member_id}  AND F.thumbnail = 0 -->
 	</select>
 	
 	<select id="applyMeetingList" resultType="kr.co.hit.dto.MeetingDto" parameterType="string">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS, M.MEET_TOPIC_NAME, 
-		M.MEET_STATE, M.MEET_FIELD, tmp.apply_max, tmp.apply, mem.member_id, mm.meeting_position, mm.meeting_tmp 
-		FROM BOARD B INNER JOIN MEETING M ON B.B_NO = M.B_NO
-		INNER JOIN (SELECT b_no, backend + frontend + SERVER + pm AS apply_max, backend_apply + frontend_apply + server_apply + pm_apply AS apply FROM MEETING ) tmp
-		ON B.B_NO = tmp.B_NO
-		INNER JOIN MEETING_MEMBER mm ON B.b_no=mm.b_no
-		INNER JOIN MEMBER mem ON mm.member_no=mem.member_no
-		WHERE CAT_NO = 3 AND member_id= ${member_id}
+		SELECT B.B_NO, B.B_TITLE,
+		B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
+		M.MEET_TOPIC_NAME,
+		M.MEET_STATE,
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY,
+		F.FILE_URL
+		FROM BOARD B
+		INNER JOIN
+		MEETING M
+		ON B.B_NO =
+		M.B_NO
+		INNER JOIN
+		(SELECT
+		B_NO, BACKEND + FRONTEND + SERVER +
+		PM AS APPLY_MAX,
+		BACKEND_APPLY +
+		FRONTEND_APPLY + SERVER_APPLY +
+		PM_APPLY AS APPLY FROM
+		MEETING ) TMP
+		ON
+		B.B_NO =
+		TMP.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE
+		WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
+
+		WHERE CAT_NO = 3 AND B.b_no in (270, 275, 277)
 	</select>
 	
 	<insert id="report">
 		INSERT INTO REPORT (member_no, report_member, report_reason) VALUES(#{reported}, #{report_member}, #{report_reason})
 	</insert>
+	
+	
+	<select id="selectLectureList2"
+		resultType="kr.co.hit.dto.LectureDto">
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		B.B_VIEW,
+		B.B_REPLY,
+		B.B_RECOMMEND,
+		B.MEMBER_NO, B.CAT_NO,
+		L.LECTURE_TAGS,
+		L.LECTURE_TOPIC_NAME,
+		L.LECTURE_STATE, L.LECTURE_FIELD,F.FILE_URL
+		FROM BOARD B
+		INNER JOIN
+		LECTURE L
+		ON B.B_NO =
+		L.B_NO
+		
+		LEFT OUTER
+		JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F
+		ON B.B_NO
+		= F.B_NO
+
+		WHERE CAT_NO = 5  AND B.B_NO IN (358, 294, 292)
+	</select>
 	
 </mapper>

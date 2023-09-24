@@ -5,6 +5,7 @@ import java.util.List;
 
 import kr.co.hit.dto.AdminDto;
 import kr.co.hit.dto.ImageDto;
+import kr.co.hit.dto.LectureDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.ProfileDto;
@@ -27,11 +28,12 @@ public interface ProfileDao {
 	public List<ProfileDto> getCountReply(String id);
 	
 	//모임리스트
-	public List<MeetingDto> getMeetingList(String id);
-	public List<MeetingDto> applyMeetingList(String id);
+	public List<MeetingDto> getMeetingList(int member_no);
+	public List<MeetingDto> applyMeetingList();
 	
 	public int report(AdminDto dto);
 	
 	public List<ProfileDto> getMemberWrite(String id);
+	public List<LectureDto> selectLectureList2();
 	
 }

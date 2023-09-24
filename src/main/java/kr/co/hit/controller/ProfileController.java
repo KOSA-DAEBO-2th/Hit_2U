@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.hit.dto.LectureDto;
 import kr.co.hit.dto.MeetingDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.dto.ProfileDto;
 import kr.co.hit.security.User;
+import kr.co.hit.service.LectureService;
 import kr.co.hit.service.ProfileService;
 
 @Controller
@@ -22,6 +24,9 @@ public class ProfileController {
 	
 	@Autowired
 	private ProfileService profileService;
+	
+	@Autowired
+	LectureService lectureService;
 	
 	@RequestMapping("/profile")
 	public String profile(Model model) {
@@ -73,13 +78,14 @@ public class ProfileController {
 	public ModelAndView meetingList() {
 		ModelAndView mav = new ModelAndView("profile/meetingList");
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<MeetingDto> list = profileService.getMeetingList(user.getMember_id());
-		System.out.println(user.getMember_id());
+		List<MeetingDto> list = profileService.getMeetingList(user.getMember_no());
+//		System.out.println(user.getMember_id());
+		
 		mav.addObject("list", list);
 		
-		List<MeetingDto> apply = profileService.applyMeetingList(user.getMember_id());
+		List<MeetingDto> apply = profileService.applyMeetingList();
 //		System.out.println("====================================================================");
-//		System.out.println(apply);
+		System.out.println(apply.get(0).getFile_url());
 //		System.out.println("====================================================================");
 		mav.addObject("apply", apply);
 		return mav;
@@ -94,5 +100,15 @@ public class ProfileController {
 		return "/profile/memberProfile";
 	}
 	
+	@RequestMapping("/profile_lectureList")
+	public ModelAndView lectureList() {
+		ModelAndView mav = new ModelAndView("profile/lectureList");
+		List<LectureDto> list = profileService.selectLectureList2();
+		mav.addObject("list", list);
+//		List<MeetingDto> apply = profileService.applyMeetingList(user.getMember_id());
+
+//		mav.addObject("apply", apply);
+		return mav;
+	}
 	
 }
