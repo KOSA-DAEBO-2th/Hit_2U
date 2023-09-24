@@ -170,7 +170,7 @@ public class RestMController {
 	public int report(@RequestBody AdminDto dto ) {  //profile에 있음
 		System.out.println(dto);
 		User user =  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		dto.setReporter(user.getMember_id());
+		dto.setReport_member(user.getMember_no());
 		int res = profileService.report(dto);
 		System.out.println("res: "+res);
 		return res;

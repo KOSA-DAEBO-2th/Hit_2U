@@ -29,7 +29,8 @@
 				<div class="test">
 					<ul class="flex">
 						<li class="read_select active info">정보</li>
-						<li class="read_select question">수강평 (${list.b_reply})</li>
+						<li class="read_select question">수강평
+							(${fn:length(reply_list)})</li>
 					</ul>
 				</div>
 				<div class="read_content">
@@ -52,7 +53,7 @@
 						</div>
 
 						<div class="memeber_section padding_bottom_20 padding_top_20">
-							<span class="content_tab">강사 정보</span>
+							<!-- <span class="content_tab">강사 정보</span> -->
 							<div class="flex member_scroll">
 								<c:forEach items="${lecture_member }" var="lecture_member"
 									varStatus="i">
@@ -99,7 +100,7 @@
 						</div>
 
 						<div class="recommend_section padding_bottom_20 padding_top_20">
-							<span class="content_tab">[추천] 다른 모임도 둘러보세요.</span>
+							<!-- <span class="content_tab">[추천] 다른 모임도 둘러보세요.</span> -->
 							<div class="flex recommend_scroll">
 
 								<c:forEach items="${recommend_list }" var="recommend_list"
@@ -146,7 +147,8 @@
 						<div class="question_section padding_top_20 padding_bottom_20">
 
 							<div class="reply_section font_14">
-								<form class="mb-3" action="/lecture/insertReview" name="myform" id="myform" method="post">
+								<form class="mb-3" action="/lecture/insertReview" name="myform"
+									id="myform" method="post">
 									<fieldset>
 										<span class="text-bold">별점을 선택해주세요</span> <input type="radio"
 											name="reviewStar" value="5" id="rate1"><label
@@ -159,7 +161,7 @@
 											for="rate5">★</label>
 									</fieldset>
 									<div>
-										<textarea class="col-auto form-control" id="reviewContents"
+										<textarea class="col-auto form-control" id="reviewContents" name="reviewContents"
 											placeholder="좋은 수강평을 남겨주세요!!!"></textarea>
 										<div class="flex reply_add">
 											<div>
@@ -168,16 +170,49 @@
 												<text class="font_gray">1,000</text>
 											</div>
 										</div>
-											<div class="flex content_end margin_top_40">
-												<input type="submit" class="btn btn-primary btn_main"
-													value="리뷰 등록">
-											</div>
+										<div class="flex content_end margin_top_40">
+											<input type="button" class="btn btn-primary btn_main"
+												value="리뷰 등록" onclick="insertReview()">
+										</div>
 
 									</div>
+									<input type="hidden" id="b_no" name="b_no" value="${list.b_no }"/>
 								</form>
 							</div>
 
 						</div>
+						<script>
+						
+							function insertReview() {
+								var data = {};
+								data.raiting = $('[name=reviewStar]:checked').val();
+								data.eval_content = document.getElementById('reviewContents').value;
+								data.b_no = document.getElementById('b_no').value;
+								data.eval_date = document.getElementById('eval_date').value;
+								console.log(raiting);
+								console.log(b_no);
+								console.log(eval_content);
+								console.log(eval_date);
+
+								var data = {
+									"raiting" : raiting,
+									"eval_content" : eval_content,
+									"b_no" : b_no,
+									"eval_date" :eval_date
+								}
+
+								 $.ajax({
+											type : "POST",
+											url : "/lecture/insertReview",
+											contentType : 'application/json',
+											data : JSON.stringify(data),
+											success : function(data) {
+												console.log("success");
+												console.log(data);
+											}
+										});
+							}
+						</script>
 						<c:choose>
 							<c:when
 								test="${reply_list == null or fn:length(reply_list) == 0}">
@@ -187,24 +222,25 @@
 							</c:when>
 
 							<c:otherwise>
-								<c:forEach items="${reply_list }" var="reply_list" varStatus="i">
+								<c:forEach items="${reply_list}" var="reply_list" varStatus="i">
 									<div class="question_section padding_top_20 padding_bottom_20">
 
-
 										<div class="reply_answer_section">
-											<div class="flex item_center">
-												<div class="img_form margin_right_20">
+											<div class="userid_form flex">
+												<div class="img_form margin_right_20" style="width: 200px;">
+										
 													<a href="#"><img class="reply_profile" title="profile"
-														src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
+														style="width: 200px;"
+														src="${pageContext.request.contextPath}/resources/images/Star${reply_list.rating}.png" /></a>
 												</div>
-												<div class="userid">${reply_list.nickname}</div>
-												<div class="flex content_end reply_date font_12">
-													<fmt:formatDate value="${reply_list.reply_date }"
-														pattern="yy.MM.dd HH:mm" />
-												</div>
+												
+												<div class="userid"
+													style="width: 250px; margin-right: 50px;">${reply_list.nickname}</div>
+												<div class="flex content_end reply_date font_12"
+													style="width: 150px; flex: 1;">${reply_list.eval_date}</div>
 											</div>
-											<div class="padding_top_20 font_14 reply_output">
-												${reply_list.r_content }</div>
+											<div class="padding_top_20 font_14 reply_output"
+												style="width: 900px;">${reply_list.eval_content }</div>
 										</div>
 
 
@@ -227,26 +263,26 @@
 					<div class="userid_form flex">
 						<div>
 							<img class="icons_40" title="profile"
-								src="${pageContext.request.contextPath}/resources/images/maple.jpg" />
+								src="https://cdn.inflearn.com/public/users/thumbnails/1180863/65a25a51-9335-4e3b-bed2-c6e1b75fbff8" />
 						</div>
 						<div class="flex direction_column">
 							<div class="flex item_center">
-								<div class="userid">${lecture_member[0].nickname }</div>
-								<a href="${lecture_member[0].git_link }"><img
+								<div class="userid">쥬쥬</div>
+								<a href="https://www.inflearn.com/users/1180863/@jyujyu"><img
 									class="icons_16 margin_left_8" title="github"
 									src="${pageContext.request.contextPath}/resources/icons/github.svg" /></a>
 							</div>
 
 							<div class="icon_area font_12">
-								<i class="fa-solid fa-flask"></i> 300
+								<i class="fa-solid fa-flask"></i> 150
 							</div>
 						</div>
 					</div>
-					<div class="project_date">
+					<%-- <div class="project_date">
 						<div class="font_18 font_bold margin_bottom_12">${list.lecture_topic_name}
 							기간</div>
 						<div class="font_14">2023.09.08 ~ 2023.09.17</div>
-					</div>
+					</div> --%>
 					<div class="project_date">
 						<div class="font_18 font_bold margin_bottom_12">${list.lecture_topic_name}
 							분야</div>
@@ -263,7 +299,6 @@
 	</main>
 
 	<c:import url="../includes/footer.jsp"></c:import>
-
 	<script type="text/javascript">
 		var boardIdx = $
 		{
