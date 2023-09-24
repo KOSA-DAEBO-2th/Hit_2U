@@ -107,7 +107,7 @@
 										</c:when>
 
 										<c:when test="${list.meet_state == '모집 종료'}">
-											<div class="font_12 font_gray">${list.meet_state }</div>
+											<div class="font_12" style="color: red; font-weight: red">${list.meet_state }</div>
 
 										</c:when>
 

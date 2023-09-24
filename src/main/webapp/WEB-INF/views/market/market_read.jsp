@@ -80,8 +80,7 @@
 						<div class="flex_1">
 							<div class="flex item_center" onclick="location.href='/memberProfile/${list.member_id}'" style="cursor: pointer;">
 								<div class="profile_form">
-									<img class="profile"
-										src="${list.profile}">
+									<img class="profile" src="${list.profile}">
 								</div>
 								<div class="nickname_form">${list.nickname }</div>
 								<span class="mc">·</span>
@@ -196,19 +195,20 @@
 								onclick="history.back()">목록으로</button>
 						</div>
 						<div>
-							<c:if test="${list.completed eq 0 }">
+
+
+							<c:if test="${list.nickname eq '주영회(33세)'}">
+								<c:if test="${list.completed eq 0 }">
+									<button class="btn btn_complete margin_right_6 btn_14"
+										>거래완료</button>
+								</c:if>
 								<button class="btn btn_update margin_right_6 btn_14"
-									onclick="location.href='/market/completed/${list.b_no}'">거래완료</button>
+									onclick="location.href='/market/update/${list.b_no}'">수정</button>
+								<button class="btn btn_delete btn_14">삭제</button>
 							</c:if>
 
-							<c:if test="${list.nickname eq '영회아저씨'}">
-								<button class="btn btn_update margin_right_6 btn_14"
-								onclick="location.href='/market/update/${list.b_no}'">수정</button>
-							<button class="btn btn_delete btn_14"
-								onclick="location.href='/market/delete/${list.b_no}'">삭제</button>
-							</c:if>
-
-							
+							<%-- 				<button class="btn btn_delete btn_14"
+								onclick="location.href='/market/delete/${list.b_no}'">삭제</button> --%>
 						</div>
 					</div>
 				</div>
@@ -297,15 +297,15 @@
 															<c:set var="reply_id">
 																<sec:authentication property="principal.nickname" />
 															</c:set>
-															<c:set var="test">${reply_list.nickname }</c:set>
-
-															<c:if test="${test eq '영회아저씨'}">
+															<c:if test="${reply_list.nickname eq '주영회(33세)'}">
 																<div class="reply_cursor reply_update">수정</div>
 																<div style="margin: 0px 8px;">/</div>
 																<div class="reply_cursor reply_delete">삭제</div>
 															</c:if>
 
 														</sec:authorize>
+
+
 
 
 

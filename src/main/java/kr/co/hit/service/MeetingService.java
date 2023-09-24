@@ -135,8 +135,37 @@ public class MeetingService implements MeetingDao {
 
 	@Override
 	public List<MeetingDto> selectApplyList(int boardIdx) {
-		// TODO Auto-generated method stub
-		return null;
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectApplyList(boardIdx);
+		return list;
+	}
+
+	@Override
+	public void meetingOk(int boardIdx, int member_no) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		dao.meetingOk(boardIdx, member_no);
+		
+	}
+
+	@Override
+	public void meetingCount(int boardIdx, String position) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		dao.meetingCount(boardIdx, position);
+		
+	}
+
+	@Override
+	public List<MeetingDto> selectApplyInList(int boardIdx) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		List<MeetingDto> list = dao.selectApplyInList(boardIdx);
+		return list;
+	}
+
+	@Override
+	public void meetingCancle(int boardIdx, int member_no) {
+		MeetingDao dao = sqlsession.getMapper(MeetingDao.class);
+		dao.meetingCancle(boardIdx, member_no);
+		
 	}
 
 	
