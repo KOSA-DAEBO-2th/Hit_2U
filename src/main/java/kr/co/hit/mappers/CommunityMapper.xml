@@ -8,48 +8,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectCommunityList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.CommunityDto">
 
-		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
-		<!-- B.B_VIEW, -->
-		<!-- B.B_REPLY, -->
-		<!-- B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
-		<!-- MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME -->
-		<!-- FROM BOARD -->
-		<!-- B -->
-		<!-- INNER JOIN MEMBER MEM -->
-		<!-- ON B.MEMBER_NO = -->
-		<!-- MEM.MEMBER_NO -->
-		<!-- INNER JOIN -->
-		<!-- TOPIC T -->
-		<!-- ON B.TOPIC_NO = -->
-		<!-- T.TOPIC_NO -->
-		<!-- WHERE B.CAT_NO = 1 -->
-		<!-- ORDER BY B.B_NO -->
-		<!-- DESC -->
-		<!-- LIMIT 0, 10; -->
-
-
-		SELECT
-		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
 		B.B_VIEW,
 		B.B_REPLY,
-		B.B_RECOMMEND, B.MEMBER_NO,
-		CASE
-		WHEN B.TOPIC_NO = 6 THEN '익명'
-		ELSE MEM.NICKNAME
-		END AS NICKNAME,
-		MEM.GRADE, T.TOPIC_NAME
+		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
+		MEM.NICKNAME, MEM.GRADE, MEM.PROFILE,T.TOPIC_NAME
 		FROM BOARD
 		B
-		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
-		INNER JOIN TOPIC T
-		ON B.TOPIC_NO = T.TOPIC_NO
+		INNER JOIN
+		MEMBER MEM
+		ON B.MEMBER_NO =
+		MEM.MEMBER_NO
+		INNER JOIN TOPIC T ON
+		B.TOPIC_NO = T.TOPIC_NO AND
+		B.TOPIC_NO != 6
 		WHERE
 		B.CAT_NO = 1
 		ORDER BY
-		B.B_NO DESC
-		LIMIT 0,
-		10;
-
+		B.B_NO DESC LIMIT 0,10;
 
 	</select>
 
@@ -69,25 +45,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchCommunityList"
 		parameterType="kr.co.hit.dto.CommunitySearchDto"
 		resultType="kr.co.hit.dto.CommunityDto">
-		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
-		<!-- B.B_VIEW, B.B_REPLY, -->
-		<!-- B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
-		<!-- MEM.NICKNAME, MEM.GRADE, -->
-		<!-- T.TOPIC_NAME -->
-		<!-- FROM BOARD B -->
-		<!-- INNER JOIN MEMBER MEM -->
-		<!-- ON B.MEMBER_NO = -->
-		<!-- MEM.MEMBER_NO INNER JOIN TOPIC T -->
-		<!-- ON B.TOPIC_NO = -->
-		<!-- T.TOPIC_NO -->
-		<!-- WHERE -->
-		<!-- B.CAT_NO = 1 AND B_TITLE LIKE -->
-		<!-- CONCAT('%',#{b_title},'%') -->
-		<!-- AND TOPIC_NAME LIKE -->
-		<!-- CONCAT('%',#{topic_name},'%') -->
-		<!-- ORDER BY B.B_NO DESC -->
-		<!-- LIMIT #{page_start}, -->
-		<!-- #{page_limit} -->
 
 		SELECT
 		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
@@ -96,30 +53,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.B_RECOMMEND,
 		CASE
 		WHEN B.TOPIC_NO = 6 THEN '익명'
-		ELSE
-		MEM.NICKNAME
+		ELSE MEM.NICKNAME
 		END AS NICKNAME,
-		MEM.GRADE, T.TOPIC_NAME
-		FROM BOARD
-		B
+		MEM.GRADE, T.TOPIC_NAME,
+		MEM.PROFILE
+		FROM BOARD B
+		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
 		INNER
-		JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
-		INNER JOIN TOPIC T ON
-		B.TOPIC_NO = T.TOPIC_NO
+		JOIN TOPIC T ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE
 		B.CAT_NO = 1 AND
-		B_TITLE LIKE
-		CONCAT('%',#{b_title},'%') AND
+		B_TITLE
+		LIKE CONCAT('%',#{b_title},'%') AND
 		TOPIC_NAME LIKE
 		CONCAT('%',#{topic_name},'%')
 		ORDER BY
-		B.B_NO DESC
-		LIMIT #{page_start},
+		B.B_NO DESC LIMIT #{page_start},
 		#{page_limit};
 
-
 	</select>
-
 
 	<select id="searchCommunityListCount"
 		parameterType="kr.co.hit.dto.CommunitySearchDto" resultType="int">
@@ -137,6 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND TOPIC_NAME
 		LIKE CONCAT('%',#{topic_name},'%')
 		ORDER BY B.B_NO
+
 	</select>
 
 	<update id="increaseView">
@@ -144,19 +97,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{boardIdx};
 	</update>
 
-
 	<select id="selectCommunityDetail"
 		resultType="kr.co.hit.dto.CommunityDto">
-		<!-- SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
-		<!-- B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
-		<!-- MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME -->
-		<!-- FROM BOARD B -->
-		<!-- INNER JOIN MEMBER MEM -->
-		<!-- ON B.MEMBER_NO = MEM.MEMBER_NO -->
-		<!-- INNER JOIN TOPIC T -->
-		<!-- ON B.TOPIC_NO = -->
-		<!-- T.TOPIC_NO -->
-		<!-- WHERE B.B_NO = #{boardIdx} -->
+
+
+<!-- 		SELECT -->
+<!-- 		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
+<!-- 		B.B_VIEW, -->
+<!-- 		B.B_REPLY, -->
+<!-- 		B.B_RECOMMEND, -->
+<!-- 		CASE -->
+<!-- 		WHEN B.TOPIC_NO = 6 THEN '익명' -->
+<!-- 		ELSE -->
+<!-- 		MEM.NICKNAME -->
+<!-- 		END AS NICKNAME, -->
+<!-- 		MEM.GRADE, MEM.MEMBER_ID -->
+<!-- 		MEM.PROFILE -->
+<!-- 		FROM -->
+<!-- 		BOARD B -->
+<!-- 		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO -->
+<!-- 		INNER JOIN -->
+<!-- 		TOPIC T ON B.TOPIC_NO = T.TOPIC_NO -->
+<!-- 		T.TOPIC_NAME, -->
+<!-- 		WHERE -->
+<!-- 		B.B_NO = -->
+<!-- 		#{boardIdx}; -->
+
 
 		SELECT
 		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
@@ -165,44 +131,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.B_RECOMMEND,
 		CASE
 		WHEN B.TOPIC_NO = 6 THEN '익명'
-		ELSE
-		MEM.NICKNAME
+		ELSE MEM.NICKNAME
 		END AS NICKNAME,
-		MEM.GRADE, T.TOPIC_NAME, MEM.MEMBER_ID
-		FROM BOARD
-		B
+		MEM.GRADE,
+		MEM.PROFILE, MEM.MEMBER_ID
+		FROM BOARD B
+		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
 		INNER
-		JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
-		INNER JOIN TOPIC T ON
-		B.TOPIC_NO = T.TOPIC_NO
+		JOIN TOPIC T ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE
 		B.B_NO = #{boardIdx};
 
 
+		<!-- MEM.GRADE, -->
+		<!-- T.TOPIC_NAME, -->
+		<!-- MEM.PROFILE -->
+		<!-- FROM BOARD B -->
+		<!-- INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO -->
+		<!-- INNER JOIN TOPIC T ON B.TOPIC_NO = T.TOPIC_NO -->
 
 
 
 
 	</select>
 
-
-
 	<insert id="insertCommunity"
 		parameterType="kr.co.hit.dto.CommunityDto">
-
-		<!-- INSERT INTO BOARD (b_no, b_title, b_content, -->
-		<!-- b_write_date, b_view, -->
-		<!-- b_reply, b_recommend, member_no, -->
-		<!-- cat_no, topic_no) -->
-		<!-- VALUES ((SELECT * -->
-		<!-- FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM -->
-		<!-- BOARD) AS tmp), -->
-		<!-- #{b_title}, #{b_content}, current_timestamp, -->
-		<!-- 0 , 0 , 0 , -->
-		<!-- #{member_no} , -->
-		<!-- 1 , #{topic_no}) -->
-
-
 
 		<!-- board에 익명 부여 -->
 		INSERT INTO BOARD (
@@ -226,32 +180,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		END
 		)
 
-
 	</insert>
-
-
-	<!-- <insert id="insertBoard" -->
-	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
-	<!-- INSERT INTO BOARD(B_NO, B_TITLE, B_CONTENT, -->
-	<!-- B_WRITE_DATE, MEMBER_NO, CAT_NO, TOPIC_NO) -->
-	<!-- VALUES((SELECT T.B_NO+1 FROM -->
-	<!-- (SELECT MAX(B_NO) B_NO FROM BOARD) AS -->
-	<!-- T),#{b_title},#{b_content},NOW(),#{member_no},1, ${topic_no}) -->
-	<!-- </insert> -->
-
-
-	<!-- =========================================================== -->
-
-
 
 	<select id="searchCommunityImgList"
 		resultType="kr.co.hit.dto.CommunityDto">
 		SELECT FILE_URL FROM FILE WHERE B_NO = #{boardIdx};
 	</select>
-
-
-
-
 
 	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
 		INSERT INTO FILE
@@ -288,44 +222,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteFile">
 		DELETE FROM FILE WHERE B_NO = #{boardIdx}
 	</delete>
-	
+
 	<delete id="deleteReplyBno">
 		DELETE FROM REPLY WHERE B_NO = #{BOARDIDX}
 	</delete>
-	
-	
 
 	<delete id="deleteCommunity">
 		DELETE FROM BOARD WHERE B_NO = #{boardIdx}
 	</delete>
 
-	<!-- <delete id="deleteBoard"> -->
-	<!-- DELETE FROM BOARD WHERE B_NO = #{boardIdx} -->
-	<!-- </delete> -->
-
-
-
-
-	<!-- =========================================================== -->
-
-
-
 	<select id="selectReplyList"
 		resultType="kr.co.hit.dto.CommunityDto">
-
 
 		SELECT
 		R.B_NO,
 		R.r_CONTENT,
 		R.reply_DATE,
 		CASE
-		WHEN B.TOPIC_NO = 6 THEN '익명'
+		WHEN B.TOPIC_NO =
+		6 THEN '익명'
 		ELSE R.NICKNAME
 		END AS NICKNAME
 		FROM REPLY R
-		INNER JOIN BOARD B ON R.B_NO = B.B_NO
+		INNER JOIN BOARD
+		B ON R.B_NO = B.B_NO
 		WHERE R.B_NO = #{boardIdx};
-
 
 	</select>
 
@@ -342,122 +263,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{boardIdx};
 	</update>
 
-	<!-- <select id="getPostsByTopic" parameterType="hashmap" -->
-	<!-- resultType="kr.co.hit.dto.CommunityDto"> -->
-
-	<!-- SELECT * -->
-	<!-- FROM ( -->
-	<!-- SELECT -->
-	<!-- A.*, -->
-	<!-- @rownum := @rownum + 1 AS r -->
-	<!-- FROM ( -->
-	<!-- SELECT -->
-	<!-- BOARD.*, -->
-	<!-- MEMBER.nickname, -->
-	<!-- TOPIC.topic_name -->
-	<!-- FROM BOARD -->
-	<!-- INNER JOIN -->
-	<!-- MEMBER ON BOARD.member_no = MEMBER.member_no -->
-	<!-- LEFT OUTER JOIN TOPIC ON -->
-	<!-- BOARD.topic_no = TOPIC.topic_no -->
-	<!-- WHERE BOARD.cat_no = 1 AND -->
-	<!-- BOARD.topic_no = #{topicNo} -->
-	<!-- ORDER BY b_no DESC) A, -->
-	<!-- (SELECT @rownum := 0) -->
-	<!-- R -->
-	<!-- ) B WHERE r BETWEEN #{start} AND #{end} -->
-
-
-	<!-- </select> -->
-
-	<!-- <select id="getCommunityCount" resultType="Integer"> -->
-
-	<!-- SELECT COUNT(*) FROM -->
-	<!-- BOARD WHERE CAT_NO = 1; -->
-
-	<!-- </select> -->
-
-	<!-- <select id="searchByTitle" parameterType="String" -->
-	<!-- resultType="kr.co.hit.dto.CommunityDto"> -->
-
-	<!-- SELECT * FROM BOARD WHERE cat_no = 1 and b_title LIKE -->
-	<!-- CONCAT('%', #{title}, '%') -->
-
-	<!-- </select> -->
-
-
-
-	<!-- <insert id="InsertCommunity" -->
-	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
-
-	<!-- INSERT INTO BOARD (b_no, b_title, b_content, -->
-	<!-- b_write_date, b_view, -->
-	<!-- b_reply, b_recommend, member_no, -->
-	<!-- cat_no, topic_no) -->
-	<!-- VALUES ((SELECT * -->
-	<!-- FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM -->
-	<!-- BOARD) AS tmp), -->
-	<!-- #{b_title}, #{b_content}, current_timestamp, -->
-	<!-- 0 , 0 , 0 , -->
-	<!-- #{member_no} , -->
-	<!-- 1 , #{topic_no}) -->
-
-	<!-- </insert> -->
-
-	<!-- <select id="getTopicNoByTopicName" parameterType="String" -->
-	<!-- resultType="int"> -->
-	<!-- SELECT topic_no FROM TOPIC WHERE topic_name = #{topic_name} -->
-	<!-- </select> -->
-
-	<!-- <select id="getCommunityDetail" -->
-	<!-- resultType="kr.co.hit.dto.CommunityDto" parameterType="int"> -->
-
-
-	<!-- SELECT -->
-	<!-- BOARD.b_no, -->
-	<!-- BOARD.b_title, -->
-	<!-- BOARD.b_content, -->
-	<!-- BOARD.b_view, -->
-	<!-- MEMBER.nickname, -->
-	<!-- (SELECT COUNT(*) FROM REPLY WHERE b_no = BOARD.b_no) -->
-	<!-- AS reply_count -->
-	<!-- FROM -->
-	<!-- BOARD -->
-	<!-- INNER JOIN -->
-	<!-- MEMBER ON BOARD.member_no = -->
-	<!-- MEMBER.member_no -->
-	<!-- WHERE -->
-	<!-- BOARD.b_no = #{b_no}; -->
-
-
-	<!-- </select> -->
-
-	<!-- <select id="getPostCountByTopic" parameterType="int" -->
-	<!-- resultType="int"> -->
-	<!-- SELECT COUNT(*) FROM BOARD WHERE cat_no = 1 AND topic_no = -->
-	<!-- #{topicNo} -->
-	<!-- </select> -->
-
-	<!-- <update id="updateCommunity" -->
-	<!-- parameterType="kr.co.hit.dto.CommunityDto"> -->
-
-	<!-- update BOARD set -->
-	<!-- b_title=#{b_title}, -->
-	<!-- b_content=#{b_content} -->
-	<!-- where b_no = -->
-	<!-- #{b_no} -->
-
-	<!-- </update> -->
-
-	<!-- <update id="updateView" parameterType="int"> -->
-
-	<!-- UPDATE BOARD SET B_VIEW = B_VIEW + 1 -->
-	<!-- WHERE b_no = #{b_no} -->
-
-	<!-- </update> -->
-
-	<!-- <delete id="deleteCommunity" parameterType="int"> -->
-
-	<!-- delete from BOARD where b_no = #{b_no} -->
-	<!-- </delete> -->
 </mapper>

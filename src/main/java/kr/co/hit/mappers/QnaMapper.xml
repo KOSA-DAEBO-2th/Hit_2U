@@ -8,24 +8,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectQnaList" parameterType="hashmap"
 		resultType="kr.co.hit.dto.QnaDto">
 
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+		SELECT
+		B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
 		B.B_VIEW,
 		B.B_REPLY,
-		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
-		MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
-		FROM BOARD
-		B
-		INNER JOIN MEMBER MEM
-		ON B.MEMBER_NO =
-		MEM.MEMBER_NO
-		INNER JOIN
-		TOPIC T
-		ON B.TOPIC_NO =
-		T.TOPIC_NO
-		WHERE B.CAT_NO = 2
-		ORDER BY B.B_NO
-		DESC
-		LIMIT 0, 10;
+		B.B_RECOMMEND,
+		B.MEMBER_NO,
+		B.TOPIC_NO,
+		MEM.NICKNAME,
+		MEM.GRADE,
+		T.TOPIC_NAME,
+		MEM.PROFILE
+		FROM BOARD B
+		INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
+		INNER JOIN TOPIC T ON B.TOPIC_NO = T.TOPIC_NO
+		WHERE
+		B.CAT_NO = 2
+		ORDER BY
+		B.B_NO DESC LIMIT 0, 10;
 
 	</select>
 
@@ -45,25 +45,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="searchQnaList"
 		parameterType="kr.co.hit.dto.QnaSearchDto"
 		resultType="kr.co.hit.dto.QnaDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
-		B.B_VIEW, B.B_REPLY,
-		B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
-		MEM.NICKNAME, MEM.GRADE,
-		T.TOPIC_NAME
-		FROM BOARD B
-		INNER JOIN MEMBER MEM
-		ON B.MEMBER_NO =
-		MEM.MEMBER_NO INNER JOIN TOPIC T
-		ON B.TOPIC_NO =
-		T.TOPIC_NO
-		WHERE
-		B.CAT_NO = 2 AND B_TITLE LIKE
-		CONCAT('%',#{b_title},'%')
-		AND TOPIC_NAME LIKE
-		CONCAT('%',#{topic_name},'%')
-		ORDER BY B.B_NO DESC
-		LIMIT #{page_start},
-		#{page_limit}
+
+
+	SELECT
+	B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
+	B.B_VIEW,
+	B.B_REPLY,
+	B.B_RECOMMEND,
+	B.MEMBER_NO,
+	B.TOPIC_NO,
+	MEM.NICKNAME,
+	MEM.GRADE, T.TOPIC_NAME,
+	MEM.PROFILE
+	FROM BOARD B
+	INNER JOIN MEMBER MEM ON B.MEMBER_NO = MEM.MEMBER_NO
+	INNER JOIN TOPIC T ON B.TOPIC_NO = T.TOPIC_NO
+	WHERE
+	B.CAT_NO = 2 AND
+	B_TITLE LIKE CONCAT('%',#{b_title},'%') AND 
+	TOPIC_NAME LIKE CONCAT('%',#{topic_name},'%')
+	ORDER BY
+	B.B_NO DESC LIMIT #{page_start}, #{page_limit};
 	</select>
 
 	<select id="searchQnaListCount"
@@ -74,13 +76,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN MEMBER MEM
 		ON B.MEMBER_NO =
 		MEM.MEMBER_NO
-		INNER JOIN TOPIC T
+		INNER
+		JOIN TOPIC T
 		ON B.TOPIC_NO = T.TOPIC_NO
 		WHERE
 		B.CAT_NO = 2 AND B_TITLE
 		LIKE CONCAT('%',#{b_title},'%')
 		AND TOPIC_NAME
-		LIKE CONCAT('%',#{topic_name},'%')
+		LIKE
+		CONCAT('%',#{topic_name},'%')
 		ORDER BY B.B_NO
 	</select>
 
@@ -89,40 +93,74 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{boardIdx};
 	</update>
 
-	<select id="selectQnaDetail"
-		resultType="kr.co.hit.dto.QnaDto">
-		SELECT B.B_NO, B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE,
-		B.B_VIEW, B.B_REPLY, B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO,
-		MEM.NICKNAME, MEM.GRADE, T.TOPIC_NAME
-		FROM BOARD B
-		INNER JOIN MEMBER MEM
-		ON B.MEMBER_NO = MEM.MEMBER_NO
-		INNER JOIN TOPIC T
-		ON B.TOPIC_NO =
-		T.TOPIC_NO
-		WHERE B.B_NO = #{boardIdx}
+	<select id="selectQnaDetail" resultType="kr.co.hit.dto.QnaDto">
+	<!-- SELECT B.B_NO, -->
+	<!-- B.B_TITLE, B.B_CONTENT, B.B_WRITE_DATE, -->
+	<!-- B.B_VIEW, B.B_REPLY, -->
+	<!-- B.B_RECOMMEND, B.MEMBER_NO, B.TOPIC_NO, -->
+	<!-- MEM.NICKNAME, MEM.GRADE, -->
+	<!-- T.TOPIC_NAME -->
+	<!-- FROM BOARD B -->
+	<!-- INNER JOIN MEMBER MEM -->
+	<!-- ON B.MEMBER_NO = -->
+	<!-- MEM.MEMBER_NO -->
+	<!-- INNER JOIN TOPIC T -->
+	<!-- ON B.TOPIC_NO = -->
+	<!-- T.TOPIC_NO -->
+	<!-- WHERE B.B_NO = -->
+	<!-- #{boardIdx} -->
+
+	SELECT
+	B.B_NO,
+	B.B_TITLE,
+	B.B_CONTENT,
+	B.B_WRITE_DATE,
+	B.B_VIEW,
+	B.B_REPLY,
+	B.B_RECOMMEND,
+	B.MEMBER_NO,
+	B.TOPIC_NO,
+	MEM.NICKNAME,
+	MEM.GRADE,
+	T.TOPIC_NAME,
+	MEM.PROFILE
+	FROM BOARD B
+	INNER JOIN MEMBER MEM ON
+	B.MEMBER_NO = MEM.MEMBER_NO
+	INNER JOIN TOPIC T ON B.TOPIC_NO =
+	T.TOPIC_NO
+	WHERE
+	B.B_NO = #{boardIdx};
+		
+		
+		
+		
 	</select>
 
-	<insert id="insertQna"
-		parameterType="kr.co.hit.dto.QnaDto">
+	<insert id="insertQna" parameterType="kr.co.hit.dto.QnaDto">
 
-		INSERT INTO BOARD (b_no, b_title, b_content,
+		INSERT INTO BOARD (b_no,
+		b_title, b_content,
 		b_write_date, b_view,
-		b_reply, b_recommend, member_no,
+		b_reply, b_recommend,
+		member_no,
 		cat_no, topic_no)
 		VALUES ((SELECT *
-		FROM (SELECT IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM
+		FROM (SELECT
+		IFNULL(MAX(b_no),0) + 1 AS max_b_no FROM
 		BOARD) AS tmp),
-		#{b_title}, #{b_content}, current_timestamp,
+		#{b_title},
+		#{b_content}, current_timestamp,
 		0 , 0 , 0 ,
 		#{member_no} ,
-		2 , #{topic_no})
+		2 ,
+		#{topic_no})
 
 	</insert>
 
-	<select id="searchQnaImgList"
-		resultType="kr.co.hit.dto.QnaDto">
-		SELECT FILE_URL FROM FILE WHERE B_NO = #{boardIdx};
+	<select id="searchQnaImgList" resultType="kr.co.hit.dto.QnaDto">
+		SELECT FILE_URL FROM
+		FILE WHERE B_NO = #{boardIdx};
 	</select>
 
 	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
@@ -172,9 +210,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-	<select id="selectReplyList"
-		resultType="kr.co.hit.dto.QnaDto">
-		SELECT * FROM REPLY WHERE B_NO = #{boardIdx};
+	<select id="selectReplyList" resultType="kr.co.hit.dto.QnaDto">
+		SELECT * FROM REPLY
+		WHERE B_NO = #{boardIdx};
 	</select>
 
 	<insert id="insertReply" parameterType="kr.co.hit.dto.MarketDto">

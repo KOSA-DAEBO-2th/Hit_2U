@@ -11,7 +11,7 @@ public class ReplyDto {
 	private String nickname, r_content;
 	private Date reply_date;
 	
-	
+	private String profile;
 	
 	
 }

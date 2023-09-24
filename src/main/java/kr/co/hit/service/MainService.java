@@ -37,4 +37,9 @@ public class MainService implements MainDao{
 		  
 	}
 
+	public List<MainDto> HitMainList(HashMap map) {
+		MainDao dao = sqlsession.getMapper(MainDao.class);
+		return dao.HitMainList(map);
+	}
+
 }

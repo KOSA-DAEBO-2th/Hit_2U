@@ -23,7 +23,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 <div class="reply_ajax">
 	<c:choose>
@@ -36,7 +35,6 @@
 		<c:otherwise>
 			<c:forEach items="${reply_list }" var="reply_list" varStatus="i">
 				<div class="question_section padding_top_20 padding_bottom_20">
-
 
 					<div class="reply_answer_section">
 						<div class="flex item_center">
@@ -53,9 +51,6 @@
 						<div class="padding_top_20 font_14 reply_output">
 							${reply_list.r_content }</div>
 					</div>
-
-
-
 
 				</div>
 			</c:forEach>

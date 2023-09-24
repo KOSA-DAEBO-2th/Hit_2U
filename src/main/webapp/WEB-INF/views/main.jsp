@@ -13,220 +13,65 @@
 			<div class="main_left_column">
 
 
-				<!-- 			좌측 상단 -->
+				<!-- 	좌측 상단 -->
 				<div class="main_board_title">
 					<div>
 						<label><i class="fa-solid fa-fire"></i> H I T</label>
 					</div>
 					<div>
-						<a href="#">더보기 ></a>
+						<!-- 						<a href="#">더보기 ></a> -->
 					</div>
 				</div>
+				<c:forEach var="hitList" items="${hitList}">
+					<div class="main_hit_list">
+						<article>
+							<div class="board_list">
+								<div class="topic">
+									<a href="#">${hitList.topic_name }</a>
+								</div>
+								<div style="width: 100%;">
+									<div class="main_user">
+										<div style="flex: 1;">
+											<div class="flex item_center">
+												<div class="box">
+													<!-- 													<img class="profile" -->
+													<%-- 														src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
 
-				<div class="main_hit_list">
-					<article>
-						<div class="board_list">
-							<div class="topic">
-								<a href="#">취업준비</a>
-							</div>
-							<div style="width: 100%;">
-								<div class="main_user">
-									<div style="flex: 1;">
-										<div class="flex item_center">
-											<div class="box">
-												<img class="profile"
-													src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+													<%-- 														<img class="profile" src="${hitList.profile}"> --%>
+<img class="profile" src="${hitList.profile}">
+
+												</div>
+												<div class="nickname_area">${hitList.nickname }</div>
+												<span class="mc">·</span>
+												<div class="icon_area font_12">
+													<i class="fa-solid fa-flask"></i>
+												</div>
+												<sapn class="hp_point">${hitList.grade}</sapn>
 											</div>
-											<div class="nickname_area">담미온</div>
-											<span class="mc">·</span>
-											<div class="icon_area font_12">
-												<i class="fa-solid fa-flask"></i>
-											</div>
-											<sapn class="hp_point">0</sapn>
+										</div>
+										<div>
+											<i class="fa-regular fa-eye font_12 icon_area"></i> <span
+												class="view_count">${hitList.b_view }</span>
 										</div>
 									</div>
-									<div>
-										<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-											class="view_count">170</span>
-									</div>
-								</div>
 
-								<div class="main_title_box flex item_center">
-									<div class="main_title">프로그래밍의 길은 험난하네요</div>
-									<div class="like_comment_box">
-										<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-											class="like_count">32</span> <i
-											class="fa-regular fa-comment font_12 icon_area"></i> <span
-											class="comment_count">18</span>
-									</div>
-								</div>
-							</div>
-					</article>
-					<article>
-						<div class="board_list">
-							<div class="topic">
-								<a href="#">커리어</a>
-							</div>
-							<div style="width: 100%;">
-
-								<div class="main_user">
-									<div style="flex: 1;">
-										<div class="flex item_center">
-											<div class="box">
-												<img class="profile"
-													src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
-											</div>
-											<div class="nickname_area">제순</div>
-											<span class="mc">·</span>
-											<div class="icon_area font_12">
-												<i class="fa-solid fa-flask"></i>
-											</div>
-											<sapn class="hp_point">33</sapn>
+									<div class="main_title_box flex item_center">
+										<div class="main_title">${hitList.b_title }</div>
+										<div class="like_comment_box">
+											<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
+												class="like_count">${hitList.b_recommend }</span> <i
+												class="fa-regular fa-comment font_12 icon_area"></i> <span
+												class="comment_count">${hitList.b_reply }</span>
 										</div>
 									</div>
-									<div>
-										<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-											class="view_count">110</span>
-									</div>
-								</div>
-
-
-								<div class="main_title_box flex item_center">
-									<div class="main_title">고민 상담 부탁드려요</div>
-									<div class="like_comment_box">
-										<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-											class="like_count">21</span> <i
-											class="fa-regular fa-comment font_12 icon_area"></i> <span
-											class="comment_count">8</span>
-									</div>
-
 								</div>
 							</div>
-					</article>
-					<article>
-						<div class="board_list">
-							<div class="topic">
-								<a href="#">자유</a>
-							</div>
-							<div style="width: 100%;">
-
-								<div class="main_user">
-									<div style="flex: 1;">
-										<div class="flex item_center">
-											<div class="box">
-												<img class="profile"
-													src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
-											</div>
-											<div class="nickname_area">코딩만세</div>
-											<span class="mc">·</span>
-											<div class="icon_area font_12">
-												<i class="fa-solid fa-flask"></i>
-											</div>
-											<sapn class="hp_point">30</sapn>
-										</div>
-									</div>
-									<div>
-										<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-											class="view_count">70</span>
-									</div>
-								</div>
+						</article>
+					</div>
+				</c:forEach>
 
 
-								<div class="main_title_box flex item_center">
-									<div class="main_title">여행 가고싶네요~</div>
-									<div class="like_comment_box">
-										<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-											class="like_count">9</span> <i
-											class="fa-regular fa-comment font_12 icon_area"></i> <span
-											class="comment_count">6</span>
-									</div>
 
-								</div>
-							</div>
-					</article>
-					<article>
-						<div class="board_list">
-							<div class="topic">
-								<a href="#">알고리즘</a>
-							</div>
-							<div style="width: 100%;">
-
-								<div class="main_user">
-									<div style="flex: 1;">
-										<div class="flex item_center">
-											<div class="box">
-												<img class="profile"
-													src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
-											</div>
-											<div class="nickname_area">헬스보이</div>
-											<span class="mc">·</span>
-											<div class="icon_area font_12">
-												<i class="fa-solid fa-flask"></i>
-											</div>
-											<sapn class="hp_point">7</sapn>
-										</div>
-									</div>
-									<div>
-										<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-											class="view_count">17</span>
-									</div>
-								</div>
-
-
-								<div class="main_title_box flex item_center">
-									<div class="main_title">다들 운동은 어떻게 하시나요?</div>
-									<div class="like_comment_box">
-										<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-											class="like_count">5</span> <i
-											class="fa-regular fa-comment font_12 icon_area"></i> <span
-											class="comment_count">2</span>
-									</div>
-
-								</div>
-							</div>
-					</article>
-					<article>
-						<div class="board_list">
-							<div class="topic">
-								<a href="#">기타</a>
-							</div>
-							<div style="width: 100%;">
-
-								<div class="main_user">
-									<div style="flex: 1;">
-										<div class="flex item_center">
-											<div class="box">
-												<img class="profile"
-													src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
-											</div>
-											<div class="nickname_area">호빵맨</div>
-											<span class="mc">·</span>
-											<div class="icon_area font_12">
-												<i class="fa-solid fa-flask"></i>
-											</div>
-											<sapn class="hp_point">2</sapn>
-										</div>
-									</div>
-									<div>
-										<i class="fa-regular fa-eye font_12 icon_area"></i> <span
-											class="view_count">17</span>
-									</div>
-								</div>
-
-
-								<div class="main_title_box flex item_center">
-									<div class="main_title">알고리즘 질문이요~~</div>
-									<div class="like_comment_box">
-										<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-											class="like_count">4</span> <i
-											class="fa-regular fa-comment font_12 icon_area"></i> <span
-											class="comment_count">2</span>
-									</div>
-
-								</div>
-							</div>
-					</article>
-				</div>
 				<!-- 좌측 하단 -->
 
 				<section class="main_community_board">
@@ -240,10 +85,12 @@
 						</div>
 					</div>
 					<c:forEach var="qnaList" items="${qnaList}">
+
+
 						<div class="main_community_list">
 							<article>
-<%-- 								<a class="a_link" href="/qna/${qnaList.b_no}"> --%>
-
+								<%-- 								<a class="a_link" href="/qna/${qnaList.b_no}"> --%>
+								<div>
 									<div class="board_list">
 										<div class="topic">
 											<a href="#">${qnaList.topic_name}</a>
@@ -254,15 +101,20 @@
 												<div style="flex: 1;">
 													<div class="flex item_center">
 														<div class="box">
-															<img class="profile"
-																src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+<!-- 															<img class="profile" -->
+<%-- 																src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+																
+																<img class="profile" src="${qnaList.profile}">
+																
 														</div>
 														<div class="nickname_area">${qnaList.nickname}</div>
 														<span class="mc">·</span>
 														<div class="icon_area font_12">
 															<i class="fa-solid fa-flask"></i>
 														</div>
-														<sapn class="hp_point">0</sapn>
+														<!-- 														<sapn class="hp_point">0</sapn> -->
+														<span class="hp_point">${qnaList.grade}</span>
+
 													</div>
 												</div>
 												<div>
@@ -274,21 +126,24 @@
 												<div class="main_title">${qnaList.b_title}</div>
 												<div class="like_comment_box">
 													<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-														class="like_count">0</span> <i
+														class="like_count">${qnaList.b_recommend}</span> <i
 														class="fa-regular fa-comment font_12 icon_area"></i> <span
 														class="comment_count">${qnaList.b_reply}</span>
 												</div>
 											</div>
 										</div>
 									</div>
+								</div>
+								<!-- 								</a> -->
 
-<!-- 								</a> -->
 							</article>
 						</div>
+
+						</a>
 					</c:forEach>
 				</section>
 			</div>
-			
+
 			<!-- 			우측 상단 -->
 
 			<div class="main_right_column"">
@@ -314,15 +169,18 @@
 											<div style="flex: 1;">
 												<div class="flex item_center">
 													<div class="box">
-														<img class="profile"
-															src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+														<!-- 														<img class="profile" -->
+														<%-- 															src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+														<img class="profile" src="${communityList.profile}">
+
 													</div>
 													<div class="nickname_area">${communityList.nickname}</div>
 													<span class="mc">·</span>
 													<div class="icon_area font_12">
 														<i class="fa-solid fa-flask"></i>
 													</div>
-													<sapn class="hp_point">0</sapn>
+													<!-- 													<sapn class="hp_point">0</sapn> -->
+													<span class="hp_point">${communityList.grade}</span>
 												</div>
 											</div>
 											<div>
@@ -334,7 +192,7 @@
 											<div class="main_title">${communityList.b_title}</div>
 											<div class="like_comment_box">
 												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-													class="like_count">0</span> <i
+													class="like_count">${communityList.b_recommend}</span> <i
 													class="fa-regular fa-comment font_12 icon_area"></i> <span
 													class="comment_count">${communityList.b_reply}</span>
 											</div>
@@ -372,15 +230,18 @@
 											<div style="flex: 1;">
 												<div class="flex item_center">
 													<div class="box">
-														<img class="profile"
-															src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+<!-- 														<img class="profile" -->
+<%-- 															src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+															
+															<img class="profile" src="${marketList.profile}">
 													</div>
 													<div class="nickname_area">${marketList.nickname}</div>
 													<span class="mc">·</span>
 													<div class="icon_area font_12">
 														<i class="fa-solid fa-flask"></i>
 													</div>
-													<sapn class="hp_point">0</sapn>
+													<!-- 													<sapn class="hp_point">0</sapn> -->
+													<span class="hp_point">${marketList.grade}</span>
 												</div>
 											</div>
 											<div>
@@ -392,7 +253,7 @@
 											<div class="main_title">${marketList.b_title}</div>
 											<div class="like_comment_box">
 												<i class="fa-regular fa-thumbs-up font_12 icon_area"></i> <span
-													class="like_count">0</span> <i
+													class="like_count">${marketList.b_recommend}</span> <i
 													class="fa-regular fa-comment font_12 icon_area"></i> <span
 													class="comment_count">${marketList.b_reply}</span>
 											</div>

@@ -11,7 +11,7 @@ public class CommunityDto {
 	private String b_title, b_content, nickname, r_content, member_id;
 	private Date b_write_date;
 	
-	private String topic_name;
+	private String topic_name, profile;
 	private int topic_no, grade;
 	
 	private String image_url;

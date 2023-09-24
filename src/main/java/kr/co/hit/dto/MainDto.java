@@ -18,12 +18,12 @@ public class MainDto {
 	private Date b_write_date;
 
 	private String topic_name;
-	private int topic_no, grade;
+	private int topic_no, grade, is_anonymous;
 
 
 //	ProfileDto	
 	private int count;
-	private String cat_name;
+	private String cat_name, profile;
 	private Date reply_date;	
 	
 

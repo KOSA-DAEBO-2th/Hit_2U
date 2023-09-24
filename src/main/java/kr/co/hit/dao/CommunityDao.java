@@ -38,9 +38,6 @@ public interface CommunityDao {
 	public int insertCommunity(CommunityDto dto);
 
 
-
-
-
 	public List<CommunityDto> searchCommunityList(CommunitySearchDto dto);
 
 	public int InsertCommunity(CommunityDto dto);
@@ -68,6 +65,9 @@ public interface CommunityDao {
 	public void increaseReply(int b_no);
 	
 	public int deleteReplyBno(int boardIdx);
+	
+	
+	public List<CommunityDto> getAnonymousPosts();
 
 
 

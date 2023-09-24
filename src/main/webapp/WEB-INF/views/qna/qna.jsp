@@ -4,8 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-<link
-	href="${pageContext.request.contextPath }/resources/css/qna.css"
+<link href="${pageContext.request.contextPath }/resources/css/qna.css"
 	rel="stylesheet" />
 <script async
 	src="${pageContext.request.contextPath}/resources/js/qna.js"
@@ -21,54 +20,54 @@
 		</div>
 		<div class="content_category flex padding_bottom_20">
 			<div class="flex full_width content_center">
-<c:choose>
-	<c:when test="${empty currunt_topic}">
-		<form action="/qna/search" onsubmit="return formChk();">
-			<div id="total" class="btn btn_category btn_category_click"
-				value="total" name="topic_option"
-				onclick="location.href='/qna/search/total'">전체</div>
-				
-			<div id="btn_career" class="btn btn_category" value="career"
-				name="topic_option"
-				onclick="location.href='/qna/search/career'">커리어</div>
-				
-			<div id="btn_tech" class="btn btn_category" value="tech"
-				name="topic_option" onclick="location.href='/qna/search/tech'">기술</div>
-				
-			<div id="btn_algorithm" class="btn btn_category" value="algorithm"
-			name="topic_option" onclick="location.href='/qna/search/algorithm'">알고리즘</div>
-			
-			<div id="btn_other" class="btn btn_category" value="other"
-			name="topic_option" onclick="location.href='/qna/search/other'">기타</div>
-			</form>
-			
-	</c:when>
-	<c:otherwise>
-		<form action="/qna/search/${currunt_topic}"
-			onsubmit="return formChk(this);">
-			<div id="total"
-				class="btn btn_category <c:if test="${currunt_topic eq 'total'}">btn_category_click</c:if>"
-				value="total" name="topic_option"
-				onclick="location.href='/qna/search/total'">전체</div>
-			<div id="btn_career"
-				class="btn btn_category <c:if test="${currunt_topic eq 'career'}">btn_category_click</c:if>"
-				value="career" name="topic_option"
-				onclick="location.href='/qna/search/career'">커리어</div>
-			<div id="btn_tech"
-				class="btn btn_category <c:if test="${currunt_topic eq 'tech'}">btn_category_click</c:if>"
-				value="tech" name="topic_option"
-				onclick="location.href='/qna/search/tech'">기술</div>
-			<div id="btn_algorithm"
-				class="btn btn_category <c:if test="${currunt_topic eq 'algorithm'}">btn_category_click</c:if>"
-				value="algorithm" name="topic_option"
-				onclick="location.href='/qna/search/algorithm'">알고리즘</div>	
-			<div id="btn_other"
-				class="btn btn_category <c:if test="${currunt_topic eq 'other'}">btn_category_click</c:if>"
-				value="other" name="topic_option"
-				onclick="location.href='/qna/search/other'">기타</div>
-				</form>
-	</c:otherwise>
-</c:choose>
+				<c:choose>
+					<c:when test="${empty currunt_topic}">
+						<form action="/qna/search" onsubmit="return formChk();">
+							<div id="total" class="btn btn_category btn_category_click"
+								value="total" name="topic_option"
+								onclick="location.href='/qna/search/total'">전체</div>
+
+							<div id="btn_career" class="btn btn_category" value="career"
+								name="topic_option" onclick="location.href='/qna/search/career'">커리어</div>
+
+							<div id="btn_tech" class="btn btn_category" value="tech"
+								name="topic_option" onclick="location.href='/qna/search/tech'">기술</div>
+
+							<div id="btn_algorithm" class="btn btn_category"
+								value="algorithm" name="topic_option"
+								onclick="location.href='/qna/search/algorithm'">알고리즘</div>
+
+							<div id="btn_other" class="btn btn_category" value="other"
+								name="topic_option" onclick="location.href='/qna/search/other'">기타</div>
+						</form>
+
+					</c:when>
+					<c:otherwise>
+						<form action="/qna/search/${currunt_topic}"
+							onsubmit="return formChk(this);">
+							<div id="total"
+								class="btn btn_category <c:if test="${currunt_topic eq 'total'}">btn_category_click</c:if>"
+								value="total" name="topic_option"
+								onclick="location.href='/qna/search/total'">전체</div>
+							<div id="btn_career"
+								class="btn btn_category <c:if test="${currunt_topic eq 'career'}">btn_category_click</c:if>"
+								value="career" name="topic_option"
+								onclick="location.href='/qna/search/career'">커리어</div>
+							<div id="btn_tech"
+								class="btn btn_category <c:if test="${currunt_topic eq 'tech'}">btn_category_click</c:if>"
+								value="tech" name="topic_option"
+								onclick="location.href='/qna/search/tech'">기술</div>
+							<div id="btn_algorithm"
+								class="btn btn_category <c:if test="${currunt_topic eq 'algorithm'}">btn_category_click</c:if>"
+								value="algorithm" name="topic_option"
+								onclick="location.href='/qna/search/algorithm'">알고리즘</div>
+							<div id="btn_other"
+								class="btn btn_category <c:if test="${currunt_topic eq 'other'}">btn_category_click</c:if>"
+								value="other" name="topic_option"
+								onclick="location.href='/qna/search/other'">기타</div>
+						</form>
+					</c:otherwise>
+				</c:choose>
 
 
 
@@ -80,11 +79,9 @@
 			<div class="search_div flex content_center">
 				<div class="" style="flex-basis: 15%;">
 
-
-					<div class="btn btn_write font_14" data-bs-toggle="collapse"
-						href="#collapseExample" role="button" aria-expanded="false"
-						aria-controls="collapseExample">상세검색</div>
-
+					<!-- 					<div class="btn btn_write font_14" data-bs-toggle="collapse" -->
+					<!-- 						href="#collapseExample" role="button" aria-expanded="false" -->
+					<!-- 						aria-controls="collapseExample">상세검색</div> -->
 
 				</div>
 				<div class="search-box flex content_center">
@@ -116,14 +113,16 @@
 			<c:forEach items="${list }" var="list" varStatus="i">
 
 				<article>
-				<a class="a_link" href="/qna/${list.b_no }">
+					<a class="a_link" href="/qna/${list.b_no }">
 						<div class="board_form width_full">
 							<div class="main_user flex item_center font_14">
 								<div class="flex_1">
 									<div class="flex item_center">
 										<div class="profile_form">
-											<img class="profile"
-												src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
+											<!-- 											<img class="profile" -->
+											<%-- 												src="${pageContext.request.contextPath }/resources/images/profile_logo.png"> --%>
+
+											<img class="profile" src="${list.profile}">
 										</div>
 										<div class="nickname_form">${list.nickname }</div>
 										<span class="mc">·</span>
@@ -162,34 +161,76 @@
 			</c:forEach>
 		</section>
 
-		<div class="flex content_center item_center">
-			<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
-
-			<c:choose>
-				<c:when test="${page_init eq 1}">
-					<input type="text"
-						class="form-control page_test margin_left_20 current_page"
-						name="page" value="1" />
-				</c:when>
-
-				<c:otherwise>
-					<input type="text"
-						class="form-control page_test margin_left_20 current_page"
-						name="page" value="${search_option.page }" />
-				</c:otherwise>
 
 
-			</c:choose>
 
-			<text class=" font_main font_bold"
-				style="font-size: 25px; margin: 0px 15px;">/</text>
-			<input type="text"
-				class="form-control page_test margin_right_20 max_page"
-				value="${maxPage }" disabled /> <i
-				class="fa-solid fa-chevron-right font_20 font_main page_arrow">
-			</i>
-			<button class="hidden"></button>
-		</div>
+
+		<!-- 페이징 왼쪽, 오른쪽 버튼, 페이지 번호 검색 -->
+		<form action="/qna/search">
+			<div class="flex content_center item_center">
+				<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
+				<c:choose>
+					<c:when test="${page_init eq 1}">
+						<input type="text"
+							class="form-control page_test margin_left_20 current_page"
+							name="page" value="1" />
+					</c:when>
+					<c:otherwise>
+						<input type=" text "
+							class=" form - control page_test margin_left_20 current_page "
+							name=" page " value=" ${ search_option.page } " />
+					</c:otherwise>
+				</c:choose>
+				<text class=" font_main font_bold"
+					style="font-size: 25px; margin: 0px 15px;">/</text>
+				<input type="text"
+					class="form-control page_test margin_right_20 max_page"
+					value="${maxPage }" disabled /> <i
+					class="fa-solid fa-chevron-right font_20 font_main page_arrow">
+				</i>
+				<button class="hidden"></button>
+			</div>
+		</form>
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- 		<div class="flex content_center item_center"> -->
+		<!-- 			<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i> -->
+
+		<%-- 			<c:choose> --%>
+		<%-- 				<c:when test="${page_init eq 1}"> --%>
+		<!-- 					<input type="text" -->
+		<!-- 						class="form-control page_test margin_left_20 current_page" -->
+		<!-- 						name="page" value="1" /> -->
+		<%-- 				</c:when> --%>
+
+		<%-- 				<c:otherwise> --%>
+		<!-- 					<input type="text" -->
+		<!-- 						class="form-control page_test margin_left_20 current_page" -->
+		<%-- 						name="page" value="${search_option.page }" /> --%>
+		<%-- 				</c:otherwise> --%>
+
+
+		<%-- 			</c:choose> --%>
+
+		<!-- 			<text class=" font_main font_bold" -->
+		<!-- 				style="font-size: 25px; margin: 0px 15px;">/</text> -->
+		<!-- 			<input type="text" -->
+		<!-- 				class="form-control page_test margin_right_20 max_page" -->
+		<%-- 				value="${maxPage }" disabled /> <i --%>
+		<!-- 				class="fa-solid fa-chevron-right font_20 font_main page_arrow"> -->
+		<!-- 			</i> -->
+		<!-- 			<button class="hidden"></button> -->
+		<!-- 		</div> -->
 
 
 	</main>

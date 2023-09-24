@@ -67,6 +67,8 @@ public class CommunityController {
 		int listcount = communityService.searchCommunityListCount(dto);
 		int maxPage = ((listcount - 1) / limit) + 1;
 		
+	
+		
 		
 		List<CommunityDto> list = communityService.searchCommunityList(dto);
 		
@@ -92,12 +94,12 @@ public class CommunityController {
 		}else if(topic.equals("health")) {
 			dto.setTopic_name("운동");
 		}else if(topic.equals("anonymous")) {
-			dto.setTopic_name("익명");
+			dto.setTopic_name("익명");  // 익명
 		}else {
 			dto.setTopic_name("");
 		}
-
-			
+		
+	
 		int limit = 10;
 		dto.setPage_limit(limit);
 		int start = (dto.getPage() - 1) * limit;
@@ -117,8 +119,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	
-	
+
 	@GetMapping("/{boardIdx}")
 	public ModelAndView read(@PathVariable("boardIdx") int boardIdx) throws Exception {
 
