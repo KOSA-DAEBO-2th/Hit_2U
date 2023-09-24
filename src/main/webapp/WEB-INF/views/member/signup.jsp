@@ -183,7 +183,6 @@
 			if (send == code) {
 				//alert("확인되었습니다.");
 				Swal.fire({
-					position : 'top-end',
 					icon : 'success',
 					title : '확인되었습니다',
 					showConfirmButton : false,

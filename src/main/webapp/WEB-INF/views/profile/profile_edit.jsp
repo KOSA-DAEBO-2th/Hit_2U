@@ -157,7 +157,13 @@
 				data : JSON.stringify(data),
 				success : function(data) {
 					console.log("success");
-					//location.href = "message_list";
+					Swal.fire({
+		                icon: 'success',
+		                title: '변경되었습니다',
+		                showConfirmButton: false,
+		                timer: 1000
+		            });
+					setTimeout(()=> location.href = "profile", 1100);
 
 				}
 			});

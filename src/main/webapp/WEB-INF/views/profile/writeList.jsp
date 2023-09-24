@@ -6,7 +6,11 @@
 <html>
 <head>
 <title></title>
-
+<style type="text/css">
+	table {
+		table-layout: fixed;
+	}
+</style>
 </head>
 <body>
 
@@ -25,10 +29,10 @@
 								<table class="table mb-0">
 									<thead class="small text-uppercase bg-body text-muted">
 										<tr>
-											<th style="width: 20%;">게시판</th>
-											<th style="width: 20%;">제목</th>
-											<th style="width: 40%;">내용</th>
-											<th style="width: 20%;">날짜</th>
+											<th style="width: 10%;">게시판</th>
+											<th style="width: 30%;">제목</th>
+											<th style="width: 50%;">내용</th>
+											<th style="width: 10%;">날짜</th>
 										</tr>
 									</thead>
 
@@ -40,26 +44,11 @@
 											<tr class="align-middle" style="cursor: pointer;">
 												<td>${ list.cat_name } <div style="display: none;">${list.b_no}</div><div style="display: none;">${list.cat_no }</div> </td>
 												<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${ list.b_title }
-													<%-- <c:choose>
-														<c:when test="${fn:length(list.b_title)>10}">
-															<c:out value="${fn:substring(list.b_title,0,9)}"/>...
-														</c:when>
-														<c:otherwise>
-															<c:out value="${list.b_title}"></c:out>
-														</c:otherwise>
-													</c:choose> --%>
+													
 												</td>
-												<td><span class="d-inline-block align-middle contentArea">
-													<%-- <c:choose>
-														<c:when test="${fn:length(list.b_content)>15}">
-															<c:out value="${fn:substring(list.b_content,0,14)}"/>...
-														</c:when>
-														<c:otherwise>
-															<c:out value="${list.b_content}"></c:out>
-														</c:otherwise>
-													</c:choose> --%>
-													${list.b_content}
-													</span></td>
+												<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+													<c:out value='${list.b_content.replaceAll("\\\<.*?\\\>","")}' />
+												</td>
 												<td ><fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date" /></td>
 											</tr>
 
@@ -91,10 +80,10 @@
 								<table class="table mb-0">
 									<thead class="small text-uppercase bg-body text-muted">
 										<tr>
-											<th>게시판</th>
-											<th>제목</th>
-											<th>작성댓글</th>
-											<th >작성날짜</th>
+											<th style="width: 10%;">게시판</th>
+											<th style="width: 30%;">제목</th>
+											<th style="width: 50%;">작성댓글</th>
+											<th style="width: 10%;">작성날짜</th>
 										</tr>
 									</thead>
 
@@ -104,27 +93,9 @@
 										<c:forEach items="${ reply }" var="list">
 
 											<tr class="align-middle">
-												<td>게시판 넣을거</td>
-												<td>
-													<c:choose>
-														<c:when test="${fn:length(list.b_title)>10}">
-															<c:out value="${fn:substring(list.b_title,0,9)}"/>...
-														</c:when>
-														<c:otherwise>
-															<c:out value="${list.b_title}"></c:out>
-														</c:otherwise>
-													</c:choose>
-												</td>
-												<td><span class="d-inline-block align-middle contentArea">
-													<c:choose>
-														<c:when test="${fn:length(list.r_content)>15}">
-															<c:out value="${fn:substring(list.r_content,0,14)}"/>...
-														</c:when>
-														<c:otherwise>
-															<c:out value="${list.r_content}"></c:out>
-														</c:otherwise>
-													</c:choose>
-													</span></td>
+												<td>${list.cat_name}</td>
+												<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${list.b_title}</td>
+												<td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${list.r_content}</td>
 												<td ><fmt:formatDate value="${ list.reply_date }" pattern="yy-MM-dd" type="date" /></td>
 				
 											</tr>

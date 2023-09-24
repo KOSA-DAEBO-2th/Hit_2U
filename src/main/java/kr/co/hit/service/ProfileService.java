@@ -98,5 +98,13 @@ public class ProfileService implements ProfileDao{
 	}
 
 
+	@Override
+	public List<ProfileDto> getMemberWrite(String id) {
+		ProfileDao dao = sqlsession.getMapper(ProfileDao.class);
+		List<ProfileDto> list = dao.getMemberWrite(id);
+		return list;
+	}
+
+
 	
 }

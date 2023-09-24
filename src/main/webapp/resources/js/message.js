@@ -1,27 +1,21 @@
 /**
  * Message
  */
+function m_write(){
+	$('.main_area').load("message_write");
+}
 
-function m_list() {
+$('#m_list').click(function(){
+	$(".active").removeClass("active");
+	$(this).addClass("active");
     $(".main_area").load("message_list");
-}
+});
 
-function m_write() {
-    $(".main_area").load("message_write");
-}
-
-function m_sendList() {
+$('#m_sendList').click(function(){
+	$(".active").removeClass("active");
+	$(this).addClass("active");
     $(".main_area").load("message_slist");
-}
-
-/*
-function selectAll(selectAll){
-	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-	checkboxes.forEach((checkbox)=> {
-		checkbox.checked = selectAll.checked
-	})
-}
-*/
+});
 
 $(document).ready(function () {
     $("#cbx_chkAll").click(function () {
@@ -112,39 +106,30 @@ function del() {
 	}
 	});
 
-
-
-
-
-
-
-
-	// //alert("삭제하시겠습니까?");
-	// var confirm_val = confirm("삭제하시겠습니까?");
-	
-	// if(confirm_val) {
-	// 	var checkArr = new Array();
-	// 	var m_no={};
-	// 	$("input[class='chk']:checked").each(function(){
-	// 		//m_no = {"m_no": $(this).val()};
-	// 		//checkArr.push(m_no);
-	// 		checkArr.push($(this).val());
-	// 	});
-	// 	console.log(checkArr);
-	// 	$.ajax({
-	// 	type: "POST",
-	// 	url: "message_del",
-	// 	contentType: 'application/json',
-	// 	data: JSON.stringify(checkArr),
-	// 	success: function(data){
-	// 		console.log("delete success");
-	// 		//location.href = "message_list";
-	// 		console.log(data);
-	// 		m_list();
-
-	// 		}
-	// 	});  
-	// }
 }
 
+$(document).on('click', "#tableView tr", function(){
+	console.log("쪽지 행 클릭-----");
+	//.attr('value')
+    m_no = $(this).find("td:eq(0)").find("input").val();
+	console.log(m_no);
+    send = $(this).find("td:eq(1)").text();
+	console.log(send);
+	content = $(this).find("td:eq(2)").text();
+	console.log(content);
+	$(".main_area").load("message/"+m_no);
 
+    // var link;
+
+    // switch(cat_no){
+    //     case '1': link = "/community/"+b_no; break;
+    //     case '2': link = "/qna/"+b_no; break;
+    //     case '3': link = "/meeting/"+b_no; break;
+    //     case '4': link = "/market/"+b_no; break;
+    //     case '5': link = "/lecture/"+b_no; break;
+    // }
+    // console.log("======================");
+    // console.log(link);
+
+    // location.href=link;
+});

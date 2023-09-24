@@ -22,7 +22,7 @@
 					<div class="market_title">${list.b_title }</div>
 					<div class="main_user flex item_center font_14">
 						<div class="flex_1">
-							<div class="flex item_center">
+							<div class="flex item_center" onclick="location.href='/memberProfile/${list.member_id}'" style="cursor: pointer;">
 								<div class="profile_form">
 									<img class="profile"
 										src="${pageContext.request.contextPath }/resources/images/profile_logo.png">
