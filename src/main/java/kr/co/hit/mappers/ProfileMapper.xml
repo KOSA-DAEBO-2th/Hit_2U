@@ -26,10 +26,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE m.member_id=#{member_id} ORDER BY b_write_date DESC
 	</select>
 	
+	<select id="getMemberWrite" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
+		SELECT b.b_no, b.b_title, b.b_content, b.b_write_date, m.member_no, m.member_id, c.* 
+		FROM BOARD b left JOIN MEMBER m ON b.member_no=m.member_no 
+		LEFT JOIN CATEGORY c ON b.cat_no=c.cat_no 
+		WHERE m.member_id=#{member_id} AND NOT b.topic_no = 6 ORDER BY b_write_date DESC
+	</select>
+	
 	<select id="getReplyList" resultType="kr.co.hit.dto.ProfileDto" parameterType="string">
-		SELECT b.b_no, b.b_title, b.b_content, r.r_content, r.reply_date 
+		SELECT b.b_no, b.b_title, b.b_content, r.r_content, r.reply_date, c.cat_name
 		FROM REPLY r LEFT JOIN BOARD b ON r.b_no=b.b_no 
 		LEFT JOIN MEMBER m ON r.nickname=m.nickname 
+		LEFT JOIN CATEGORY c ON b.cat_no=c.cat_no 
 		WHERE member_id = #{member_id} ORDER BY reply_date DESC
 	</select>
 	

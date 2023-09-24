@@ -64,11 +64,11 @@ function send_message(content){
 $(document).on("click", ".btn_report_submit", function () {
 	var content = $('#report-text').val();
     console.log("-----------"+ content);
-	send_message(content);
+	send_report(content);
     
 });
 
-function send_message(content){
+function send_report(content){
     console.log($('#report-id').html()+"================");
     var to = $('#report-id').html();
     //이거 ajax 작성해야함

@@ -89,7 +89,7 @@
 							</div>
 						</div>
 					</c:forEach>
-					<div class="flex content_center item_center">
+<%-- 					<div class="flex content_center item_center">
 						<i class="fa-solid fa-chevron-left font_20 font_main page_arrow"></i>
 						<input type="text"
 							class="form-control page_test margin_left_20 current_page"
@@ -100,7 +100,7 @@
 							class="form-control page_test margin_right_20 max_page"
 							value="${maxPage }" disabled /> <i
 							class="fa-solid fa-chevron-right font_20 font_main page_arrow"></i>
-					</div>
+					</div> --%>
 
 
 				</div>

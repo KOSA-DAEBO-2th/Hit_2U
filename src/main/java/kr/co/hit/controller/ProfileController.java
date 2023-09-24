@@ -89,7 +89,7 @@ public class ProfileController {
 	public String memberProfile(@PathVariable("member_id") String member_id, Model model) {
 		MemberDto dto = profileService.getUserInfo(member_id);
 		model.addAttribute("dto", dto);
-		List<ProfileDto> list = profileService.getWriteList(member_id);
+		List<ProfileDto> list = profileService.getMemberWrite(member_id);
 		model.addAttribute("list", list);
 		return "/profile/memberProfile";
 	}

@@ -45,7 +45,7 @@
                     <a class="btn btn-danger " onclick="del()">삭제</a>
                 </div>
                 <div class="table-responsive">
-                    <table class="table mb-0">
+                    <table class="table mb-0" id="tableView">
                         <thead class="small text-uppercase bg-body text-muted" id="listTable">
                             <tr>
                                 <th style="width: 10%"><input type="checkbox"  id="cbx_chkAll" ></th>
@@ -61,7 +61,7 @@
                         
                         	<c:forEach items="${ list }" var="list">
                         
-                            <tr class="align-middle"  data-bs-toggle="modal" data-bs-target="#msgDetailModal">
+                            <tr class="align-middle" style="cursor: pointer;">     <!-- data-bs-toggle="modal" data-bs-target="#msgDetailModal"  -->
                                 <td>
                                     <div class="d-flex align-items-center">
 
@@ -95,38 +95,11 @@
 </div>
 
 
-		<!-- Message Modal -->
-<div class="modal fade" id="msgDetailModal" tabindex="-1" aria-labelledby="msgDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="msgDetailModalLabel">쪽지 보내기</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">받는사람:</label>
-            <input type="text" class="form-control" id="receive-id" value="${ dto.member_id }">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">내용:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary btn_msg_submit">보내기</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 	</main>
 	<!-- </div> -->
 	<!-- </div> -->
-
 
 
 </body>

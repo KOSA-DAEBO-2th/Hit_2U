@@ -45,14 +45,15 @@
 		top:0;
 	}
 	
-	td>span>p {
+	table {
+		table-layout: fixed;
+	}
+	
+	table td {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		whie-space: nowrap;
 		max-height: 30px;
-	}
-	table {
-		table-layout: fixed;
 	}
 </style>
 
@@ -145,7 +146,7 @@
 										<p class="text-muted mb-0">${ dto.email }</p>
 									</div>
 								</div>
-								<hr>
+								<%-- <hr>
 								<div class="row">
 									<div class="col-sm-3">
 										<p class="mb-0">연락처</p>
@@ -153,7 +154,7 @@
 									<div class="col-sm-9">
 										<p class="text-muted mb-0">${ dto.contact }</p>
 									</div>
-								</div>
+								</div> --%>
 
 							</div>
 						</div>
@@ -169,9 +170,9 @@
                         <thead class="small text-uppercase bg-body text-muted">
                             <tr style="position: sticky; top: 0;">
                             	<!-- <th></th> -->
-                                <th style="width: 30%;">제목</th>
+                            	<th style="width: 15%;">카테고리</th>
+                                <th style="width: 35%;">제목</th>
                                 <th style="width: 50%;">내용</th>
-                                <th style="width: 20%;">날짜</th>
                             </tr>
                         </thead>
                         
@@ -186,9 +187,13 @@
                                     </div>
                                 </td> --%>
                                 
-                                <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${ list.b_title }<div style="display: none;">${list.b_no}</div><div style="display: none;">${list.cat_no }</div> </td>
-                                <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-height: 48px;"> <span class="d-inline-block align-middle" style="max-height: 25px;">${ list.b_content }</span></td>
-                                <td> <fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date"/> </td>
+                                <td> ${list.cat_name }</td>
+                                <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${ list.b_title }
+                                	<div style="display: none;">${list.b_no}</div><div style="display: none;">${list.cat_no }</div> 
+                                </td>
+                                <td style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"> 
+                                	<c:out value='${list.b_content.replaceAll("\\\<.*?\\\>","")}' /></td>
+                                <%-- <td> <fmt:formatDate value="${ list.b_write_date }" pattern="yy-MM-dd" type="date"/> </td> --%>
                             </tr>
                         	
                         	</c:forEach>

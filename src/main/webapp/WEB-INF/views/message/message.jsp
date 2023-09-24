@@ -15,10 +15,17 @@
   <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <link href="${pageContext.request.contextPath }/resources/css/button.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath }/resources/css/header.css" rel="stylesheet" />
-        <link href="${pageContext.request.contextPath }/resources/css/footer.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath }/resources/css/footer.css" rel="stylesheet" />
 
-        <link href="${pageContext.request.contextPath }/resources/css/util.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link href="${pageContext.request.contextPath }/resources/css/util.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+ <style type="text/css">
+	.active{
+		background-color: #e9ecef;
+		color: gray;
+	}
+
+</style>
 </head>
 <body>
 	
@@ -28,13 +35,13 @@
 	<main class="main_content">
 <div class="email-app">
     <nav>
-        <a onclick="m_write();" class="btn btn-primary btn-blue" style="width: 100%;">쪽지쓰기</a>
+        <a onclick="m_write();" class="btn btn-primary btn-blue" style="width: 100%; margin-bottom: 20px; margin-top: 10px;">쪽지쓰기</a>
         <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link " onclick="m_list();"><i class="fa fa-inbox"></i> 받은쪽지함<!--  <span class="badge badge-danger">4</span> --></a>
+            <li class="nav-item active">
+                <a class="nav-link " id="m_list"><i class="fa fa-inbox"></i> 받은쪽지함<!--  <span class="badge badge-danger">4</span> --></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" onclick="m_sendList();"><i class="fa fa-rocket"></i> 보낸쪽지함</a>
+                <a class="nav-link" id="m_sendList"><i class="fa fa-rocket"></i> 보낸쪽지함</a>
             </li>
 
         </ul>
@@ -48,5 +55,38 @@
 <!-- </div> -->
 	<c:import url="../includes/footer.jsp"></c:import>
 </main>
+
+
+
+
+		<!-- Message Modal -->
+<div class="modal fade" id="msgDetailModal" tabindex="-1" aria-labelledby="msgDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="msgDetailModalLabel">쪽지 보내기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <!--  <form> -->
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">받는사람:</label>
+            <input type="text" class="form-control" id="receive-id" value="">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">내용:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+     <!--    </form> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary btn_msg_submit">보내기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>

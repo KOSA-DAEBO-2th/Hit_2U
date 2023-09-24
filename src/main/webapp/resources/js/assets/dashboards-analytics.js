@@ -46,9 +46,9 @@
               case "2023-07": current[9] = count; break;
               case "2023-08": current[10] = count; break;
               case "2023-09": current[11] = count; break;
-              case "2022-10": pre[0] = count; break;
-              case "2022-11": pre[1] = count; break;
-              case "2022-12": pre[2] = count; break;
+              case "2022-10": current[0] = count; break;
+              case "2022-11": current[1] = count; break;
+              case "2022-12": current[2] = count; break;
 
 
             }
@@ -68,11 +68,8 @@
         {
           name: '2023',
           data: current
-        },
-        {
-          name: '2022',
-          data: pre
         }
+
       ],
       chart: {
         height: 300,
@@ -126,7 +123,7 @@
         }
       },
       xaxis: {
-        categories: ['Oct','Nov','Dec','Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        categories: ['13','14','15','16', '17', '18', '19', '20', '21', '22', '23', '24'],
         labels: {
           style: {
             fontSize: '13px',
@@ -344,8 +341,9 @@
             switch(data.cntW[ii].cat_name){
               case "커뮤니티": cntBoard[0] = count; $('.comCnt').html(count); break;
               case "QnA": cntBoard[1] = count; $('.qnaCnt').html(count); break;
-              case "모임": cntBoard[2] = count; $('.meetCnt').html(count); break;
-              case "프리랜서": cntBoard[3] = count; $('.freeCnt').html(count); break;
+              case "마켓": cntBoard[2] = count; $('.marketCnt').html(count); break;
+              case "모임": cntBoard[3] = count; $('.meetCnt').html(count); break;
+              //case "프리랜서": cntBoard[4] = count; $('.freeCnt').html(count); break;
               case "합계": $('.cntBoard').html(count); break;
               return cntBoard;
             }
@@ -359,8 +357,9 @@
             switch (data.cntR[i].cat_name) {
               case "커뮤니티": cntReply[0] = countR; $('.comCntR').html(countR); break;
               case "QnA": cntReply[1] = countR; $('.qnaCntR').html(countR); break;
-              case "모임": cntReply[2] = countR; $('.meetCntR').html(countR); break;
-              case "프리랜서": cntReply[3] = countR; $('.freeCntR').html(countR); break;
+              case "마켓": cntReply[2] = countR; $('.marketCntR').html(countR); break;
+              case "모임": cntReply[3] = countR; $('.meetCntR').html(countR); break;
+              //case "프리랜서": cntReply[4] = countR; $('.freeCntR').html(countR); break;
               case "합계": $('.cntReply').html(countR); break;
               return cntReply;
             }
@@ -377,9 +376,9 @@
         width: 130,
         type: 'donut'
       },
-      labels: ['커뮤니티', 'QnA', '마켓', '모임', '프리랜서'],
+      labels: ['커뮤니티', 'QnA', '마켓', '모임'],
       series: cntBoard,
-      colors: [config.colors.primary, config.colors.success, axisColor, config.colors.info,  config.colors.secondary],
+      colors: [config.colors.primary, config.colors.success,  config.colors.info,  config.colors.secondary],
       stroke: {
         width: 5,
         colors: cardColor
@@ -423,9 +422,9 @@
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Monthly',
+                label: '오늘',
                 formatter: function (w) {
-                  return '28%';
+                  return '8';
                 }
               }
             }
@@ -446,9 +445,9 @@
         width: 130,
         type: 'donut'
       },
-      labels: ['커뮤니티', 'QnA','마켓', '모임', '프리랜서'],
+      labels: ['커뮤니티', 'QnA','마켓', '모임'],
       series: cntReply,
-      colors: [config.colors.primary, config.colors.success, axisColor, config.colors.info,  config.colors.secondary],
+      colors: [config.colors.primary, config.colors.success, config.colors.info,  config.colors.secondary],
       stroke: {
         width: 5,
         colors: cardColor
@@ -492,9 +491,9 @@
                 show: true,
                 fontSize: '0.8125rem',
                 color: axisColor,
-                label: 'Monthly',
+                label: '오늘',
                 formatter: function (w) {
-                  return '31%';
+                  return '12';
                 }
               }
             }

@@ -50,6 +50,13 @@ public class MessageService implements MessageDao{
 		int res = dao.deleteMessage(checkArr);
 		return res;
 	}
+
+	@Override
+	public MessageDto detailMessage(int m_no) {
+		MessageDao dao = sqlsession.getMapper(MessageDao.class);
+		MessageDto dto = dao.detailMessage(m_no);
+		return dto;
+	}
 	
 	
 
