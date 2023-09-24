@@ -1,7 +1,7 @@
 /**
  *
  */
-
+$(".question_form").hide();
 $(".read_select").hover(
     function () {
         $(this).addClass("read_hover");
@@ -166,7 +166,6 @@ bindEvents2();
 
 //탭 이벤트
 // $(".info_form").hide();
-$(".question_form").hide();
 
 $(document).on("click", ".question", function () {
     $(".info_form").hide();
@@ -189,6 +188,9 @@ $(document).on("click", ".btn_apply_submit", function () {
 });
 
 function position_apply(boardIdx, position_kr) {
+    console.log("position_apply");
+    console.log(boardIdx);
+    console.log(position_kr);
     $.ajax({
         url: "/meeting/meeting_apply",
         type: "POST",
@@ -246,4 +248,11 @@ $(document).on("click", ".reply_submit", function () {
         alert("1000 !!!!!!!!");
         return;
     }
+});
+
+$(document).on("click", ".btn_apply_cancle", function () {
+    if (!confirm("지원을 취소 하시겠습니까?")) {
+        return false;
+    }
+    location.href = "/meeting/apply_cancle/" + boardIdx + "/" + test;
 });

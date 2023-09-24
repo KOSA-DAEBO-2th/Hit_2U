@@ -76,6 +76,20 @@
 	font-size: 14px;
 }
 
+.btn_apply_cancle{
+	height: 24px;
+	padding: 0px 10px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+.btn_apply_cancle:hover{
+
+	background-color: royalblue;
+	color: white;
+
+}
+
 .btn_apply_end {
 	height: 24px;
 	padding: 0px 10px;
@@ -128,6 +142,10 @@
 
 .userid_form {
 	padding: 12px 0px 20px 0px;
+}
+
+.userid_form2 {
+	padding: 12px 0px 20px 0px;
 	border-bottom: 1px solid #e6e6e6;
 }
 
@@ -136,13 +154,7 @@
 	border-bottom: 1px solid #e6e6e6;
 }
 
-.btn_apply2 {
-	width: 100%;
-	height: 40px;
-	background-color: royalblue;
-	color: white;
-	font-size: 14px;
-}
+
 
 .btn_apply2:hover {
 	background-color: royalblue;
@@ -296,10 +308,158 @@
 }
 
 .reply_date{
-	width: 100%;
+	flex: 1;
 	color: #C9C9D9;
 }
 
-.btn_apply_cancle:hover{
+.btn_apply_cancle_1:hover{
 	border: 1px solid gray;
+}
+
+.btn_update {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	color: white;
+	background-color: royalblue;
+	opacity: 0.7;
+}
+.btn_normal{
+	width: inherit;
+	height: inherit;
+	background-color: royalblue;
+}
+
+.btn_update:hover {
+	color: white;
+	background-color: royalblue;
+	opacity: 0.7;
+}
+
+.btn_delete {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	color: white;
+	opacity: 0.7;
+	background-color: #F05650;
+}
+
+.btn_delete:hover {
+	color: white;
+	opacity: 0.7;
+	background-color: #F05650;
+}
+
+.btn_14 {
+	font-size: 14px;
+}
+
+
+
+.btn_14 {
+	font-size: 14px;
+}
+
+.reply_submit:hover {
+	background-color: rgb(204, 204, 204);
+}
+
+.btn_apply2 {
+	width: 100%;
+	height: 39px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+
+.btn_like {
+	width: 25%;
+	height: 39px;
+	background-color: royalblue;
+	color: white;
+	font-size: 14px;
+}
+.btn_like:hover{
+	background-color: royalblue;
+	color: white;
+}
+
+.market_cmp_btn {
+	background-color: rgb(204, 204, 204);
+	color: black;
+}
+
+.reply_cursor {
+	cursor: pointer;
+}
+
+
+
+.reply_update:hover {
+	font-weight: 700;
+}
+
+.reply_delete:hover {
+	font-weight: 700;
+}
+
+.question_form {
+	padding: 20px 0px;
+}
+
+.content_tab {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.reply_submit {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	background-color: rgb(204, 204, 204);
+	font-size: 12px;
+}
+
+.reply_update_btn {
+	width: inherit;
+	height: inherit;
+	padding: 5px 10px;
+	background-color: rgb(204, 204, 204);
+	font-size: 12px;
+}
+
+.reply_update_btn:hover {
+	background-color: rgb(204, 204, 204);
+}
+
+
+.reply_section {
+	padding: 20px;
+	border: 1px solid gray;
+	border-radius: 8px;
+}
+
+.reply_input {
+	resize: none;
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 40px;
+}
+
+.reply_update_input {
+	resize: none;
+	outline: none;
+	border: none;
+	width: 100%;
+	height: 40px;
+}
+
+.reply_add {
+	justify-content: space-between;
+}
+
+.reply_update_add {
+	justify-content: space-between;
 }

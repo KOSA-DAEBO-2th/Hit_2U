@@ -182,6 +182,19 @@ $(document).on("click", ".reply_delete", function () {
         },
     });
 });
+$(document).on("click", ".btn_delete", function () {
+    if (!confirm("글을 삭제하시겠습니까?")) {
+        return false;
+    }
+    location.href = "/market/delete/" + b_no;
+});
+
+$(document).on("click", ".btn_complete", function () {
+    if (!confirm("거래완료 하시겠습니까?")) {
+        return false;
+    }
+    location.href = "/market/completed/" + b_no;
+});
 
 // let a = 5;
 // var html = `
