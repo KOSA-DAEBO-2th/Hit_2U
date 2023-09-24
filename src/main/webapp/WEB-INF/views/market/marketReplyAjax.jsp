@@ -54,7 +54,7 @@
 						<div class="userid_form flex">
 							<div class="img_form margin_right_20">
 								<a href="#"><img class="reply_profile" title="profile"
-									src="${pageContext.request.contextPath}/resources/images/maple.jpg" /></a>
+									src="${reply_list.profile}" /></a>
 							</div>
 							<div class="flex direction_column">
 								<div class="flex item_center">
@@ -80,7 +80,7 @@
 											<c:set var="reply_id">
 												<sec:authentication property="principal.nickname" />
 											</c:set>
-											<c:if test="${reply_list.nickname eq reply_id}">
+											<c:if test="${reply_list.nickname eq '주영회(33세)'}">
 												<div class="reply_cursor reply_update">수정</div>
 												<div style="margin: 0px 8px;">/</div>
 												<div class="reply_cursor reply_delete">삭제</div>

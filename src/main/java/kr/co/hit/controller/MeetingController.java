@@ -38,25 +38,6 @@ public class MeetingController {
 	@Autowired
 	FileService fileService;
 	
-//	@GetMapping()
-//	public ModelAndView meeting() {
-//
-//		ModelAndView mv = new ModelAndView("meeting/meeting");
-//		List<MeetingDto> list = meetingService.selectMeetingList();
-
-//		List<String[]> tag_list = new ArrayList<String[]>();
-//		for (int i = 0; i < list.size(); i++) {
-//			String tag[] = list.get(i).getMeet_tags().split(" ");
-//			tag_list.add(tag);
-//		}
-//
-//		mv.addObject("list", list);
-//		mv.addObject("tags", tag_list);
-//		mv.addObject("listcount", listcount);
-//
-//		return mv;
-//	}
-
 	@GetMapping()
 	public ModelAndView meeting() {
 
@@ -117,35 +98,6 @@ public class MeetingController {
 		return "meeting/meetingListAjax";
 	}
 
-	/*
-	 * @PostMapping() public String ajaxReturnList(@RequestParam("select") String
-	 * select, Model model) { List<MeetingDto> list = new ArrayList();
-	 * 
-	 * if (select.equals("전체")) { list = meetingService.selectMeetingList(); } else
-	 * { list = meetingService.selectMeetingCategoyList(select); } List<String[]>
-	 * tag_list = new ArrayList<String[]>(); for (int i = 0; i < list.size(); i++) {
-	 * String tag[] = list.get(i).getMeet_tags().split(" "); tag_list.add(tag); }
-	 * 
-	 * model.addAttribute("list", list); model.addAttribute("tag_list", tag_list);
-	 * 
-	 * return "meeting/meetingListAjax"; }
-	 */
-
-	/*
-	 * @PostMapping("/meeting_search") public String
-	 * ajaxReturnSearch(@RequestParam("search_target") String search_target, Model
-	 * model) { List<MeetingDto> list = new ArrayList();
-	 * 
-	 * list = meetingService.selectMeetingSearch(search_target);
-	 * 
-	 * List<String[]> tag_list = new ArrayList<String[]>(); for (int i = 0; i <
-	 * list.size(); i++) { String tag[] = list.get(i).getMeet_tags().split(" ");
-	 * tag_list.add(tag); }
-	 * 
-	 * model.addAttribute("list", list); model.addAttribute("tag_list", tag_list);
-	 * 
-	 * return "meeting/meetingListAjax"; }
-	 */
 
 	@GetMapping("/write")
 	public String writeForm() throws Exception {
@@ -194,17 +146,32 @@ public class MeetingController {
 		meetingService.increaseView(boardIdx);
 		MeetingDto list = meetingService.selectMeetingRead(boardIdx);
 		String tag[] = list.getMeet_tags().split(" ");
-
+		List<Integer> like = new ArrayList<Integer>();
+		List<Integer> apply_in = new ArrayList<Integer>();
+		
 		List<MeetingDto> meeting_member = meetingService.selectMeetingMember(boardIdx);
 		List<MeetingDto> recommend_list = meetingService.selectRecommendList(boardIdx, list.getMeet_field());
 		List<MeetingDto> reply_list = meetingService.selectReplyList(boardIdx);
-		List<MeetingDto> apply_list = meetingService.selectReplyList(boardIdx);
+		List<MeetingDto> apply_list = meetingService.selectApplyList(boardIdx);
+		List<MeetingDto> apply_in_list = meetingService.selectApplyInList(boardIdx);
 
 		mv.addObject("list", list);
 		mv.addObject("tags", tag);
 		mv.addObject("meeting_member", meeting_member);
 		mv.addObject("recommend_list", recommend_list);
 		mv.addObject("reply_list", reply_list);
+		mv.addObject("apply_list", apply_list);
+		
+		for (int i = 0; i < apply_list.size(); i++) {
+			like.add(apply_list.get(i).getMember_no());
+		}
+		
+		for (int i = 0; i < apply_in_list.size(); i++) {
+			apply_in.add(apply_in_list.get(i).getMember_no());
+		}
+		mv.addObject("like", like);
+		mv.addObject("apply_in", apply_in);
+		System.out.println(like);
 	
 
 		return mv;
@@ -216,7 +183,8 @@ public class MeetingController {
 			@RequestParam("meeting_position") String meeting_position,
 			@RequestParam(value = "meeting_tmp", defaultValue = "0") int meeting_tmp,
 			@RequestParam(value = "meeting_leader", defaultValue = "0") int meeting_leader) {
-
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		member_no = user.getMember_no();
 		int result = meetingService.insertMeetingMember(boardIdx, member_no, meeting_position, meeting_tmp, meeting_leader);
 
 		return Integer.toString(result);
@@ -258,6 +226,28 @@ public class MeetingController {
 		
 		
 		return result;
+	}
+	
+	@GetMapping("/apply/{boardIdx}/{member_no}/{meeting_position}")
+	public String apply_ok(@PathVariable("boardIdx") int boardIdx, @PathVariable("member_no") int member_no, @PathVariable("meeting_position") String meeting_position) throws Exception {
+		
+		System.out.println(meeting_position);
+		meetingService.meetingOk(boardIdx, member_no);
+		meetingService.meetingCount(boardIdx, meeting_position);
+
+
+		return "redirect:/meeting/"+Integer.toString(boardIdx);
+	}
+	
+	@GetMapping("/apply_cancle/{boardIdx}/{member_no}")
+	public String apply_cancle(@PathVariable("boardIdx") int boardIdx, @PathVariable("member_no") int member_no) throws Exception {
+		
+		System.out.println(member_no);
+		meetingService.meetingCancle(boardIdx, member_no);
+		meetingService.meetingCount(boardIdx, "백엔드1");
+
+
+		return "redirect:/meeting/"+Integer.toString(boardIdx);
 	}
 
 }

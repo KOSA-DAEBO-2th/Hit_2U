@@ -165,6 +165,7 @@ public class MarketController {
 		mv.addObject("list", list);
 		mv.addObject("img_list", img_list);
 		mv.addObject("reply_list", reply_list);
+		System.out.println(reply_list);
 		
 		for (int i = 0; i < like_List.size(); i++) {
 			like.add(like_List.get(i).getMember_no());
@@ -281,7 +282,7 @@ public class MarketController {
 		int board_ok = marketService.updateBoard(dto);
 		int market_ok = marketService.updateMarket(dto);
 
-		return "/market/" + Integer.toString(boardIdx);
+		return "redirect:/market/" + Integer.toString(boardIdx);
 	}
 	
 	@PostMapping(value = "/uploadSummernoteImageFile/{boardIdx}", produces = "application/json")

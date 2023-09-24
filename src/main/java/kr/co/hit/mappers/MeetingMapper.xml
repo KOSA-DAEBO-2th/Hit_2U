@@ -42,7 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
 		M.MEET_TOPIC_NAME,
 		M.MEET_STATE,
-		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY, F.FILE_URL
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY,
+		F.FILE_URL
 		FROM BOARD B
 		INNER JOIN
 		MEETING M
@@ -51,16 +52,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN
 		(SELECT
 		B_NO, BACKEND + FRONTEND + SERVER +
-		PM AS APPLY_MAX, BACKEND_APPLY +
+		PM AS APPLY_MAX,
+		BACKEND_APPLY +
 		FRONTEND_APPLY + SERVER_APPLY +
-		PM_APPLY AS APPLY FROM MEETING ) TMP
+		PM_APPLY AS APPLY FROM
+		MEETING ) TMP
 		ON
 		B.B_NO =
 		TMP.B_NO
-		LEFT OUTER JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE
+		WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
 
 		WHERE CAT_NO =
-		3 AND B_TITLE LIKE CONCAT('%',#{param1},'%') ORDER BY B.B_NO DESC LIMIT #{param2},#{param3};
+		3 AND B_TITLE LIKE CONCAT('%',#{param1},'%') ORDER BY B.B_NO DESC
+		LIMIT #{param2},#{param3};
 
 
 	</select>
@@ -164,7 +169,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<insert id="insertThumb" parameterType="kr.co.hit.dto.FileDto">
-		insert INTO FILE (file_name, file_realname,file_url, file_size,b_no,
+		insert INTO FILE
+		(file_name, file_realname,file_url, file_size,b_no,
 		thumbnail)
 		VALUES(#{file_name},#{file_realname},#{file_url},#{file_size},(SELECT
 		t.b_no FROM (SELECT MAX(b_no) b_no FROM BOARD) AS t), #{thumbnail})
@@ -225,7 +231,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		B.MEMBER_NO, B.CAT_NO, M.MEET_TAGS,
 		M.MEET_TOPIC_NAME,
 		M.MEET_STATE,
-		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY, F.FILE_URL
+		M.MEET_FIELD, TMP.APPLY_MAX, TMP.APPLY,
+		F.FILE_URL
 		FROM BOARD B
 		INNER JOIN
 		MEETING M
@@ -234,18 +241,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INNER JOIN
 		(SELECT
 		B_NO, BACKEND + FRONTEND + SERVER +
-		PM AS APPLY_MAX, BACKEND_APPLY +
+		PM AS APPLY_MAX,
+		BACKEND_APPLY +
 		FRONTEND_APPLY + SERVER_APPLY +
-		PM_APPLY AS APPLY FROM MEETING ) TMP
+		PM_APPLY AS APPLY FROM
+		MEETING ) TMP
 		ON
 		B.B_NO =
 		TMP.B_NO
-		LEFT OUTER JOIN (SELECT * FROM FILE WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
+		LEFT OUTER JOIN (SELECT * FROM FILE
+		WHERE THUMBNAIL = 0 GROUP BY B_NO) F ON B.B_NO = F.B_NO
 
 		WHERE
-		CAT_NO = 3 AND B_TITLE LIKE CONCAT('%',
+		CAT_NO = 3
+		AND B_TITLE LIKE CONCAT('%',
 		#{param1},'%') AND
-		MEET_TOPIC_NAME = #{param2} ORDER BY B.B_NO DESC LIMIT #{param3},
+		MEET_TOPIC_NAME =
+		#{param2} ORDER BY B.B_NO DESC LIMIT #{param3},
 		#{param4};
 
 	</select>
@@ -253,10 +265,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectMeetingMember"
 		resultType="kr.co.hit.dto.MeetingDto">
-		SELECT M.member_id, M.nickname, M.git_link, M.grade, MEM.meeting_leader,
+		SELECT M.member_id, M.nickname, M.git_link, M.grade, M.profile,
+		MEM.meeting_leader,
 		MEM.meeting_position FROM
 		MEETING_MEMBER MEM
-		INNER JOIN
+		INNER
+		JOIN
 		MEMBER M
 		ON
 		MEM.MEMBER_NO = M.MEMBER_NO
@@ -270,7 +284,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT B.B_NO, B.B_TITLE,
 		B.B_CONTENT,
 		M.MEET_TOPIC_NAME,
-		M.MEET_FIELD, tmp.apply_max, tmp.apply
+		M.MEET_FIELD, tmp.apply_max, tmp.apply, F.*
 		FROM BOARD B
 		INNER JOIN
 		MEETING M
@@ -285,19 +299,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON
 		B.B_NO =
 		tmp.B_NO
+		INNER JOIN
+		FILE F
+		ON F.b_no = B.b_no
 
 		WHERE CAT_NO =
 		3
 		AND meet_state = '모집 중' AND B.b_no != #{param1}
 		AND meet_field =
-		#{param2}
+		#{param2} AND F.thumbnail = 0
 		ORDER BY RAND() LIMIT 5;
 	</select>
 
 	<select id="selectReplyList"
 		resultType="kr.co.hit.dto.MeetingDto">
-		SELECT * FROM REPLY
-		WHERE b_no = #{boardIdx}
+		SELECT * 
+		FROM REPLY R
+		LEFT OUTER JOIN
+		MEMBER M
+		ON M.NICKNAME = R.NICKNAME
+		WHERE B_NO = #{boardIdx}
 		ORDER by
 		reply_no desc;
 	</select>
@@ -314,6 +335,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BOARD WHERE cat_no =3 ;
 	</select>
 
+	<select id="selectApplyList"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT * FROM
+		MEETING_MEMBER MEM
+		JOIN MEMBER M
+		ON M.member_no
+		= MEM.member_no
+		WHERE b_no =
+		#{boardIdx} AND
+		MEETING_TMP = 0
+	</select>
 
+
+	<update id="meetingOk">
+		UPDATE MEETING_MEMBER SET meeting_tmp = 1 WHERE b_no
+		= #{param1} and member_no = #{param2}
+
+	</update>
+
+	<update id="meetingCount">
+		update MEETING
+		<set>
+			<if test="param2 == '백엔드'">backend_apply=backend_apply+1</if>
+			<if test="param2 == '백엔드1'">backend_apply=0</if>
+			<if test="param2 == '웹 서버'">server_apply=server_apply+1</if>
+			<if test="param2 == '프론트엔드'">frontend_apply=frontend_apply+1</if>
+			<if test="param2 == '프로젝트 매니저'">pm_apply=pm_apply+1</if>
+		</set>
+		where b_no = #{param1}
+	</update>
+
+	<select id="selectApplyInList"
+		resultType="kr.co.hit.dto.MeetingDto">
+		SELECT * FROM
+		MEETING_MEMBER MEM
+		JOIN MEMBER M
+		ON M.member_no
+		= MEM.member_no
+		WHERE b_no =
+		#{boardIdx} AND
+		MEETING_TMP = 1
+		AND MEETING_LEADER = 0
+	</select>
+	<delete id="meetingCancle">
+		DELETE FROM MEETING_MEMBER WHERE b_no = #{param1} and member_no = #{param2}
+	</delete>
+	
 
 </mapper>
