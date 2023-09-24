@@ -21,5 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM MESSAGE WHERE M_NO in <foreach collection="list" item="m_no" index="index" open="(" close=")" separator=",">#{m_no}</foreach>
 	</delete>
 	
+	<select id="detailMessage">
+		SELECT * FROM MESSAGE WHERE m_no=#{m_no}
+	</select>
+	
 	
 </mapper>

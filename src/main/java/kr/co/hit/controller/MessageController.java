@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,13 @@ public class MessageController {
 //		List<BoardDto> list = lectureService.selectLectureList();
 //		model.addAttribute("list", list);
 		return "message/message_write";
+	}
+	
+	@RequestMapping("/message/{m_no}")
+	public String message_detail(@PathVariable int m_no, Model model) {
+		MessageDto dto = messageService.detailMessage(m_no);
+		model.addAttribute("dto", dto);
+		return "message/message_detail";
 	}
 	
 

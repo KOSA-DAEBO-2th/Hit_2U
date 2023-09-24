@@ -10,5 +10,6 @@ public interface MessageDao {
 	public int sendMessage(MessageDto dto);
 	public List<MessageDto> selectSendList(String id);
 	public int deleteMessage(List<Integer> checkArr);
+	public MessageDto detailMessage(int m_no);
 	
 }

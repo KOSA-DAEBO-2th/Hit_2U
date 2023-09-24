@@ -32,4 +32,6 @@ public interface ProfileDao {
 	
 	public int report(AdminDto dto);
 	
+	public List<ProfileDto> getMemberWrite(String id);
+	
 }
