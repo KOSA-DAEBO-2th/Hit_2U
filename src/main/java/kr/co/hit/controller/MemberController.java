@@ -124,7 +124,7 @@ public class MemberController {
 	@RequestMapping("/signup")
 	public String signup(Model model, HttpSession session) {
 
-		return "member/signup";
+		return "/member/signup";
 	}
 
 	@ResponseBody
@@ -147,6 +147,17 @@ public class MemberController {
 		if (result > 0)
 			System.out.println("회원가입 성공");
 
-		return "member/login";
+		return "/member/login";
+	}
+
+	@PostMapping("/Nsignok")
+	public String Nsignok(MemberDto dto) {
+		dto.setPassword(this.bCryptPasswordEncoder.encode(dto.getPassword()));
+		int result = 0;
+		result = joinService.insertNMember(dto);
+		if (result > 0)
+			System.out.println("회원가입 성공");
+		
+		return "redirect:/member/login";
 	}
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 
 @Data
 public class AdminDto {
-	private int b_no, member_no, cat_no, cntWeek, replyWeek, count, report_no, report_member, reported, reporter;
-	private String b_title, b_content, search_key, cat, member_id, nickname, 
+	private int b_no, member_no, cat_no, cntWeek, replyWeek, count, report_no, report_member;
+	private String b_title, b_content, search_key, cat, member_id, nickname, reporter, reported,
 		cat_name, authority, months, report_reason;
 	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")

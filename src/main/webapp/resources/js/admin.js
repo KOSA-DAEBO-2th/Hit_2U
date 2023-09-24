@@ -165,7 +165,7 @@ function changeCat(){
 function reportList(){
 	$.ajax({
 		type: "GET",
-		url: "reportList",
+		url: "/reportList",
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function(data){

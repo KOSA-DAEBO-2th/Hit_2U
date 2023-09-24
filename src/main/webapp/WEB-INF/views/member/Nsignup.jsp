@@ -54,13 +54,13 @@
 				<hr>
 			</div>
 			<form id="login_input" method="post" onsubmit="return njoinChk();"
-				name="join" action="/member/signok">
-				<input type="hidden" id="naver_id" value="${naver_id }"/>
+				name="join" action="/member/Nsignok">
+				<input type="hidden" id="naver_id" name="naver_id" value="${user.naver_id}"/>
 				
 				<div class="font_16 text_left">아이디</div>
 				<input class="form-control" type="text" name="member_id"
 					autocomplete="username" id="member_id" value="${user.member_id}@naver.com"
-					placeholder="4~15자 이내로 입력해주세요" style="margin-bottom: 10px; color: green;" readonly>
+					placeholder="4~15자 이내로 입력해주세요" style="margin-bottom: 10px; color: green; background-color: #E2E2E2;" readonly>
 
 				<div class="font_16 text_left margin_top_20" style="margin-top: 0px;">비밀번호</div>
 				<input class="form-control" type="password" name="password"

@@ -53,13 +53,13 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<c:choose>
-									<c:when test="${image_url eq 'null'}">
+									<c:when test="${empty image_url}">
 										<img
 											src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
 											alt="avatar" class="rounded-circle img-fluid"
 											style="width: 150px;">
 									</c:when>
-									<c:when test="${image_url ne 'null'}">
+									<c:when test="${not empty image_url}">
 										<img src="${image_url }" alt="avatar"
 											class="rounded-circle img-fluid" style="width: 150px;">
 									</c:when>
