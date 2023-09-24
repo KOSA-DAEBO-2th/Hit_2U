@@ -189,4 +189,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		eval_date desc;
 	</select>
 
+	<insert id="insertEval" parameterType="kr.co.hit.dto.LectureEvalDto">
+		INSERT INTO LECTURE_EVALUATION (raiting, eval_CONTENT, eval_DATE, B_NO, member_no)
+		VALUES(#{raiting}, #{eval_content}, NOW(), #{b_no},#{member_no})
+	</insert>
 </mapper>

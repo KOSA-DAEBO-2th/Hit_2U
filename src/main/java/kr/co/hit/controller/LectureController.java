@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.hit.dto.FileDto;
 import kr.co.hit.dto.LectureDto;
-import kr.co.hit.dto.MeetingDto;
+import kr.co.hit.dto.LectureEvalDto;
 import kr.co.hit.dto.MemberDto;
 import kr.co.hit.service.FileService;
 import kr.co.hit.service.LectureService;
@@ -155,9 +155,10 @@ public class LectureController {
 	
 	@ResponseBody
 	@PostMapping("/insertReview")
-	public String review() {
-		
-		return null;
+	public String review(LectureEvalDto dto) {
+		System.out.println(dto);
+		int result=0;
+		return "오나요";
 	}
 	
 

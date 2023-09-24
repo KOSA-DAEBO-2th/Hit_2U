@@ -80,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="report">
-		INSERT INTO REPORT (member_no, report_member, report_reason) VALUES(#{reported}, #{reporter}, #{report_reason})
+		INSERT INTO REPORT (member_no, report_member, report_reason) VALUES(#{reported}, #{report_member}, #{report_reason})
 	</insert>
 	
 </mapper>
